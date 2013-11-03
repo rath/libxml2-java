@@ -37,10 +37,17 @@ AC_ARG_WITH([jdk],
 #
 # Determine JNI header location 
 #
-if test "x${jdk_dir}" = x; then
-  jdk_dir=$(/usr/libexec/java_home) # FIXME: it's OSX only :( 
-fi
 platform=$(uname|tr '[A-Z]' '[a-z]')
+
+if test x"${jdk_dir}" = x; then
+  # TODO: there must be better way to guess system default jdk directories
+  if test x"${platform}" = x"darwin"; then
+    jdk_dir=$(/usr/libexec/java_home) 
+  fi
+  if test x"${platform}" = x"linux"; then
+    jdk_dir=$(/usr/lib/jvm/java) 
+  fi
+fi
 
 AC_CHECK_FILE([${jdk_dir}/include/jni.h], [have_jni_h=yes], [have_jni_h=no])
 AC_CHECK_FILE([${jdk_dir}/include/${platform}], [have_jni_m=yes], [have_jni_m=no])
