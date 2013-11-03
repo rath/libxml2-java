@@ -6,9 +6,11 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
+import java.util.zip.GZIPOutputStream;
 
 /**
  * Created with IntelliJ IDEA.
@@ -121,6 +123,28 @@ public class BasicTest {
 		Document doc = LibXml.parseString(xml);
 		Node root = doc.getRootElement();
 		Assert.assertEquals("안녕하세요", root.getChildText());
+	}
+
+	@Test
+	public void testReadCompressedXml() throws IOException {
+		File f = new File(System.getProperty("java.io.tmpdir"), "compressed.gz");
+		f.deleteOnExit();
+
+		String xml = "<?xml version=\"1.0\"?> <beans:bean xmlns=\"http://www.springframework.org/schema/security\" " +
+			"xmlns:beans=\"http://www.springframework.org/schema/beans\" " +
+			"xmlns:context=\"http://www.springframework.org/schema/context\" >" +
+			"<context:component-scan base-package=\"rath.libxml\" />" +
+			"<beans:bean id=\"testId\" class=\"foo.bar.TestClass\" />" +
+			"<hello-world />" +
+			"</beans:bean>";
+
+		GZIPOutputStream gout = new GZIPOutputStream(new FileOutputStream(f), true);
+		gout.write(xml.getBytes());
+		gout.close();
+
+		Document doc = LibXml.parseFile(f);
+		Assert.assertEquals("bean", doc.getRootElement().getName());
+		doc.dispose();
 	}
 
 	@Test
