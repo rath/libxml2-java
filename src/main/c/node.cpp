@@ -16,6 +16,30 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_childrenImpl
 
 /*
  * Class:     rath_libxml_Node
+ * Method:    fillNamespaceImpl
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNamespaceImpl
+  (JNIEnv *env, jobject obj) {
+    xmlNode *node = findNode(env, obj);
+    xmlNs *ns = node->ns;
+    if( ns==NULL )
+        return;
+
+    jstring jHref = env->NewStringUTF((const char*)ns->href);
+    jstring jPrefix = env->NewStringUTF((const char*)ns->prefix);
+
+    jclass cls = env->FindClass("rath/libxml/Namespace");
+    jmethodID constructor = env->GetMethodID(cls, "<init>", "(Ljava/lang/String;Ljava/lang/String;)V");
+    jobject jNs = env->NewObject(cls, constructor, jHref, jPrefix);
+
+    jfieldID setterId = env->GetFieldID(env->GetObjectClass(obj), "namespace", "Lrath/libxml/Namespace;");
+    env->SetObjectField(obj, setterId, jNs);
+}
+
+
+/*
+ * Class:     rath_libxml_Node
  * Method:    fillNameImpl
  * Signature: ()V
  */

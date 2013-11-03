@@ -11,6 +11,21 @@ import java.io.File;
  */
 public class Test {
 	public static void main(String[] args) throws Exception {
+		testSpringBeans();
+	}
+
+	public static void testSpringBeans() throws Exception {
+		File inputFile = new File("samples/sample-springbeans.xml");
+		Document doc = LibXml.parseFile(inputFile);
+		for(Node node : doc.getRootElement()) {
+//			System.out.println(node + " ::ns=" + node.getNamespace());
+			if(node.getName().equals("bean")) {
+				System.out.println("Bean: id=" + node.getProp("id") + ", class=" + node.getProp("class"));
+			}
+		}
+	}
+
+	public static void testSample() throws Exception {
 		File inputFile = new File("sample.xml");
 
 		Document doc = null;
@@ -20,8 +35,7 @@ public class Test {
 			if (underStory.getName().equals("storyinfo")) {
 				for (Node authorNode : underStory) {
 					if (authorNode.getName().equals("author")) {
-						String authorName = authorNode.getChildText(false);
-						System.out.printf("author.name : %s%n", authorName.trim());
+						System.out.printf("author.name : %s%n", authorNode.getChildText().trim());
 						System.out.printf("author.@type: %s%n", authorNode.getProp("type"));
 					}
 				}

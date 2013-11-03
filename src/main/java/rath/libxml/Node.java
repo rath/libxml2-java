@@ -13,7 +13,9 @@ public class Node implements Iterable<Node> {
 	private Document document;
 	final long p;
 	private Type type;
-	private String name; // set in the node.cpp
+
+	private String name; // set lazy on native
+	private Namespace namespace; // set lazy on native
 
 	Node(long p) {
 		this.p = p;
@@ -64,6 +66,15 @@ public class Node implements Iterable<Node> {
 		fillNameImpl();
 		return this.name;
 	}
+
+	public Namespace getNamespace() {
+		if( this.namespace!=null )
+			return this.namespace;
+		fillNamespaceImpl();
+		return this.namespace;
+	}
+
+	private native void fillNamespaceImpl();
 
 	/**
 	 * Execute as 'this.name = xmlNodePtr->name'

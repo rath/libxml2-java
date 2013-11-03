@@ -1,0 +1,7 @@
+TODO: Node.getAttributes() returns List<String>
+TODO: Node.getAttributeMap() returns Map<String, String>
+TODO: XPath support?
+TODO: Namespace support, testing with spring beans.xml
+TODO: JAXP Provider interface for zero learning curve.
+TODO: AddChild, Transforms
+TODO: Performance test?
