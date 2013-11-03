@@ -4,3 +4,4 @@ TODO: AddChild, NewDocument (quite huge adding)
 TODO: Performance test?
 TODO: libxml2 xmlParserOption support
 TODO: Improve Makefile with autotools
+TODO: SAX Handler
