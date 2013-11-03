@@ -133,3 +133,20 @@ JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getPropImpl
     xmlFree(value);
     return jvalue;
 }
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    fillAttributeNames
+ * Signature: (Ljava/util/List;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Node_fillAttributeNames
+  (JNIEnv *env, jobject obj, jobject buffer) {
+    xmlNode *node = findNode(env, obj);
+    jmethodID methodAdd = env->GetMethodID(env->GetObjectClass(buffer), "add", "(Ljava/lang/Object;)Z");
+
+    xmlAttr *attr = NULL;
+    for(attr=node->properties; attr!=NULL; attr=attr->next) {
+        jstring name = env->NewStringUTF((const char*)attr->name);
+        env->CallBooleanMethod(buffer, methodAdd, name);
+    }
+}

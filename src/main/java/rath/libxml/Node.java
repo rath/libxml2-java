@@ -1,6 +1,6 @@
 package rath.libxml;
 
-import java.util.Iterator;
+import java.util.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -134,6 +134,28 @@ public class Node implements Iterable<Node> {
 	}
 
 	private native String getPropImpl(String key);
+
+	private native Node getAttributeNodes();
+
+	public String getAttribute(String name) {
+		return getProp(name);
+	}
+
+	public List<String> getAttributeNames() {
+		List<String> buf = new ArrayList<String>();
+		fillAttributeNames(buf);
+		return buf;
+	}
+
+	private native void fillAttributeNames(List<String> buffer);
+
+	public Map<String, String> getAttributeMap() {
+		Map<String, String> ret = new HashMap<String, String>();
+		for(String attributeName : getAttributeNames()) {
+			ret.put(attributeName, getAttribute(attributeName));
+		}
+		return ret;
+	}
 
 	public static enum Type {
 		ELEMENT(1), ATTRIBUTE(2), TEXT(3), CDATA(4), // ENTITY_REF, ENTITY, PI?

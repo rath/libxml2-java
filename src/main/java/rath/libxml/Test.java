@@ -20,7 +20,7 @@ public class Test {
 		for(Node node : doc.getRootElement()) {
 //			System.out.println(node + " ::ns=" + node.getNamespace());
 			if(node.getName().equals("bean")) {
-				System.out.println("Bean: id=" + node.getProp("id") + ", class=" + node.getProp("class"));
+				System.out.println("Bean: " + node.getAttributeMap());
 			}
 		}
 	}
