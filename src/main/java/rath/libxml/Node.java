@@ -32,14 +32,18 @@ public class Node implements Iterable<Node> {
 		final Node childNode = childrenImpl();
 		return new Iterator<Node>() {
 			private volatile Node current = childNode;
+			private boolean skip = true;
 			@Override
 			public boolean hasNext() {
 				return current.hasNext();
 			}
 			@Override
 			public Node next() {
-				Node next = current.getNext();
-				current = next;
+				if (skip) {
+					skip = false;
+					return current;
+				}
+				current = current.getNext();
 				return current;
 			}
 			@Override
