@@ -1,6 +1,6 @@
 # libxml2-java
 
-libxml2-java is Java binding for well known [libxml2](http://xmlsoft.org/). 
+libxml2-java is Java language binding for well known [libxml2](http://xmlsoft.org/). 
 
 ## Features
 
@@ -26,3 +26,9 @@ for(Node node : rootNode) {
   out.printf("%s: type=%s%n", node.getName(), node.getType());
 }
 ```
+
+Use libxml2-java as default DocumentBuilder by modifying system property.
+
+	java -D**java.xml.parsers.DocumentBuilderFactory**=**rath.libxml.jaxp.DocumentBuilderFactory** ... 
+
+
