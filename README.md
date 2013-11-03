@@ -4,7 +4,7 @@ libxml2-java is Java language binding for well known [libxml2](http://xmlsoft.or
 
 ## Features
 
-What you can do with libxml2-java is **very limited at the moement**. It is very early stage of development. It allows you to do the followings 
+What you can do with libxml2-java is **very limited at the moment**. It is very early stage of development. It allows you to do the followings 
 
 - Parsing XML document as file or string
 - Walking on DOM tree  
@@ -14,6 +14,10 @@ What you can do with libxml2-java is **very limited at the moement**. It is very
 - XPath support 
 - JAXP(JSR 206) provider  
 - Modifying DOM tree (xmlNewXXX functions) and update it
+
+## Installation 
+
+- Under construction 
 
 ## Examples 
 

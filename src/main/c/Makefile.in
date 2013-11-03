@@ -1,0 +1,25 @@
+CC=       @CC@
+OBJS=     libxml.o document.o node.o utils.o
+CFLAGS=   @CFLAGS@ -g @CFLAGS_XML2@ @JDK_INC_DIRS@
+LDFLAGS=  @LIBS_XML2@
+JNILIB=   libxml2j.jnilib
+
+all: $(JNILIB)
+
+$(JNILIB): $(OBJS)
+	$(CC) $(LDFLAGS) -dynamiclib -o $@ $(OBJS)
+
+%.o: %.cpp
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	-rm $(OBJS)
+	-rm $(JNILIB)
+
+Makefile: Makefile.in ../../../config.status
+	cd ../../.. && ./config.status $@
+
+../../../config.status: ../../../configure
+	cd ../../.. && ./config.status --recheck
+
+.PHONY: all clean

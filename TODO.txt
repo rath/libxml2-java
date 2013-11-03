@@ -3,6 +3,5 @@ TODO: JAXP Provider interface for zero learning curve.
 TODO: AddChild, NewDocument (quite huge adding)
 TODO: Performance test?
 TODO: libxml2 xmlParserOption support
-TODO: Improve Makefile with autotools
 TODO: SAX Handler
 TODO: Embed binary jni modules
