@@ -10,9 +10,17 @@ extern "C" {
 /*
  * Class:     rath_libxml_LibXml
  * Method:    parseFileImpl
- * Signature: (Ljava/lang/String;)J
+ * Signature: (Ljava/lang/String;)Lrath/libxml/Document;
  */
-JNIEXPORT jlong JNICALL Java_rath_libxml_LibXml_parseFileImpl
+JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseFileImpl
+  (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     rath_libxml_LibXml
+ * Method:    parseStringImpl
+ * Signature: (Ljava/lang/String;)Lrath/libxml/Document;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseStringImpl
   (JNIEnv *, jclass, jstring);
 
 #ifdef __cplusplus

@@ -17,17 +17,26 @@ public class LibXml {
 	}
 
 	private static void initNativeLibrary() {
+		// TODO: Bundle native library into jar archive.
 		System.load(new File("./libxml2java.jnilib").getAbsolutePath());
 	}
-
-	private static native long parseFileImpl(String pathname);
 
 	public static Document parseFile(File file) throws IOException {
 		if( !file.exists() )
 			throw new FileNotFoundException();
 
-		long pDocument = parseFileImpl(file.getAbsolutePath());
-		Document doc = new Document(pDocument);
+		Document doc = parseFileImpl(file.getAbsolutePath());
 		return doc;
 	}
+
+	private static native Document parseFileImpl(String pathname);
+
+	public static Document parseString(String data) {
+		if( data==null )
+			throw new NullPointerException("Can't parse null data");
+		Document doc = parseStringImpl(data);
+		return doc;
+	}
+
+	private static native Document parseStringImpl(String data);
 }
