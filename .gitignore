@@ -1,0 +1,7 @@
+.DS_Store
+/.gradle/
+/.idea/
+/build/
+/*.jnilib*
+*.swp
+/src/test/c/

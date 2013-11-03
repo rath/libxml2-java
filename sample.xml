@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<story>
+  <storyinfo>
+    <author type="human">
+      simple name
+      <price>10.0</price> 
+      <name>존 플랙</name>
+    </author>
+    <author type="monster">
+      한글로된 이름
+      <price>100</price> 
+      <name>Jang-Ho Hwang</name>
+    </author>
+    <datewritten>June 2, 2002</datewritten>
+    <keyword>example keyword</keyword>
+  </storyinfo>
+  <body>
+    <headline>This is the headline</headline>
+    <para>This is the body text.</para>
+  </body>
+</story>
