@@ -17,10 +17,10 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_getRootElementImpl
 
 /*
  * Class:     rath_libxml_Document
- * Method:    dispose
+ * Method:    disposeImpl
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_Document_dispose
+JNIEXPORT void JNICALL Java_rath_libxml_Document_disposeImpl
   (JNIEnv *, jobject);
 
 #ifdef __cplusplus

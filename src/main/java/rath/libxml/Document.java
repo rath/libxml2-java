@@ -8,6 +8,8 @@ package rath.libxml;
  * To change this template use File | Settings | File Templates.
  */
 public class Document extends Node {
+	private boolean hasDisposed = false;
+
 	Document(long p) {
 		super(p);
 	}
@@ -18,7 +20,17 @@ public class Document extends Node {
 
 	private native Node getRootElementImpl();
 
-	private native void dispose();
+	/**
+	 * Cleanup all resources related to this document.
+	 */
+	public void dispose() {
+		if(!hasDisposed) {
+			hasDisposed = true;
+			disposeImpl();
+		}
+	}
+
+	public native void disposeImpl();
 
 	protected void finalize() throws Throwable {
 		dispose();
