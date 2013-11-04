@@ -20,17 +20,17 @@ What you can do with libxml2-java is **very limited at the moment**. It is very 
 You need essential build tools such as [Java Development Kit](http://en.wikipedia.org/wiki/Java_Development_Kit), [Gradle](http://www.gradle.org), [GNU Make](http://www.gnu.org/software/make/) and most importantly you should have libxml2 development package on your system. 
 
 ### Mac OS X
-  $ sudo port install libxml2
-  $ ./configure 
-  $ gradle build 
+	$ sudo port install libxml2
+	$ ./configure 
+	$ gradle build 
 ### Ubuntu
-  $ sudo apt-get install libxml2-dev
-  $ ./configure 
-  $ gradle build
+	$ sudo apt-get install libxml2-dev
+	$ ./configure 
+	$ gradle build
 ### CentOS
-  $ sudo yum install libxml2-devel
-  $ ./configure 
-  $ gradle build
+	$ sudo yum install libxml2-devel
+	$ ./configure 
+	$ gradle build
 
 ## Examples 
 
