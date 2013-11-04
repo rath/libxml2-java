@@ -1,4 +1,4 @@
-CC=       @CC@
+CC=       @CXX@
 OBJS=     libxml.o document.o node.o utils.o
 CFLAGS=   @CFLAGS@ @CFLAGS_XML2@ @JDK_INC_DIRS@ -g -O0 -fPIC
 LDFLAGS=  @LIBS_XML2@

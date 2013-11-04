@@ -19,7 +19,7 @@ What you can do with libxml2-java is **very limited at the moment**. It is very 
 
 You need essential build tools such as [Java Development Kit](http://en.wikipedia.org/wiki/Java_Development_Kit) 6 or higher, [Gradle](http://www.gradle.org), [GNU Make](http://www.gnu.org/software/make/) and most importantly you should have libxml2 development package on your system. 
 
-If you need to specify jdk directory instead of system default location, then use --with-jdk option 
+If you need to specify jdk directory manually over system default location, then use --with-jdk option 
 
 	./configure --with-jdk=/opt/local/java
 
