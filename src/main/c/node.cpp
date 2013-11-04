@@ -150,3 +150,13 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillAttributeNames
         env->CallBooleanMethod(buffer, methodAdd, name);
     }
 }
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    getDocumentImpl
+ * Signature: ()Lrath/libxml/Document;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getDocumentImpl
+  (JNIEnv *env, jobject obj) {
+    return buildDocument(env, findNode(env, obj)->doc);
+}

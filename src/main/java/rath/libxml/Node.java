@@ -10,7 +10,6 @@ import java.util.*;
  * To change this template use File | Settings | File Templates.
  */
 public class Node implements Iterable<Node> {
-	private Document document;
 	final long p;
 	private Type type;
 
@@ -115,13 +114,11 @@ public class Node implements Iterable<Node> {
 
 	private native Node previousImpl();
 
-	void setDocument(Document doc) {
-		this.document = doc;
+	public Document getDocument() {
+		return getDocumentImpl();
 	}
 
-	public Document getDocument() {
-		return this.document;
-	}
+	private native Document getDocumentImpl();
 
 	public String getChildText() {
 		return getChildText(true);

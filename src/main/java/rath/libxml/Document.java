@@ -20,6 +20,19 @@ public class Document extends Node {
 
 	private native Node getRootElementImpl();
 
+	@Override
+	public boolean equals(Object o) {
+		if( o!=null && o instanceof Document )
+			if( ((Document)o).p==p )
+				return true;
+		return false;
+	}
+
+	@Override
+	public int hashCode() {
+		return (int)this.p;
+	}
+
 	/**
 	 * Cleanup all resources related to this document.
 	 */

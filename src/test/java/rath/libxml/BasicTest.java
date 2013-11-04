@@ -148,6 +148,26 @@ public class BasicTest {
 	}
 
 	@Test
+	public void testNodeWalkPrevious() {
+		String xml = "<?xml version=\"1.0\"?> <me-root><first />안녕하세요<second /><third /></me-root>";
+
+		Document doc = LibXml.parseString(xml);
+		Node root = doc.getRootElement();
+		Node textNode = root.children().getNext().getNext().getPrevious();
+		Assert.assertEquals(Node.Type.TEXT, textNode.getType());
+	}
+
+	@Test
+	public void testFindDocumentAtNode() {
+		String xml = "<?xml version=\"1.0\"?> <me-root><first />안녕하세요<second /><third /></me-root>";
+
+		Document doc = LibXml.parseString(xml);
+		Document doc2 = doc.getRootElement().children().getNext().getNext().getDocument();
+
+		Assert.assertEquals(doc, doc2);
+	}
+
+	@Test
 	public void basicLoopFlow() throws IOException {
 		File inputFile = new File("samples/sample.xml");
 		Assert.assertEquals("Sample input file existence", true, inputFile.exists());
@@ -159,7 +179,7 @@ public class BasicTest {
 				for (Node authorNode : underStory) {
 					if (authorNode.getName().equals("author")) {
 						String authorName = authorNode.getChildText();
-						System.out.printf("author.name : %s%n", authorName);
+						System.out.printf("author.name : %s%n", authorName.trim());
 						System.out.printf("author.@type: %s%n", authorNode.getProp("type"));
 					}
 				}

@@ -18,7 +18,7 @@ public class LibXml {
 
 	private static void initNativeLibrary() {
 		// TODO: Bundle native library into jar archive.
-		System.load(new File("./libxml2java.jnilib").getAbsolutePath());
+		System.load(new File("./libxml2j.jnilib").getAbsolutePath());
 	}
 
 	public static Document parseFile(File file) throws IOException {
