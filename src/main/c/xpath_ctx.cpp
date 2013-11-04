@@ -32,7 +32,6 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateImpl
     case XPATH_NODESET:
         valueFieldId = env->GetFieldID(resultClass, "nodeset", "Lrath/libxml/NodeSet;");
         env->SetObjectField(resultObject, valueFieldId, buildNodeSet(env, result->nodesetval, obj));
-
     break;
     case XPATH_BOOLEAN:
         valueFieldId = env->GetFieldID(resultClass, "booleanValue", "Z");

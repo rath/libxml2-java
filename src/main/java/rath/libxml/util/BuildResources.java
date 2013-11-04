@@ -29,6 +29,6 @@ public class BuildResources {
 		File resourceFile = new File(resourceDir, Utils.getPlatformDependentBundleName());
 		Utils.copy(new File(sourceDir, sourceFile), resourceFile);
 
-		Runtime.getRuntime().exec("strip " + resourceFile.getAbsolutePath());
+//		Runtime.getRuntime().exec("strip " + resourceFile.getAbsolutePath());
 	}
 }

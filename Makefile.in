@@ -11,16 +11,10 @@ clean:
 
 ubuntu:
 	cd .. && tar cf $(REMOTE_ARCHIVE) libxml2-java && scp $(REMOTE_ARCHIVE) vmware-ubuntu:. && scp $(REMOTE_ARCHIVE) vmware-ubuntu32:. && rm -f $(REMOTE_ARCHIVE) && cd libxml2-java
-	ssh vmware-ubuntu "rm -rf libxml2-java && tar xf $(REMOTE_ARCHIVE) && rm -f $(REMOTE_ARCHIVE) && cd libxml2-java && ./configure && make clean all && gradle --daemon buildResources"
+	ssh vmware-ubuntu "rm -rf libxml2-java && tar xf $(REMOTE_ARCHIVE) && rm -f $(REMOTE_ARCHIVE) && cd libxml2-java && ./configure && make clean all && gradle --daemon build"
 	scp vmware-ubuntu:libxml2-java/resources/libxml2j-linux-64.so resources/
-	ssh vmware-ubuntu32 "rm -rf libxml2-java && tar xf $(REMOTE_ARCHIVE) && rm -f $(REMOTE_ARCHIVE) && cd libxml2-java && ./configure && make clean all && gradle --daemon buildResources"
+	ssh vmware-ubuntu32 "rm -rf libxml2-java && tar xf $(REMOTE_ARCHIVE) && rm -f $(REMOTE_ARCHIVE) && cd libxml2-java && ./configure && make clean all && gradle --daemon build"
 	scp vmware-ubuntu32:libxml2-java/resources/libxml2j-linux-32.so resources/
-
-Makefile: Makefile.in config.status
-	./config.status $@
-
-config.status: configure
-	./config.status --recheck
 
 .PHONY: all clean ubuntu
 

@@ -11,7 +11,17 @@ import java.io.File;
  */
 public class Test {
 	public static void main(String[] args) throws Exception {
-		testSpringBeans();
+		testXPathNavigate();
+	}
+
+	public static void testXPathNavigate() throws Exception {
+		String xml = "<?xml version=\"1.0\"?> <me-root><first><sub value=\"10\">HELLO</sub><sub value=\"20\" /></first><second value=\"20\"/><third /></me-root>";
+
+		Document doc = LibXml.parseString(xml);
+		XPathContext ctx = doc.createXPathContext();
+		XPathObject result = ctx.evaluate("//sub[@value>15]");
+
+		Node n = result.getFirstNode().getParent().getNext();
 	}
 
 	public static void testSpringBeans() throws Exception {

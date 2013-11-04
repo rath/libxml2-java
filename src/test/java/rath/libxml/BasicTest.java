@@ -194,6 +194,19 @@ public class BasicTest {
 	}
 
 	@Test
+	public void xpathNavigate() {
+		String xml = "<?xml version=\"1.0\"?> <me-root><first><sub value=\"10\">HELLO</sub><sub value=\"20\" /></first><second value=\"20\"/><third /></me-root>";
+
+		Document doc = LibXml.parseString(xml);
+		XPathContext ctx = doc.createXPathContext();
+		XPathObject result = ctx.evaluate("//sub[@value>15]");
+
+		Node n = result.getFirstNode().getParent().getNext();
+		Assert.assertEquals("20", n.getAttribute("value"));
+		Assert.assertEquals("second", n.getName());
+	}
+
+	@Test
 	public void basicLoopFlow() throws IOException {
 		File inputFile = new File("samples/sample.xml");
 		Assert.assertEquals("Sample input file existence", true, inputFile.exists());

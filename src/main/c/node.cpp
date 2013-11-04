@@ -60,9 +60,9 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNameImpl
  */
 JNIEXPORT void JNICALL Java_rath_libxml_Node_fillRequiredFields
   (JNIEnv *env, jobject obj) {
-    jmethodID methodSetType = env->GetMethodID(env->GetObjectClass(obj), "setType", "(I)V");
     xmlNode *node = findNode(env, obj);
     assert(node);
+    jmethodID methodSetType = env->GetMethodID(env->GetObjectClass(obj), "setType", "(I)V");
     env->CallVoidMethod(obj, methodSetType, node->type);
 }
 

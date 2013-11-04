@@ -16,10 +16,4 @@ clean:
 	rm -f $(OBJS)
 	rm -f $(JNILIB)
 
-Makefile: Makefile.in ../../../config.status
-	cd ../../.. && ./config.status $@
-
-../../../config.status: ../../../configure
-	cd ../../.. && ./config.status --recheck
-
 .PHONY: all clean
