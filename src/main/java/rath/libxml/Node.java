@@ -120,6 +120,20 @@ public class Node implements Iterable<Node> {
 
 	private native Document getDocumentImpl();
 
+	public Node getParent() {
+		Node parent = getParentImpl();
+		return parent;
+	}
+
+	private native Node getParentImpl();
+
+	public Node getLast() {
+		Node node = getLastImpl();
+		return node;
+	}
+
+	private native Node getLastImpl();
+
 	public String getChildText() {
 		return getChildText(true);
 	}

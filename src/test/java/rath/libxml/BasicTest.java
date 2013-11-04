@@ -148,13 +148,15 @@ public class BasicTest {
 	}
 
 	@Test
-	public void testNodeWalkPrevious() {
+	public void testNodeWalk() {
 		String xml = "<?xml version=\"1.0\"?> <me-root><first />안녕하세요<second /><third /></me-root>";
 
 		Document doc = LibXml.parseString(xml);
 		Node root = doc.getRootElement();
 		Node textNode = root.children().getNext().getNext().getPrevious();
-		Assert.assertEquals(Node.Type.TEXT, textNode.getType());
+		Assert.assertEquals("Previous", Node.Type.TEXT, textNode.getType());
+		Assert.assertEquals("Last", "third", root.getLast().getName());
+		Assert.assertEquals("Parent", "me-root", root.getLast().getParent().getName());
 	}
 
 	@Test

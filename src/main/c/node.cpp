@@ -103,6 +103,28 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_previousImpl
 
 /*
  * Class:     rath_libxml_Node
+ * Method:    getParentImpl
+ * Signature: ()Lrath/libxml/Node;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getParentImpl
+  (JNIEnv *env, jobject obj) {
+    xmlNode *node = findNode(env, obj);
+    return buildNode(env, node->parent);
+}
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    getLastImpl
+ * Signature: ()Lrath/libxml/Node;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getLastImpl
+  (JNIEnv *env, jobject obj) {
+    xmlNode *node = findNode(env, obj);
+    return buildNode(env, node->last);
+}
+
+/*
+ * Class:     rath_libxml_Node
  * Method:    getChildTextImpl
  * Signature: (Z)Ljava/lang/String;
  */
