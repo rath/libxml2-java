@@ -32,6 +32,10 @@ You need essential build tools such as [Java Development Kit](http://en.wikipedi
 	$ ./configure 
 	$ gradle build
 
+If you want to use other jdk, then use --with-jdk option 
+	./configure --with-jdk=/opt/local/java
+Otherwise, configure script would try to detect where JDK is installed on your system.
+
 ## Examples 
 
 Print all child elements under the root node.
