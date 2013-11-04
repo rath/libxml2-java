@@ -25,6 +25,14 @@ public class Document extends Node {
 		return this;
 	}
 
+	public XPathContext createXPathContext() {
+		XPathContext ctx = createXPathContextImpl();
+		ctx.setDocument(this);
+		return ctx;
+	}
+
+	private native XPathContext createXPathContextImpl();
+
 	@Override
 	public boolean equals(Object o) {
 		if( o!=null && o instanceof Document )

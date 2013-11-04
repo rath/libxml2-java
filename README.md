@@ -8,10 +8,10 @@ What you can do with libxml2-java is **very limited at the moment**. It is very 
 
 - Parsing XML document as file or string
 - Walking on DOM tree  
+- XPath support 
 
 ## Features coming soon
 
-- XPath support 
 - JAXP(JSR 206) provider  
 - Modifying DOM tree (xmlNewXXX functions) and update it
 

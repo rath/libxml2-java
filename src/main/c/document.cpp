@@ -25,3 +25,14 @@ JNIEXPORT void JNICALL Java_rath_libxml_Document_disposeImpl
     xmlFreeDoc(doc);
 }
 
+/*
+ * Class:     rath_libxml_Document
+ * Method:    createXPathContextImpl
+ * Signature: ()Lrath/libxml/XPathContext;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createXPathContextImpl
+  (JNIEnv *env, jobject obj) {
+    xmlDoc *doc = findDocument(env, obj);
+    xmlXPathContext *ctx = xmlXPathNewContext(doc);
+    return buildXPathContext(env, ctx);
+}

@@ -139,15 +139,23 @@ public class Node implements Iterable<Node> {
 
 	private native Node getLastImpl();
 
+	public String getText() {
+		return getText(true);
+	}
+
+	public String getText(boolean formatted) {
+		return getTextImpl(formatted);
+	}
+
+	private native String getTextImpl(boolean formatted);
+
 	public String getChildText() {
 		return getChildText(true);
 	}
 
 	public String getChildText(boolean formatted) {
-		return getChildTextImpl(formatted);
+		return children().getText(formatted);
 	}
-
-	private native String getChildTextImpl(boolean formatted);
 
 	public String getProp(String attributeKey) {
 		return getPropImpl(attributeKey);

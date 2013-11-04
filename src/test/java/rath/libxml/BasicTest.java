@@ -170,6 +170,30 @@ public class BasicTest {
 	}
 
 	@Test
+	public void xpath1() {
+		String xml = "<?xml version=\"1.0\"?> <me-root><first><sub value=\"10\"/><sub value=\"20\"/></first><second value=\"20\"/><third /></me-root>";
+
+		Document doc = LibXml.parseString(xml);
+		XPathContext ctx = doc.createXPathContext();
+		XPathObject result = ctx.evaluate("//sub");
+		for(Node node : result.nodeset) {
+			System.out.println(node.getName() + " value=" + node.getAttribute("value"));
+		}
+		Assert.assertEquals(2, result.nodeset.getSize());
+	}
+
+	@Test
+	public void xpath2() {
+		String xml = "<?xml version=\"1.0\"?> <me-root><first><sub value=\"10\">HELLO</sub><sub value=\"20\" /></first><second value=\"20\"/><third /></me-root>";
+
+		Document doc = LibXml.parseString(xml);
+		XPathContext ctx = doc.createXPathContext();
+		XPathObject result = ctx.evaluate("//sub[@value=\"10\"]/text()");
+
+		Assert.assertEquals("HELLO", result.getFirstNode().getText());
+	}
+
+	@Test
 	public void basicLoopFlow() throws IOException {
 		File inputFile = new File("samples/sample.xml");
 		Assert.assertEquals("Sample input file existence", true, inputFile.exists());

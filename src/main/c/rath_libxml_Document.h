@@ -17,6 +17,14 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_getRootElementImpl
 
 /*
  * Class:     rath_libxml_Document
+ * Method:    createXPathContextImpl
+ * Signature: ()Lrath/libxml/XPathContext;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createXPathContextImpl
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     rath_libxml_Document
  * Method:    disposeImpl
  * Signature: ()V
  */

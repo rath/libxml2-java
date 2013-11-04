@@ -1,6 +1,7 @@
 #include "rath_libxml_Node.h"
 #include <libxml/parser.h>
 #include "utils.h"
+#include <assert.h>
 
 /*
  * Class:     rath_libxml_Node
@@ -59,9 +60,9 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNameImpl
  */
 JNIEXPORT void JNICALL Java_rath_libxml_Node_fillRequiredFields
   (JNIEnv *env, jobject obj) {
-    // type
     jmethodID methodSetType = env->GetMethodID(env->GetObjectClass(obj), "setType", "(I)V");
     xmlNode *node = findNode(env, obj);
+    assert(node);
     env->CallVoidMethod(obj, methodSetType, node->type);
 }
 
@@ -125,13 +126,13 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getLastImpl
 
 /*
  * Class:     rath_libxml_Node
- * Method:    getChildTextImpl
+ * Method:    getTextImpl
  * Signature: (Z)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getChildTextImpl
+JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getTextImpl
   (JNIEnv *env, jobject obj, jboolean format) {
     xmlNode *node = findNode(env, obj);
-    const xmlChar *text = xmlNodeListGetString(node->doc, node->children, format==JNI_TRUE ? 1 : 0);
+    const xmlChar *text = xmlNodeListGetString(node->doc, node, format==JNI_TRUE ? 1 : 0);
     jstring jText = env->NewStringUTF((const char*)text);
     xmlFree((void*)text);
     return jText;

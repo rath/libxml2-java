@@ -81,10 +81,10 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getLastImpl
 
 /*
  * Class:     rath_libxml_Node
- * Method:    getChildTextImpl
+ * Method:    getTextImpl
  * Signature: (Z)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getChildTextImpl
+JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getTextImpl
   (JNIEnv *, jobject, jboolean);
 
 /*
