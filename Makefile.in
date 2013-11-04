@@ -1,7 +1,11 @@
 SRC=src/main/c
+TARGET=@JNILIB@
 
 all clean: 
 	cd $(SRC) && $(MAKE) $@
+
+install: all
+	cp $(SRC)/$(TARGET) $(TARGET)
 
 Makefile: Makefile.in config.status
 	./config.status $@

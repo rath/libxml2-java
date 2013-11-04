@@ -3,6 +3,8 @@ AC_INIT([libxml2-java], [0.1], [http://github.com/rath/libxml2-java])
 AC_CONFIG_SRCDIR([src/main/c/libxml.cpp])
 AC_CONFIG_HEADERS([config.h])
 
+AC_SUBST([JNILIB], [libxml2j.jnilib])
+
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_CXX
