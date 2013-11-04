@@ -21,6 +21,11 @@ public class Document extends Node {
 	private native Node getRootElementImpl();
 
 	@Override
+	public Document getDocument() {
+		return this;
+	}
+
+	@Override
 	public boolean equals(Object o) {
 		if( o!=null && o instanceof Document )
 			if( ((Document)o).p==p )
@@ -35,6 +40,7 @@ public class Document extends Node {
 
 	/**
 	 * Cleanup all resources related to this document.
+	 * Be careful when you call this since this will free all children resources as well.
 	 */
 	public void dispose() {
 		if(!hasDisposed) {

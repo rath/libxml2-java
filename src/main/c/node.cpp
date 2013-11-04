@@ -11,7 +11,7 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_childrenImpl
   (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
     xmlNode *children = node->children;
-    return buildNode(env, children);
+    return buildNode(env, children, obj);
 }
 
 /*
@@ -75,7 +75,7 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_nextImpl
     xmlNode *node = findNode(env, obj);
     if (node->next==NULL )
         return NULL;
-    return buildNode(env, node->next);
+    return buildNode(env, node->next, obj);
 }
 
 /*
@@ -98,7 +98,7 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_previousImpl
     xmlNode *node = findNode(env, obj);
     if (node->prev==NULL )
         return NULL;
-    return buildNode(env, node->prev);
+    return buildNode(env, node->prev, obj);
 }
 
 /*
@@ -109,7 +109,7 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_previousImpl
 JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getParentImpl
   (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
-    return buildNode(env, node->parent);
+    return buildNode(env, node->parent, obj);
 }
 
 /*
@@ -120,7 +120,7 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getParentImpl
 JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getLastImpl
   (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
-    return buildNode(env, node->last);
+    return buildNode(env, node->last, obj);
 }
 
 /*
@@ -171,14 +171,4 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillAttributeNames
         jstring name = env->NewStringUTF((const char*)attr->name);
         env->CallBooleanMethod(buffer, methodAdd, name);
     }
-}
-
-/*
- * Class:     rath_libxml_Node
- * Method:    getDocumentImpl
- * Signature: ()Lrath/libxml/Document;
- */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getDocumentImpl
-  (JNIEnv *env, jobject obj) {
-    return buildDocument(env, findNode(env, obj)->doc);
 }

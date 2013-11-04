@@ -2,11 +2,19 @@
 
 jlong findBaseNode(JNIEnv *env, jobject obj);
 
-jobject buildNode(JNIEnv *env, xmlNode *node) {
+jobject buildNode(JNIEnv *env, xmlNode *node, jobject parentDocument) {
     jlong pNode = (jlong)node;
     jclass nodeClass = env->FindClass("rath/libxml/Node");
     jmethodID constructorWithPointer = env->GetMethodID(nodeClass, "<init>", "(J)V");
-    return env->NewObject(nodeClass, constructorWithPointer, pNode);
+    jobject jnode  = env->NewObject(nodeClass, constructorWithPointer, pNode);
+
+    jclass cz = env->GetObjectClass(parentDocument);
+    jmethodID methodGetDocument = env->GetMethodID(cz, "getDocument", "()Lrath/libxml/Document;");
+    jobject jdocument = env->CallObjectMethod(parentDocument, methodGetDocument);
+    jmethodID methodSetDocument = env->GetMethodID(cz, "setDocument", "(Lrath/libxml/Document;)V");
+    env->CallVoidMethod(jnode, methodSetDocument, jdocument);
+
+    return jnode;
 }
 
 jobject buildDocument(JNIEnv *env, xmlDoc *doc) {

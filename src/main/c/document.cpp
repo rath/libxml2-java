@@ -11,7 +11,7 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_getRootElementImpl
   (JNIEnv *env, jobject obj) {
     xmlDoc *doc = findDocument(env, obj);
     xmlNode *rootNode = xmlDocGetRootElement(doc);
-    return buildNode(env, rootNode);
+    return buildNode(env, rootNode, obj);
 }
 
 /*

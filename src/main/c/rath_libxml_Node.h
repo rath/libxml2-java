@@ -65,14 +65,6 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_previousImpl
 
 /*
  * Class:     rath_libxml_Node
- * Method:    getDocumentImpl
- * Signature: ()Lrath/libxml/Document;
- */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getDocumentImpl
-  (JNIEnv *, jobject);
-
-/*
- * Class:     rath_libxml_Node
  * Method:    getParentImpl
  * Signature: ()Lrath/libxml/Node;
  */

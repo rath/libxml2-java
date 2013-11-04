@@ -12,6 +12,7 @@ import java.util.*;
 public class Node implements Iterable<Node> {
 	final long p;
 	private Type type;
+	private Document document;
 
 	private String name; // set lazy on native
 	private Namespace namespace; // set lazy on native
@@ -114,11 +115,15 @@ public class Node implements Iterable<Node> {
 
 	private native Node previousImpl();
 
-	public Document getDocument() {
-		return getDocumentImpl();
+	void setDocument(Document doc) {
+		this.document = doc;
 	}
 
-	private native Document getDocumentImpl();
+	public Document getDocument() {
+		return this.document;
+	}
+
+	// TODO: xmlFreeNode()
 
 	public Node getParent() {
 		Node parent = getParentImpl();
