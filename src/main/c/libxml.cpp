@@ -5,6 +5,16 @@
 
 /*
  * Class:     rath_libxml_LibXml
+ * Method:    initInternalParser
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
+  (JNIEnv *env, jclass clz) {
+    xmlInitParser();
+}
+
+/*
+ * Class:     rath_libxml_LibXml
  * Method:    parseFileImpl
  * Signature: (Ljava/lang/String;)Lrath/libxml/Document;
  */

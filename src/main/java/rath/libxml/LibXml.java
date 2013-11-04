@@ -16,10 +16,17 @@ public class LibXml {
 		initNativeLibrary();
 	}
 
-	private static void initNativeLibrary() {
+	private static synchronized void initNativeLibrary() {
 		// TODO: Bundle native library into jar archive.
-		System.load(new File("./libxml2j.jnilib").getAbsolutePath());
+		String fullname = System.mapLibraryName("hello");
+		String suffix = fullname.substring(fullname.lastIndexOf('.')+1);
+
+		System.load(new File("./libxml2j." + suffix).getAbsolutePath());
+
+		initInternalParser();
 	}
+
+	private static native void initInternalParser();
 
 	public static Document parseFile(File file) throws IOException {
 		if( !file.exists() )
