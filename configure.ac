@@ -21,7 +21,10 @@ if test x"${have_xml2config}" = x"no"; then
   AC_MSG_ERROR([
   +--------------------------------------------+
   | The 'xml2-config' script required to build |
-  | libxml2-java module. Stopping...           |
+  | libxml2-java module. You need to install   |
+  | $ sudo apt-get install libxml2-dev         |
+  |   or                                       |
+  | $ sudo yum install libxml2-devel           |
   | Check 'config.log' for more information.   |
   ---------------------------------------------+])
 fi
