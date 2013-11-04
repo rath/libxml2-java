@@ -20,9 +20,13 @@ sourceSets {
   }
 }
 
-task buildResources(dependsOn: compileJava, type: JavaExec) {
+task processNativeResources(type: JavaExec) {
   main = 'rath.libxml.util.BuildResources'
   classpath sourceSets.main.runtimeClasspath
+}
+
+processResources.doLast {
+  processNativeResources.execute();
 }
 
 mainClassName = 'rath.libxml.Test'

@@ -12,7 +12,6 @@
 *.log
 Makefile
 /src/test/c/
-/configure
 /configure.scan
 /config.status
 /config.h
