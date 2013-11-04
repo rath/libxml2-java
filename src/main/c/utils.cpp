@@ -10,7 +10,7 @@ jobject     buildNode(JNIEnv *env, xmlNode *node, jobject documentHolder) {
     jclass cz = env->GetObjectClass(documentHolder);
     jmethodID methodGetDocument = env->GetMethodID(cz, "getDocument", "()Lrath/libxml/Document;");
     jobject jdocument = env->CallObjectMethod(documentHolder, methodGetDocument);
-    jmethodID methodSetDocument = env->GetMethodID(cz, "setDocument", "(Lrath/libxml/Document;)V");
+    jmethodID methodSetDocument = env->GetMethodID(env->GetObjectClass(jnode), "setDocument", "(Lrath/libxml/Document;)V");
     env->CallVoidMethod(jnode, methodSetDocument, jdocument);
 
     return jnode;
@@ -29,12 +29,10 @@ jobject     buildNodeSet(JNIEnv *env, xmlNodeSet *nodeset, jobject documentHolde
         return jnodeset;
 
     jfieldID fid = env->GetFieldID(cl, "size", "I");
-assert(fid!=0);
     env->SetIntField(jnodeset, fid, (jint)nodeset->nodeNr);
 
     if(!xmlXPathNodeSetIsEmpty(nodeset)) {
         jmethodID mid = env->GetMethodID(cl, "addNode", "(Lrath/libxml/Node;)V");
-assert(mid!=0);
         for(int i=0; i<nodeset->nodeNr; i++) {
             env->CallVoidMethod(jnodeset, mid, buildNode(env, nodeset->nodeTab[i], documentHolder));
         }
