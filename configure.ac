@@ -3,8 +3,6 @@ AC_INIT([libxml2-java], [0.1], [http://github.com/rath/libxml2-java])
 AC_CONFIG_SRCDIR([src/main/c/libxml.cpp])
 AC_CONFIG_HEADERS([config.h])
 
-AC_SUBST([JNILIB], [libxml2j.jnilib])
-
 # Checks for programs.
 AC_PROG_CC
 AC_PROG_CXX
@@ -50,7 +48,9 @@ if test x"${jdk_dir}" = x; then
     jdk_dir=$(/usr/libexec/java_home) 
   fi
   if test x"${platform}" = x"linux"; then
-    jdk_dir=$(/usr/lib/jvm/java) 
+    loc_of_javac=$(readlink -f /etc/alternatives/javac)
+    loc_of_javabin=$(dirname "${loc_of_javac}")
+    jdk_dir=$(dirname "${loc_of_javabin}")
   fi
 fi
 
@@ -75,6 +75,17 @@ if test x"${stop}" = x"yes"; then
 fi 
 AC_SUBST([JDK_INC_DIRS], 
   ["-I${jdk_dir}/include -I${jdk_dir}/include/${platform}"])
+
+
+# Determine wheter -shared or -dynamiclib
+AC_SUBST([JNILIB], [libxml2j.so])
+
+cflag_of_sharedlib=-shared
+if test x"${platform}" = x"darwin"; then
+  cflag_of_sharedlib=-dynamiclib
+  AC_SUBST([JNILIB], [libxml2j.dylib])
+fi
+AC_SUBST([FLAG_SHLIB], ["${cflag_of_sharedlib}"])
 
 AC_CONFIG_FILES([Makefile src/main/c/Makefile])
 AC_OUTPUT

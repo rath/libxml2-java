@@ -1,8 +1,12 @@
 SRC=src/main/c
 TARGET=@JNILIB@
 
-all clean: 
+all: 
 	cd $(SRC) && $(MAKE) $@
+
+clean: 
+	cd $(SRC) && $(MAKE) $@
+	rm -f $(TARGET)
 
 install: all
 	cp $(SRC)/$(TARGET) $(TARGET)
