@@ -1,7 +1,7 @@
 TODO: XPath support?
 TODO: JAXP Provider interface for zero learning curve.
-TODO: AddChild, NewDocument (quite huge adding)
+TODO: AddChild, NewDocument (quite huge work)
+TODO: Support xmlParserContext
 TODO: Performance test?
 TODO: libxml2 xmlParserOption support
 TODO: SAX Handler
-TODO: Embed binary jni modules

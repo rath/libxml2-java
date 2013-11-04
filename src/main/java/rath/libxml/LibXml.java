@@ -1,5 +1,7 @@
 package rath.libxml;
 
+import rath.libxml.util.Utils;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -13,18 +15,47 @@ import java.io.IOException;
  */
 public class LibXml {
 	static {
-		initNativeLibrary();
+		loadNativeLibrary();
 	}
 
-	private static synchronized void initNativeLibrary() {
-		// TODO: Bundle native library into jar archive.
+	private static synchronized void loadNativeLibrary() {
 		String fullname = System.mapLibraryName("hello");
-		String suffix = fullname.substring(fullname.lastIndexOf('.')+1);
+		String suffix = fullname.substring(fullname.lastIndexOf('.'));
+		String libname = "libxml2j" + suffix;
 
-		System.load(new File("./libxml2j." + suffix).getAbsolutePath());
+		File targetLibrary = null;
+
+		File localLibrary = new File("src/main/c/" + libname);
+		if( localLibrary.exists() ) {
+			targetLibrary = localLibrary;
+		} else {
+			String bundleLibname = Utils.getPlatformDependentBundleName();
+
+			targetLibrary = new File(System.getProperty("java.io.tmpdir"), bundleLibname);
+			try {
+				Utils.copyAndClose(LibXml.class.getResourceAsStream("/" + bundleLibname), targetLibrary);
+			} catch (IOException e) {
+				e.printStackTrace();
+				System.exit(1);
+			}
+		}
+
+		try {
+			System.load(targetLibrary.getAbsolutePath());
+		} catch( UnsatisfiedLinkError e ) {
+			e.printStackTrace();
+			System.err.println("==============================================");
+			System.err.println(" We can't find libxml2 on your system         ");
+			System.err.println("  centos $ sudo yum install libxml2-devel     ");
+			System.err.println("  ubuntu $ sudo apt-get install libxml2-dev   ");
+			System.err.println("  macosx $ sudo port install libxml2          ");
+			System.err.println("==============================================");
+			System.exit(1);
+		}
 
 		initInternalParser();
 	}
+
 
 	private static native void initInternalParser();
 

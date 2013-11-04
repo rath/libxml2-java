@@ -9,4 +9,20 @@ dependencies {
   compile 'junit:junit:4.11'
 }
 
+sourceSets {
+  main {
+    java {
+      srcDir 'src/main/java'
+    }
+    resources {
+      srcDir 'resources'
+    }
+  }
+}
+
+task buildResources(dependsOn: compileJava, type: JavaExec) {
+  main = 'rath.libxml.util.BuildResources'
+  classpath sourceSets.main.runtimeClasspath
+}
+
 mainClassName = 'rath.libxml.Test'
