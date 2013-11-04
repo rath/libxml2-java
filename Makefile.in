@@ -1,6 +1,8 @@
 SRC=src/main/c
 TARGET=@JNILIB@
 
+ARCHIVE=libxml2-java-src.tar
+
 all: 
 	cd $(SRC) && $(MAKE) $@
 
@@ -8,8 +10,10 @@ clean:
 	cd $(SRC) && $(MAKE) $@
 	rm -f $(TARGET)
 
-install: all
-	cp $(SRC)/$(TARGET) $(TARGET)
+ubuntu:
+	cd .. && tar cf $(ARCHIVE) libxml2-java && scp $(ARCHIVE) vmware-ubuntu:. && rm -f $(ARCHIVE) && cd libxml2-java
+	ssh vmware-ubuntu "rm -rf libxml2-java && tar xf $(ARCHIVE) && rm -f $(ARCHIVE) && cd libxml2-java && autoconf && ./configure && make clean all && gradle --daemon buildResources"
+	scp vmware-ubuntu:libxml2-java/resources/libxml2j-linux-64.so resources/
 
 Makefile: Makefile.in config.status
 	./config.status $@
@@ -17,5 +21,5 @@ Makefile: Makefile.in config.status
 config.status: configure
 	./config.status --recheck
 
-.PHONY: all clean
+.PHONY: all clean ubuntu
 
