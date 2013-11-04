@@ -15,9 +15,15 @@ What you can do with libxml2-java is **very limited at the moment**. It is very 
 - JAXP(JSR 206) provider  
 - Modifying DOM tree (xmlNewXXX functions) and update it
 
-## Build
+## Build instructions
 
-You need essential build tools such as [Java Development Kit](http://en.wikipedia.org/wiki/Java_Development_Kit), [Gradle](http://www.gradle.org), [GNU Make](http://www.gnu.org/software/make/) and most importantly you should have libxml2 development package on your system. 
+You need essential build tools such as [Java Development Kit](http://en.wikipedia.org/wiki/Java_Development_Kit) 6 or higher, [Gradle](http://www.gradle.org), [GNU Make](http://www.gnu.org/software/make/) and most importantly you should have libxml2 development package on your system. 
+
+If you need to specify jdk directory instead of system default location, then use --with-jdk option 
+
+	./configure --with-jdk=/opt/local/java
+
+Otherwise, configure script would try to detect where JDK is installed on your system.
 
 ### Mac OS X
 	$ sudo port install libxml2
@@ -32,9 +38,7 @@ You need essential build tools such as [Java Development Kit](http://en.wikipedi
 	$ ./configure 
 	$ gradle build
 
-If you want to use other jdk, then use --with-jdk option 
-	./configure --with-jdk=/opt/local/java
-Otherwise, configure script would try to detect where JDK is installed on your system.
+While you freely run _make_ command many times on your own hand, this step is not needed. On running gradle build script, a task named _processNativeResources_ will execute _make_. 
 
 ## Examples 
 
