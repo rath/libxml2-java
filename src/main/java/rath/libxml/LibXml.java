@@ -25,10 +25,20 @@ public class LibXml {
 
 		File targetLibrary = null;
 
+		File localXcodeLibrary = new File("/Users/rath/Library/Developer/Xcode/DerivedData/libxml2-java-bajlfhsxjvllrnamqonpclmodakq/Build/Products/Debug/" + libname);
+		if( localXcodeLibrary.exists() && localXcodeLibrary.lastModified()-(1000L*60L*30L) < System.currentTimeMillis()) {
+			targetLibrary = localXcodeLibrary;
+			System.out.println("*****************************************");
+			System.out.println("* Using libxml2j.dylib built on Xcode 5 *");
+			System.out.println("*****************************************");
+		}
+
 		File localLibrary = new File("src/main/c/" + libname);
-		if( localLibrary.exists() ) {
+		if( targetLibrary==null && localLibrary.exists() ) {
 			targetLibrary = localLibrary;
-		} else {
+		}
+
+		if( targetLibrary==null ) {
 			String bundleLibname = Utils.getPlatformDependentBundleName();
 
 			targetLibrary = new File(System.getProperty("java.io.tmpdir"), bundleLibname);

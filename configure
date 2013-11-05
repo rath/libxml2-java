@@ -565,7 +565,7 @@ PACKAGE_STRING='libxml2-java 0.1'
 PACKAGE_BUGREPORT='http://github.com/rath/libxml2-java'
 PACKAGE_URL=''
 
-ac_unique_file="src/main/c/libxml.cpp"
+ac_unique_file="src/main/c/libxml.c"
 # Factoring default headers for most tests.
 ac_includes_default="\
 #include <stdio.h>

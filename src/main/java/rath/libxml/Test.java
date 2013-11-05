@@ -19,7 +19,7 @@ public class Test {
 
 		Document doc = LibXml.parseString(xml);
 		XPathContext ctx = doc.createXPathContext();
-		XPathObject result = ctx.evaluate("//sub[@value>15]");
+		XPathObject result = ctx.evaluate("//sub[@value=10]");
 
 		Node n = result.getFirstNode().getParent().getNext();
 	}

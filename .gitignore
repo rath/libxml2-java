@@ -17,3 +17,4 @@ Makefile
 /config.h
 /config.log
 /config.scan
+*.xcodeproj

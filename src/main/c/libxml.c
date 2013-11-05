@@ -20,9 +20,9 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
  */
 JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseFileImpl
   (JNIEnv *env, jclass clazz, jstring filepath) {
-    const char *path = env->GetStringUTFChars(filepath, NULL);
+    const char *path = (*env)->GetStringUTFChars(env, filepath, NULL);
     xmlDoc *doc = xmlParseFile(path);
-    env->ReleaseStringUTFChars(filepath, path);
+    (*env)->ReleaseStringUTFChars(env, filepath, path);
     return buildDocument(env, doc);
 }
 
@@ -33,9 +33,9 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseFileImpl
  */
 JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseStringImpl
   (JNIEnv *env, jclass clazz, jstring jdata) {
-    const char *data = env->GetStringUTFChars(jdata, NULL);
+    const char *data = (*env)->GetStringUTFChars(env, jdata, NULL);
     size_t datalen = strlen(data);
-    xmlDoc *doc = xmlReadMemory(data, datalen, "in_memory.xml", "UTF8", 0); // TODO: Handling xmlParserOption
-    env->ReleaseStringUTFChars(jdata, data);
+    xmlDoc *doc = xmlReadMemory(data, (int)datalen, "in_memory.xml", "UTF8", 0); // TODO: Handling xmlParserOption
+    (*env)->ReleaseStringUTFChars(env, jdata, data);
     return buildDocument(env, doc);
 }

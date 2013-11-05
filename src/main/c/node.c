@@ -9,7 +9,7 @@
  * Signature: ()Lrath/libxml/Node;
  */
 JNIEXPORT jobject JNICALL Java_rath_libxml_Node_childrenImpl
-  (JNIEnv *env, jobject obj) {
+(JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
     xmlNode *children = node->children;
     return buildNode(env, children, obj);
@@ -26,16 +26,16 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNamespaceImpl
     xmlNs *ns = node->ns;
     if( ns==NULL )
         return;
+      
+    jstring jHref = (*env)->NewStringUTF(env, (const char*)ns->href);
+    jstring jPrefix = (*env)->NewStringUTF(env, (const char*)ns->prefix);
 
-    jstring jHref = env->NewStringUTF((const char*)ns->href);
-    jstring jPrefix = env->NewStringUTF((const char*)ns->prefix);
+    jclass cls = (*env)->FindClass(env, "rath/libxml/Namespace");
+    jmethodID constructor = (*env)->GetMethodID(env, cls, "<init>", "(Ljava/lang/String;Ljava/lang/String;)V");
+    jobject jNs = (*env)->NewObject(env, cls, constructor, jHref, jPrefix);
 
-    jclass cls = env->FindClass("rath/libxml/Namespace");
-    jmethodID constructor = env->GetMethodID(cls, "<init>", "(Ljava/lang/String;Ljava/lang/String;)V");
-    jobject jNs = env->NewObject(cls, constructor, jHref, jPrefix);
-
-    jfieldID setterId = env->GetFieldID(env->GetObjectClass(obj), "namespace", "Lrath/libxml/Namespace;");
-    env->SetObjectField(obj, setterId, jNs);
+    jfieldID setterId = (*env)->GetFieldID(env, (*env)->GetObjectClass(env, obj), "namespace", "Lrath/libxml/Namespace;");
+    (*env)->SetObjectField(env, obj, setterId, jNs);
 }
 
 
@@ -47,10 +47,10 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNamespaceImpl
 JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNameImpl
   (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
-    jstring nodeName = env->NewStringUTF((const char*)node->name);
+    jstring nodeName = (*env)->NewStringUTF(env, (const char*)node->name);
 
-    jfieldID fieldSetName = env->GetFieldID(env->GetObjectClass(obj), "name", "Ljava/lang/String;");
-    env->SetObjectField(obj, fieldSetName, nodeName);
+    jfieldID fieldSetName = (*env)->GetFieldID(env, (*env)->GetObjectClass(env, obj), "name", "Ljava/lang/String;");
+    (*env)->SetObjectField(env, obj, fieldSetName, nodeName);
 }
 
 /*
@@ -62,8 +62,8 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillRequiredFields
   (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
     assert(node);
-    jmethodID methodSetType = env->GetMethodID(env->GetObjectClass(obj), "setType", "(I)V");
-    env->CallVoidMethod(obj, methodSetType, node->type);
+    jmethodID methodSetType = (*env)->GetMethodID(env, (*env)->GetObjectClass(env, obj), "setType", "(I)V");
+    (*env)->CallVoidMethod(env, obj, methodSetType, node->type);
 }
 
 /*
@@ -133,7 +133,7 @@ JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getTextImpl
   (JNIEnv *env, jobject obj, jboolean format) {
     xmlNode *node = findNode(env, obj);
     const xmlChar *text = xmlNodeListGetString(node->doc, node, format==JNI_TRUE ? 1 : 0);
-    jstring jText = env->NewStringUTF((const char*)text);
+    jstring jText = (*env)->NewStringUTF(env, (const char*)text);
     xmlFree((void*)text);
     return jText;
 }
@@ -147,12 +147,12 @@ JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getPropImpl
   (JNIEnv *env, jobject obj, jstring jprop) {
     xmlNode *node = findNode(env, obj);
 
-    xmlChar *prop = (xmlChar*)env->GetStringUTFChars(jprop, NULL);
+    xmlChar *prop = (xmlChar*)(*env)->GetStringUTFChars(env, jprop, NULL);
     xmlChar *value = xmlGetProp(node, prop);
     if (value==NULL)
         return NULL;
 
-    jstring jvalue = env->NewStringUTF((const char*)value);
+    jstring jvalue = (*env)->NewStringUTF(env, (const char*)value);
     xmlFree(value);
     return jvalue;
 }
@@ -165,11 +165,11 @@ JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getPropImpl
 JNIEXPORT void JNICALL Java_rath_libxml_Node_fillAttributeNames
   (JNIEnv *env, jobject obj, jobject buffer) {
     xmlNode *node = findNode(env, obj);
-    jmethodID methodAdd = env->GetMethodID(env->GetObjectClass(buffer), "add", "(Ljava/lang/Object;)Z");
+    jmethodID methodAdd = (*env)->GetMethodID(env, (*env)->GetObjectClass(env, buffer), "add", "(Ljava/lang/Object;)Z");
 
     xmlAttr *attr = NULL;
     for(attr=node->properties; attr!=NULL; attr=attr->next) {
-        jstring name = env->NewStringUTF((const char*)attr->name);
-        env->CallBooleanMethod(buffer, methodAdd, name);
+        jstring name = (*env)->NewStringUTF(env, (const char*)attr->name);
+        (*env)->CallBooleanMethod(env, buffer, methodAdd, name);
     }
 }
