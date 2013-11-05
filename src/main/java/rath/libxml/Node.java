@@ -11,9 +11,9 @@ import java.util.*;
  */
 public class Node implements Iterable<Node> {
 	final long p;
-	private Type type;
 	private Document document;
 
+	private Type type; // set lazy on native
 	private String name; // set lazy on native
 	private Namespace namespace; // set lazy on native
 

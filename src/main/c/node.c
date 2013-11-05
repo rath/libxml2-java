@@ -2,6 +2,7 @@
 #include <libxml/parser.h>
 #include "utils.h"
 #include <assert.h>
+#include "cache.h"
 
 /*
  * Class:     rath_libxml_Node
@@ -29,13 +30,8 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNamespaceImpl
       
     jstring jHref = (*env)->NewStringUTF(env, (const char*)ns->href);
     jstring jPrefix = (*env)->NewStringUTF(env, (const char*)ns->prefix);
-
-    jclass cls = (*env)->FindClass(env, "rath/libxml/Namespace");
-    jmethodID constructor = (*env)->GetMethodID(env, cls, "<init>", "(Ljava/lang/String;Ljava/lang/String;)V");
-    jobject jNs = (*env)->NewObject(env, cls, constructor, jHref, jPrefix);
-
-    jfieldID setterId = (*env)->GetFieldID(env, (*env)->GetObjectClass(env, obj), "namespace", "Lrath/libxml/Namespace;");
-    (*env)->SetObjectField(env, obj, setterId, jNs);
+    jobject jNs = (*env)->NewObject(env, classNamespace, methodNamespaceNew, jHref, jPrefix);
+    (*env)->SetObjectField(env, obj, fieldNodeSetNamespace, jNs);
 }
 
 
@@ -49,8 +45,8 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNameImpl
     xmlNode *node = findNode(env, obj);
     jstring nodeName = (*env)->NewStringUTF(env, (const char*)node->name);
 
-    jfieldID fieldSetName = (*env)->GetFieldID(env, (*env)->GetObjectClass(env, obj), "name", "Ljava/lang/String;");
-    (*env)->SetObjectField(env, obj, fieldSetName, nodeName);
+    (*env)->SetObjectField(env, obj, fieldNodeSetName, nodeName);
+      
 }
 
 /*
@@ -61,9 +57,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNameImpl
 JNIEXPORT void JNICALL Java_rath_libxml_Node_fillRequiredFields
   (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
-    assert(node);
-    jmethodID methodSetType = (*env)->GetMethodID(env, (*env)->GetObjectClass(env, obj), "setType", "(I)V");
-    (*env)->CallVoidMethod(env, obj, methodSetType, node->type);
+    (*env)->CallVoidMethod(env, obj, methodNodeSetType, node->type);
 }
 
 /*

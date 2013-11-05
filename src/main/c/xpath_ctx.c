@@ -1,6 +1,7 @@
 #include "rath_libxml_XPathContext.h"
 #include <libxml/tree.h>
 #include <libxml/xpath.h>
+#include "cache.h"
 #include "utils.h"
 #include <assert.h>
 #include <stdio.h>
@@ -26,26 +27,20 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateImpl
     }
     (*env)->ReleaseStringUTFChars(env, jexpr, expr);
 
-    jobject resultObject = createPointerObject(env, "rath/libxml/XPathObject", (jlong)result);
-    jclass resultClass = (*env)->GetObjectClass(env, resultObject);
-    jfieldID valueFieldId;
+    jobject resultObject = (*env)->NewObject(env, classXPathObject, methodXPathObjectNew, (jlong)result);
     
     switch(result->type) {
     case XPATH_NODESET:
-        valueFieldId = (*env)->GetFieldID(env, resultClass, "nodeset", "Lrath/libxml/NodeSet;");
-        (*env)->SetObjectField(env, resultObject, valueFieldId, buildNodeSet(env, result->nodesetval, obj));
+        (*env)->SetObjectField(env, resultObject, fieldXPathObjectSetNodeset, buildNodeSet(env, result->nodesetval, obj));
     break;
     case XPATH_BOOLEAN:
-        valueFieldId = (*env)->GetFieldID(env, resultClass, "booleanValue", "Z");
-        (*env)->SetBooleanField(env, resultObject, valueFieldId, result->boolval==0 ? JNI_FALSE : JNI_TRUE);
+        (*env)->SetBooleanField(env, resultObject, fieldXPathObjectSetBool, result->boolval==0 ? JNI_FALSE : JNI_TRUE);
     break;
     case XPATH_NUMBER:
-        valueFieldId = (*env)->GetFieldID(env, resultClass, "floatValue", "D");
-        (*env)->SetDoubleField(env, resultObject, valueFieldId, result->floatval);
+        (*env)->SetDoubleField(env, resultObject, fieldXPathObjectSetFloat, result->floatval);
     break;
     case XPATH_STRING:
-        valueFieldId = (*env)->GetFieldID(env, resultClass, "stringValue", "Ljava/lang/String;");
-        (*env)->SetObjectField(env, resultObject, valueFieldId, (*env)->NewStringUTF(env, (char*)result->stringval));
+        (*env)->SetObjectField(env, resultObject, fieldXPathObjectSetString, (*env)->NewStringUTF(env, (char*)result->stringval));
     break;
     case XPATH_UNDEFINED:
 //        assert(0);
