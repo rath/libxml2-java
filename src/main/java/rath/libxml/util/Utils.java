@@ -63,4 +63,13 @@ public class Utils {
 		return "libxml2j-" + osname + "-" + arch + suffix;
 	}
 
+	public static void writeFile(File f, String str) throws IOException {
+		FileOutputStream fos = new FileOutputStream(f);
+		try {
+			fos.write(str.getBytes("UTF-8"));
+			fos.flush();
+		} finally {
+			fos.close();
+		}
+	}
 }

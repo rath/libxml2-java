@@ -154,7 +154,11 @@ public class Node implements Iterable<Node> {
 	}
 
 	public String getChildText(boolean formatted) {
-		return children().getText(formatted);
+		Node children = children();
+		if (children==null) {
+			return null;
+		}
+		return children.getText(formatted);
 	}
 
 	public String getProp(String attributeKey) {
