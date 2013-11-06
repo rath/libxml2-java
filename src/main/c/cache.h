@@ -7,12 +7,13 @@ extern jclass classXPathObject;
 
 extern jmethodID methodDocumentNew;
 extern jmethodID methodNodeNew;
+extern jmethodID methodNodeSetType;
+extern jmethodID methodNodeSetDocument;
 extern jmethodID methodNodesetNew;
+extern jmethodID methodNodesetAddNode;
 extern jmethodID methodNamespaceNew;
 extern jmethodID methodXPathContextNew;
 extern jmethodID methodXPathObjectNew;
-extern jmethodID methodNodeSetType;
-extern jmethodID methodNodeSetDocument;
 extern jmethodID methodListAdd;
 
 extern jfieldID fieldDocumentGetP;
@@ -21,6 +22,7 @@ extern jfieldID fieldNodeDocument;
 extern jfieldID fieldXPathContextGetP;
 extern jfieldID fieldNodeSetNamespace;
 extern jfieldID fieldNodeSetName;
+extern jfieldID fieldNodesetSize;
 
 extern jfieldID fieldXPathContextDocument;
 extern jfieldID fieldXPathObjectSetNodeset;

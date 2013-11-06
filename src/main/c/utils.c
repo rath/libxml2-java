@@ -14,17 +14,14 @@ jobject     buildDocument(JNIEnv *env, xmlDoc *doc) {
 
 jobject     buildNodeSet(JNIEnv *env, xmlNodeSet *nodeset, jobject document) {
     jobject jnodeset = (*env)->NewObject(env, classNodeset, methodNodesetNew, (jlong)nodeset);
-
     if( nodeset==NULL )
         return jnodeset;
 
-    jfieldID fid = (*env)->GetFieldID(env, classNodeset, "size", "I");
-    (*env)->SetIntField(env, jnodeset, fid, (jint)nodeset->nodeNr);
+    (*env)->SetIntField(env, jnodeset, fieldNodesetSize, (jint)nodeset->nodeNr);
 
     if(!xmlXPathNodeSetIsEmpty(nodeset)) {
-        jmethodID mid = (*env)->GetMethodID(env, classNodeset, "addNode", "(Lrath/libxml/Node;)V");
         for(int i=0; i<nodeset->nodeNr; i++) {
-            (*env)->CallVoidMethod(env, jnodeset, mid, buildNode(env, nodeset->nodeTab[i], document));
+            (*env)->CallVoidMethod(env, jnodeset, methodNodesetAddNode, buildNode(env, nodeset->nodeTab[i], document));
         }
     }
     return jnodeset;
