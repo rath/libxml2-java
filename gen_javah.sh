@@ -1,6 +1,6 @@
 #!/bin/sh
 gradle --daemon classes
-javah -d src/main/c/gen -classpath build/classes/main \
+javah -d src/main/c/autogen -classpath build/classes/main \
 	rath.libxml.LibXml \
 	rath.libxml.Document \
 	rath.libxml.Node \
