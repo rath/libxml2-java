@@ -19,10 +19,6 @@ public class XPathContext {
 		this.document = doc;
 	}
 
-	Document getDocument() {
-		return this.document;
-	}
-
 	public XPathExpression compileExpression(String expr) {
 		return null; // TODO: Impl compileExpression
 	}

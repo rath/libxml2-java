@@ -4,6 +4,9 @@
 #include <assert.h>
 #include "cache.h"
 
+#define DOC(obj) get_document(env, obj)
+jobject get_document(JNIEnv *env, jobject node) { return (*env)->GetObjectField(env, node, fieldNodeDocument); }
+
 /*
  * Class:     rath_libxml_Node
  * Method:    childrenImpl
@@ -13,7 +16,7 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_childrenImpl
 (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
     xmlNode *children = node->children;
-    return buildNode(env, children, obj);
+    return buildNode(env, children, DOC(obj));
 }
 
 /*
@@ -22,15 +25,15 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_childrenImpl
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNamespaceImpl
-  (JNIEnv *env, jobject obj) {
+(JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
     xmlNs *ns = node->ns;
     if( ns==NULL )
         return;
       
-    jstring jHref = (*env)->NewStringUTF(env, (const char*)ns->href);
-    jstring jPrefix = (*env)->NewStringUTF(env, (const char*)ns->prefix);
-    jobject jNs = (*env)->NewObject(env, classNamespace, methodNamespaceNew, jHref, jPrefix);
+    jstring href = (*env)->NewStringUTF(env, (const char*)ns->href);
+    jstring prefix = (*env)->NewStringUTF(env, (const char*)ns->prefix);
+    jobject jNs = (*env)->NewObject(env, classNamespace, methodNamespaceNew, href, prefix);
     (*env)->SetObjectField(env, obj, fieldNodeSetNamespace, jNs);
 }
 
@@ -55,7 +58,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNameImpl
  * Signature: ()V
  */
 JNIEXPORT void JNICALL Java_rath_libxml_Node_fillRequiredFields
-  (JNIEnv *env, jobject obj) {
+(JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
     (*env)->CallVoidMethod(env, obj, methodNodeSetType, node->type);
 }
@@ -70,7 +73,7 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_nextImpl
     xmlNode *node = findNode(env, obj);
     if (node->next==NULL )
         return NULL;
-    return buildNode(env, node->next, obj);
+    return buildNode(env, node->next, DOC(obj));
 }
 
 /*
@@ -93,7 +96,7 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_previousImpl
     xmlNode *node = findNode(env, obj);
     if (node->prev==NULL )
         return NULL;
-    return buildNode(env, node->prev, obj);
+    return buildNode(env, node->prev, DOC(obj));
 }
 
 /*
@@ -104,7 +107,7 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_previousImpl
 JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getParentImpl
   (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
-    return buildNode(env, node->parent, obj);
+    return buildNode(env, node->parent, DOC(obj));
 }
 
 /*
@@ -115,7 +118,7 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getParentImpl
 JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getLastImpl
   (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
-    return buildNode(env, node->last, obj);
+    return buildNode(env, node->last, DOC(obj));
 }
 
 /*
@@ -157,13 +160,12 @@ JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getPropImpl
  * Signature: (Ljava/util/List;)V
  */
 JNIEXPORT void JNICALL Java_rath_libxml_Node_fillAttributeNames
-  (JNIEnv *env, jobject obj, jobject buffer) {
+  (JNIEnv *env, jobject obj, jobject listBuffer) {
     xmlNode *node = findNode(env, obj);
-    jmethodID methodAdd = (*env)->GetMethodID(env, (*env)->GetObjectClass(env, buffer), "add", "(Ljava/lang/Object;)Z");
 
     xmlAttr *attr = NULL;
     for(attr=node->properties; attr!=NULL; attr=attr->next) {
         jstring name = (*env)->NewStringUTF(env, (const char*)attr->name);
-        (*env)->CallBooleanMethod(env, buffer, methodAdd, name);
+        (*env)->CallBooleanMethod(env, listBuffer, methodListAdd, name);
     }
 }

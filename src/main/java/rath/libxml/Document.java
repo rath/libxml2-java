@@ -14,6 +14,10 @@ public class Document extends Node {
 		super(p);
 	}
 
+	public Node.Type getType() {
+		return Node.Type.DOCUMENT;
+	}
+
 	public Node getRootElement() {
 		return getRootElementImpl();
 	}

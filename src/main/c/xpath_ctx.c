@@ -28,10 +28,13 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateImpl
     (*env)->ReleaseStringUTFChars(env, jexpr, expr);
 
     jobject resultObject = (*env)->NewObject(env, classXPathObject, methodXPathObjectNew, (jlong)result);
+    jobject jdoc;
     
     switch(result->type) {
     case XPATH_NODESET:
-        (*env)->SetObjectField(env, resultObject, fieldXPathObjectSetNodeset, buildNodeSet(env, result->nodesetval, obj));
+        jdoc = (*env)->GetObjectField(env, obj, fieldXPathContextDocument);
+        (*env)->SetObjectField(env, resultObject, fieldXPathObjectSetNodeset, buildNodeSet(env, result->nodesetval, jdoc));
+        (*env)->DeleteLocalRef(env, jdoc);
     break;
     case XPATH_BOOLEAN:
         (*env)->SetBooleanField(env, resultObject, fieldXPathObjectSetBool, result->boolval==0 ? JNI_FALSE : JNI_TRUE);

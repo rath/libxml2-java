@@ -106,7 +106,7 @@ public class BasicTest {
 		Assert.assertEquals("Document", Node.Type.DOCUMENT, doc.getType());
 		Assert.assertEquals("Element", Node.Type.ELEMENT, root.getType());
 		Assert.assertEquals("Text", Node.Type.TEXT, root.children().getNext().getType());
-		doc.dispose();
+//		doc.dispose();
 	}
 
 	@Test
@@ -125,6 +125,7 @@ public class BasicTest {
 		Document doc = LibXml.parseString(xml);
 		Node root = doc.getRootElement();
 		Assert.assertEquals("안녕하세요", root.getChildText());
+		doc.dispose();
 	}
 
 	@Test

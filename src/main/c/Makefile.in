@@ -1,7 +1,7 @@
 CC=       @CC@
 OBJS=     libxml.o document.o node.o utils.o xpath_ctx.o xpath_expr.o
 CFLAGS=   @CFLAGS@ @CFLAGS_XML2@ @JDK_INC_DIRS@ -Igen -g -O0 -fPIC
-LDFLAGS=  @LIBS_XML2@
+LDFLAGS=  @LIBS_XML2@ 
 JNILIB=   @JNILIB@
 
 all: $(JNILIB)

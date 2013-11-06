@@ -1,16 +1,10 @@
 #include "utils.h"
-#include <assert.h>
 #include "cache.h"
+#include <assert.h>
 
-jobject     buildNode(JNIEnv *env, xmlNode *node, jobject documentHolder) {
+jobject     buildNode(JNIEnv *env, xmlNode *node, jobject document) {
     jobject jnode = (*env)->NewObject(env, classNode, methodNodeNew, (jlong)node);
-
-    jclass cz = (*env)->GetObjectClass(env, documentHolder);
-    jmethodID methodGetDocument = (*env)->GetMethodID(env, cz, "getDocument", "()Lrath/libxml/Document;");
-    jobject jdocument = (*env)->CallObjectMethod(env, documentHolder, methodGetDocument);
-    
-    (*env)->CallVoidMethod(env, jnode, methodNodeSetDocument, jdocument);
-    (*env)->DeleteLocalRef(env, jdocument);
+    (*env)->CallVoidMethod(env, jnode, methodNodeSetDocument, document);
     return jnode;
 }
 
@@ -18,7 +12,7 @@ jobject     buildDocument(JNIEnv *env, xmlDoc *doc) {
     return (*env)->NewObject(env, classDocument, methodDocumentNew, (jlong)doc);
 }
 
-jobject     buildNodeSet(JNIEnv *env, xmlNodeSet *nodeset, jobject documentHolder) {
+jobject     buildNodeSet(JNIEnv *env, xmlNodeSet *nodeset, jobject document) {
     jobject jnodeset = (*env)->NewObject(env, classNodeset, methodNodesetNew, (jlong)nodeset);
 
     if( nodeset==NULL )
@@ -30,7 +24,7 @@ jobject     buildNodeSet(JNIEnv *env, xmlNodeSet *nodeset, jobject documentHolde
     if(!xmlXPathNodeSetIsEmpty(nodeset)) {
         jmethodID mid = (*env)->GetMethodID(env, classNodeset, "addNode", "(Lrath/libxml/Node;)V");
         for(int i=0; i<nodeset->nodeNr; i++) {
-            (*env)->CallVoidMethod(env, jnodeset, mid, buildNode(env, nodeset->nodeTab[i], documentHolder));
+            (*env)->CallVoidMethod(env, jnodeset, mid, buildNode(env, nodeset->nodeTab[i], document));
         }
     }
     return jnodeset;

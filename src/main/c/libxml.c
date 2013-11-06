@@ -1,11 +1,12 @@
 #include "rath_libxml_LibXml.h"
 #include <libxml/parser.h>
 #include <string.h>
+#include "cache.h"
 #include "utils.h"
 
 jclass classDocument;
 jclass classNode;
-jclass classNodeSet;
+jclass classNodeset;
 jclass classNamespace;
 jclass classXPathContext;
 jclass classXPathObject;
@@ -24,13 +25,21 @@ jmethodID methodListAdd;
 
 jfieldID fieldDocumentGetP;
 jfieldID fieldNodeGetP;
+jfieldID fieldNodeDocument;
 jfieldID fieldXPathContextGetP;
 jfieldID fieldNodeSetName;
 jfieldID fieldNodeSetNamespace;
+jfieldID fieldXPathContextDocument;
 jfieldID fieldXPathObjectSetNodeset;
 jfieldID fieldXPathObjectSetBool;
 jfieldID fieldXPathObjectSetFloat;
 jfieldID fieldXPathObjectSetString;
+
+void cc(JNIEnv *env, const char *name, jclass *buf) {
+    jclass c = (*env)->FindClass(env, name);
+    *buf = (*env)->NewGlobalRef(env, c);
+    (*env)->DeleteLocalRef(env, c);
+}
 
 /*
  * Class:     rath_libxml_LibXml
@@ -41,16 +50,16 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
 (JNIEnv *env, jclass clz) {
     xmlInitParser();
     
-    classDocument = (*env)->FindClass(env, "rath/libxml/Document");
-    classNode = (*env)->FindClass(env, "rath/libxml/Node");
-    classNodeSet = (*env)->FindClass(env, "rath/libxml/NodeSet");
-    classNamespace = (*env)->FindClass(env, "rath/libxml/Namespace");
-    classXPathContext = (*env)->FindClass(env, "rath/libxml/XPathContext");
-    classXPathObject = (*env)->FindClass(env, "rath/libxml/XPathObject");
-    
+    cc(env, "rath/libxml/Document", &classDocument);
+    cc(env, "rath/libxml/Node", &classNode);
+    cc(env, "rath/libxml/NodeSet", &classNodeset);
+    cc(env, "rath/libxml/Namespace", &classNamespace);
+    cc(env, "rath/libxml/XPathContext", &classXPathContext);
+    cc(env, "rath/libxml/XPathObject", &classXPathObject);
+   
     methodDocumentNew = (*env)->GetMethodID(env, classDocument, "<init>", "(J)V");
     methodNodeNew = (*env)->GetMethodID(env, classNode, "<init>", "(J)V");
-    methodNodesetNew = (*env)->GetMethodID(env, classNodeSet, "<init>", "(J)V");
+    methodNodesetNew = (*env)->GetMethodID(env, classNodeset, "<init>", "(J)V");
     methodNamespaceNew = (*env)->GetMethodID(env, classNamespace, "<init>", "(Ljava/lang/String;Ljava/lang/String;)V");
     methodXPathContextNew = (*env)->GetMethodID(env, classXPathContext, "<init>", "(J)V");
     methodXPathObjectNew = (*env)->GetMethodID(env, classXPathObject, "<init>", "(J)V");
@@ -58,18 +67,21 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     methodNodeSetType = (*env)->GetMethodID(env, classNode, "setType", "(I)V");
     methodNodeSetDocument = (*env)->GetMethodID(env, classNode, "setDocument", "(Lrath/libxml/Document;)V");
     
-    jclass classList = (*env)->FindClass(env, "java/util/List");
-    methodListAdd = (*env)->GetMethodID(env, classList, "add", "(Ljava/lang/Object;)Z");
-    
     fieldDocumentGetP = (*env)->GetFieldID(env, classDocument, "p", "J");
     fieldNodeGetP = (*env)->GetFieldID(env, classNode, "p", "J");
+    fieldNodeDocument = (*env)->GetFieldID(env, classNode, "document", "Lrath/libxml/Document;");
     fieldNodeSetName = (*env)->GetFieldID(env, classNode, "name", "Ljava/lang/String;");
-    fieldXPathContextGetP = (*env)->GetFieldID(env, classXPathContext, "p", "J");
     fieldNodeSetNamespace = (*env)->GetFieldID(env, classNode, "namespace", "Lrath/libxml/Namespace;");
+    fieldXPathContextGetP = (*env)->GetFieldID(env, classXPathContext, "p", "J");
+    fieldXPathContextDocument = (*env)->GetFieldID(env, classXPathContext, "document", "Lrath/libxml/Document;");
     fieldXPathObjectSetNodeset = (*env)->GetFieldID(env, classXPathObject, "nodeset", "Lrath/libxml/NodeSet;");
     fieldXPathObjectSetBool = (*env)->GetFieldID(env, classXPathObject, "booleanValue", "Z");
     fieldXPathObjectSetFloat = (*env)->GetFieldID(env, classXPathObject, "floatValue", "D");
     fieldXPathObjectSetString = (*env)->GetFieldID(env, classXPathObject, "stringValue", "Ljava/lang/String;");
+    
+    jclass classList = (*env)->FindClass(env, "java/util/List");
+    methodListAdd = (*env)->GetMethodID(env, classList, "add", "(Ljava/lang/Object;)Z");
+    
 }
 
 /*

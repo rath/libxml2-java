@@ -8,5 +8,5 @@ xmlXPathContextPtr  findXPathContext(JNIEnv *env, jobject obj);
 jobject     buildDocument(JNIEnv *env, xmlDoc *doc);
 jobject     buildNode(JNIEnv *env, xmlNode *node, jobject documentHolder);
 jobject     buildXPathContext(JNIEnv *env, xmlXPathContext *ctx);
-jobject     buildNodeSet(JNIEnv *env, xmlNodeSet *nodeset, jobject documentHolder);
+jobject     buildNodeSet(JNIEnv *env, xmlNodeSet *nodeset, jobject document);
 jobject     createPointerObject(JNIEnv *env, const char *className, jlong pointer);

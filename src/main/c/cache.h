@@ -17,10 +17,12 @@ extern jmethodID methodListAdd;
 
 extern jfieldID fieldDocumentGetP;
 extern jfieldID fieldNodeGetP;
+extern jfieldID fieldNodeDocument;
 extern jfieldID fieldXPathContextGetP;
 extern jfieldID fieldNodeSetNamespace;
 extern jfieldID fieldNodeSetName;
 
+extern jfieldID fieldXPathContextDocument;
 extern jfieldID fieldXPathObjectSetNodeset;
 extern jfieldID fieldXPathObjectSetBool;
 extern jfieldID fieldXPathObjectSetFloat;
