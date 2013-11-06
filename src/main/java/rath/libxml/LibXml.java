@@ -21,6 +21,7 @@ public class LibXml {
 	private static synchronized void loadNativeLibrary() {
 		String fullname = System.mapLibraryName("hello");
 		String suffix = fullname.substring(fullname.lastIndexOf('.'));
+		if (suffix.equalsIgnoreCase(".jnilib")) suffix = ".dylib";
 		String libname = "libxml2j" + suffix;
 
 		File targetLibrary = null;
