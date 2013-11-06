@@ -141,8 +141,9 @@ public class BasicTest {
 			"<hello-world />" +
 			"</beans:bean>";
 
-		GZIPOutputStream gout = new GZIPOutputStream(new FileOutputStream(f), true);
+		GZIPOutputStream gout = new GZIPOutputStream(new FileOutputStream(f));
 		gout.write(xml.getBytes());
+		gout.flush();
 		gout.close();
 
 		Document doc = LibXml.parseFile(f);
