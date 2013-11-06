@@ -44,6 +44,7 @@ While you freely run _make_ command many times on your own hand, this step is no
 
 ```java
 String xml = "<?xml version=\"1.0\"?><root><item /><item /><item /></root>";
+
 Document doc = LibXml.parseString(xml);
 Node rootNode = doc.getRootElement();
 for(Node node : rootNode) {
@@ -51,13 +52,9 @@ for(Node node : rootNode) {
 }
 ```
 
-* Use libxml2-java as default DocumentBuilder by modifying system property.
+* Use libxml2-java as default DocumentBuilder by passing *rath.libxml.jaxp.DocumentBuilderFactoryImpl* as *java.xml.parsers.DocumentBuilderFactory* system property. Then, it allows you to start coding with the standard JAXP API.
 
-	$ java -Djava.xml.parsers.DocumentBuilderFactory=rath.libxml.jaxp.DocumentBuilderFactoryImpl ...
-
-  Then, start coding with the standard JAXP API.
-
-```
+```java
 import org.w3c.dom.*;
 
 DocumentBuilder builder = DocumentBuilderFactory.newInstance("rath.libxml.jaxp.DocumentBuilderFactoryImpl", null);
@@ -71,9 +68,11 @@ Assert.assertEquals("html", doc.getDocumentElement().getNodeName());
 
 ```java
 String xml = "<?xml version=\"1.0\"?><root><item>Apple</item><item tag=\"1\">Bear</item><item>Cider</item></root>";
+
 Document doc = LibXml.parseString(xml);
 XPathContext ctx = doc.createXPathContext();
 XPathObject result = ctx.evaluate("//item[@tag=\"1\"]");
+
 out.println(result.getFirstNode().getChildText()); // Bear
 ```
 
