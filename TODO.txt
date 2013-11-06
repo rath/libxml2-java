@@ -1,7 +1,6 @@
-TODO: JAXP Provider interface for zero learning curve.
 TODO: AddChild, NewDocument (quite huge work)
+
 TODO: Support xmlParserContext
 TODO: Performance test?
 TODO: libxml2 xmlParserOption support
 TODO: SAX Handler
-TODO: Caching jclass, jmethodID, jfieldID
