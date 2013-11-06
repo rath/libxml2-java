@@ -1,19 +1,17 @@
 # libxml2-java
 
-libxml2-java is Java language binding for well known [libxml2](http://xmlsoft.org/). 
+libxml2-java is Java language binding for well-known [libxml2](http://xmlsoft.org/). 
+Current implementation of libxml2-java is **very limited at the moment**. It's very early stage of development. 
+
 
 ## Features
 
-What you can do with libxml2-java is **very limited at the moment**. It is very early stage of development. It allows you to do the followings 
-
-- Parsing XML document as file or string
-- Walking on DOM tree  
-- XPath support 
-
-## Features coming soon
-
-- JAXP(JSR 206) provider  
-- Modifying DOM tree (xmlNewXXX functions) and update it
+- (60%) Parsing 
+- (80%) Walking on DOM tree  
+- (15%) XPath 
+- (10%) As JAXP(JSR 206) provider  
+- (0%) Update and export DOM tree 
+- (0%) Registering SAX Handler
 
 ## Build instructions
 
@@ -42,18 +40,41 @@ While you freely run _make_ command many times on your own hand, this step is no
 
 ## Examples 
 
-Print all child elements under the root node.
+* Print all child elements under the root node.
 
 ```java
-Document doc = LibXml.parseFile(new File("sample.xml"));
+String xml = "<?xml version=\"1.0\"?><root><item /><item /><item /></root>";
+Document doc = LibXml.parseString(xml);
 Node rootNode = doc.getRootElement();
 for(Node node : rootNode) {
   out.printf("%s: type=%s%n", node.getName(), node.getType());
 }
 ```
 
-Use libxml2-java as default DocumentBuilder by modifying system property.
+* Use libxml2-java as default DocumentBuilder by modifying system property.
 
-	java -Djava.xml.parsers.DocumentBuilderFactory=rath.libxml.jaxp.DocumentBuilderFactory ... 
+	$ java -Djava.xml.parsers.DocumentBuilderFactory=rath.libxml.jaxp.DocumentBuilderFactoryImpl ...
+
+  Then, start coding with the standard JAXP API.
+
+```
+import org.w3c.dom.*;
+
+DocumentBuilder builder = DocumentBuilderFactory.newInstance("rath.libxml.jaxp.DocumentBuilderFactoryImpl", null);
+// file: ?xml version="1.0"?><html><head /><body><p>Good morning</p><p>How are you?</p></body></html>
+Document doc = builder.parse(new File("sample.xml"));
+Assert.assertEquals("html", doc.getDocumentElement().getNodeName());
+```
+
+  
+* XPath 
+
+```java
+String xml = "<?xml version=\"1.0\"?><root><item>Apple</item><item tag=\"1\">Bear</item><item>Cider</item></root>";
+Document doc = LibXml.parseString(xml);
+XPathContext ctx = doc.createXPathContext();
+XPathObject result = ctx.evaluate("//item[@tag=\"1\"]");
+out.println(result.getFirstNode().getChildText()); // Bear
+```
 
 
