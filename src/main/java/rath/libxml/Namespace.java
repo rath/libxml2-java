@@ -1,11 +1,11 @@
 package rath.libxml;
 
 /**
- * Created with IntelliJ IDEA.
+ * 
  * User: rath
  * Date: 03/11/2013
  * Time: 04:13
- * To change this template use File | Settings | File Templates.
+ * 
  */
 public class Namespace {
 	private String href;

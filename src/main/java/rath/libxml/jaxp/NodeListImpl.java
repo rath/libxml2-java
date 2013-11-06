@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ * 
  * User: rath
  * Date: 06/11/2013
  * Time: 05:46
- * To change this template use File | Settings | File Templates.
+ * 
  */
 public class NodeListImpl implements NodeList {
 	private List<Node> list = new ArrayList<Node>();

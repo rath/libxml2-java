@@ -5,11 +5,11 @@ import org.w3c.dom.Document;
 import rath.libxml.*;
 
 /**
- * Created with IntelliJ IDEA.
+ * 
  * User: rath
  * Date: 06/11/2013
  * Time: 06:12
- * To change this template use File | Settings | File Templates.
+ * 
  */
 public class ElementImpl extends NodeImpl implements Element {
 	ElementImpl(Document owner, rath.libxml.Node impl) {

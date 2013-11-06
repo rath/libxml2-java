@@ -6,11 +6,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created with IntelliJ IDEA.
+ * 
  * User: rath
  * Date: 04/11/2013
  * Time: 12:36
- * To change this template use File | Settings | File Templates.
+ * 
  */
 public class BuildResources {
 	public static void main(String[] args) throws IOException, InterruptedException {

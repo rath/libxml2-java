@@ -7,11 +7,11 @@ import rath.libxml.*;
 import static rath.libxml.Node.Type.*;
 
 /**
- * Created with IntelliJ IDEA.
+ * 
  * User: rath
  * Date: 06/11/2013
  * Time: 05:37
- * To change this template use File | Settings | File Templates.
+ * 
  */
 public class NodeImpl implements Node {
 	protected final rath.libxml.Node impl;

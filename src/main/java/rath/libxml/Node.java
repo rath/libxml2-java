@@ -3,11 +3,11 @@ package rath.libxml;
 import java.util.*;
 
 /**
- * Created with IntelliJ IDEA.
+ * 
  * User: rath
  * Date: 02/11/2013
  * Time: 23:50
- * To change this template use File | Settings | File Templates.
+ * 
  */
 public class Node implements Iterable<Node> {
 	final long p;

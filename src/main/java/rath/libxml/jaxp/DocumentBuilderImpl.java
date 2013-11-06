@@ -12,11 +12,11 @@ import javax.xml.parsers.DocumentBuilder;
 import java.io.*;
 
 /**
- * Created with IntelliJ IDEA.
+ * 
  * User: rath
  * Date: 06/11/2013
  * Time: 04:44
- * To change this template use File | Settings | File Templates.
+ * 
  */
 public class DocumentBuilderImpl extends DocumentBuilder {
 	@Override

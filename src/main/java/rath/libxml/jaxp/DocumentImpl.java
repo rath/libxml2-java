@@ -22,11 +22,11 @@ import rath.libxml.XPathContext;
 import rath.libxml.XPathObject;
 
 /**
- * Created with IntelliJ IDEA.
+ * 
  * User: rath
  * Date: 06/11/2013
  * Time: 05:20
- * To change this template use File | Settings | File Templates.
+ * 
  */
 public class DocumentImpl implements org.w3c.dom.Document {
 	private final Document impl;

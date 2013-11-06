@@ -3,11 +3,11 @@ package rath.libxml;
 import java.io.File;
 
 /**
- * Created with IntelliJ IDEA.
+ * 
  * User: rath
  * Date: 01/11/2013
  * Time: 12:21
- * To change this template use File | Settings | File Templates.
+ * 
  */
 public class Test {
 	public static void main(String[] args) throws Exception {

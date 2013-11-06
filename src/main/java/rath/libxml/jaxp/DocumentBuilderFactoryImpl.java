@@ -5,11 +5,11 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 
 /**
- * Created with IntelliJ IDEA.
+ * 
  * User: rath
  * Date: 06/11/2013
  * Time: 04:40
- * To change this template use File | Settings | File Templates.
+ * 
  */
 public class DocumentBuilderFactoryImpl extends DocumentBuilderFactory {
 

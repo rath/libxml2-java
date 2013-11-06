@@ -3,11 +3,11 @@ package rath.libxml.util;
 import java.io.*;
 
 /**
- * Created with IntelliJ IDEA.
+ * 
  * User: rath
  * Date: 04/11/2013
  * Time: 11:50
- * To change this template use File | Settings | File Templates.
+ * 
  */
 public class Utils {
 	public static void copy(File in, File out) throws IOException {
