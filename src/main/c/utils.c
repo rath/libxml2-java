@@ -3,6 +3,8 @@
 #include <assert.h>
 
 jobject     buildNode(JNIEnv *env, xmlNode *node, jobject document) {
+    if( node==NULL )
+        return NULL;
     jobject jnode = (*env)->NewObject(env, classNode, methodNodeNew, (jlong)node);
     (*env)->CallVoidMethod(env, jnode, methodNodeSetDocument, document);
     return jnode;
