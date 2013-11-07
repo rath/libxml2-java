@@ -14,6 +14,13 @@ import javax.xml.parsers.ParserConfigurationException;
 public class DocumentBuilderFactoryImpl extends DocumentBuilderFactory {
 
 	@Override
+	public void setNamespaceAware(boolean b) {
+		if(!b) {
+			throw new UnsupportedOperationException();
+		}
+	}
+
+	@Override
 	public DocumentBuilder newDocumentBuilder() throws ParserConfigurationException {
 		return new DocumentBuilderImpl();
 	}
