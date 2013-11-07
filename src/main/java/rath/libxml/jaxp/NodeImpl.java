@@ -33,7 +33,10 @@ public class NodeImpl implements Node {
 
 	@Override
 	public String getNodeName() {
-		return impl.getName();
+		Namespace ns = impl.getNamespace();
+		if(ns==null)
+			return impl.getName();
+		return ns.getPrefix().concat(":").concat(impl.getName());
 	}
 
 	@Override
@@ -130,7 +133,7 @@ public class NodeImpl implements Node {
 
 	@Override
 	public boolean hasChildNodes() {
-		throw new RuntimeException("test with libxml2 native, then impl!");
+		return impl.children()!=null;
 	}
 
 	@Override
@@ -171,7 +174,7 @@ public class NodeImpl implements Node {
 
 	@Override
 	public String getLocalName() {
-		throw new UnsupportedOperationException();
+		return impl.getName();
 	}
 
 	@Override

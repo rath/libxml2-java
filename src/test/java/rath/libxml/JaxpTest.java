@@ -112,6 +112,7 @@ public class JaxpTest {
 		}
 	}
 
+	// firstchild, lastchild, nextsibling, previoussibling, parent
 	@Test
 	public void testNavigate() throws Exception {
 		String xml = "<?xml version=\"1.0\"?>" +
@@ -120,9 +121,7 @@ public class JaxpTest {
 			"<b/>" +
 			"<c/>" +
 			"</root>";
-		// TODO: what's localName? prefix? namespaceURI?
 
-		// firstchild, lastchild, nextsibling, previoussibling, parent
 		DocumentBuilder builder = builderFactory.newDocumentBuilder();
 		Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
 		Element root = doc.getDocumentElement();
@@ -130,8 +129,35 @@ public class JaxpTest {
 		Assert.assertEquals("c", ((Element)root.getLastChild()).getTagName());
 		Assert.assertEquals("b", ((Element)root.getFirstChild().getNextSibling()).getTagName());
 		Assert.assertEquals("b", ((Element)root.getLastChild().getPreviousSibling()).getTagName());
-		Assert.assertEquals("root", ((Element)root.getFirstChild().getParentNode()).getTagName());
+		Assert.assertEquals("root", ((Element) root.getFirstChild().getParentNode()).getTagName());
 	}
 
+	private void printNode(Node node) {
+		System.out.println("NamespaceURI: " + node.getNamespaceURI());
+		System.out.println("LocalName: " + node.getLocalName());
+		System.out.println("Prefix: " + node.getPrefix());
+		System.out.println("NodeName: " + node.getNodeName());
+	}
 
+	@Test
+	public void testNamespaceURIPrefixLocalName() throws Exception {
+//		builderFactory = DocumentBuilderFactory.newInstance();
+		builderFactory.setNamespaceAware(true);
+		System.out.println("namespace aware: " + builderFactory.isNamespaceAware());
+
+		String xml = "<?xml version=\"1.0\"?>" +
+			"<t:root xmlns=\"http://void.com/\" xmlns:t=\"http://t.com/\">" +
+			"<t:item/>" +
+			"<child />" +
+			"<t:item/>" +
+			"</t:root>"; // TODO: invalid memory access error will occur when using default ns
+		DocumentBuilder builder = builderFactory.newDocumentBuilder();
+		Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+		Element root = doc.getDocumentElement();
+
+		Assert.assertEquals("namespace uri", "http://t.com/", root.getNamespaceURI());
+		Assert.assertEquals("local name", "root", root.getLocalName());
+		Assert.assertEquals("prefix", "t", root.getPrefix());
+		Assert.assertEquals("node name", "t:root", root.getNodeName());
+	}
 }

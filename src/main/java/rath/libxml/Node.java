@@ -22,6 +22,14 @@ public class Node implements Iterable<Node> {
 		this.fillRequiredFields();
 	}
 
+	/**
+	 *
+	 * @return its first child
+	 */
+	public Node getChildren() {
+		return children();
+	}
+
 	public Node children() {
 		return childrenImpl();
 	}
