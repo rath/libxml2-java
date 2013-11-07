@@ -20,7 +20,7 @@ public class NodeListImpl implements NodeList {
 
 	NodeListImpl(Document owner, rath.libxml.Node n) {
 		while(true) {
-			list.add(new NodeImpl(owner, n));
+			list.add(NodeImpl.createByType(owner, n));
 			n = n.getNext();
 			if( n==null )
 				break;

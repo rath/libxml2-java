@@ -18,9 +18,17 @@ public class NodeImpl implements Node {
 	private short nodeType;
 	private Document owner;
 
-	NodeImpl(Document owner, rath.libxml.Node impl) {
+	protected NodeImpl(Document owner, rath.libxml.Node impl) {
 		this.owner = owner;
 		this.impl = impl;
+	}
+
+	public static NodeImpl createByType(Document owner, rath.libxml.Node impl) {
+		rath.libxml.Node.Type type = impl.getType();
+		if( type== rath.libxml.Node.Type.ELEMENT ) {
+			return new ElementImpl(owner, impl);
+		}
+		return new NodeImpl(owner, impl);
 	}
 
 	@Override
@@ -59,7 +67,7 @@ public class NodeImpl implements Node {
 
 	@Override
 	public Node getParentNode() {
-		return new NodeImpl(owner, impl.getParent());
+		return createByType(owner, impl.getParent());
 	}
 
 	@Override
@@ -69,27 +77,30 @@ public class NodeImpl implements Node {
 
 	@Override
 	public Node getFirstChild() {
-		return new NodeImpl(owner, impl.children());
+		return createByType(owner, impl.children());
 	}
 
 	@Override
 	public Node getLastChild() {
-		return new NodeImpl(owner, impl.getLast());
+		return createByType(owner, impl.getLast());
 	}
 
 	@Override
 	public Node getPreviousSibling() {
-		return new NodeImpl(owner, impl.getPrevious());
+		return createByType(owner, impl.getPrevious());
 	}
 
 	@Override
 	public Node getNextSibling() {
-		return new NodeImpl(owner, impl.getNext());
+		return createByType(owner, impl.getNext());
 	}
 
 	@Override
 	public NamedNodeMap getAttributes() {
-		throw new UnsupportedOperationException(); // TODO: NodeImpl.getAttributes()
+		if(impl.getType()!=rath.libxml.Node.Type.ELEMENT)
+			return null;
+
+		throw new UnsupportedOperationException();
 	}
 
 	@Override

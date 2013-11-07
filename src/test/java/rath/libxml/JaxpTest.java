@@ -8,12 +8,16 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.w3c.dom.*;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.xml.sax.SAXException;
 import rath.libxml.util.Utils;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -84,4 +88,50 @@ public class JaxpTest {
 		Element root = doc.getDocumentElement();
 		Assert.assertEquals("html", root.getNodeName());
 	}
+
+	@Test
+	public void loopCheckElementNameAndAttribute() throws ParserConfigurationException, IOException, SAXException {
+//		builderFactory = DocumentBuilderFactory.newInstance();
+		String xml = "<?xml version=\"1.0\"?>" +
+			"<root>" +
+			"<item name=\"a\" />" +
+			"<item name=\"b\" />" +
+			"<item name=\"c\" />" +
+			"</root>";
+
+		DocumentBuilder builder = builderFactory.newDocumentBuilder();
+		Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+		Element root = doc.getDocumentElement();
+		NodeList nodeList = root.getChildNodes();
+		char ch = 'a';
+		for(int i=0; i<nodeList.getLength(); i++) {
+			Element node = (Element) nodeList.item(i);
+			Assert.assertEquals("node name", "item", node.getNodeName());
+			Assert.assertEquals("attribute value", String.valueOf(ch), node.getAttribute("name"));
+			ch += 1;
+		}
+	}
+
+	@Test
+	public void testNavigate() throws Exception {
+		String xml = "<?xml version=\"1.0\"?>" +
+			"<root>" +
+			"<a/>" +
+			"<b/>" +
+			"<c/>" +
+			"</root>";
+		// TODO: what's localName? prefix? namespaceURI?
+
+		// firstchild, lastchild, nextsibling, previoussibling, parent
+		DocumentBuilder builder = builderFactory.newDocumentBuilder();
+		Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+		Element root = doc.getDocumentElement();
+		Assert.assertEquals("a", ((Element)root.getFirstChild()).getTagName());
+		Assert.assertEquals("c", ((Element)root.getLastChild()).getTagName());
+		Assert.assertEquals("b", ((Element)root.getFirstChild().getNextSibling()).getTagName());
+		Assert.assertEquals("b", ((Element)root.getLastChild().getPreviousSibling()).getTagName());
+		Assert.assertEquals("root", ((Element)root.getFirstChild().getParentNode()).getTagName());
+	}
+
+
 }
