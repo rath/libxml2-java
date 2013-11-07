@@ -1,4 +1,6 @@
-package rath.libxml;
+package rath.libxml.tmp;
+
+import rath.libxml.*;
 
 import java.io.File;
 

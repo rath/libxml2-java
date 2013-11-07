@@ -5,4 +5,5 @@ javah -d src/main/c/autogen -classpath build/classes/main \
 	rath.libxml.Document \
 	rath.libxml.Node \
 	rath.libxml.XPathContext \
+	rath.libxml.XPathObject \
 	rath.libxml.XPathExpression

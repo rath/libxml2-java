@@ -15,6 +15,14 @@ extern "C" {
 JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateImpl
   (JNIEnv *, jobject, jstring);
 
+/*
+ * Class:     rath_libxml_XPathContext
+ * Method:    disposeImpl
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_disposeImpl
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif

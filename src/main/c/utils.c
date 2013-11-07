@@ -41,6 +41,10 @@ xmlXPathContextPtr  findXPathContext(JNIEnv *env, jobject obj) {
     return (xmlXPathContextPtr)(*env)->GetLongField(env, obj, fieldXPathContextGetP);
 }
 
+xmlXPathObjectPtr   findXPathObject(JNIEnv *env, jobject obj) {
+    return (xmlXPathObjectPtr)(*env)->GetLongField(env, obj, fieldXPathObjectGetP);
+}
+
 jobject     buildXPathContext(JNIEnv *env, xmlXPathContext *ctx) {
     jobject jctx = (*env)->NewObject(env, classXPathContext, methodXPathContextNew, (jlong)ctx);
     return jctx;

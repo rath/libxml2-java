@@ -32,6 +32,7 @@ jfieldID fieldNodeSetNamespace;
 jfieldID fieldNodesetSize;
 jfieldID fieldXPathContextGetP;
 jfieldID fieldXPathContextDocument;
+jfieldID fieldXPathObjectGetP;
 jfieldID fieldXPathObjectSetNodeset;
 jfieldID fieldXPathObjectSetBool;
 jfieldID fieldXPathObjectSetFloat;
@@ -78,6 +79,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     fieldNodesetSize = (*env)->GetFieldID(env, classNodeset, "size", "I");
     fieldXPathContextGetP = (*env)->GetFieldID(env, classXPathContext, "p", "J");
     fieldXPathContextDocument = (*env)->GetFieldID(env, classXPathContext, "document", "Lrath/libxml/Document;");
+    fieldXPathObjectGetP = (*env)->GetFieldID(env, classXPathObject, "p", "J");
     fieldXPathObjectSetNodeset = (*env)->GetFieldID(env, classXPathObject, "nodeset", "Lrath/libxml/NodeSet;");
     fieldXPathObjectSetBool = (*env)->GetFieldID(env, classXPathObject, "booleanValue", "Z");
     fieldXPathObjectSetFloat = (*env)->GetFieldID(env, classXPathObject, "floatValue", "D");

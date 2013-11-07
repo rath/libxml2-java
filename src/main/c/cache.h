@@ -25,6 +25,7 @@ extern jfieldID fieldNodeSetName;
 extern jfieldID fieldNodesetSize;
 
 extern jfieldID fieldXPathContextDocument;
+extern jfieldID fieldXPathObjectGetP;
 extern jfieldID fieldXPathObjectSetNodeset;
 extern jfieldID fieldXPathObjectSetBool;
 extern jfieldID fieldXPathObjectSetFloat;

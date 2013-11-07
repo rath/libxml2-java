@@ -171,6 +171,8 @@ public class BasicTest {
 		Assert.assertEquals(doc, doc2);
 	}
 
+
+
 	@Test
 	public void xpath1() {
 		String xml = "<?xml version=\"1.0\"?> <me-root><first><sub value=\"10\"/><sub value=\"20\"/></first><second value=\"20\"/><third /></me-root>";
@@ -207,6 +209,8 @@ public class BasicTest {
 		Assert.assertEquals("20", n.getAttribute("value"));
 		Assert.assertEquals("second", n.getName());
 	}
+
+
 
 	@Test
 	public void basicLoopFlow() throws IOException {

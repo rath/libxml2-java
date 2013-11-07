@@ -7,13 +7,15 @@ package rath.libxml;
  * Time: 17:40
  * 
  */
-public class XPathObject {
+public class XPathObject implements Disposable {
+	private final long p;
+	private boolean disposed = false;
+
 	public NodeSet nodeset;
 	public boolean booleanValue;
 	public double floatValue;
 	public String stringValue;
 
-	private final long p;
 	XPathObject(long p) {
 		this.p = p;
 	}
@@ -25,4 +27,14 @@ public class XPathObject {
 			return null;
 		return nodeset.getFirstNode();
 	}
+
+	@Override
+	public void dispose() {
+		if(!disposed) {
+			disposed = true;
+			disposeImpl();
+		}
+	}
+
+	private native void disposeImpl();
 }

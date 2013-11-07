@@ -67,3 +67,15 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateImpl
 
     return resultObject;
 }
+
+/*
+ * Class:     rath_libxml_XPathContext
+ * Method:    disposeImpl
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_disposeImpl
+(JNIEnv *env, jobject obj) {
+    xmlXPathContext *ctx = findXPathContext(env, obj);
+    xmlXPathFreeContext(ctx);
+}
+

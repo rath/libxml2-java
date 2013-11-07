@@ -5,6 +5,7 @@
 xmlDocPtr   findDocument(JNIEnv *env, jobject obj);
 xmlNodePtr  findNode(JNIEnv *env, jobject obj);
 xmlXPathContextPtr  findXPathContext(JNIEnv *env, jobject obj);
+xmlXPathObjectPtr   findXPathObject(JNIEnv *env, jobject obj);
 jobject     buildDocument(JNIEnv *env, xmlDoc *doc);
 jobject     buildNode(JNIEnv *env, xmlNode *node, jobject documentHolder);
 jobject     buildXPathContext(JNIEnv *env, xmlXPathContext *ctx);

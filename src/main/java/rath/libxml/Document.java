@@ -8,7 +8,7 @@ package rath.libxml;
  * 
  */
 public class Document extends Node {
-	private boolean hasDisposed = false;
+	private boolean disposed = false;
 
 	Document(long p) {
 		super(p);
@@ -55,8 +55,8 @@ public class Document extends Node {
 	 * Be careful when you call this since this will free all children resources as well.
 	 */
 	public void dispose() {
-		if(!hasDisposed) {
-			hasDisposed = true;
+		if(!disposed) {
+			disposed = true;
 			disposeImpl();
 		}
 	}

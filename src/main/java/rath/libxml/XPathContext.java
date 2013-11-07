@@ -7,7 +7,8 @@ package rath.libxml;
  * Time: 17:15
  * 
  */
-public class XPathContext {
+public class XPathContext implements Disposable {
+	private boolean disposed = false;
 	private final long p;
 	private Document document;
 
@@ -28,4 +29,18 @@ public class XPathContext {
 	}
 
 	private native XPathObject evaluateImpl(String expr);
+
+	public void dispose() {
+		if(!disposed) {
+			disposed = true;
+			disposeImpl();
+		}
+	}
+
+	private native void disposeImpl();
+
+	protected void finalize() throws Throwable {
+		dispose();
+		super.finalize();
+	}
 }
