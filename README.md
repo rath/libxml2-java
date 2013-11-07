@@ -40,7 +40,7 @@ While you freely run _make_ command many times on your own hand, this step is no
 
 ## Memory consideration
 
- libxml2-java will free resources on Object.finalize() by default. It makes you not hassle with memory management issue. However If you have to claim it explicitly, Document.dispose(), XPathContext.dispose() will do the job. Note that Docucment.dispose() will free all children nodes as well. 
+ libxml2-java will free underlying native resources on Object.finalize() by default. It makes you not hassle with memory management issue. However If you have to claim it explicitly, Document.dispose(), XPathContext.dispose() will do the job. Note that Docucment.dispose() will free all children nodes as well. 
 
 ## Examples 
 
