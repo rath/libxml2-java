@@ -20,6 +20,16 @@ public class XPathContext implements Disposable {
 		this.document = doc;
 	}
 
+	/**
+	 *
+	 * @param namespace
+	 */
+	public void addNamespace(Namespace namespace) {
+		addNamespaceImpl(namespace.getPrefix(), namespace.getHref());
+	}
+
+	private native void addNamespaceImpl(String prefix, String href);
+
 	public XPathExpression compileExpression(String expr) {
 		return null; // TODO: Impl compileExpression
 	}

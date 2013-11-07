@@ -26,6 +26,10 @@ public class NodeSet implements Iterable<Node> {
 		return nodes.get(0);
 	}
 
+	/**
+	 * Called by JNI
+	 * @param node
+	 */
 	void addNode(Node node) {
 		nodes.add(node);
 	}
@@ -41,5 +45,9 @@ public class NodeSet implements Iterable<Node> {
 	@Override
 	public Iterator<Node> iterator() {
 		return nodes.iterator();
+	}
+
+	public String toString() {
+		return "[NodeSet] size=" + this.size + ", items=" + nodes.toString();
 	}
 }

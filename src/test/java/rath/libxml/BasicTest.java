@@ -210,7 +210,26 @@ public class BasicTest {
 		Assert.assertEquals("second", n.getName());
 	}
 
+	@Test
+	public void xpathQueryWithNamespace() {
+		String xml = "<?xml version=\"1.0\"?>";
+		xml += "<root xmlns=\"http://root.com/\" xmlns:g=\"http://github.com/\">";
+		xml += "  <g:item>item name</g:item>";
+		xml += "  <user>user name</user>";
+		xml += "</root>";
 
+		Document doc = LibXml.parseString(xml);
+
+		XPathContext ctx = doc.createXPathContext();
+		ctx.addNamespace(new Namespace("http://root.com/", "default"));
+		ctx.addNamespace(new Namespace("http://github.com/", "g"));
+		XPathObject result = ctx.evaluate("//g:item/text()");
+		Assert.assertEquals("item name", result.getFirstNode().getText());
+		result = ctx.evaluate("//default:user");
+		Assert.assertEquals("user name", result.getFirstNode().getChildText());
+		ctx.dispose();
+		doc.dispose();
+	}
 
 	@Test
 	public void basicLoopFlow() throws IOException {

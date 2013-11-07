@@ -38,7 +38,7 @@ public class Namespace {
 
 	@Override
 	public String toString() {
-		return "Namespace{" +
+		return "[Namespace] " +
 			"href='" + href + '\'' +
 			", prefix='" + prefix + '\'' +
 			'}';

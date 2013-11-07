@@ -1,6 +1,8 @@
 #include "rath_libxml_XPathContext.h"
+#include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <libxml/xpath.h>
+#include <libxml/xpathInternals.h>
 #include "cache.h"
 #include "utils.h"
 #include <assert.h>
@@ -66,6 +68,35 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateImpl
     }
 
     return resultObject;
+}
+
+/*
+ * Class:     rath_libxml_XPathContext
+ * Method:    addNamespaceImpl
+ * Signature: (Ljava/lang/String;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_addNamespaceImpl
+(JNIEnv *env, jobject obj, jstring jPrefix, jstring jHref) {
+    xmlXPathContext *ctx = findXPathContext(env, obj);
+    const char *prefix = NULL;
+    const char *href = NULL;
+    int ret;
+    
+    if( jPrefix!=NULL )
+        prefix = (*env)->GetStringUTFChars(env, jPrefix, NULL);
+    if( jHref!=NULL )
+        href = (*env)->GetStringUTFChars(env, jHref, NULL);
+    
+    ret = xmlXPathRegisterNs(ctx, (const xmlChar*)prefix, (const xmlChar*)href);
+    
+    if( jPrefix!=NULL )
+        (*env)->ReleaseStringUTFChars(env, jPrefix, prefix);
+    if( jHref!=NULL )
+        (*env)->ReleaseStringUTFChars(env, jHref, href);
+    
+    if( ret ) {
+        (*env)->ThrowNew(env, (*env)->FindClass(env, "rath/libxml/LibXmlInternalException"), "xmlXPathRegisterNS");
+    }
 }
 
 /*

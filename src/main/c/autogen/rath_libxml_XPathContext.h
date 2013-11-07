@@ -9,6 +9,14 @@ extern "C" {
 #endif
 /*
  * Class:     rath_libxml_XPathContext
+ * Method:    addNamespaceImpl
+ * Signature: (Ljava/lang/String;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_addNamespaceImpl
+  (JNIEnv *, jobject, jstring, jstring);
+
+/*
+ * Class:     rath_libxml_XPathContext
  * Method:    evaluateImpl
  * Signature: (Ljava/lang/String;)Lrath/libxml/XPathObject;
  */

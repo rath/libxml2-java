@@ -1,5 +1,7 @@
 TODO: AddChild, NewDocument (quite huge work)
-TODO: Tomcat의 DocumentBuilderFactory를 libxml2-java로 해서 startup.sh이 실행되게 해보자 
+TODO: Tomcat의 DocumentBuilderFactory를 libxml2-java로 해서 startup.sh이 실행되게 해보자
+TODO: with DTD
+TODO: prevent printing libxml2 internal errors to stderr. throw LibXmlInternalException
 
 TODO: Support xmlParserContext
 TODO: Performance test?

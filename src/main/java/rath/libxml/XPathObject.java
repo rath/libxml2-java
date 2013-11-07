@@ -28,6 +28,11 @@ public class XPathObject implements Disposable {
 		return nodeset.getFirstNode();
 	}
 
+	public String toString() {
+		return "[XPathObject] nodeset=" + nodeset.toString() + ", boolean=" + booleanValue +
+			", float=" + floatValue + ", string=" + stringValue;
+	}
+
 	@Override
 	public void dispose() {
 		if(!disposed) {
