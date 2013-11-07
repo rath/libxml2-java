@@ -38,6 +38,10 @@ Otherwise, configure script would try to detect where JDK is installed on your s
 
 While you freely run _make_ command many times on your own hand, this step is not needed. On running gradle build script, a task named _processNativeResources_ will execute _make_. 
 
+## Memory consideration
+
+ libxml2-java will free resources on Object.finalize() by default. It makes you not hassle with memory management issue. However If you have to claim it explicitly, Document.dispose(), XPathContext.dispose() will do the job. Note that Docucment.dispose() will free all children nodes as well. 
+
 ## Examples 
 
 * Print all child elements under the root node.
