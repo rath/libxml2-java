@@ -227,8 +227,28 @@ public class BasicTest {
 		Assert.assertEquals("item name", result.getFirstNode().getText());
 		result = ctx.evaluate("//default:user");
 		Assert.assertEquals("user name", result.getFirstNode().getChildText());
-		ctx.dispose();
-		doc.dispose();
+	}
+
+	@Test
+	public void testInternalError() {
+		String xml = "<?xml version=\"1.0\"?>";
+		xml += "<root xmlns=\"http://root.com/\" xmlns:g=\"http://github.com/\">";
+		xml += "  <g:item>item name</g:item>";
+		xml += "  <user>user name</user>";
+		xml += "</root>";
+
+		Document doc = LibXml.parseString(xml);
+
+		XPathContext ctx = doc.createXPathContext();
+		try {
+			ctx.addNamespace(new Namespace("http://root.com/", null));
+			ctx.evaluate("//user");
+			Assert.assertEquals("Expected internal error, but you just passed", true, false);
+		} catch( LibXmlInternalException e ) {
+			Assert.assertEquals("xmlXPathRegisterNs", e.getMessage());
+		} finally {
+			ctx.dispose();
+		}
 	}
 
 	@Test

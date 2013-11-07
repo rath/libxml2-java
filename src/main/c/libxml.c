@@ -112,7 +112,7 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseStringImpl
   (JNIEnv *env, jclass clazz, jstring jdata) {
     const char *data = (*env)->GetStringUTFChars(env, jdata, NULL);
     size_t datalen = strlen(data);
-    xmlDoc *doc = xmlReadMemory(data, (int)datalen, "in_memory.xml", "UTF8", 0); // TODO: Handling xmlParserOption
+    xmlDoc *doc = xmlReadMemory(data, (int)datalen, "_default_.xml", "UTF8", 0); // TODO: Handling xmlParserOption
     (*env)->ReleaseStringUTFChars(env, jdata, data);
     return buildDocument(env, doc);
 }
