@@ -111,6 +111,14 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getAttributeNodes
 JNIEXPORT void JNICALL Java_rath_libxml_Node_fillAttributeNames
   (JNIEnv *, jobject, jobject);
 
+/*
+ * Class:     rath_libxml_Node
+ * Method:    getNsPropImpl
+ * Signature: (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getNsPropImpl
+  (JNIEnv *, jobject, jstring, jstring);
+
 #ifdef __cplusplus
 }
 #endif

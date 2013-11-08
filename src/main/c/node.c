@@ -147,12 +147,38 @@ JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getPropImpl
 
     xmlChar *prop = (xmlChar*)(*env)->GetStringUTFChars(env, jprop, NULL);
     xmlChar *value = xmlGetProp(node, prop);
+    (*env)->ReleaseStringUTFChars(env, jprop, (const char*)prop);
     if (value==NULL)
         return NULL;
 
     jstring jvalue = (*env)->NewStringUTF(env, (const char*)value);
     xmlFree(value);
     return jvalue;
+}
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    getNsPropImpl
+ * Signature: (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getNsPropImpl
+(JNIEnv *env, jobject obj, jstring jName, jstring jHref) {
+    xmlNode *node = findNode(env, obj);
+    xmlChar *value;
+    jstring jValue;
+    
+    const char *name = (*env)->GetStringUTFChars(env, jName, NULL);
+    const char *href = (*env)->GetStringUTFChars(env, jHref, NULL);
+    
+    value = xmlGetNsProp(node, (const xmlChar*)name, (const xmlChar*)href);
+    (*env)->NewStringUTF(env, (const char*)value);
+    
+    (*env)->ReleaseStringUTFChars(env, jName, name);
+    (*env)->ReleaseStringUTFChars(env, jHref, href);
+    
+    jValue = (*env)->NewStringUTF(env, (const char*)value);
+    xmlFree(value);
+    return jValue;
 }
 
 /*
