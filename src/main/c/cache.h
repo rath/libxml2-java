@@ -1,3 +1,4 @@
+extern jclass classError;
 extern jclass classDocument;
 extern jclass classNode;
 extern jclass classNodeset;
@@ -5,6 +6,7 @@ extern jclass classNamespace;
 extern jclass classXPathContext;
 extern jclass classXPathObject;
 
+extern jmethodID methodErrorNew;
 extern jmethodID methodDocumentNew;
 extern jmethodID methodNodeNew;
 extern jmethodID methodNodeSetType;

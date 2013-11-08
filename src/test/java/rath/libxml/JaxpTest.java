@@ -10,6 +10,7 @@ import org.w3c.dom.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 import rath.libxml.util.Utils;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -143,14 +144,13 @@ public class JaxpTest {
 	public void testNamespaceURIPrefixLocalName() throws Exception {
 //		builderFactory = DocumentBuilderFactory.newInstance();
 		builderFactory.setNamespaceAware(true);
-		System.out.println("namespace aware: " + builderFactory.isNamespaceAware());
 
 		String xml = "<?xml version=\"1.0\"?>" +
 			"<t:root xmlns=\"http://void.com/\" xmlns:t=\"http://t.com/\">" +
 			"<t:item/>" +
 			"<child />" +
 			"<t:item/>" +
-			"</t:root>"; // TODO: invalid memory access error will occur when using default ns
+			"</t:root>";
 		DocumentBuilder builder = builderFactory.newDocumentBuilder();
 		Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
 		Element root = doc.getDocumentElement();
@@ -159,5 +159,30 @@ public class JaxpTest {
 		Assert.assertEquals("local name", "root", root.getLocalName());
 		Assert.assertEquals("prefix", "t", root.getPrefix());
 		Assert.assertEquals("node name", "t:root", root.getNodeName());
+	}
+
+	@Test
+	public void testParseExceptionThrownWithLocator() throws Exception {
+//		builderFactory = DocumentBuilderFactory.newInstance();
+		builderFactory.setNamespaceAware(true);
+
+		String xml = "<?xml version=\"1.0\"?>" +
+			"<t:root xmlns=\"http://void.com/\" xmlns:t=\"http://t.com/\">" +
+			"<t:item/>" +
+			"<child />" +
+			"<t:item/>" +
+			"</root>";
+
+		System.out.println(xml);
+
+		DocumentBuilder builder = builderFactory.newDocumentBuilder();
+		try {
+			builder.parse(new ByteArrayInputStream(xml.getBytes()));
+			Assert.assertEquals(false, true);
+		} catch( SAXParseException e ) {
+			Assert.assertEquals("public id", null, e.getPublicId());
+			Assert.assertEquals("system id", null, e.getSystemId());
+			Assert.assertEquals("line", 1, e.getLineNumber());
+		}
 	}
 }

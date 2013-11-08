@@ -244,7 +244,7 @@ public class BasicTest {
 			ctx.addNamespace(new Namespace("http://root.com/", null));
 			ctx.evaluate("//user");
 			Assert.assertEquals("Expected internal error, but you just passed", true, false);
-		} catch( LibXmlInternalException e ) {
+		} catch( LibXmlException e ) {
 			Assert.assertEquals("xmlXPathRegisterNs", e.getMessage());
 		} finally {
 			ctx.dispose();

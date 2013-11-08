@@ -2,11 +2,9 @@ package rath.libxml.jaxp;
 
 import org.w3c.dom.DOMImplementation;
 import org.w3c.dom.Document;
-import org.xml.sax.EntityResolver;
-import org.xml.sax.ErrorHandler;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
+import org.xml.sax.*;
 import rath.libxml.LibXml;
+import rath.libxml.LibXmlException;
 
 import javax.xml.parsers.DocumentBuilder;
 import java.io.*;
@@ -19,9 +17,21 @@ import java.io.*;
  * 
  */
 public class DocumentBuilderImpl extends DocumentBuilder {
+	private void handleParseError(LibXmlException e) throws SAXParseException {
+		if( e.getCode()==76 ) {
+			throw new SAXParseException(e.getMessage(), null, null, e.getLineNumber(), e.getColumnNumber());
+		}
+		throw e;
+	}
+
 	@Override
 	public Document parse(File file) throws SAXException, IOException {
-		rath.libxml.Document doc = LibXml.parseFile(file);
+		rath.libxml.Document doc = null;
+		try {
+			doc = LibXml.parseFile(file);
+		} catch( LibXmlException e ) {
+			handleParseError(e);
+		}
 		return new DocumentImpl(doc);
 	}
 
@@ -39,7 +49,12 @@ public class DocumentBuilderImpl extends DocumentBuilder {
 		}
 		// TODO: should support stream parsing
 		String str = baos.toString(inputSource.getEncoding()==null ? "UTF-8" : inputSource.getEncoding());
-		rath.libxml.Document doc = LibXml.parseString(str);
+		rath.libxml.Document doc = null;
+		try {
+			doc = LibXml.parseString(str);
+		} catch( LibXmlException e ) {
+			handleParseError(e);
+		}
 		return new DocumentImpl(doc);
 	}
 

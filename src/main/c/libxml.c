@@ -1,9 +1,11 @@
 #include "rath_libxml_LibXml.h"
 #include <libxml/parser.h>
 #include <string.h>
+#include <assert.h>
 #include "cache.h"
 #include "utils.h"
 
+jclass classError;
 jclass classDocument;
 jclass classNode;
 jclass classNodeset;
@@ -11,6 +13,7 @@ jclass classNamespace;
 jclass classXPathContext;
 jclass classXPathObject;
 
+jmethodID methodErrorNew;
 jmethodID methodDocumentNew;
 jmethodID methodNodeNew;
 jmethodID methodNodesetNew;
@@ -40,6 +43,7 @@ jfieldID fieldXPathObjectSetString;
 
 void cc(JNIEnv *env, const char *name, jclass *buf) {
     jclass c = (*env)->FindClass(env, name);
+    assert(c && "Finding class failed");
     *buf = (*env)->NewGlobalRef(env, c);
     (*env)->DeleteLocalRef(env, c);
 }
@@ -53,6 +57,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
 (JNIEnv *env, jclass clz) {
     xmlInitParser();
     
+    cc(env, "rath/libxml/LibXmlException", &classError);
     cc(env, "rath/libxml/Document", &classDocument);
     cc(env, "rath/libxml/Node", &classNode);
     cc(env, "rath/libxml/NodeSet", &classNodeset);
@@ -60,6 +65,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     cc(env, "rath/libxml/XPathContext", &classXPathContext);
     cc(env, "rath/libxml/XPathObject", &classXPathObject);
    
+    methodErrorNew = (*env)->GetMethodID(env, classError, "<init>", "(ILjava/lang/String;II)V");
     methodDocumentNew = (*env)->GetMethodID(env, classDocument, "<init>", "(J)V");
     methodNodeNew = (*env)->GetMethodID(env, classNode, "<init>", "(J)V");
     methodNodesetNew = (*env)->GetMethodID(env, classNodeset, "<init>", "(J)V");
@@ -96,10 +102,11 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
  * Signature: (Ljava/lang/String;)Lrath/libxml/Document;
  */
 JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseFileImpl
-  (JNIEnv *env, jclass clazz, jstring filepath) {
+(JNIEnv *env, jclass clazz, jstring filepath) {
     const char *path = (*env)->GetStringUTFChars(env, filepath, NULL);
     xmlDoc *doc = xmlParseFile(path);
     (*env)->ReleaseStringUTFChars(env, filepath, path);
+    assert(doc && "parsing(xmlParseFile) failed");
     return buildDocument(env, doc);
 }
 
@@ -109,10 +116,16 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseFileImpl
  * Signature: (Ljava/lang/String;)Lrath/libxml/Document;
  */
 JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseStringImpl
-  (JNIEnv *env, jclass clazz, jstring jdata) {
+(JNIEnv *env, jclass clazz, jstring jdata) {
     const char *data = (*env)->GetStringUTFChars(env, jdata, NULL);
     size_t datalen = strlen(data);
     xmlDoc *doc = xmlReadMemory(data, (int)datalen, "_default_.xml", "UTF8", 0); // TODO: Handling xmlParserOption
     (*env)->ReleaseStringUTFChars(env, jdata, data);
+    
+    if(doc==NULL) {
+        throwInternalErrorWithLastError(env);
+        return NULL;
+    }
+    assert(doc && "parsing(xmlReadMemory) failed but didn't throw error");
     return buildDocument(env, doc);
 }

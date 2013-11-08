@@ -74,7 +74,8 @@ public class LibXml {
 		if( !file.exists() )
 			throw new FileNotFoundException();
 
-		Document doc = parseFileImpl(file.getAbsolutePath());
+		Document doc;
+		doc = parseFileImpl(file.getAbsolutePath());
 		return doc;
 	}
 
@@ -83,7 +84,9 @@ public class LibXml {
 	public static Document parseString(String data) {
 		if( data==null )
 			throw new NullPointerException("Can't parse null data");
-		Document doc = parseStringImpl(data);
+
+		Document doc;
+		doc = parseStringImpl(data);
 		return doc;
 	}
 

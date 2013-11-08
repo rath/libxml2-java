@@ -8,3 +8,5 @@ TODO: Support xmlParserContext
 TODO: Performance test?
 TODO: libxml2 xmlParserOption support
 TODO: SAX Handler
+
+TODO: check that libxml2 library is compiled with --with-threads option on configure stage. Update it as README.md also.
