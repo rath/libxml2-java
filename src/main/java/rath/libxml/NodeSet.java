@@ -22,7 +22,13 @@ public class NodeSet implements Iterable<Node> {
 		return this.size;
 	}
 
+	/**
+	 * Convenience method for a set containing only one node.
+	 * @return first node, null if this set is empty.
+	 */
 	public Node getFirstNode() {
+		if(nodes.size()==0)
+			return null;
 		return nodes.get(0);
 	}
 
