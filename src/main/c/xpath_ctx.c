@@ -95,8 +95,9 @@ JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_addNamespaceImpl
         (*env)->ReleaseStringUTFChars(env, jHref, href);
     
     if( ret ) {
-        throwInternalErrorWithLastError(env);
-//        (*env)->ThrowNew(env, (*env)->FindClass(env, "rath/libxml/LibXmlInternalException"), "xmlXPathRegisterNs");
+        if(!throwInternalErrorWithLastError(env)) {
+            throwInternalErrorWithMessage(env, "xmlXPathRegisterNs");
+        }
     }
 }
 

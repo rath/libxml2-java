@@ -50,9 +50,17 @@ jobject     buildXPathContext(JNIEnv *env, xmlXPathContext *ctx) {
     return jctx;
 }
 
-void        throwInternalErrorWithLastError(JNIEnv *env) {
+int throwInternalErrorWithLastError(JNIEnv *env) {
     xmlError *error = xmlGetLastError(); // TODO: are you sure that is safe on multiple threads?
+    if (error==NULL) {
+        return 0;
+    }
     jthrowable e = (jthrowable)(*env)->NewObject(env, classError, methodErrorNew, error->code,
         (*env)->NewStringUTF(env, error->message), error->line, error->int2);
     (*env)->Throw(env, e);
+    return 1;
+}
+
+void throwInternalErrorWithMessage(JNIEnv *env, const char* msg) {
+    (*env)->ThrowNew(env, classError, msg);
 }

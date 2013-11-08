@@ -65,7 +65,7 @@ public class DocumentBuilderImpl extends DocumentBuilder {
 
 	@Override
 	public boolean isNamespaceAware() {
-		throw new UnsupportedOperationException();
+		return true;
 	}
 
 	@Override

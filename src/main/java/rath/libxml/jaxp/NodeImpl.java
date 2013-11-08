@@ -34,7 +34,7 @@ public class NodeImpl implements Node {
 	@Override
 	public String getNodeName() {
 		Namespace ns = impl.getNamespace();
-		if(ns==null)
+		if(ns==null || ns.getPrefix()==null)
 			return impl.getName();
 		return ns.getPrefix().concat(":").concat(impl.getName());
 	}

@@ -18,7 +18,7 @@ public class ElementImpl extends NodeImpl implements Element {
 
 	@Override
 	public String getTagName() {
-		return impl.getName();
+		return getNodeName();
 	}
 
 	@Override
