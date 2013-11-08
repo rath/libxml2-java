@@ -95,8 +95,13 @@ public class DocumentImpl implements org.w3c.dom.Document {
 	public NodeList getElementsByTagName(String name) {
 		XPathContext ctx = impl.createXPathContext();
 		XPathObject result = ctx.evaluate("//" + name);
-		NodeList ret = new NodeListImpl(this, result.nodeset.getFirstNode()); // FIXME: will broke when no result returns
-//		ctx.dispose(); // TODO: Impl XPathContext.dispose()
+		NodeList ret;
+		try {
+			ret = new NodeListImpl(this, result.nodeset.getFirstNode());
+		} finally {
+			result.dispose();
+			ctx.dispose();
+		}
 		return ret;
 	}
 

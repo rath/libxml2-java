@@ -16,14 +16,15 @@ import java.util.List;
  */
 public class NodeListImpl implements NodeList {
 	private List<Node> list = new ArrayList<Node>();
-	private Document owner;
 
 	NodeListImpl(Document owner, rath.libxml.Node n) {
-		while(true) {
-			list.add(NodeImpl.createByType(owner, n));
-			n = n.getNext();
-			if( n==null )
-				break;
+		if (n != null) {
+			while (true) {
+				list.add(NodeImpl.createByType(owner, n));
+				n = n.getNext();
+				if (n == null)
+					break;
+			}
 		}
 	}
 
