@@ -43,7 +43,6 @@ AC_ARG_WITH([jdk],
 platform=$(uname|tr '[A-Z]' '[a-z]')
 
 if test x"${jdk_dir}" = x; then
-  # TODO: there must be better way to guess system default jdk directories
   if test x"${platform}" = x"darwin"; then
     jdk_dir=$(/usr/libexec/java_home) 
   fi
