@@ -1,6 +1,7 @@
 #include "rath_libxml_LibXml.h"
 #include <libxml/parser.h>
 #include <string.h>
+#include <stdarg.h>
 #include <assert.h>
 #include "cache.h"
 #include "utils.h"
@@ -41,11 +42,28 @@ jfieldID fieldXPathObjectSetBool;
 jfieldID fieldXPathObjectSetFloat;
 jfieldID fieldXPathObjectSetString;
 
-void cc(JNIEnv *env, const char *name, jclass *buf) {
+static void cc(JNIEnv *env, const char *name, jclass *buf) {
     jclass c = (*env)->FindClass(env, name);
     assert(c && "Finding class failed");
     *buf = (*env)->NewGlobalRef(env, c);
     (*env)->DeleteLocalRef(env, c);
+}
+
+static void handlerGenericError(void *ctx, const char *msg, ...) {
+    /*
+    JNIEnv *env = (JNIEnv*)ctx;
+    va_list args;
+    va_start(args, msg);
+    vfprintf(stdout, msg, args);
+    va_end(args);
+     */
+    return;
+}
+
+static void handlerStructuredError(void *ctx, xmlErrorPtr error) {
+    /*
+    JNIEnv *env = (JNIEnv*)ctx;
+    */
 }
 
 /*
@@ -56,6 +74,8 @@ void cc(JNIEnv *env, const char *name, jclass *buf) {
 JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
 (JNIEnv *env, jclass clz) {
     xmlInitParser();
+    xmlSetGenericErrorFunc(env, handlerGenericError);
+    xmlSetStructuredErrorFunc(env, handlerStructuredError);
     
     cc(env, "rath/libxml/LibXmlException", &classError);
     cc(env, "rath/libxml/Document", &classDocument);
@@ -119,7 +139,7 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseStringImpl
 (JNIEnv *env, jclass clazz, jstring jdata) {
     const char *data = (*env)->GetStringUTFChars(env, jdata, NULL);
     size_t datalen = strlen(data);
-    xmlDoc *doc = xmlReadMemory(data, (int)datalen, "_default_.xml", "UTF8", 0); // TODO: Handling xmlParserOption
+    xmlDoc *doc = xmlReadMemory(data, (int)datalen, "<>", "UTF8", 0); // TODO: Handling xmlParserOption
     (*env)->ReleaseStringUTFChars(env, jdata, data);
     
     if(doc==NULL) {

@@ -173,8 +173,6 @@ public class JaxpTest {
 			"<t:item/>" +
 			"</root>";
 
-		System.out.println(xml);
-
 		DocumentBuilder builder = builderFactory.newDocumentBuilder();
 		try {
 			builder.parse(new ByteArrayInputStream(xml.getBytes()));
