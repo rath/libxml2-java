@@ -183,4 +183,28 @@ public class JaxpTest {
 			Assert.assertEquals("line", 1, e.getLineNumber());
 		}
 	}
+
+	@Test
+	public void testElementGetAPIs() throws Exception {
+//		builderFactory = DocumentBuilderFactory.newInstance();
+		builderFactory.setNamespaceAware(true);
+
+		String xml = "<?xml version=\"1.0\"?>" +
+			"<t:root xmlns=\"http://void.com/\" xmlns:t=\"http://t.com/\" id=\"stella\" t:type=\"police\">" +
+			"<t:item/>" +
+			"<child />" +
+			"<t:item/>" +
+			"</t:root>";
+
+		DocumentBuilder builder = builderFactory.newDocumentBuilder();
+		Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+		Element root = doc.getDocumentElement();
+		Assert.assertEquals("tagName", "t:root", root.getTagName());
+		Assert.assertEquals("attribute", "stella", root.getAttribute("id"));
+		Assert.assertEquals("attributeNS", "police", root.getAttributeNS("http://t.com/", "type"));
+		Assert.assertEquals("attribute(has)", true, root.hasAttribute("id"));
+		Assert.assertEquals("attribute(has)", false, root.hasAttribute("__id__"));
+		Assert.assertEquals("attributeNS(has)", true, root.hasAttributeNS("http://t.com/", "type"));
+		Assert.assertEquals("attributeNS(has)", false, root.hasAttributeNS("http://t.com/", "tipe"));
+	}
 }

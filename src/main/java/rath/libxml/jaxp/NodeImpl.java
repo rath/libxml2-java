@@ -15,8 +15,8 @@ import static rath.libxml.Node.Type.*;
  */
 public class NodeImpl implements Node {
 	protected final rath.libxml.Node impl;
+	protected Document owner;
 	private short nodeType;
-	private Document owner;
 
 	protected NodeImpl(Document owner, rath.libxml.Node impl) {
 		this.owner = owner;

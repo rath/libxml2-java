@@ -9,9 +9,10 @@ Current implementation of libxml2-java is **very limited at the moment**. It's v
 - (60%) Parsing 
 - (80%) Walking on DOM tree  
 - (15%) XPath 
-- (10%) As JAXP(JSR 206) provider  
+- (20%) As JAXP(JSR 206) provider  
 - (0%) Update and export DOM tree 
 - (0%) Registering SAX Handler
+- Namespace aware
 
 ## Build instructions
 

@@ -35,6 +35,10 @@ public class DocumentImpl implements org.w3c.dom.Document {
 		this.impl = doc;
 	}
 
+	Document getImpl() {
+		return impl;
+	}
+
 	@Override
 	public DocumentType getDoctype() {
 		throw new UnsupportedOperationException();

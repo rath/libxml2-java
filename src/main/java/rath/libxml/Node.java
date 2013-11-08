@@ -197,6 +197,16 @@ public class Node implements Iterable<Node> {
 		return ret;
 	}
 
+	public String getAttributeNS(String href, String name) {
+		if(href==null)
+			throw new NullPointerException("uri cannot be null");
+		if(name==null)
+			throw new NullPointerException("name cannot be null");
+		return getNsPropImpl(name, href);
+	}
+
+	private native String getNsPropImpl(String name, String href);
+
 	public static enum Type {
 		ELEMENT(1), ATTRIBUTE(2), TEXT(3), CDATA(4), // ENTITY_REF, ENTITY, PI?
 		COMMENT(8), DOCUMENT(9); // DOCUMENT_TYPE, DOCUMENT_FRAG, NOTATION, DTD?
