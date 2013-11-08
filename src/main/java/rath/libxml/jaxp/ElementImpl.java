@@ -37,7 +37,7 @@ public class ElementImpl extends NodeImpl implements Element {
 	}
 
 	@Override
-	public Attr getAttributeNode(String s) {
+	public Attr getAttributeNode(String name) {
 		throw new UnsupportedOperationException();
 	}
 
@@ -53,12 +53,21 @@ public class ElementImpl extends NodeImpl implements Element {
 
 	@Override
 	public NodeList getElementsByTagName(String name) {
-		throw new UnsupportedOperationException(); // TODO: by using xpath?
+		XPathContext ctx = ((DocumentImpl)owner).getImpl().createXPathContext();
+		XPathObject result = ctx.evaluate("//" + name);
+		NodeList ret;
+		try {
+			ret = new NodeListImpl(owner, result.nodeset.getFirstNode());
+		} finally {
+			result.dispose();
+			ctx.dispose();
+		}
+		return ret;
 	}
 
 	@Override
-	public String getAttributeNS(String s, String s2) throws DOMException {
-		throw new UnsupportedOperationException();
+	public String getAttributeNS(String namespaceURI, String localName) throws DOMException {
+		return impl.getAttributeNS(namespaceURI, localName);
 	}
 
 	@Override
@@ -82,7 +91,9 @@ public class ElementImpl extends NodeImpl implements Element {
 	}
 
 	@Override
-	public NodeList getElementsByTagNameNS(String s, String s2) throws DOMException {
+	public NodeList getElementsByTagNameNS(String namespaceURI, String localName) throws DOMException {
+		// TODO: When using xpath, we should know the prefix over the href. how?
+
 		throw new UnsupportedOperationException();
 	}
 
@@ -92,8 +103,8 @@ public class ElementImpl extends NodeImpl implements Element {
 	}
 
 	@Override
-	public boolean hasAttributeNS(String s, String s2) throws DOMException {
-		throw new UnsupportedOperationException();
+	public boolean hasAttributeNS(String namespaceURI, String localName) throws DOMException {
+		return impl.getAttributeNS(namespaceURI, localName)!=null;
 	}
 
 	@Override
