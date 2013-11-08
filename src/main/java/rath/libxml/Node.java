@@ -9,7 +9,8 @@ import java.util.*;
  * Time: 23:50
  * 
  */
-public class Node implements Iterable<Node> {
+public class Node implements Iterable<Node>, Disposable {
+	private boolean disposed = false;
 	final long p;
 	private Document document;
 
@@ -206,6 +207,71 @@ public class Node implements Iterable<Node> {
 	}
 
 	private native String getNsPropImpl(String name, String href);
+
+	public void setProp(String name, String value) {
+		if(name==null||value==null)
+			throw new NullPointerException();
+		setPropImpl(name, value);
+	}
+
+	private native void setPropImpl(String name, String value);
+
+	public void setAttribute(String name, String value) {
+		setProp(name, value);
+	}
+
+	public boolean removeProp(String name) {
+		if(name==null)
+			throw new NullPointerException();
+		return removePropImpl(name);
+	}
+
+	private native boolean removePropImpl(String name);
+
+	public void removeAttribute(String name) {
+		removeProp(name);
+	}
+
+	public Node addChild(Node node) {
+		if( node==null )
+			throw new NullPointerException();
+		Node attached = addChildImpl(node);
+		return attached;
+	}
+
+	private native Node addChildImpl(Node node);
+
+	public void unlink(Node node) {
+		if( node==null )
+			throw new NullPointerException();
+		unlinkImpl(node);
+	}
+
+	private native void unlinkImpl(Node node);
+
+	@Override
+	public void dispose() {
+		if(!disposed) {
+			disposed = true;
+			disposeImpl();
+		}
+	}
+
+	private native void disposeImpl();
+
+	public void setText(String data) {
+		if( data==null )
+			throw new NullPointerException();
+		setTextImpl(data);
+	}
+
+	private native void setTextImpl(String data);
+
+	public Node addPrevSibling(Node newNode) {
+		return addPrevSiblingImpl(newNode);
+	}
+
+	private native Node addPrevSiblingImpl(Node newNode);
 
 	public static enum Type {
 		ELEMENT(1), ATTRIBUTE(2), TEXT(3), CDATA(4), // ENTITY_REF, ENTITY, PI?

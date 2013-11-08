@@ -67,4 +67,18 @@ public class Document extends Node {
 		dispose();
 		super.finalize();
 	}
+
+	public Node createElement(String name) {
+		Node created = createElementImpl(name);
+		return created;
+	}
+
+	private native Node createElementImpl(String name);
+
+	public Node createText(String data) {
+		Node created = createTextImpl(data);
+		return created;
+	}
+
+	private native Node createTextImpl(String data);
 }

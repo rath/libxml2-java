@@ -3,6 +3,7 @@ package rath.libxml.jaxp;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import rath.libxml.NodeSet;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,12 @@ public class NodeListImpl implements NodeList {
 				if (n == null)
 					break;
 			}
+		}
+	}
+
+	public NodeListImpl(Document owner, NodeSet nodeset) {
+		for(rath.libxml.Node node : nodeset.getNodes()) {
+			list.add(NodeImpl.createByType(owner, node));
 		}
 	}
 

@@ -24,11 +24,11 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Created with IntelliJ IDEA.
+ *
  * User: rath
  * Date: 06/11/2013
  * Time: 04:48
- * To change this template use File | Settings | File Templates.
+ *
  */
 @RunWith(JUnit4.class)
 public class JaxpTest {
@@ -46,7 +46,7 @@ public class JaxpTest {
 	}
 
 	@Test
-	public void parseRootElement() throws Exception {
+	public void testRootElement() throws Exception {
 		String xml = "<?xml version=\"1.0\"?><html><head><title>TITLE</title></head><body><p>Good morning</p><p>How are you?</p></body></html>";
 		DocumentBuilder builder = builderFactory.newDocumentBuilder();
 		Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes("UTF-8")));
@@ -55,7 +55,7 @@ public class JaxpTest {
 	}
 
 	@Test
-	public void parseElementsByTagName() throws Exception {
+	public void testElementsByTagNameWithoutNamespace() throws Exception {
 		String xml = "<?xml version=\"1.0\"?><html><head><title>TITLE</title></head><body><p>Good morning</p><p>How are you?</p></body></html>";
 		DocumentBuilder builder = builderFactory.newDocumentBuilder();
 		Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes("UTF-8")));
@@ -65,6 +65,44 @@ public class JaxpTest {
 			pTexts.add(plist.item(i).getFirstChild().getTextContent());
 		}
 		Assert.assertEquals(pTexts, Arrays.asList("Good morning", "How are you?"));
+	}
+
+	@Test
+	public void testElementsByTagNameWithNamespace() throws Exception {
+//		builderFactory = DocumentBuilderFactory.newInstance();
+		builderFactory.setNamespaceAware(true);
+
+		String xml = "<?xml version=\"1.0\"?>" +
+			"<t:root xmlns=\"http://void.com/\" xmlns:t=\"http://t.com/\" id=\"stella\" t:type=\"police\">" +
+			"<t:item id=\"a\"/>" +
+			"<child id=\"1\"/>" +
+			"<t:item id=\"b\"/>" +
+			"<child id=\"2\"/>" +
+			"</t:root>";
+
+		// TODO: Can I utilize xmlSearchNs or xmlSearchNsByHref? the problem is it searchs a specific node and recurse up.
+		// I don't have such a node
+
+		DocumentBuilder builder = builderFactory.newDocumentBuilder();
+		Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+		Element root = doc.getDocumentElement();
+
+		List<String> expectedList = Arrays.asList("1", "2");
+		List<String> actualList = new ArrayList<String>();
+		NodeList nl = root.getElementsByTagNameNS("http://void.com/", "child");
+		for(int i=0; i<nl.getLength(); i++) {
+			Element elem = (Element) nl.item(i);
+			actualList.add(elem.getAttribute("id"));
+		}
+		Assert.assertArrayEquals("elementsByTagName", expectedList.toArray(), actualList.toArray());
+
+		expectedList = Arrays.asList("a", "b");
+		actualList.clear();
+		nl = root.getElementsByTagNameNS("http://t.com/", "item");
+		for(int i=0; i<nl.getLength(); i++) {
+			Element elem = (Element) nl.item(i);
+			actualList.add(elem.getAttribute("id"));
+		}
 	}
 
 	@Test
@@ -191,9 +229,10 @@ public class JaxpTest {
 
 		String xml = "<?xml version=\"1.0\"?>" +
 			"<t:root xmlns=\"http://void.com/\" xmlns:t=\"http://t.com/\" id=\"stella\" t:type=\"police\">" +
-			"<t:item/>" +
-			"<child />" +
-			"<t:item/>" +
+			"<t:item id=\"a\"/>" +
+			"<child id=\"1\"/>" +
+			"<t:item id=\"b\"/>" +
+			"<child id=\"2\"/>" +
 			"</t:root>";
 
 		DocumentBuilder builder = builderFactory.newDocumentBuilder();
@@ -206,5 +245,61 @@ public class JaxpTest {
 		Assert.assertEquals("attribute(has)", false, root.hasAttribute("__id__"));
 		Assert.assertEquals("attributeNS(has)", true, root.hasAttributeNS("http://t.com/", "type"));
 		Assert.assertEquals("attributeNS(has)", false, root.hasAttributeNS("http://t.com/", "tipe"));
+	}
+
+	@Test
+	public void testAddRemoveChild() throws Exception {
+//		builderFactory = DocumentBuilderFactory.newInstance();
+		builderFactory.setNamespaceAware(true);
+
+		String xml = "<?xml version=\"1.0\"?>" +
+			"<root>" +
+			"<item id=\"a\"/>" +
+			"<child id=\"1\"/>" +
+			"<item id=\"b\"/>" +
+			"<child id=\"2\"/>" +
+			"</root>";
+
+		DocumentBuilder builder = builderFactory.newDocumentBuilder();
+		Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+		Element root = doc.getDocumentElement();
+
+		Element newElem = doc.createElement("tail");
+		newElem.setAttribute("id", "3");
+		Node appended = root.appendChild(newElem);
+
+		Assert.assertEquals("added element",  "tail", root.getLastChild().getNodeName());
+		Assert.assertEquals("added attribute",  "3", ((Element)root.getLastChild()).getAttribute("id"));
+
+		root.setAttribute("id", "root");
+		Assert.assertEquals("root attribute set", "root", root.getAttribute("id"));
+		root.removeAttribute("id");
+		Assert.assertEquals("root attribute remove", null, root.getAttribute("id"));
+
+		root.removeChild(appended);
+		Assert.assertEquals("removed element", "child", root.getLastChild().getNodeName());
+		Assert.assertEquals("removed element", "2", ((Element) root.getLastChild()).getAttribute("id"));
+	}
+
+	@Test
+	public void testAddText() throws Exception {
+//		builderFactory = DocumentBuilderFactory.newInstance();
+		builderFactory.setNamespaceAware(true);
+
+		String xml = "<?xml version=\"1.0\"?>" +
+			"<root>" +
+			"<item id=\"a\"/>" +
+			"<child id=\"1\"/>" +
+			"<item id=\"b\"/>" +
+			"<child id=\"2\"/>" +
+			"</root>";
+
+		DocumentBuilder builder = builderFactory.newDocumentBuilder();
+		Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
+		Element root = doc.getDocumentElement();
+		Text text = doc.createTextNode("hello world");
+		root.insertBefore(text, root.getFirstChild().getNextSibling());
+
+		Assert.assertEquals("append text", "hello world", root.getChildNodes().item(1).getTextContent());
 	}
 }

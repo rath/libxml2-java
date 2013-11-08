@@ -24,9 +24,14 @@ public class NodeImpl implements Node {
 	}
 
 	public static NodeImpl createByType(Document owner, rath.libxml.Node impl) {
+		if( impl==null )
+			return null;
 		rath.libxml.Node.Type type = impl.getType();
 		if( type== rath.libxml.Node.Type.ELEMENT ) {
 			return new ElementImpl(owner, impl);
+		} else
+		if( type== rath.libxml.Node.Type.TEXT ) {
+			return new TextImpl(owner, impl);
 		}
 		return new NodeImpl(owner, impl);
 	}
@@ -70,7 +75,10 @@ public class NodeImpl implements Node {
 
 	@Override
 	public Node getParentNode() {
-		return createByType(owner, impl.getParent());
+		rath.libxml.Node parent = impl.getParent();
+		if( parent==null )
+			return null;
+		return createByType(owner, parent);
 	}
 
 	@Override
@@ -112,8 +120,11 @@ public class NodeImpl implements Node {
 	}
 
 	@Override
-	public Node insertBefore(Node node, Node node2) throws DOMException {
-		throw new UnsupportedOperationException();
+	public Node insertBefore(Node newChild, Node refChild) throws DOMException {
+		NodeImpl refNode = (NodeImpl) refChild;
+		NodeImpl newNode = (NodeImpl) newChild;
+		rath.libxml.Node addedNode = refNode.impl.addPrevSibling(newNode.impl);
+		return NodeImpl.createByType(owner, addedNode);
 	}
 
 	@Override
@@ -123,12 +134,15 @@ public class NodeImpl implements Node {
 
 	@Override
 	public Node removeChild(Node node) throws DOMException {
-		throw new UnsupportedOperationException();
+		NodeImpl implToRemove = (NodeImpl) node;
+		impl.unlink(implToRemove.impl);
+		implToRemove.impl.dispose(); // XXX
+		return node;
 	}
 
 	@Override
 	public Node appendChild(Node node) throws DOMException {
-		throw new UnsupportedOperationException();
+		return NodeImpl.createByType(owner, impl.addChild(((NodeImpl) node).impl));
 	}
 
 	@Override
@@ -198,8 +212,8 @@ public class NodeImpl implements Node {
 	}
 
 	@Override
-	public void setTextContent(String s) throws DOMException {
-		throw new UnsupportedOperationException();
+	public void setTextContent(String data) throws DOMException {
+		impl.setText(data);
 	}
 
 	@Override

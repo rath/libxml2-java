@@ -52,12 +52,14 @@ public class DocumentImpl implements org.w3c.dom.Document {
 	@Override
 	public Element getDocumentElement() {
 		rath.libxml.Node node = impl.getRootElement();
+//		return NodeImpl.createByType(this, node);
 		return new ElementImpl(this, node);
 	}
 
 	@Override
-	public Element createElement(String s) throws DOMException {
-		throw new UnsupportedOperationException();
+	public Element createElement(String name) throws DOMException {
+		ElementImpl node = new ElementImpl(this, impl.createElement(name));
+		return node;
 	}
 
 	@Override
@@ -66,8 +68,9 @@ public class DocumentImpl implements org.w3c.dom.Document {
 	}
 
 	@Override
-	public Text createTextNode(String s) {
-		throw new UnsupportedOperationException();
+	public Text createTextNode(String data) {
+		TextImpl node = new TextImpl(this, impl.createText(data));
+		return node;
 	}
 
 	@Override
@@ -101,7 +104,7 @@ public class DocumentImpl implements org.w3c.dom.Document {
 		XPathObject result = ctx.evaluate("//" + name);
 		NodeList ret;
 		try {
-			ret = new NodeListImpl(this, result.nodeset.getFirstNode());
+			ret = new NodeListImpl(this, result.nodeset);
 		} finally {
 			result.dispose();
 			ctx.dispose();

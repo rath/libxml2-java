@@ -119,6 +119,62 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillAttributeNames
 JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getNsPropImpl
   (JNIEnv *, jobject, jstring, jstring);
 
+/*
+ * Class:     rath_libxml_Node
+ * Method:    setPropImpl
+ * Signature: (Ljava/lang/String;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Node_setPropImpl
+  (JNIEnv *, jobject, jstring, jstring);
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    removePropImpl
+ * Signature: (Ljava/lang/String;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_rath_libxml_Node_removePropImpl
+  (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    addChildImpl
+ * Signature: (Lrath/libxml/Node;)Lrath/libxml/Node;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Node_addChildImpl
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    unlinkImpl
+ * Signature: (Lrath/libxml/Node;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Node_unlinkImpl
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    disposeImpl
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Node_disposeImpl
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    setTextImpl
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Node_setTextImpl
+  (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    addPrevSiblingImpl
+ * Signature: (Lrath/libxml/Node;)Lrath/libxml/Node;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Node_addPrevSiblingImpl
+  (JNIEnv *, jobject, jobject);
+
 #ifdef __cplusplus
 }
 #endif

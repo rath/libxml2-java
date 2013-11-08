@@ -31,6 +31,22 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createXPathContextImpl
 JNIEXPORT void JNICALL Java_rath_libxml_Document_disposeImpl
   (JNIEnv *, jobject);
 
+/*
+ * Class:     rath_libxml_Document
+ * Method:    createElementImpl
+ * Signature: (Ljava/lang/String;)Lrath/libxml/Node;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createElementImpl
+  (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     rath_libxml_Document
+ * Method:    createTextImpl
+ * Signature: (Ljava/lang/String;)Lrath/libxml/Node;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createTextImpl
+  (JNIEnv *, jobject, jstring);
+
 #ifdef __cplusplus
 }
 #endif

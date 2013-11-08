@@ -131,6 +131,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseFileImpl
     const char *path = (*env)->GetStringUTFChars(env, filepath, NULL);
     xmlDoc *doc = xmlParseFile(path);
     (*env)->ReleaseStringUTFChars(env, filepath, path);
+    
+    if(doc==NULL) {
+        throwInternalErrorWithLastError(env);
+        return NULL;
+    }
     assert(doc && "parsing(xmlParseFile) failed");
     return buildDocument(env, doc);
 }
@@ -151,6 +156,13 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseStringImpl
         throwInternalErrorWithLastError(env);
         return NULL;
     }
+    
+    xmlNs *ns = doc->oldNs;
+    while(ns!=NULL) {
+        fprintf(stdout, "uri: %s prefix: %s\n", ns->href, ns->prefix);
+        ns = ns->next;
+    }
+    
     assert(doc && "parsing(xmlReadMemory) failed but didn't throw error");
     return buildDocument(env, doc);
 }

@@ -20,6 +20,12 @@ public class XPathObject implements Disposable {
 		this.p = p;
 	}
 
+
+	/**
+	 * Convenience method for accessing first node of result.
+	 * Please be aware of calling .getNext() on returned Node, it's just next sibling of the first result.
+	 * @return first node of nodeset.
+	 */
 	public Node getFirstNode() {
 		if( nodeset==null )
 			return null;

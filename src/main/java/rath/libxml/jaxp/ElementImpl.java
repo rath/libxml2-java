@@ -28,12 +28,12 @@ public class ElementImpl extends NodeImpl implements Element {
 
 	@Override
 	public void setAttribute(String name, String value) throws DOMException {
-		throw new UnsupportedOperationException();
+		impl.setProp(name, value);
 	}
 
 	@Override
 	public void removeAttribute(String name) throws DOMException {
-		throw new UnsupportedOperationException();
+		impl.removeProp(name);
 	}
 
 	@Override
@@ -57,7 +57,7 @@ public class ElementImpl extends NodeImpl implements Element {
 		XPathObject result = ctx.evaluate("//" + name);
 		NodeList ret;
 		try {
-			ret = new NodeListImpl(owner, result.nodeset.getFirstNode());
+			ret = new NodeListImpl(owner, result.nodeset);
 		} finally {
 			result.dispose();
 			ctx.dispose();
@@ -125,5 +125,9 @@ public class ElementImpl extends NodeImpl implements Element {
 	@Override
 	public void setIdAttributeNode(Attr attr, boolean b) throws DOMException {
 		throw new UnsupportedOperationException();
+	}
+
+	public String toString() {
+		return impl.toString();
 	}
 }

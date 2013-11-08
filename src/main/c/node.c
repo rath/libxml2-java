@@ -183,6 +183,63 @@ JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getNsPropImpl
 
 /*
  * Class:     rath_libxml_Node
+ * Method:    setPropImpl
+ * Signature: (Ljava/lang/String;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Node_setPropImpl
+(JNIEnv *env, jobject obj, jstring jname, jstring jvalue) {
+    xmlNode *node = findNode(env, obj);
+    const char *name = (*env)->GetStringUTFChars(env, jname, NULL);
+    const char *value = (*env)->GetStringUTFChars(env, jvalue, NULL);
+    
+    xmlNewProp(node, (xmlChar*)name, (xmlChar*)value);
+    
+    (*env)->ReleaseStringUTFChars(env, jname, name);
+    (*env)->ReleaseStringUTFChars(env, jvalue, value);
+}
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    removePropImpl
+ * Signature: (Ljava/lang/String;)Z
+ */
+JNIEXPORT jboolean JNICALL Java_rath_libxml_Node_removePropImpl
+(JNIEnv *env, jobject obj, jstring jname) {
+    xmlNode *node = findNode(env, obj);
+    const xmlChar *name = (xmlChar*)(*env)->GetStringUTFChars(env, jname, NULL);
+    jboolean deleted = JNI_FALSE;
+    
+    xmlAttr *attr = node->properties;
+    while(attr!=NULL) {
+        if(xmlStrcmp(attr->name, name)==0) {
+            xmlRemoveProp(attr);
+            deleted = JNI_TRUE;
+        }
+        attr = attr->next;
+    }
+    (*env)->ReleaseStringUTFChars(env, jname, (const char*)name);
+    
+    return deleted;
+}
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    addChildImpl
+ * Signature: (Lrath/libxml/Node;)Lrath/libxml/Node;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Node_addChildImpl
+(JNIEnv *env, jobject obj, jobject toAdd) {
+    xmlNode *node = findNode(env, obj);
+    
+    xmlNode *attached = xmlAddChild(node, findNode(env, toAdd));
+    jobject jdoc = (*env)->GetObjectField(env, obj, fieldNodeDocument);
+    jobject jattached = buildNode(env, attached, jdoc);
+    (*env)->DeleteLocalRef(env, jdoc);
+    return jattached;
+}
+
+/*
+ * Class:     rath_libxml_Node
  * Method:    fillAttributeNames
  * Signature: (Ljava/util/List;)V
  */
@@ -195,4 +252,55 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillAttributeNames
         jstring name = (*env)->NewStringUTF(env, (const char*)attr->name);
         (*env)->CallBooleanMethod(env, listBuffer, methodListAdd, name);
     }
+}
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    unlinkImpl
+ * Signature: (Lrath/libxml/Node;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Node_unlinkImpl
+(JNIEnv *env, jobject obj, jobject toRemove) {
+    xmlNode *node = findNode(env, toRemove);
+    xmlUnlinkNode(node);
+}
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    disposeImpl
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Node_disposeImpl
+(JNIEnv *env, jobject obj) {
+    xmlNode *node = findNode(env, obj);
+    xmlFreeNode(node);
+}
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    setTextImpl
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Node_setTextImpl
+(JNIEnv *env, jobject obj, jstring jstr) {
+    xmlNode *node = findNode(env, obj);
+    const xmlChar *str = (const xmlChar*)(*env)->GetStringUTFChars(env, jstr, NULL);
+    xmlNodeSetContent(node, str);
+    (*env)->ReleaseStringUTFChars(env, jstr, (const char*)str);
+}
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    addPrevSiblingImpl
+ * Signature: (Lrath/libxml/Node;)Lrath/libxml/Node;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Node_addPrevSiblingImpl
+(JNIEnv *env, jobject obj, jobject toAdd) {
+    xmlNode *node = findNode(env, obj);
+    xmlNode *nodeToAdd = findNode(env, toAdd);
+    jobject jdoc = (*env)->GetObjectField(env, obj, fieldNodeDocument);
+    xmlNode *nodeAdded = xmlAddPrevSibling(node, nodeToAdd);
+    jobject ret = buildNode(env, nodeAdded, jdoc);
+    (*env)->DeleteLocalRef(env, jdoc);
+    return ret;
 }
