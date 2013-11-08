@@ -81,4 +81,6 @@ XPathObject result = ctx.evaluate("//item[@tag=\"1\"]");
 out.println(result.getFirstNode().getChildText()); // Bear
 ```
 
+## Notes
 
+- Make sure libxml2 library is configured with --with-threads option.

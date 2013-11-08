@@ -73,7 +73,12 @@ static void handlerStructuredError(void *ctx, xmlErrorPtr error) {
  */
 JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
 (JNIEnv *env, jclass clz) {
+    
+    // http://xmlsoft.org/threads.html
+    // >> call xmlInitParser() in the "main" thread before using any of the libxml2 API (except possibly selecting a different memory allocator)
+    // TODO: Could Java ensure init this method by main thread rather than 'Java main thread'?
     xmlInitParser();
+    
     xmlSetGenericErrorFunc(env, handlerGenericError);
     xmlSetStructuredErrorFunc(env, handlerStructuredError);
     
