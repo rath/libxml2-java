@@ -1,5 +1,6 @@
 package rath.libxml;
 
+import rath.libxml.impl.SAXHandlerInternal;
 import rath.libxml.util.Utils;
 
 import java.io.File;
@@ -91,4 +92,13 @@ public class LibXml {
 	}
 
 	private static native Document parseStringImpl(String data);
+
+	public static void parseSAX(String xml, SAXHandler handler, int recovery) {
+		if( xml==null )
+			throw new NullPointerException("Can't parse null data");
+
+		parseSAXImpl(xml, new SAXHandlerInternal(handler), recovery);
+	}
+
+	private static native void parseSAXImpl(String data, SAXHandlerInternal handler, int recovery);
 }

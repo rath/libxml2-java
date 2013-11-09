@@ -4,15 +4,12 @@ libxml2-java is Java language binding for well-known [libxml2](http://xmlsoft.or
 Current implementation of libxml2-java is **very limited at the moment**. It's very early stage of development. 
 
 
-## Features
+## Progress
 
-- (80%) Parsing 
-- (80%) Walking on DOM tree  
-- (50%) Updating DOM tree
-- (15%) XPath 
+- (50%) DOM 3
+- (20%) SAX 2
+- (20%) XPath 
 - (40%) As JAXP(JSR 206) provider  
-- (0%) Registering SAX Handler
-- Namespace aware
 
 ## Build instructions
 

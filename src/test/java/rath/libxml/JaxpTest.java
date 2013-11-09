@@ -67,9 +67,9 @@ public class JaxpTest {
 		Assert.assertEquals(pTexts, Arrays.asList("Good morning", "How are you?"));
 	}
 
-	@Test
+//	@Test
 	public void testElementsByTagNameWithNamespace() throws Exception {
-//		builderFactory = DocumentBuilderFactory.newInstance();
+		builderFactory = DocumentBuilderFactory.newInstance();
 		builderFactory.setNamespaceAware(true);
 
 		String xml = "<?xml version=\"1.0\"?>" +

@@ -6,7 +6,8 @@ repositories {
 }
 
 dependencies {
-  compile 'junit:junit:4.11'
+  testCompile 'junit:junit:4.11'
+  testCompile 'commons-lang:commons-lang:2.6'
 }
 
 sourceSets {

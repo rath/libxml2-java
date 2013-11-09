@@ -13,11 +13,9 @@ import java.util.List;
 import java.util.zip.GZIPOutputStream;
 
 /**
- * Created with IntelliJ IDEA.
  * User: rath
  * Date: 03/11/2013
  * Time: 00:21
- * To change this template use File | Settings | File Templates.
  */
 @RunWith(JUnit4.class)
 public class BasicTest {
@@ -265,8 +263,8 @@ public class BasicTest {
 				for (Node authorNode : underStory) {
 					if (authorNode.getName().equals("author")) {
 						String authorName = authorNode.getChildText();
-						System.out.printf("author.name : %s%n", authorName.trim());
-						System.out.printf("author.@type: %s%n", authorNode.getProp("type"));
+//						System.out.printf("author.name : %s%n", authorName.trim());
+//						System.out.printf("author.@type: %s%n", authorNode.getProp("type"));
 					}
 				}
 			}

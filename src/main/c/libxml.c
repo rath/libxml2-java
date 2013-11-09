@@ -2,6 +2,7 @@
 #include <libxml/parser.h>
 #include <string.h>
 #include <stdarg.h>
+#include <stdlib.h>
 #include <assert.h>
 #include "cache.h"
 #include "utils.h"
@@ -165,4 +166,164 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseStringImpl
     
     assert(doc && "parsing(xmlReadMemory) failed but didn't throw error");
     return buildDocument(env, doc);
+}
+
+/*
+struct _xmlSAXHandler {
+    internalSubsetSAXFunc internalSubset;
+    isStandaloneSAXFunc isStandalone;
+    hasInternalSubsetSAXFunc hasInternalSubset;
+    hasExternalSubsetSAXFunc hasExternalSubset;
+    resolveEntitySAXFunc resolveEntity;
+    getEntitySAXFunc getEntity;
+    entityDeclSAXFunc entityDecl;
+    notationDeclSAXFunc notationDecl;
+    attributeDeclSAXFunc attributeDecl;
+    elementDeclSAXFunc elementDecl;
+    unparsedEntityDeclSAXFunc unparsedEntityDecl;
+    setDocumentLocatorSAXFunc setDocumentLocator;
+    startDocumentSAXFunc startDocument;
+    endDocumentSAXFunc endDocument;
+    startElementSAXFunc startElement;
+    endElementSAXFunc endElement;
+    referenceSAXFunc reference;
+    charactersSAXFunc characters;
+    ignorableWhitespaceSAXFunc ignorableWhitespace;
+    processingInstructionSAXFunc processingInstruction;
+    commentSAXFunc comment;
+    warningSAXFunc warning;
+    errorSAXFunc error;
+    fatalErrorSAXFunc fatalError;
+    getParameterEntitySAXFunc getParameterEntity;
+    cdataBlockSAXFunc cdataBlock;
+    externalSubsetSAXFunc externalSubset;
+    unsigned int initialized;
+    void *_private;
+    startElementNsSAX2Func startElementNs;
+    endElementNsSAX2Func endElementNs;
+    xmlStructuredErrorFunc serror;
+};
+*/
+
+typedef struct {
+    JNIEnv *env;
+    jobject handler;
+    jmethodID midStartDocument;
+    jmethodID midEndDocument;
+    jmethodID midEnsureChars;
+    jmethodID midCharacters;
+    jmethodID midIgnorableWhitespace;
+} SContext;
+
+static void _startDocument(void *p) {
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
+    JNIEnv *env = ctx->env;
+    (*env)->CallVoidMethod(env, ctx->handler, ctx->midStartDocument);
+    // TODO: should check exceptionOccurs then stop internal parsing by calling xmlStopParser(p);
+}
+
+static void _ensureChars(SContext *ctx, const xmlChar *ch, int len) {
+    JNIEnv *env = ctx->env;
+    jbyteArray array = (*env)->CallObjectMethod(env, ctx->handler, ctx->midEnsureChars, (jint)len);
+    jboolean isCopy;
+    jbyte *jbuffer = (*env)->GetPrimitiveArrayCritical(env, array, &isCopy);
+    memcpy(jbuffer, ch, len);
+    (*env)->ReleasePrimitiveArrayCritical(env, array, jbuffer, 0);
+    (*env)->DeleteLocalRef(env, array);
+}
+
+static void _characters(void *p, const xmlChar *ch, int len) {
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
+    JNIEnv *env = ctx->env;
+    _ensureChars(ctx, ch, len);
+    (*env)->CallVoidMethod(env, ctx->handler, ctx->midCharacters);
+    // TODO: should check exceptionOccurs then stop internal parsing by calling xmlStopParser(p);
+}
+
+static void _ignorableWhitespace(void *p, const xmlChar *ch, int len) {
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
+    JNIEnv *env = ctx->env;
+    _ensureChars(ctx, ch, len);
+    (*env)->CallVoidMethod(env, ctx->handler, ctx->midIgnorableWhitespace);
+}
+
+static void _startElementNs(void *p, const xmlChar *localname, const xmlChar *prefix, const xmlChar *uri,
+                            int nb_namespaces, const xmlChar **namespaces,
+                            int nb_attributes, int nb_defaulted, const xmlChar **attributes) {
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
+    JNIEnv *env = ctx->env;
+
+    fprintf(stdout, "!!!!!! _startElementNs: not implemented\n");
+}
+
+/*
+ * It will never be called because we use XML_SAX2_MAGIC.
+ */
+static void _startElement(void *p, const xmlChar *name, const xmlChar **atts) {
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
+    JNIEnv *env = ctx->env;
+    
+    fprintf(stdout, "_startElement: name=%s\n", name);
+    if(atts!=NULL) {
+        int i = 0;
+        while(1) {
+            xmlChar *name = (xmlChar*)atts[i];
+            xmlChar *value = (xmlChar*)atts[i+1];
+            fprintf(stdout, "%s = %s\n", name, value);
+            i+=2;
+            if (atts[i]==NULL) break;
+        }
+    } else {
+        fprintf(stdout, "no attributes\n");
+    }
+}
+
+static void _endDocument(void *p) {
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
+    JNIEnv *env = ctx->env;
+    (*env)->CallVoidMethod(env, ctx->handler, ctx->midEndDocument);
+}
+
+/*
+ * Class:     rath_libxml_LibXml
+ * Method:    parseSAXImpl
+ * Signature: (Ljava/lang/String;Lrath/libxml/SAXHandler;I)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
+(JNIEnv *env, jclass clz, jstring jstr, jobject jhandler, jint recovery) {
+    SContext ctx;
+    xmlSAXHandler handler;
+    jclass classHandler = (*env)->GetObjectClass(env, jhandler);
+    
+    const char *data = (*env)->GetStringUTFChars(env, jstr, NULL);
+    jsize data_len = (*env)->GetStringUTFLength(env, jstr);
+    
+    memset(&ctx, 0, sizeof(SContext));
+    ctx.env = env;
+    ctx.handler = jhandler;
+    ctx.midStartDocument = (*env)->GetMethodID(env, classHandler, "fireStartDocument", "()V");
+    assert(ctx.midStartDocument);
+    ctx.midEndDocument = (*env)->GetMethodID(env, classHandler, "fireEndDocument", "()V");
+    assert(ctx.midEndDocument);
+    ctx.midCharacters = (*env)->GetMethodID(env, classHandler, "fireCharacters", "()V");
+    assert(ctx.midCharacters);
+    ctx.midIgnorableWhitespace = (*env)->GetMethodID(env, classHandler, "fireIgnorableWhitespace", "()V");
+    assert(ctx.midIgnorableWhitespace);
+    ctx.midEnsureChars = (*env)->GetMethodID(env, classHandler, "ensureCharacterBufferSize", "(I)[B");
+    assert(ctx.midEnsureChars);
+    
+    memset(&handler, 0, sizeof(xmlSAXHandler));
+    handler.initialized = XML_SAX2_MAGIC;
+    handler.startDocument = _startDocument;
+    handler.endDocument = _endDocument;
+    handler.characters = _characters;
+    handler.ignorableWhitespace = _ignorableWhitespace;
+    handler.startElementNs = _startElementNs;
+    handler.startElement = _startElement;
+    
+    xmlDocPtr doc = xmlSAXParseMemoryWithData(&handler, data, data_len, recovery, &ctx);
+    // TODO: test with invalid document
+    xmlFreeDoc(doc);
+    
+    (*env)->ReleaseStringUTFChars(env, jstr, data);
 }

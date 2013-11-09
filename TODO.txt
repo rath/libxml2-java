@@ -6,3 +6,5 @@ TODO: Support xmlParserOption
 TODO: Support registering SAX Handler
 TODO: Support DTD related
 TODO: Performance test?
+
+TODO: streaming
