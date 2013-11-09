@@ -262,9 +262,11 @@ static void _startElementNs(void *p, const xmlChar *localname, const xmlChar *pr
     jobjectArray jAttr = NULL;
     
     if( nb_namespaces>0 ) {
-        jNs = (*env)->NewObjectArray(env, nb_namespaces, classString, NULL);
+        // prefix/uri
+        jNs = (*env)->NewObjectArray(env, nb_namespaces*2, classString, NULL);
         for(i=0; i<nb_namespaces; i++) {
-            (*env)->SetObjectArrayElement(env, jNs, i, (*env)->NewStringUTF(env, (char*)namespaces[i]));
+            (*env)->SetObjectArrayElement(env, jNs, 2*i+0, (*env)->NewStringUTF(env, (char*)namespaces[2*i+0]));
+            (*env)->SetObjectArrayElement(env, jNs, 2*i+1, (*env)->NewStringUTF(env, (char*)namespaces[2*i+1]));
         }
     }
     if( nb_attributes>0 ) {

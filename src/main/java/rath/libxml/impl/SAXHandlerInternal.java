@@ -1,9 +1,11 @@
 package rath.libxml.impl;
 
 import org.xml.sax.helpers.AttributesImpl;
+import rath.libxml.Namespace;
 import rath.libxml.SAXHandler;
 
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * NOT thread safe.
@@ -19,8 +21,20 @@ public class SAXHandlerInternal {
 	private int byteBufferFilled = 0;
 	private char[] characterBuffer = new char[128];
 
+	private int prefixDetectDistance = 0;
+	private Map<Integer, Namespace> prefixNsMap = new HashMap<Integer, Namespace>();
+	private boolean awarePrefixMapping = false;
+
 	public SAXHandlerInternal(SAXHandler handler) {
 		this.handler = handler;
+	}
+
+	public void setAwarePrefixMapping(boolean aware) {
+		this.awarePrefixMapping = aware;
+	}
+
+	public boolean isAwarePrefixMapping() {
+		return awarePrefixMapping;
 	}
 
 	public void fireStartDocument() {
@@ -69,6 +83,9 @@ public class SAXHandlerInternal {
 			qName = prefix + ":" + localName;
 		uri = uri==null ? "" : uri;
 
+		if(awarePrefixMapping)
+			trackPrefixMappingStart(namespaces);
+
 		AttributesImpl attrImpl = new AttributesImpl$();
 		if( attributes!=null ) {
 			for(int i=0; i<attributes.length; i+=4) {
@@ -88,6 +105,18 @@ public class SAXHandlerInternal {
 		handler.startElement(uri, localName, qName, attrImpl);
 	}
 
+	private void trackPrefixMappingStart(String[] namespaces) {
+		if( namespaces!=null ) {
+			for(int i=0; i<namespaces.length; i+=2) {
+				String aPrefix = namespaces[i+0];
+				String aUri = namespaces[i+1];
+				handler.startPrefixMapping(aPrefix, aUri);
+				prefixNsMap.put(prefixDetectDistance, new Namespace(aUri, aPrefix));
+			}
+		}
+		prefixDetectDistance++;
+	}
+
 	public void fireEndElement(String uri, String prefix, String localName) {
 		String qName;
 		if (prefix == null)
@@ -96,6 +125,17 @@ public class SAXHandlerInternal {
 			qName = prefix + ":" + localName;
 		uri = uri == null ? "" : uri;
 		handler.endElement(uri, localName, qName);
+
+		if(awarePrefixMapping)
+			trackPrefixMappingEnd();
+	}
+
+	private void trackPrefixMappingEnd() {
+		prefixDetectDistance--;
+		if( prefixNsMap.containsKey(prefixDetectDistance) ) {
+			Namespace ns = prefixNsMap.get(prefixDetectDistance);
+			handler.endPrefixMapping(ns.getPrefix());
+		}
 	}
 
 	static class AttributesImpl$ extends AttributesImpl {

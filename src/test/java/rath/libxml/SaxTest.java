@@ -57,10 +57,10 @@ public class SaxTest {
 			"<head>" +
 			"  <title>Title</title>" +
 			"</head>" +
-			"<body>" +
-			"  <h1>バットマン</h1>" +
-			"  <p>He said he would do it as soon as possible</p>" +
-			"</body>" +
+			"<b:body xmlns:b=\"http://body.com/\">" +
+			"  <b:h1>バットマン</b:h1>" +
+			"  <b:p>He said he would do it as soon as possible</b:p>" +
+			"</b:body>" +
 			"</f:html>";
 
 		final MutableInt checkDoc = new MutableInt(0);
@@ -86,13 +86,25 @@ public class SaxTest {
 			}
 
 			@Override
+			public void startPrefixMapping(String prefix, String uri) {
+				System.out.println("startPrefixMapping: " + prefix + ", " + uri);
+			}
+
+			@Override
+			public void endPrefixMapping(String prefix) {
+				System.out.println("endPrefixMapping: " + prefix);
+			}
+
+			@Override
 			public void startElement(String uri, String localName, String qName, Attributes atts) {
 				checkElemStart.add(localName);
+				System.out.println("<" + qName + ">");
 			}
 
 			@Override
 			public void endElement(String uri, String localName, String qName) {
 				checkElemEnd.add(localName);
+				System.out.println("</" + qName + ">");
 			}
 
 			@Override

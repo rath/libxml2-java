@@ -97,7 +97,9 @@ public class LibXml {
 		if( xml==null )
 			throw new NullPointerException("Can't parse null data");
 
-		parseSAXImpl(xml, new SAXHandlerInternal(handler), recovery);
+		SAXHandlerInternal handlerImpl = new SAXHandlerInternal(handler);
+		handlerImpl.setAwarePrefixMapping(true);
+		parseSAXImpl(xml, handlerImpl, recovery);
 	}
 
 	private static native void parseSAXImpl(String data, SAXHandlerInternal handler, int recovery);
