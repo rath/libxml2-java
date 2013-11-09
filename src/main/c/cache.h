@@ -6,6 +6,7 @@ extern jclass classNodeset;
 extern jclass classNamespace;
 extern jclass classXPathContext;
 extern jclass classXPathObject;
+extern jclass classLocator;
 
 extern jmethodID methodErrorNew;
 extern jmethodID methodDocumentNew;
@@ -18,6 +19,7 @@ extern jmethodID methodNamespaceNew;
 extern jmethodID methodXPathContextNew;
 extern jmethodID methodXPathObjectNew;
 extern jmethodID methodListAdd;
+extern jmethodID methodLocatorNew;
 
 extern jfieldID fieldDocumentGetP;
 extern jfieldID fieldNodeGetP;
@@ -33,3 +35,4 @@ extern jfieldID fieldXPathObjectSetNodeset;
 extern jfieldID fieldXPathObjectSetBool;
 extern jfieldID fieldXPathObjectSetFloat;
 extern jfieldID fieldXPathObjectSetString;
+extern jfieldID fieldLocatorP;

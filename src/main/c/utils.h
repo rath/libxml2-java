@@ -2,10 +2,17 @@
 #include <libxml/parser.h>
 #include <libxml/xpath.h>
 
+typedef struct {
+    xmlParserCtxt *parser;
+    xmlSAXLocator *locator;
+} LocatorContext;
+
 xmlDocPtr   findDocument(JNIEnv *env, jobject obj);
 xmlNodePtr  findNode(JNIEnv *env, jobject obj);
 xmlXPathContextPtr  findXPathContext(JNIEnv *env, jobject obj);
 xmlXPathObjectPtr   findXPathObject(JNIEnv *env, jobject obj);
+LocatorContext*     findLocator(JNIEnv *env, jobject obj);
+
 jobject     buildDocument(JNIEnv *env, xmlDoc *doc);
 jobject     buildNode(JNIEnv *env, xmlNode *node, jobject document);
 jobject     buildXPathContext(JNIEnv *env, xmlXPathContext *ctx);

@@ -28,7 +28,7 @@ import static org.hamcrest.core.Is.is;
  */
 @RunWith(JUnit4.class)
 public class SaxTest {
-	@Test
+//	@Test
 	public void simpleByDefault() throws Exception {
 		String xml = "<?xml version=\"1.0\"?>" +
 			"<f:html lang=\"en\" xmlns:f=\"http://f.com/\">" +
@@ -81,6 +81,13 @@ public class SaxTest {
 		final List<String> checkElemStart = new ArrayList<String>();
 		final List<String> checkElemEnd = new ArrayList<String>();
 		LibXml.parseSAX(xml, new SAXHandler() {
+			public Locator domLocator;
+
+			@Override
+			public void setDocumentLocator(Locator locator) {
+				this.domLocator = locator;
+			}
+
 			@Override
 			public void startDocument() {
 				checkDoc.add(1);
@@ -112,6 +119,8 @@ public class SaxTest {
 			public void startElement(String uri, String localName, String qName, Attributes atts) {
 				checkElemStart.add(localName);
 //				System.out.println("<" + qName + ">");
+				System.out.println("Line  : " + domLocator.getLineNumber());
+				System.out.println("Column: " + domLocator.getColumnNumber());
 			}
 
 			@Override

@@ -188,6 +188,6 @@ public class SAXHandlerInternal {
 	}
 
 	public void fireSetLocator(LocatorImpl impl) {
-
+		handler.setDocumentLocator(impl);
 	}
 }

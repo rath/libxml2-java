@@ -15,6 +15,7 @@ jclass classNodeset;
 jclass classNamespace;
 jclass classXPathContext;
 jclass classXPathObject;
+jclass classLocator;
 
 jmethodID methodErrorNew;
 jmethodID methodDocumentNew;
@@ -24,6 +25,7 @@ jmethodID methodNodesetAddNode;
 jmethodID methodNamespaceNew;
 jmethodID methodXPathContextNew;
 jmethodID methodXPathObjectNew;
+jmethodID methodLocatorNew;
 
 jmethodID methodNodeSetType;
 jmethodID methodNodeSetDocument;
@@ -43,6 +45,7 @@ jfieldID fieldXPathObjectSetNodeset;
 jfieldID fieldXPathObjectSetBool;
 jfieldID fieldXPathObjectSetFloat;
 jfieldID fieldXPathObjectSetString;
+jfieldID fieldLocatorP;
 
 static void cc(JNIEnv *env, const char *name, jclass *buf) {
     jclass c = (*env)->FindClass(env, name);
@@ -66,6 +69,7 @@ static void handlerStructuredError(void *ctx, xmlErrorPtr error) {
     /*
     JNIEnv *env = (JNIEnv*)ctx;
     */
+    return;
 }
 
 /*
@@ -92,6 +96,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     cc(env, "rath/libxml/Namespace", &classNamespace);
     cc(env, "rath/libxml/XPathContext", &classXPathContext);
     cc(env, "rath/libxml/XPathObject", &classXPathObject);
+    cc(env, "rath/libxml/impl/LocatorImpl", &classLocator);
    
     methodErrorNew = (*env)->GetMethodID(env, classError, "<init>", "(ILjava/lang/String;II)V");
     methodDocumentNew = (*env)->GetMethodID(env, classDocument, "<init>", "(J)V");
@@ -104,6 +109,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     
     methodNodeSetType = (*env)->GetMethodID(env, classNode, "setType", "(I)V");
     methodNodeSetDocument = (*env)->GetMethodID(env, classNode, "setDocument", "(Lrath/libxml/Document;)V");
+    methodLocatorNew = (*env)->GetMethodID(env, classLocator, "<init>", "(J)V");
     
     fieldDocumentGetP = (*env)->GetFieldID(env, classDocument, "p", "J");
     fieldNodeGetP = (*env)->GetFieldID(env, classNode, "p", "J");
@@ -118,6 +124,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     fieldXPathObjectSetBool = (*env)->GetFieldID(env, classXPathObject, "booleanValue", "Z");
     fieldXPathObjectSetFloat = (*env)->GetFieldID(env, classXPathObject, "floatValue", "D");
     fieldXPathObjectSetString = (*env)->GetFieldID(env, classXPathObject, "stringValue", "Ljava/lang/String;");
+    fieldLocatorP = (*env)->GetFieldID(env, classLocator, "p", "J");
     
     jclass classList = (*env)->FindClass(env, "java/util/List");
     methodListAdd = (*env)->GetMethodID(env, classList, "add", "(Ljava/lang/Object;)Z");
@@ -224,6 +231,7 @@ typedef struct {
     jmethodID midError;
     jmethodID midFatalError;
     jmethodID midSetLocator;
+    LocatorContext *locatorContext;
 } SContext;
 
 static void _startDocument(void *p) {
@@ -409,7 +417,16 @@ static void _fatalError(void *p, const char *msg, ...) {
 }
 
 static void _setDocumentLocator(void *p, xmlSAXLocatorPtr loc) {
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
+    JNIEnv *env = ctx->env;
     
+    ctx->locatorContext = (LocatorContext*)malloc(sizeof(LocatorContext));
+    ctx->locatorContext->parser = (xmlParserCtxt*)p;
+    ctx->locatorContext->locator = loc;
+    
+    jobject locator = (*env)->NewObject(env, classLocator, methodLocatorNew, (jlong)ctx->locatorContext);
+    (*env)->CallVoidMethod(env, ctx->handler, ctx->midSetLocator, locator);
+    (*env)->DeleteLocalRef(env, locator);
 }
 
 /*
@@ -455,7 +472,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
     assert(ctx.midError);
     ctx.midFatalError = (*env)->GetMethodID(env, classHandler, "fireFatalError", "(Ljava/lang/String;)V");
     assert(ctx.midFatalError);
-    ctx.midSetLocator = (*env)->GetMethodID(env, classHandler, "fireSetLocator", "(Lrath/libxml/LocatorImpl;)V");
+    ctx.midSetLocator = (*env)->GetMethodID(env, classHandler, "fireSetLocator", "(Lrath/libxml/impl/LocatorImpl;)V");
     assert(ctx.midSetLocator);
     
     
@@ -479,10 +496,12 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
     xmlDocPtr doc = xmlSAXParseMemoryWithData(&handler, data, data_len, recovery, &ctx);
     (*env)->ReleaseStringUTFChars(env, jstr, data);
     
+    if(ctx.locatorContext!=NULL)
+        free(ctx.locatorContext);
+    
     if(doc==NULL) {
         throwInternalErrorWithLastError(env);
         return;
     }
-    // TODO: test with invalid document
     xmlFreeDoc(doc);
 }
