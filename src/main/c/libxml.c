@@ -179,10 +179,10 @@ struct _xmlSAXHandler {
     resolveEntitySAXFunc resolveEntity;
     getEntitySAXFunc getEntity;
     entityDeclSAXFunc entityDecl;
-    notationDeclSAXFunc notationDecl;
+/    notationDeclSAXFunc notationDecl;
     attributeDeclSAXFunc attributeDecl;
     elementDeclSAXFunc elementDecl;
-    unparsedEntityDeclSAXFunc unparsedEntityDecl;
+/    unparsedEntityDeclSAXFunc unparsedEntityDecl;
     setDocumentLocatorSAXFunc setDocumentLocator;
 *    startDocumentSAXFunc startDocument;
 *    endDocumentSAXFunc endDocument;
@@ -191,7 +191,7 @@ struct _xmlSAXHandler {
     referenceSAXFunc reference;
 *    charactersSAXFunc characters;
 *    ignorableWhitespaceSAXFunc ignorableWhitespace;
-    processingInstructionSAXFunc processingInstruction;
+*    processingInstructionSAXFunc processingInstruction;
     commentSAXFunc comment;
     warningSAXFunc warning;
     errorSAXFunc error;
@@ -218,6 +218,8 @@ typedef struct {
     jmethodID midStartElement;
     jmethodID midEndElement;
     jmethodID midProcessingInstruction;
+    jmethodID midNotationDecl;
+    jmethodID midUnparsedEntityDecl;
 } SContext;
 
 static void _startDocument(void *p) {
@@ -341,6 +343,27 @@ static void _processingInstruction(void *p, const xmlChar *target, const xmlChar
                            (*env)->NewStringUTF(env, (const char*)data));
 }
 
+static void _notationDecl(void *p, const xmlChar *name, const xmlChar *publicId, const xmlChar *systemId) {
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
+    JNIEnv *env = ctx->env;
+    (*env)->CallVoidMethod(env, ctx->handler, ctx->midNotationDecl,
+                           (*env)->NewStringUTF(env, (const char*)name),
+                           (*env)->NewStringUTF(env, (const char*)publicId),
+                           (*env)->NewStringUTF(env, (const char*)systemId));
+}
+
+static void _unparsedEntityDecl(void *p, const xmlChar *name, const xmlChar *publicId, const xmlChar *systemId, const xmlChar *notationName) {
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
+    JNIEnv *env = ctx->env;
+    (*env)->CallVoidMethod(env, ctx->handler, ctx->midNotationDecl,
+                           (*env)->NewStringUTF(env, (const char*)name),
+                           (*env)->NewStringUTF(env, (const char*)publicId),
+                           (*env)->NewStringUTF(env, (const char*)systemId),
+                           (*env)->NewStringUTF(env, (const char*)notationName));
+}
+
+
+
 /*
  * Class:     rath_libxml_LibXml
  * Method:    parseSAXImpl
@@ -374,6 +397,10 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
     assert(ctx.midEndElement);
     ctx.midProcessingInstruction = (*env)->GetMethodID(env, classHandler, "fireProcessingInstruction", "(Ljava/lang/String;Ljava/lang/String;)V");
     assert(ctx.midProcessingInstruction);
+    ctx.midNotationDecl = (*env)->GetMethodID(env, classHandler, "fireNotationDecl", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+    assert(ctx.midNotationDecl);
+    ctx.midUnparsedEntityDecl = (*env)->GetMethodID(env, classHandler, "fireUnparsedEntityDecl", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+    assert(ctx.midUnparsedEntityDecl);
     
     memset(&handler, 0, sizeof(xmlSAXHandler));
     handler.initialized = XML_SAX2_MAGIC;
@@ -385,6 +412,8 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
 //    handler.startElement = _startElement;
     handler.endElementNs = _endElementNs;
     handler.processingInstruction = _processingInstruction;
+    handler.notationDecl = _notationDecl;
+    handler.unparsedEntityDecl = _unparsedEntityDecl;
     
     xmlDocPtr doc = xmlSAXParseMemoryWithData(&handler, data, data_len, recovery, &ctx);
     // TODO: test with invalid document

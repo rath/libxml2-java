@@ -159,4 +159,12 @@ public class SAXHandlerInternal {
 	public void fireProcessingInstruction(String target, String data) {
 		handler.processingInstruction(target, data);
 	}
+
+	public void fireNotationDecl(String name, String publicId, String systemId) {
+		handler.notationDecl(name, publicId, systemId);
+	}
+
+	public void fireUnparsedEntityDecl(String name, String publicId, String systemId, String notationName) {
+		handler.unparsedEntityDecl(name, publicId, systemId, notationName);
+	}
 }

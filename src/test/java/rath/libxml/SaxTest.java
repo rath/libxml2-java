@@ -117,6 +117,16 @@ public class SaxTest {
 			}
 
 			@Override
+			public void notationDecl(String name, String publicId, String systemId) {
+				// TODO: test notationDecl
+			}
+
+			@Override
+			public void unparsedEntityDecl(String name, String publicId, String systemId, String notationName) {
+				// TODO: test unparsedEntityDecl
+			}
+
+			@Override
 			public void endDocument() {
 				checkDoc.add(10);
 			}
@@ -180,6 +190,14 @@ public class SaxTest {
 
 		@Override
 		public void fatalError(SAXParseException exception) {
+		}
+
+		@Override
+		public void notationDecl(String name, String publicId, String systemId) {
+		}
+
+		@Override
+		public void unparsedEntityDecl(String name, String publicId, String systemId, String notationName) {
 		}
 	}
 }

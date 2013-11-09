@@ -24,4 +24,10 @@ public interface SAXHandler {
 	public void warning(SAXParseException exception);
 	public void error(SAXParseException exception);
 	public void fatalError(SAXParseException exception);
+
+	public void notationDecl(String name, String publicId, String systemId);
+	public void unparsedEntityDecl(String name, String publicId, String systemId, String notationName);
 }
+
+//class x implements DTDHandler {
+//}
