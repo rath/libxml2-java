@@ -20,10 +20,9 @@ public interface SAXHandler {
 	public void characters(char[] ch, int start, int length);
 	public void ignorableWhitespace(char[] ch, int start, int length);
 	public void processingInstruction(String target, String data);
-	public void skippedEntity(String name);
-	public void warning(SAXParseException exception);
-	public void error(SAXParseException exception);
-	public void fatalError(SAXParseException exception);
+	public void warning(LibXmlException exception);
+	public void error(LibXmlException exception);
+	public void fatalError(LibXmlException exception);
 
 	public void notationDecl(String name, String publicId, String systemId);
 	public void unparsedEntityDecl(String name, String publicId, String systemId, String notationName);

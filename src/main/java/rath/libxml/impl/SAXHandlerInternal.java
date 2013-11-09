@@ -1,6 +1,7 @@
 package rath.libxml.impl;
 
 import org.xml.sax.helpers.AttributesImpl;
+import rath.libxml.LibXmlException;
 import rath.libxml.Namespace;
 import rath.libxml.SAXHandler;
 
@@ -166,5 +167,23 @@ public class SAXHandlerInternal {
 
 	public void fireUnparsedEntityDecl(String name, String publicId, String systemId, String notationName) {
 		handler.unparsedEntityDecl(name, publicId, systemId, notationName);
+	}
+
+	public void fireWarning(String msg) {
+		// TODO: error handler with simple string looks poor
+		LibXmlException e = new LibXmlException(msg);
+		handler.warning(e);
+	}
+
+	public void fireError(String msg) {
+		// TODO: error handler with simple string looks poor
+		LibXmlException e = new LibXmlException(msg);
+		handler.error(e);
+	}
+
+	public void fireFatalError(String msg) {
+		// TODO: error handler with simple string looks poor
+		LibXmlException e = new LibXmlException(msg);
+		handler.fatalError(e);
 	}
 }

@@ -15,11 +15,11 @@ public class LibXmlException extends RuntimeException {
 	}
 
 	public LibXmlException(String message) {
-		super(message);
+		super(message.trim());
 	}
 
 	public LibXmlException(int code, String message) {
-		super(message);
+		this(message);
 		setCode(code);
 	}
 
@@ -43,5 +43,15 @@ public class LibXmlException extends RuntimeException {
 
 	public int getColumnNumber() {
 		return columnNumber;
+	}
+
+	@Override
+	public String toString() {
+		return "LibXmlException{" +
+			"code=" + code +
+			", message=" + getMessage() +
+			", lineNumber=" + lineNumber +
+			", columnNumber=" + columnNumber +
+			'}';
 	}
 }

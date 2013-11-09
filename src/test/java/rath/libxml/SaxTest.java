@@ -70,7 +70,7 @@ public class SaxTest {
 		final MutableInt checkChars = new MutableInt(0);
 		final List<String> checkElemStart = new ArrayList<String>();
 		final List<String> checkElemEnd = new ArrayList<String>();
-		LibXml.parseSAX(xml, new SAXAdapter() {
+		LibXml.parseSAX(xml, new SAXHandler() {
 			@Override
 			public void startDocument() {
 				checkDoc.add(1);
@@ -90,30 +90,48 @@ public class SaxTest {
 
 			@Override
 			public void startPrefixMapping(String prefix, String uri) {
-				System.out.println("startPrefixMapping: " + prefix + ", " + uri);
+//				System.out.println("startPrefixMapping: " + prefix + ", " + uri);
 			}
 
 			@Override
 			public void endPrefixMapping(String prefix) {
-				System.out.println("endPrefixMapping: " + prefix);
+//				System.out.println("endPrefixMapping: " + prefix);
 			}
 
 			@Override
 			public void startElement(String uri, String localName, String qName, Attributes atts) {
 				checkElemStart.add(localName);
-				System.out.println("<" + qName + ">");
+//				System.out.println("<" + qName + ">");
 			}
 
 			@Override
 			public void endElement(String uri, String localName, String qName) {
 				checkElemEnd.add(localName);
-				System.out.println("</" + qName + ">");
+//				System.out.println("</" + qName + ">");
 			}
 
 			@Override
 			public void processingInstruction(String target, String data) {
 				checkPI.setValue(true);
-				System.out.println("<?" + target + " " + data + "?>");
+//				System.out.println("<?" + target + " " + data + "?>");
+			}
+
+			@Override
+			public void warning(LibXmlException exception) {
+				System.out.println("* Warning: " + exception);
+				exception.printStackTrace();
+			}
+
+			@Override
+			public void error(LibXmlException exception) {
+				System.out.println("* Error: " + exception);
+				exception.printStackTrace();
+			}
+
+			@Override
+			public void fatalError(LibXmlException exception) {
+				System.out.println("* Fatal: " + exception);
+				exception.printStackTrace();
 			}
 
 			@Override
@@ -137,67 +155,5 @@ public class SaxTest {
 		Assert.assertEquals("element start", Arrays.asList("html", "head", "title", "body", "h1", "p"), checkElemStart);
 		Assert.assertEquals("element end", Arrays.asList("title", "head", "h1", "p", "body", "html"), checkElemEnd);
 		Assert.assertEquals("processing instruction", true, checkPI.getValue());
-	}
-
-	static class SAXAdapter implements SAXHandler {
-		@Override
-		public void startDocument() {
-		}
-
-		@Override
-		public void endDocument() {
-		}
-
-		@Override
-		public void startPrefixMapping(String prefix, String uri) {
-		}
-
-		@Override
-		public void endPrefixMapping(String prefix) {
-		}
-
-		@Override
-		public void startElement(String uri, String localName, String qName, Attributes atts) {
-		}
-
-		@Override
-		public void endElement(String uri, String localName, String qName) {
-		}
-
-		@Override
-		public void characters(char[] ch, int start, int length) {
-		}
-
-		@Override
-		public void ignorableWhitespace(char[] ch, int start, int length) {
-		}
-
-		@Override
-		public void processingInstruction(String target, String data) {
-		}
-
-		@Override
-		public void skippedEntity(String name) {
-		}
-
-		@Override
-		public void warning(SAXParseException exception) {
-		}
-
-		@Override
-		public void error(SAXParseException exception) {
-		}
-
-		@Override
-		public void fatalError(SAXParseException exception) {
-		}
-
-		@Override
-		public void notationDecl(String name, String publicId, String systemId) {
-		}
-
-		@Override
-		public void unparsedEntityDecl(String name, String publicId, String systemId, String notationName) {
-		}
 	}
 }

@@ -179,10 +179,10 @@ struct _xmlSAXHandler {
     resolveEntitySAXFunc resolveEntity;
     getEntitySAXFunc getEntity;
     entityDeclSAXFunc entityDecl;
-/    notationDeclSAXFunc notationDecl;
+*    notationDeclSAXFunc notationDecl;
     attributeDeclSAXFunc attributeDecl;
     elementDeclSAXFunc elementDecl;
-/    unparsedEntityDeclSAXFunc unparsedEntityDecl;
+*    unparsedEntityDeclSAXFunc unparsedEntityDecl;
     setDocumentLocatorSAXFunc setDocumentLocator;
 *    startDocumentSAXFunc startDocument;
 *    endDocumentSAXFunc endDocument;
@@ -193,9 +193,9 @@ struct _xmlSAXHandler {
 *    ignorableWhitespaceSAXFunc ignorableWhitespace;
 *    processingInstructionSAXFunc processingInstruction;
     commentSAXFunc comment;
-    warningSAXFunc warning;
-    errorSAXFunc error;
-    fatalErrorSAXFunc fatalError;
+/   warningSAXFunc warning;
+/   errorSAXFunc error;
+/   fatalErrorSAXFunc fatalError;
     getParameterEntitySAXFunc getParameterEntity;
     cdataBlockSAXFunc cdataBlock;
     externalSubsetSAXFunc externalSubset;
@@ -220,6 +220,9 @@ typedef struct {
     jmethodID midProcessingInstruction;
     jmethodID midNotationDecl;
     jmethodID midUnparsedEntityDecl;
+    jmethodID midWarning;
+    jmethodID midError;
+    jmethodID midFatalError;
 } SContext;
 
 static void _startDocument(void *p) {
@@ -362,6 +365,48 @@ static void _unparsedEntityDecl(void *p, const xmlChar *name, const xmlChar *pub
                            (*env)->NewStringUTF(env, (const char*)notationName));
 }
 
+static void _warning(void *p, const char *msg, ...) {
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
+    JNIEnv *env = ctx->env;
+    char buf[512];
+    
+    va_list arg;
+    va_start(arg, msg);
+    vsprintf(buf, msg, arg);
+    va_end(arg);
+    
+    // TODO: working with xmlGetLastError()?
+    (*env)->CallVoidMethod(env, ctx->handler, ctx->midWarning, (*env)->NewStringUTF(env, buf));
+}
+
+static void _error(void *p, const char *msg, ...) {
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
+    JNIEnv *env = ctx->env;
+    char buf[512];
+    
+    va_list arg;
+    va_start(arg, msg);
+    vsprintf(buf, msg, arg);
+    va_end(arg);
+    
+    // TODO: working with xmlGetLastError()?
+    (*env)->CallVoidMethod(env, ctx->handler, ctx->midError, (*env)->NewStringUTF(env, buf));
+}
+
+static void _fatalError(void *p, const char *msg, ...) {
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
+    JNIEnv *env = ctx->env;
+    char buf[512];
+    
+    va_list arg;
+    va_start(arg, msg);
+    vsprintf(buf, msg, arg);
+    va_end(arg);
+    
+    // TODO: working with xmlGetLastError()?
+    (*env)->CallVoidMethod(env, ctx->handler, ctx->midFatalError, (*env)->NewStringUTF(env, buf));
+}
+
 
 
 /*
@@ -401,6 +446,12 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
     assert(ctx.midNotationDecl);
     ctx.midUnparsedEntityDecl = (*env)->GetMethodID(env, classHandler, "fireUnparsedEntityDecl", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
     assert(ctx.midUnparsedEntityDecl);
+    ctx.midWarning = (*env)->GetMethodID(env, classHandler, "fireWarning", "(Ljava/lang/String;)V");
+    assert(ctx.midWarning);
+    ctx.midError = (*env)->GetMethodID(env, classHandler, "fireError", "(Ljava/lang/String;)V");
+    assert(ctx.midError);
+    ctx.midFatalError = (*env)->GetMethodID(env, classHandler, "fireFatalError", "(Ljava/lang/String;)V");
+    assert(ctx.midFatalError);
     
     memset(&handler, 0, sizeof(xmlSAXHandler));
     handler.initialized = XML_SAX2_MAGIC;
@@ -414,10 +465,17 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
     handler.processingInstruction = _processingInstruction;
     handler.notationDecl = _notationDecl;
     handler.unparsedEntityDecl = _unparsedEntityDecl;
+    handler.warning = _warning;
+    handler.error = _error;
+    handler.fatalError = _fatalError;
     
     xmlDocPtr doc = xmlSAXParseMemoryWithData(&handler, data, data_len, recovery, &ctx);
+    (*env)->ReleaseStringUTFChars(env, jstr, data);
+    
+    if(doc==NULL) {
+        throwInternalErrorWithLastError(env);
+        return;
+    }
     // TODO: test with invalid document
     xmlFreeDoc(doc);
-    
-    (*env)->ReleaseStringUTFChars(env, jstr, data);
 }
