@@ -192,12 +192,12 @@ struct _xmlSAXHandler {
 *    charactersSAXFunc characters;
 *    ignorableWhitespaceSAXFunc ignorableWhitespace;
 *    processingInstructionSAXFunc processingInstruction;
-    commentSAXFunc comment;
-/   warningSAXFunc warning;
-/   errorSAXFunc error;
-/   fatalErrorSAXFunc fatalError;
+L   commentSAXFunc comment;
+*   warningSAXFunc warning;
+*   errorSAXFunc error;
+*   fatalErrorSAXFunc fatalError;
     getParameterEntitySAXFunc getParameterEntity;
-    cdataBlockSAXFunc cdataBlock;
+L   cdataBlockSAXFunc cdataBlock;
     externalSubsetSAXFunc externalSubset;
     unsigned int initialized;
     void *_private;
