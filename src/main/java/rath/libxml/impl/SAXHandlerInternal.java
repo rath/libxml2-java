@@ -1,6 +1,9 @@
 package rath.libxml.impl;
 
+import org.xml.sax.helpers.AttributesImpl;
 import rath.libxml.SAXHandler;
+
+import java.util.Arrays;
 
 /**
  * NOT thread safe.
@@ -37,22 +40,79 @@ public class SAXHandlerInternal {
 	}
 
 	public void fireCharacters() {
-		int slen = copyBufferImpl();
-		handler.characters(characterBuffer, 0, slen);
+		int len = copyBufferImpl();
+		handler.characters(characterBuffer, 0, len);
 	}
 
 	public void fireIgnorableWhitespace() {
-		int slen = copyBufferImpl();
-		handler.ignorableWhitespace(characterBuffer, 0, slen);
+		int len = copyBufferImpl();
+		handler.ignorableWhitespace(characterBuffer, 0, len);
 	}
 
 	private final int copyBufferImpl() {
 		String s = new String(byteBuffer, 0, byteBufferFilled);
-		int slen = s.length();
-		if( characterBuffer.length < slen ) {
-			characterBuffer = new char[slen];
+		int len = s.length();
+		if( characterBuffer.length < len ) {
+			characterBuffer = new char[len];
 		}
-		s.getChars(0, slen, characterBuffer, 0);
-		return slen;
+		s.getChars(0, len, characterBuffer, 0);
+		return len;
+	}
+
+	public void fireStartElement(String uri, String prefix, String localName, String[] namespaces,
+	                             String[] attributes, int defaultAttribute) {
+		// TODO: Test with startElementNs:defaultAttribute by linking a dtd
+		String qName;
+		if( prefix==null )
+			qName = localName;
+		else
+			qName = prefix + ":" + localName;
+		uri = uri==null ? "" : uri;
+
+		AttributesImpl attrImpl = new AttributesImpl$();
+		if( attributes!=null ) {
+			for(int i=0; i<attributes.length; i+=4) {
+				String aLocal = attributes[i+0];
+				String aPrefix = attributes[i+1];
+				String aUri = attributes[i+2];
+				String aValue = attributes[i+3];
+
+				String aQname;
+				if( aPrefix==null )
+					aQname = aLocal;
+				else
+					aQname = aPrefix + ":" + aLocal;
+				attrImpl.addAttribute(aUri, aLocal, aQname, aPrefix, aValue);
+			}
+		}
+		handler.startElement(uri, localName, qName, attrImpl);
+	}
+
+	public void fireEndElement(String uri, String prefix, String localName) {
+		String qName;
+		if (prefix == null)
+			qName = localName;
+		else
+			qName = prefix + ":" + localName;
+		uri = uri == null ? "" : uri;
+		handler.endElement(uri, localName, qName);
+	}
+
+	static class AttributesImpl$ extends AttributesImpl {
+		public String toString() {
+			StringBuilder sb = new StringBuilder();
+			sb.append('{');
+			for(int i=0; i<getLength(); i++) {
+				sb.append('[');
+				sb.append(getQName(i));
+				sb.append('=');
+				sb.append(getValue(i));
+				sb.append(']');
+				if( i+1<getLength() )
+					sb.append(", ");
+			}
+			sb.append('}');
+			return sb.toString();
+		}
 	}
 }

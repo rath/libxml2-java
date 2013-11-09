@@ -1,3 +1,4 @@
+extern jclass classString;
 extern jclass classError;
 extern jclass classDocument;
 extern jclass classNode;

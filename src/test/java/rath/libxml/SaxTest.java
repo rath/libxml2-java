@@ -13,6 +13,9 @@ import org.xml.sax.helpers.DefaultHandler;
 import javax.xml.parsers.SAXParserFactory;
 
 import java.io.ByteArrayInputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.hamcrest.core.Is.is;
 
@@ -50,7 +53,7 @@ public class SaxTest {
 	@Test
 	public void simple() {
 		String xml = "<?xml version=\"1.0\"?>" +
-			"<f:html lang=\"en\" xmlns:f=\"http://f.com/\">" +
+			"<f:html lang=\"en\" f:version=\"5\" xmlns:f=\"http://f.com/\">" +
 			"<head>" +
 			"  <title>Title</title>" +
 			"</head>" +
@@ -58,10 +61,12 @@ public class SaxTest {
 			"  <h1>バットマン</h1>" +
 			"  <p>He said he would do it as soon as possible</p>" +
 			"</body>" +
-			"</html>";
+			"</f:html>";
 
 		final MutableInt checkDoc = new MutableInt(0);
 		final MutableInt checkChars = new MutableInt(0);
+		final List<String> checkElemStart = new ArrayList<String>();
+		final List<String> checkElemEnd = new ArrayList<String>();
 		LibXml.parseSAX(xml, new SAXAdapter() {
 			@Override
 			public void startDocument() {
@@ -82,14 +87,12 @@ public class SaxTest {
 
 			@Override
 			public void startElement(String uri, String localName, String qName, Attributes atts) {
-				// "", head, head,
-				// "http://f.com/", html, f:html
-				System.out.println("start-e: " + uri + ", " + localName + ", " + qName + ", " + atts);
+				checkElemStart.add(localName);
 			}
 
 			@Override
 			public void endElement(String uri, String localName, String qName) {
-				System.out.println("end  -e: " + uri + ", " + localName + ", " + qName);
+				checkElemEnd.add(localName);
 			}
 
 			@Override
@@ -98,8 +101,10 @@ public class SaxTest {
 			}
 		}, 0);
 
-		Assert.assertEquals(11, checkDoc.getValue());
-		Assert.assertEquals(58, checkChars.getValue());
+		Assert.assertEquals("document start/end", 11, checkDoc.getValue());
+		Assert.assertEquals("characters count", 58, checkChars.getValue());
+		Assert.assertEquals("element start", Arrays.asList("html", "head", "title", "body", "h1", "p"), checkElemStart);
+		Assert.assertEquals("element end", Arrays.asList("title", "head", "h1", "p", "body", "html"), checkElemEnd);
 	}
 
 	static class SAXAdapter implements SAXHandler {

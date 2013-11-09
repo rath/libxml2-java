@@ -7,6 +7,7 @@
 #include "cache.h"
 #include "utils.h"
 
+jclass classString;
 jclass classError;
 jclass classDocument;
 jclass classNode;
@@ -83,6 +84,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     xmlSetGenericErrorFunc(env, handlerGenericError);
     xmlSetStructuredErrorFunc(env, handlerStructuredError);
     
+    cc(env, "java/lang/String", &classString);
     cc(env, "rath/libxml/LibXmlException", &classError);
     cc(env, "rath/libxml/Document", &classDocument);
     cc(env, "rath/libxml/Node", &classNode);
@@ -182,13 +184,13 @@ struct _xmlSAXHandler {
     elementDeclSAXFunc elementDecl;
     unparsedEntityDeclSAXFunc unparsedEntityDecl;
     setDocumentLocatorSAXFunc setDocumentLocator;
-    startDocumentSAXFunc startDocument;
-    endDocumentSAXFunc endDocument;
-    startElementSAXFunc startElement;
-    endElementSAXFunc endElement;
+*    startDocumentSAXFunc startDocument;
+*    endDocumentSAXFunc endDocument;
+#    startElementSAXFunc startElement;
+#    endElementSAXFunc endElement;
     referenceSAXFunc reference;
-    charactersSAXFunc characters;
-    ignorableWhitespaceSAXFunc ignorableWhitespace;
+*    charactersSAXFunc characters;
+*    ignorableWhitespaceSAXFunc ignorableWhitespace;
     processingInstructionSAXFunc processingInstruction;
     commentSAXFunc comment;
     warningSAXFunc warning;
@@ -199,8 +201,8 @@ struct _xmlSAXHandler {
     externalSubsetSAXFunc externalSubset;
     unsigned int initialized;
     void *_private;
-    startElementNsSAX2Func startElementNs;
-    endElementNsSAX2Func endElementNs;
+*    startElementNsSAX2Func startElementNs;
+*    endElementNsSAX2Func endElementNs;
     xmlStructuredErrorFunc serror;
 };
 */
@@ -213,6 +215,8 @@ typedef struct {
     jmethodID midEnsureChars;
     jmethodID midCharacters;
     jmethodID midIgnorableWhitespace;
+    jmethodID midStartElement;
+    jmethodID midEndElement;
 } SContext;
 
 static void _startDocument(void *p) {
@@ -252,16 +256,57 @@ static void _startElementNs(void *p, const xmlChar *localname, const xmlChar *pr
                             int nb_attributes, int nb_defaulted, const xmlChar **attributes) {
     SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
     JNIEnv *env = ctx->env;
+    
+    int i;
+    jobjectArray jNs = NULL;
+    jobjectArray jAttr = NULL;
+    
+    if( nb_namespaces>0 ) {
+        jNs = (*env)->NewObjectArray(env, nb_namespaces, classString, NULL);
+        for(i=0; i<nb_namespaces; i++) {
+            (*env)->SetObjectArrayElement(env, jNs, i, (*env)->NewStringUTF(env, (char*)namespaces[i]));
+        }
+    }
+    if( nb_attributes>0 ) {
+        // localname/prefix/URI/value/end
+        jAttr = (*env)->NewObjectArray(env, nb_attributes*4, classString, NULL);
+        for(i=0; i<nb_attributes; i++) {
+            (*env)->SetObjectArrayElement(env, jAttr, 4*i+0, (*env)->NewStringUTF(env, (char*)attributes[5*i+0]));
+            (*env)->SetObjectArrayElement(env, jAttr, 4*i+1, (*env)->NewStringUTF(env, (char*)attributes[5*i+1]));
+            (*env)->SetObjectArrayElement(env, jAttr, 4*i+2, (*env)->NewStringUTF(env, (char*)attributes[5*i+2]));
+            size_t value_len = attributes[5*i+4] - attributes[5*i+3];
+            char *value = (char*)malloc(sizeof(char) * (value_len+1));
+            strncpy(value, (const char*)attributes[5*i+3], value_len);
+            value[value_len] = 0;
+            (*env)->SetObjectArrayElement(env, jAttr, 4*i+3, (*env)->NewStringUTF(env, value));
+            free(value);
+        }
+    }
 
-    fprintf(stdout, "!!!!!! _startElementNs: not implemented\n");
+    (*env)->CallVoidMethod(env, ctx->handler, ctx->midStartElement,
+                           (*env)->NewStringUTF(env, (const char*)uri),
+                           (*env)->NewStringUTF(env, (const char*)prefix),
+                           (*env)->NewStringUTF(env, (const char*)localname),
+                           jNs, jAttr, (jint)nb_defaulted);
+    
+    (*env)->DeleteLocalRef(env, jNs);
+    (*env)->DeleteLocalRef(env, jAttr);
+}
+
+static void _endElementNs(void *p, const xmlChar *localname, const xmlChar *prefix, const xmlChar *uri) {
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
+    JNIEnv *env = ctx->env;
+    
+     (*env)->CallVoidMethod(env, ctx->handler, ctx->midEndElement,
+                           (*env)->NewStringUTF(env, (const char*)uri),
+                           (*env)->NewStringUTF(env, (const char*)prefix),
+                           (*env)->NewStringUTF(env, (const char*)localname));
 }
 
 /*
  * It will never be called because we use XML_SAX2_MAGIC.
- */
 static void _startElement(void *p, const xmlChar *name, const xmlChar **atts) {
-    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
-    JNIEnv *env = ctx->env;
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private; JNIEnv *env = ctx->env;
     
     fprintf(stdout, "_startElement: name=%s\n", name);
     if(atts!=NULL) {
@@ -277,6 +322,7 @@ static void _startElement(void *p, const xmlChar *name, const xmlChar **atts) {
         fprintf(stdout, "no attributes\n");
     }
 }
+ */
 
 static void _endDocument(void *p) {
     SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
@@ -311,6 +357,10 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
     assert(ctx.midIgnorableWhitespace);
     ctx.midEnsureChars = (*env)->GetMethodID(env, classHandler, "ensureCharacterBufferSize", "(I)[B");
     assert(ctx.midEnsureChars);
+    ctx.midStartElement = (*env)->GetMethodID(env, classHandler, "fireStartElement", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;I)V");
+    assert(ctx.midStartElement);
+    ctx.midEndElement = (*env)->GetMethodID(env, classHandler, "fireEndElement", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+    assert(ctx.midEndElement);
     
     memset(&handler, 0, sizeof(xmlSAXHandler));
     handler.initialized = XML_SAX2_MAGIC;
@@ -319,7 +369,8 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
     handler.characters = _characters;
     handler.ignorableWhitespace = _ignorableWhitespace;
     handler.startElementNs = _startElementNs;
-    handler.startElement = _startElement;
+//    handler.startElement = _startElement;
+    handler.endElementNs = _endElementNs;
     
     xmlDocPtr doc = xmlSAXParseMemoryWithData(&handler, data, data_len, recovery, &ctx);
     // TODO: test with invalid document
