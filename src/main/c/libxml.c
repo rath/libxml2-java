@@ -217,6 +217,7 @@ typedef struct {
     jmethodID midIgnorableWhitespace;
     jmethodID midStartElement;
     jmethodID midEndElement;
+    jmethodID midProcessingInstruction;
 } SContext;
 
 static void _startDocument(void *p) {
@@ -332,6 +333,14 @@ static void _endDocument(void *p) {
     (*env)->CallVoidMethod(env, ctx->handler, ctx->midEndDocument);
 }
 
+static void _processingInstruction(void *p, const xmlChar *target, const xmlChar *data) {
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
+    JNIEnv *env = ctx->env;
+    (*env)->CallVoidMethod(env, ctx->handler, ctx->midProcessingInstruction,
+                           (*env)->NewStringUTF(env, (const char*)target),
+                           (*env)->NewStringUTF(env, (const char*)data));
+}
+
 /*
  * Class:     rath_libxml_LibXml
  * Method:    parseSAXImpl
@@ -363,6 +372,8 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
     assert(ctx.midStartElement);
     ctx.midEndElement = (*env)->GetMethodID(env, classHandler, "fireEndElement", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
     assert(ctx.midEndElement);
+    ctx.midProcessingInstruction = (*env)->GetMethodID(env, classHandler, "fireProcessingInstruction", "(Ljava/lang/String;Ljava/lang/String;)V");
+    assert(ctx.midProcessingInstruction);
     
     memset(&handler, 0, sizeof(xmlSAXHandler));
     handler.initialized = XML_SAX2_MAGIC;
@@ -373,6 +384,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
     handler.startElementNs = _startElementNs;
 //    handler.startElement = _startElement;
     handler.endElementNs = _endElementNs;
+    handler.processingInstruction = _processingInstruction;
     
     xmlDocPtr doc = xmlSAXParseMemoryWithData(&handler, data, data_len, recovery, &ctx);
     // TODO: test with invalid document

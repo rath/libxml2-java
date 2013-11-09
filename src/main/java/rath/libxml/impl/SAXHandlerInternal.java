@@ -155,4 +155,8 @@ public class SAXHandlerInternal {
 			return sb.toString();
 		}
 	}
+
+	public void fireProcessingInstruction(String target, String data) {
+		handler.processingInstruction(target, data);
+	}
 }

@@ -1,5 +1,6 @@
 package rath.libxml;
 
+import org.apache.commons.lang.mutable.MutableBoolean;
 import org.apache.commons.lang.mutable.MutableInt;
 import org.junit.Assert;
 import org.junit.Test;
@@ -59,10 +60,12 @@ public class SaxTest {
 			"</head>" +
 			"<b:body xmlns:b=\"http://body.com/\">" +
 			"  <b:h1>バットマン</b:h1>" +
+			"  <?php echo $a ?>" +
 			"  <b:p>He said he would do it as soon as possible</b:p>" +
 			"</b:body>" +
 			"</f:html>";
 
+		final MutableBoolean checkPI = new MutableBoolean(false);
 		final MutableInt checkDoc = new MutableInt(0);
 		final MutableInt checkChars = new MutableInt(0);
 		final List<String> checkElemStart = new ArrayList<String>();
@@ -108,15 +111,22 @@ public class SaxTest {
 			}
 
 			@Override
+			public void processingInstruction(String target, String data) {
+				checkPI.setValue(true);
+				System.out.println("<?" + target + " " + data + "?>");
+			}
+
+			@Override
 			public void endDocument() {
 				checkDoc.add(10);
 			}
 		}, 0);
 
 		Assert.assertEquals("document start/end", 11, checkDoc.getValue());
-		Assert.assertEquals("characters count", 58, checkChars.getValue());
+		Assert.assertEquals("characters count", 60, checkChars.getValue());
 		Assert.assertEquals("element start", Arrays.asList("html", "head", "title", "body", "h1", "p"), checkElemStart);
 		Assert.assertEquals("element end", Arrays.asList("title", "head", "h1", "p", "body", "html"), checkElemEnd);
+		Assert.assertEquals("processing instruction", true, checkPI.getValue());
 	}
 
 	static class SAXAdapter implements SAXHandler {
