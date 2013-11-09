@@ -186,4 +186,8 @@ public class SAXHandlerInternal {
 		LibXmlException e = new LibXmlException(msg);
 		handler.fatalError(e);
 	}
+
+	public void fireSetLocator(LocatorImpl impl) {
+
+	}
 }

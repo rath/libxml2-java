@@ -183,7 +183,7 @@ struct _xmlSAXHandler {
     attributeDeclSAXFunc attributeDecl;
     elementDeclSAXFunc elementDecl;
 *    unparsedEntityDeclSAXFunc unparsedEntityDecl;
-    setDocumentLocatorSAXFunc setDocumentLocator;
+/    setDocumentLocatorSAXFunc setDocumentLocator;
 *    startDocumentSAXFunc startDocument;
 *    endDocumentSAXFunc endDocument;
 #    startElementSAXFunc startElement;
@@ -223,6 +223,7 @@ typedef struct {
     jmethodID midWarning;
     jmethodID midError;
     jmethodID midFatalError;
+    jmethodID midSetLocator;
 } SContext;
 
 static void _startDocument(void *p) {
@@ -407,7 +408,9 @@ static void _fatalError(void *p, const char *msg, ...) {
     (*env)->CallVoidMethod(env, ctx->handler, ctx->midFatalError, (*env)->NewStringUTF(env, buf));
 }
 
-
+static void _setDocumentLocator(void *p, xmlSAXLocatorPtr loc) {
+    
+}
 
 /*
  * Class:     rath_libxml_LibXml
@@ -452,6 +455,9 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
     assert(ctx.midError);
     ctx.midFatalError = (*env)->GetMethodID(env, classHandler, "fireFatalError", "(Ljava/lang/String;)V");
     assert(ctx.midFatalError);
+    ctx.midSetLocator = (*env)->GetMethodID(env, classHandler, "fireSetLocator", "(Lrath/libxml/LocatorImpl;)V");
+    assert(ctx.midSetLocator);
+    
     
     memset(&handler, 0, sizeof(xmlSAXHandler));
     handler.initialized = XML_SAX2_MAGIC;
@@ -468,6 +474,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
     handler.warning = _warning;
     handler.error = _error;
     handler.fatalError = _fatalError;
+    handler.setDocumentLocator = _setDocumentLocator;
     
     xmlDocPtr doc = xmlSAXParseMemoryWithData(&handler, data, data_len, recovery, &ctx);
     (*env)->ReleaseStringUTFChars(env, jstr, data);

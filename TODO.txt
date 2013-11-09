@@ -1,10 +1,9 @@
-TODO: Test with other xml applications (tomcat, spring container)
-TODO: Node.getAttributes()
-
-TODO: Support xmlParserContext
-TODO: Support xmlParserOption
-TODO: Support registering SAX Handler
-TODO: Support DTD related
+TODO: xmlParserContext
+TODO: xmlParserOption
+TODO: DTD related
 TODO: Performance test?
 
+TODO: DOM: Node.getAttributes()
+
 TODO: streaming
+TODO: Test with other xml applications (tomcat, spring container)

@@ -7,6 +7,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.xml.sax.Attributes;
+import org.xml.sax.Locator;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
 import org.xml.sax.helpers.DefaultHandler;
@@ -27,6 +28,7 @@ import static org.hamcrest.core.Is.is;
  */
 @RunWith(JUnit4.class)
 public class SaxTest {
+	@Test
 	public void simpleByDefault() throws Exception {
 		String xml = "<?xml version=\"1.0\"?>" +
 			"<f:html lang=\"en\" xmlns:f=\"http://f.com/\">" +
@@ -42,11 +44,19 @@ public class SaxTest {
 		factory.setNamespaceAware(true);
 		factory.newSAXParser().parse(
 			new ByteArrayInputStream(xml.getBytes("UTF-8")), new DefaultHandler(){
+			Locator domLocator = null;
 			@Override
 			public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 				// "", head, head,
 				// "http://f.com/", html, f:html
 				System.out.println("start-e: " + uri + ", " + localName + ", " + qName + ", " + attributes);
+				System.out.println("column no: " + domLocator.getColumnNumber());
+				// 64, 70, 79, 105, 111, 126
+			}
+
+			@Override
+			public void setDocumentLocator(Locator locator) {
+				this.domLocator = locator;
 			}
 		});
 	}

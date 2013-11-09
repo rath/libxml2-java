@@ -26,6 +26,8 @@ public interface SAXHandler {
 
 	public void notationDecl(String name, String publicId, String systemId);
 	public void unparsedEntityDecl(String name, String publicId, String systemId, String notationName);
+
+	public void setDocumentLocator(Locator locator);
 }
 
 //class x implements DTDHandler {
