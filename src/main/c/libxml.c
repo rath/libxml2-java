@@ -440,6 +440,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
 (JNIEnv *env, jclass clz, jstring jstr, jobject jhandler, jint recovery) {
     SContext ctx;
     xmlSAXHandler handler;
+    // TODO: handler's method can be cached instead of lookup every time.
     jclass classHandler = (*env)->GetObjectClass(env, jhandler);
     
     const char *data = (*env)->GetStringUTFChars(env, jstr, NULL);

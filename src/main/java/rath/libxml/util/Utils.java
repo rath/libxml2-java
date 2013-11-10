@@ -1,5 +1,7 @@
 package rath.libxml.util;
 
+import org.xml.sax.InputSource;
+
 import java.io.*;
 
 /**
@@ -30,18 +32,53 @@ public class Utils {
 		in.close();
 	}
 
-	public static String loadFile(File f) throws IOException {
-		FileInputStream fis = new FileInputStream(f);
+	public static String loadInputSource(InputSource in) throws IOException {
+		InputStream byteStream = in.getByteStream();
+		if(byteStream!=null )
+			return loadStream(byteStream, in.getEncoding());
+		Reader charStream = in.getCharacterStream();
+		if( charStream!=null )
+			return loadReader(charStream);
+		throw new UnsupportedOperationException();
+	}
+
+	public static String loadReader(Reader in) throws IOException {
+		StringWriter sw = new StringWriter();
+		char[] buf = new char[1024];
+		while(true) {
+			int readlen = in.read(buf);
+			if( readlen==-1 )
+				break;
+			sw.write(buf, 0, readlen);
+		}
+		return sw.toString();
+	}
+
+	public static String loadStream(InputStream in) throws IOException {
+		return loadStream(in, "UTF-8");
+	}
+
+	public static String loadStream(InputStream in, String encoding) throws IOException {
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		byte[] buf = new byte[1024];
 		while(true) {
-			int readlen = fis.read(buf);
+			int readlen = in.read(buf);
 			if( readlen==-1 )
 				break;
 			bos.write(buf, 0, readlen);
 		}
-		fis.close();
-		return bos.toString("UTF-8");
+		return bos.toString(encoding);
+	}
+
+	public static String loadFile(File f) throws IOException {
+		FileInputStream fis = new FileInputStream(f);
+		String str = null;
+		try {
+			str = loadStream(fis);
+		} finally {
+			fis.close();
+		}
+		return str;
 	}
 
 	public static String getPlatformDependentBundleName() {

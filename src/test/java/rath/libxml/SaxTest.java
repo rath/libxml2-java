@@ -6,15 +6,13 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.xml.sax.Attributes;
-import org.xml.sax.Locator;
-import org.xml.sax.SAXException;
-import org.xml.sax.SAXParseException;
+import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
 
 import javax.xml.parsers.SAXParserFactory;
 
 import java.io.ByteArrayInputStream;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -28,7 +26,7 @@ import static org.hamcrest.core.Is.is;
  */
 @RunWith(JUnit4.class)
 public class SaxTest {
-//	@Test
+	@Test
 	public void simpleByDefault() throws Exception {
 		String xml = "<?xml version=\"1.0\"?>" +
 			"<f:html lang=\"en\" xmlns:f=\"http://f.com/\">" +
@@ -40,10 +38,11 @@ public class SaxTest {
 			"  <p>He said he would do it as soon as possible</p>" +
 			"</body>" +
 			"</f:html>";
-		SAXParserFactory factory = SAXParserFactory.newInstance();
+		SAXParserFactory factory = SAXParserFactory.newInstance("rath.libxml.jaxp.SAXParserFactoryImpl", null);
 		factory.setNamespaceAware(true);
 		factory.newSAXParser().parse(
-			new ByteArrayInputStream(xml.getBytes("UTF-8")), new DefaultHandler(){
+//			new ByteArrayInputStream(xml.getBytes("UTF-8")), new DefaultHandler(){
+			new InputSource(new StringReader(xml)), new DefaultHandler(){
 			Locator domLocator = null;
 			@Override
 			public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {

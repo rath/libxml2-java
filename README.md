@@ -7,9 +7,9 @@ Current implementation of libxml2-java is **very limited at the moment**. It's v
 ## Progress
 
 - (50%) DOM 3
-- (65%) SAX 2
+- (80%) SAX 2
 - (20%) XPath 
-- (40%) As JAXP(JSR 206) provider  
+- (70%) As JAXP(JSR 206) provider  
 
 ## Build instructions
 

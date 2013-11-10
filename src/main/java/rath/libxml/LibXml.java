@@ -1,6 +1,6 @@
 package rath.libxml;
 
-import rath.libxml.impl.SAXHandlerInternal;
+import rath.libxml.impl.SAXHandlerEngine;
 import rath.libxml.util.Utils;
 
 import java.io.File;
@@ -94,13 +94,18 @@ public class LibXml {
 	private static native Document parseStringImpl(String data);
 
 	public static void parseSAX(String xml, SAXHandler handler, int recovery) {
+		parseSAX(xml, handler, recovery, null);
+	}
+
+	public static void parseSAX(String xml, SAXHandler handler, int recovery, SAXHandlerEngine engine) {
 		if( xml==null )
 			throw new NullPointerException("Can't parse null data");
 
-		SAXHandlerInternal handlerImpl = new SAXHandlerInternal(handler);
-		handlerImpl.setAwarePrefixMapping(true);
-		parseSAXImpl(xml, handlerImpl, recovery);
+		if( engine==null )
+			engine = new SAXHandlerEngine();
+		engine.setHandler(handler);
+		parseSAXImpl(xml, engine, recovery);
 	}
 
-	private static native void parseSAXImpl(String data, SAXHandlerInternal handler, int recovery);
+	private static native void parseSAXImpl(String data, SAXHandlerEngine handler, int recovery);
 }

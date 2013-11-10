@@ -5,5 +5,5 @@ TODO: Performance test?
 
 TODO: DOM: Node.getAttributes()
 
-TODO: streaming
+TODO: streaming (!!) handle org.xml.sax.InputSource well
 TODO: Test with other xml applications (tomcat, spring container)

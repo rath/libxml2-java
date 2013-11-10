@@ -5,6 +5,7 @@ import org.w3c.dom.Document;
 import org.xml.sax.*;
 import rath.libxml.LibXml;
 import rath.libxml.LibXmlException;
+import rath.libxml.util.Utils;
 
 import javax.xml.parsers.DocumentBuilder;
 import java.io.*;
@@ -37,18 +38,8 @@ public class DocumentBuilderImpl extends DocumentBuilder {
 
 	@Override
 	public Document parse(InputSource inputSource) throws SAXException, IOException {
-		// TODO: DocumentBuilderImpl.parse. too bad implementation
-		InputStream in = inputSource.getByteStream();
-		ByteArrayOutputStream baos = new ByteArrayOutputStream();
-		byte[] buf = new byte[1024];
-		while(true) {
-			int readlen = in.read(buf);
-			if( readlen==-1 )
-				break;
-			baos.write(buf, 0, readlen);
-		}
 		// TODO: should support stream parsing
-		String str = baos.toString(inputSource.getEncoding()==null ? "UTF-8" : inputSource.getEncoding());
+		String str = Utils.loadInputSource(inputSource);
 		rath.libxml.Document doc = null;
 		try {
 			doc = LibXml.parseString(str);

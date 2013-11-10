@@ -16,8 +16,8 @@ import java.util.Map;
  * Date: 08/11/2013
  * Time: 23:33
  */
-public class SAXHandlerInternal {
-	private final SAXHandler handler;
+public class SAXHandlerEngine {
+	private SAXHandler handler;
 	private byte[] byteBuffer = new byte[128];
 	private int byteBufferFilled = 0;
 	private char[] characterBuffer = new char[128];
@@ -26,8 +26,15 @@ public class SAXHandlerInternal {
 	private Map<Integer, Namespace> prefixNsMap = new HashMap<Integer, Namespace>();
 	private boolean awarePrefixMapping = false;
 
-	public SAXHandlerInternal(SAXHandler handler) {
+	public SAXHandlerEngine() {
+	}
+
+	public void setHandler(SAXHandler handler) {
 		this.handler = handler;
+	}
+
+	public SAXHandler getHandler() {
+		return handler;
 	}
 
 	public void setAwarePrefixMapping(boolean aware) {
