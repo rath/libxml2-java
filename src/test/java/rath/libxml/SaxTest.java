@@ -16,6 +16,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.StringReader;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -61,6 +62,24 @@ public class SaxTest {
 				this.domLocator = locator;
 			}
 		});
+	}
+
+//	@Test
+	public void test() throws Exception {
+		URL url = new URL("file:/Users/rath/work/rath-adrenaline/build.xml");
+		url.openConnection().getInputStream().read();
+	}
+
+	@Test
+	public void parseBySystemId() throws Exception {
+		String systemId = "file:/Users/rath/work/rath-adrenaline/build.xml";
+		systemId = "jar:file:/Users/rath/sdks/ant/lib/ant.jar!/org/apache/tools/ant/antlib.xml";
+		LibXml.parseSAXSystemId(systemId, new SAXAdapter() {
+			@Override
+			public void startElement(String uri, String localName, String qName, Attributes atts) {
+				System.out.println(qName);
+			}
+		}, 0);
 	}
 
 	@Test

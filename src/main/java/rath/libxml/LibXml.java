@@ -6,6 +6,8 @@ import rath.libxml.util.Utils;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 
 /**
  * 
@@ -117,4 +119,21 @@ public class LibXml {
 	}
 
 	private static native void parseSAXFileImpl(String filepath, SAXHandlerEngine handler, int recovery);
+
+	public static void parseSAXSystemId(String systemId, SAXHandler handler, int recovery) throws IOException {
+		parseSAXSystemId(systemId, handler, recovery, new SAXHandlerEngine());
+	}
+
+	public static void parseSAXSystemId(String systemId, SAXHandler handler , int recovery, SAXHandlerEngine engine) throws IOException {
+		engine.setHandler(handler);
+		// Resolve systemId's input stream
+		InputStream in = new URL(systemId).openStream();
+		try {
+			parseSAXSystemIdImpl(systemId, in, engine, recovery);
+		} finally {
+			in.close();
+		}
+	}
+
+	private static native void parseSAXSystemIdImpl(String systemId, InputStream in, SAXHandlerEngine engine, int recovery);
 }
