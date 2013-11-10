@@ -33,6 +33,14 @@ public class Utils {
 		in.close();
 	}
 
+	public static InputSource createInputSource(String xml) throws IOException {
+		InputSource ret = new InputSource();
+		ret.setByteStream(new ByteArrayInputStream(xml.getBytes("UTF-8")));
+		ret.setPublicId(null);
+		ret.setSystemId(null);
+		return ret;
+	}
+
 	public static String loadInputSource(InputSource in) throws IOException {
 		InputStream byteStream = in.getByteStream();
 		if(byteStream!=null )
