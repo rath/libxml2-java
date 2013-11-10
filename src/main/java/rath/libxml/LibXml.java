@@ -94,18 +94,27 @@ public class LibXml {
 	private static native Document parseStringImpl(String data);
 
 	public static void parseSAX(String xml, SAXHandler handler, int recovery) {
-		parseSAX(xml, handler, recovery, null);
+		parseSAX(xml, handler, recovery, new SAXHandlerEngine());
 	}
 
 	public static void parseSAX(String xml, SAXHandler handler, int recovery, SAXHandlerEngine engine) {
 		if( xml==null )
 			throw new NullPointerException("Can't parse null data");
 
-		if( engine==null )
-			engine = new SAXHandlerEngine();
 		engine.setHandler(handler);
 		parseSAXImpl(xml, engine, recovery);
 	}
 
 	private static native void parseSAXImpl(String data, SAXHandlerEngine handler, int recovery);
+
+	public static void parseSAX(File file, SAXHandler handler, int recovery) {
+		parseSAX(file, handler, recovery, new SAXHandlerEngine());
+	}
+
+	public static void parseSAX(File file, SAXHandler handler, int recovery, SAXHandlerEngine engine) {
+		engine.setHandler(handler);
+		parseSAXFileImpl(file.getAbsolutePath(), engine, recovery);
+	}
+
+	private static native void parseSAXFileImpl(String filepath, SAXHandlerEngine handler, int recovery);
 }

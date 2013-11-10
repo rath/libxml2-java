@@ -23,11 +23,11 @@ public class SAXParserFactoryImpl extends SAXParserFactory {
 	@Override
 	public void setFeature(String name, boolean value) throws ParserConfigurationException, SAXNotRecognizedException, SAXNotSupportedException {
 		System.out.println("setFeature: " + name + ", " + value);
+		throw new UnsupportedOperationException(name + ": " + value);
 	}
 
 	@Override
 	public boolean getFeature(String name) throws ParserConfigurationException, SAXNotRecognizedException, SAXNotSupportedException {
-		System.out.println("getFeature: " + name);
-		return false;
+		throw new UnsupportedOperationException(name);
 	}
 }

@@ -431,6 +431,60 @@ static void _setDocumentLocator(void *p, xmlSAXLocatorPtr loc) {
     (*env)->DeleteLocalRef(env, locator);
 }
 
+void prepareSAXImpl(JNIEnv *env, SContext *ctx, jobject jhandler, xmlSAXHandler *handler) {
+    // TODO: handler's method can be cached instead of lookup every time.
+    jclass classHandler = (*env)->GetObjectClass(env, jhandler);
+    memset(ctx, 0, sizeof(SContext));
+    ctx->env = env;
+    ctx->handler = jhandler;
+    ctx->midStartDocument = (*env)->GetMethodID(env, classHandler, "fireStartDocument", "()V");
+    assert(ctx->midStartDocument);
+    ctx->midEndDocument = (*env)->GetMethodID(env, classHandler, "fireEndDocument", "()V");
+    assert(ctx->midEndDocument);
+    ctx->midCharacters = (*env)->GetMethodID(env, classHandler, "fireCharacters", "()V");
+    assert(ctx->midCharacters);
+    ctx->midIgnorableWhitespace = (*env)->GetMethodID(env, classHandler, "fireIgnorableWhitespace", "()V");
+    assert(ctx->midIgnorableWhitespace);
+    ctx->midEnsureChars = (*env)->GetMethodID(env, classHandler, "ensureCharacterBufferSize", "(I)[B");
+    assert(ctx->midEnsureChars);
+    ctx->midStartElement = (*env)->GetMethodID(env, classHandler, "fireStartElement", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;I)V");
+    assert(ctx->midStartElement);
+    ctx->midEndElement = (*env)->GetMethodID(env, classHandler, "fireEndElement", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+    assert(ctx->midEndElement);
+    ctx->midProcessingInstruction = (*env)->GetMethodID(env, classHandler, "fireProcessingInstruction", "(Ljava/lang/String;Ljava/lang/String;)V");
+    assert(ctx->midProcessingInstruction);
+    ctx->midNotationDecl = (*env)->GetMethodID(env, classHandler, "fireNotationDecl", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+    assert(ctx->midNotationDecl);
+    ctx->midUnparsedEntityDecl = (*env)->GetMethodID(env, classHandler, "fireUnparsedEntityDecl", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+    assert(ctx->midUnparsedEntityDecl);
+    ctx->midWarning = (*env)->GetMethodID(env, classHandler, "fireWarning", "(Ljava/lang/String;)V");
+    assert(ctx->midWarning);
+    ctx->midError = (*env)->GetMethodID(env, classHandler, "fireError", "(Ljava/lang/String;)V");
+    assert(ctx->midError);
+    ctx->midFatalError = (*env)->GetMethodID(env, classHandler, "fireFatalError", "(Ljava/lang/String;)V");
+    assert(ctx->midFatalError);
+    ctx->midSetLocator = (*env)->GetMethodID(env, classHandler, "fireSetLocator", "(Lrath/libxml/impl/LocatorImpl;)V");
+    assert(ctx->midSetLocator);
+    
+    memset(handler, 0, sizeof(xmlSAXHandler));
+    handler->initialized = XML_SAX2_MAGIC;
+    handler->startDocument = _startDocument;
+    handler->endDocument = _endDocument;
+    handler->characters = _characters;
+    handler->ignorableWhitespace = _ignorableWhitespace;
+    handler->startElementNs = _startElementNs;
+    //    handler->startElement = _startElement;
+    handler->endElementNs = _endElementNs;
+    handler->processingInstruction = _processingInstruction;
+    handler->notationDecl = _notationDecl;
+    handler->unparsedEntityDecl = _unparsedEntityDecl;
+    handler->warning = _warning;
+    handler->error = _error;
+    handler->fatalError = _fatalError;
+    handler->setDocumentLocator = _setDocumentLocator;
+    
+}
+
 /*
  * Class:     rath_libxml_LibXml
  * Method:    parseSAXImpl
@@ -440,69 +494,44 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
 (JNIEnv *env, jclass clz, jstring jstr, jobject jhandler, jint recovery) {
     SContext ctx;
     xmlSAXHandler handler;
-    // TODO: handler's method can be cached instead of lookup every time.
-    jclass classHandler = (*env)->GetObjectClass(env, jhandler);
     
     const char *data = (*env)->GetStringUTFChars(env, jstr, NULL);
     jsize data_len = (*env)->GetStringUTFLength(env, jstr);
     
-    memset(&ctx, 0, sizeof(SContext));
-    ctx.env = env;
-    ctx.handler = jhandler;
-    ctx.midStartDocument = (*env)->GetMethodID(env, classHandler, "fireStartDocument", "()V");
-    assert(ctx.midStartDocument);
-    ctx.midEndDocument = (*env)->GetMethodID(env, classHandler, "fireEndDocument", "()V");
-    assert(ctx.midEndDocument);
-    ctx.midCharacters = (*env)->GetMethodID(env, classHandler, "fireCharacters", "()V");
-    assert(ctx.midCharacters);
-    ctx.midIgnorableWhitespace = (*env)->GetMethodID(env, classHandler, "fireIgnorableWhitespace", "()V");
-    assert(ctx.midIgnorableWhitespace);
-    ctx.midEnsureChars = (*env)->GetMethodID(env, classHandler, "ensureCharacterBufferSize", "(I)[B");
-    assert(ctx.midEnsureChars);
-    ctx.midStartElement = (*env)->GetMethodID(env, classHandler, "fireStartElement", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;I)V");
-    assert(ctx.midStartElement);
-    ctx.midEndElement = (*env)->GetMethodID(env, classHandler, "fireEndElement", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-    assert(ctx.midEndElement);
-    ctx.midProcessingInstruction = (*env)->GetMethodID(env, classHandler, "fireProcessingInstruction", "(Ljava/lang/String;Ljava/lang/String;)V");
-    assert(ctx.midProcessingInstruction);
-    ctx.midNotationDecl = (*env)->GetMethodID(env, classHandler, "fireNotationDecl", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-    assert(ctx.midNotationDecl);
-    ctx.midUnparsedEntityDecl = (*env)->GetMethodID(env, classHandler, "fireUnparsedEntityDecl", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-    assert(ctx.midUnparsedEntityDecl);
-    ctx.midWarning = (*env)->GetMethodID(env, classHandler, "fireWarning", "(Ljava/lang/String;)V");
-    assert(ctx.midWarning);
-    ctx.midError = (*env)->GetMethodID(env, classHandler, "fireError", "(Ljava/lang/String;)V");
-    assert(ctx.midError);
-    ctx.midFatalError = (*env)->GetMethodID(env, classHandler, "fireFatalError", "(Ljava/lang/String;)V");
-    assert(ctx.midFatalError);
-    ctx.midSetLocator = (*env)->GetMethodID(env, classHandler, "fireSetLocator", "(Lrath/libxml/impl/LocatorImpl;)V");
-    assert(ctx.midSetLocator);
-    
-    
-    memset(&handler, 0, sizeof(xmlSAXHandler));
-    handler.initialized = XML_SAX2_MAGIC;
-    handler.startDocument = _startDocument;
-    handler.endDocument = _endDocument;
-    handler.characters = _characters;
-    handler.ignorableWhitespace = _ignorableWhitespace;
-    handler.startElementNs = _startElementNs;
-//    handler.startElement = _startElement;
-    handler.endElementNs = _endElementNs;
-    handler.processingInstruction = _processingInstruction;
-    handler.notationDecl = _notationDecl;
-    handler.unparsedEntityDecl = _unparsedEntityDecl;
-    handler.warning = _warning;
-    handler.error = _error;
-    handler.fatalError = _fatalError;
-    handler.setDocumentLocator = _setDocumentLocator;
-    
+    prepareSAXImpl(env, &ctx, jhandler, &handler);
+
     xmlResetLastError();
     xmlDocPtr doc = xmlSAXParseMemoryWithData(&handler, data, data_len, recovery, &ctx);
     (*env)->ReleaseStringUTFChars(env, jstr, data);
     
     if(ctx.locatorContext!=NULL)
         free(ctx.locatorContext);
+    if(doc==NULL) {
+        throwInternalErrorWithLastError(env);
+        return;
+    }
+    xmlFreeDoc(doc);
+}
+
+/*
+ * Class:     rath_libxml_LibXml
+ * Method:    parseSAXFileImpl
+ * Signature: (Ljava/lang/String;Lrath/libxml/impl/SAXHandlerEngine;I)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXFileImpl
+(JNIEnv *env, jclass cls, jstring jpath, jobject jhandler, jint recovery) {
+    SContext ctx;
+    xmlSAXHandler handler;
     
+    const char *path = (*env)->GetStringUTFChars(env, jpath, NULL);
+    prepareSAXImpl(env, &ctx, jhandler, &handler);
+
+    xmlResetLastError();
+    xmlDocPtr doc = xmlSAXParseFileWithData(&handler, path, recovery, &ctx);
+    (*env)->ReleaseStringUTFChars(env, jpath, path);
+    
+    if(ctx.locatorContext!=NULL)
+        free(ctx.locatorContext);
     if(doc==NULL) {
         throwInternalErrorWithLastError(env);
         return;

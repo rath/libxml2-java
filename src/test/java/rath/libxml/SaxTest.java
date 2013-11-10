@@ -8,10 +8,13 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
+import rath.libxml.util.Utils;
 
 import javax.xml.parsers.SAXParserFactory;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,8 +64,9 @@ public class SaxTest {
 	}
 
 	@Test
-	public void simple() {
+	public void simple() throws IOException {
 		String xml = "<?xml version=\"1.0\"?>" +
+			"<!DOCTYPE sample PUBLIC \"PUBLICID\" \"SYSTEMID\">" +
 			"<f:html lang=\"en\" f:version=\"5\" xmlns:f=\"http://f.com/\">" +
 			"<head>" +
 			"  <title>Title</title>" +
@@ -79,7 +83,10 @@ public class SaxTest {
 		final MutableInt checkChars = new MutableInt(0);
 		final List<String> checkElemStart = new ArrayList<String>();
 		final List<String> checkElemEnd = new ArrayList<String>();
-		LibXml.parseSAX(xml, new SAXHandler() {
+
+		File f = new File("test.xml");
+		Utils.writeFile(f, xml);
+		LibXml.parseSAX(f, new SAXHandler() {
 			public Locator domLocator;
 
 			@Override
@@ -120,6 +127,7 @@ public class SaxTest {
 //				System.out.println("<" + qName + ">");
 //				System.out.println("Line  : " + domLocator.getLineNumber());
 //				System.out.println("Column: " + domLocator.getColumnNumber());
+				System.out.printf("publicId:%s, systemId:%s%n", domLocator.getPublicId(), domLocator.getSystemId());
 			}
 
 			@Override
@@ -167,6 +175,7 @@ public class SaxTest {
 				checkDoc.add(10);
 			}
 		}, 0);
+		f.delete();
 
 		Assert.assertEquals("document start/end", 11, checkDoc.getValue());
 		Assert.assertEquals("characters count", 60, checkChars.getValue());
