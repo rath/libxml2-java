@@ -1,6 +1,8 @@
 package rath.libxml.jaxp;
 
 import org.w3c.dom.*;
+import rath.libxml.Attribute;
+import rath.libxml.Namespace;
 
 /**
  * User: rath
@@ -8,17 +10,16 @@ import org.w3c.dom.*;
  * Time: 02:31
  */
 public class AttrImpl implements Attr {
-	private final String name;
-	private final String value;
+	private final Attribute impl;
+	private Element ownerElement;
 
-	public AttrImpl(String name, String value) {
-		this.name = name;
-		this.value = value;
+	public AttrImpl(Attribute impl) {
+		this.impl = impl;
 	}
 
 	@Override
 	public String getName() {
-		return name;
+		return impl.getName();
 	}
 
 	@Override
@@ -28,7 +29,7 @@ public class AttrImpl implements Attr {
 
 	@Override
 	public String getValue() {
-		return value;
+		return impl.getValue();
 	}
 
 	@Override
@@ -36,9 +37,13 @@ public class AttrImpl implements Attr {
 		throw new UnsupportedOperationException();
 	}
 
+	public void setOwnerElement(Element element) {
+		this.ownerElement = element;
+	}
+
 	@Override
 	public Element getOwnerElement() {
-		throw new UnsupportedOperationException();
+		return ownerElement;
 	}
 
 	@Override
@@ -53,12 +58,12 @@ public class AttrImpl implements Attr {
 
 	@Override
 	public String getNodeName() {
-		throw new UnsupportedOperationException();
+		return getName();
 	}
 
 	@Override
 	public String getNodeValue() throws DOMException {
-		throw new UnsupportedOperationException();
+		return getValue();
 	}
 
 	@Override
@@ -68,12 +73,12 @@ public class AttrImpl implements Attr {
 
 	@Override
 	public short getNodeType() {
-		throw new UnsupportedOperationException();
+		return Node.ATTRIBUTE_NODE;
 	}
 
 	@Override
 	public Node getParentNode() {
-		throw new UnsupportedOperationException();
+		return ownerElement;
 	}
 
 	@Override
@@ -108,7 +113,7 @@ public class AttrImpl implements Attr {
 
 	@Override
 	public Document getOwnerDocument() {
-		throw new UnsupportedOperationException();
+		return ownerElement.getOwnerDocument();
 	}
 
 	@Override
@@ -133,7 +138,7 @@ public class AttrImpl implements Attr {
 
 	@Override
 	public boolean hasChildNodes() {
-		throw new UnsupportedOperationException();
+		return false;
 	}
 
 	@Override
@@ -153,12 +158,18 @@ public class AttrImpl implements Attr {
 
 	@Override
 	public String getNamespaceURI() {
-		throw new UnsupportedOperationException();
+		Namespace ns = impl.getNs();
+		if(ns==null)
+			return null;
+		return ns.getHref();
 	}
 
 	@Override
 	public String getPrefix() {
-		throw new UnsupportedOperationException();
+		Namespace ns = impl.getNs();
+		if(ns==null)
+			return null;
+		return ns.getPrefix();
 	}
 
 	@Override
@@ -168,12 +179,12 @@ public class AttrImpl implements Attr {
 
 	@Override
 	public String getLocalName() {
-		throw new UnsupportedOperationException();
+		return impl.getName();
 	}
 
 	@Override
 	public boolean hasAttributes() {
-		throw new UnsupportedOperationException();
+		return false;
 	}
 
 	@Override
@@ -188,7 +199,7 @@ public class AttrImpl implements Attr {
 
 	@Override
 	public String getTextContent() throws DOMException {
-		throw new UnsupportedOperationException();
+		return getValue();
 	}
 
 	@Override
@@ -208,7 +219,7 @@ public class AttrImpl implements Attr {
 
 	@Override
 	public boolean isDefaultNamespace(String s) {
-		throw new UnsupportedOperationException();
+		return !impl.hasNs() || impl.getNs().getPrefix()==null;
 	}
 
 	@Override
@@ -235,4 +246,9 @@ public class AttrImpl implements Attr {
 	public Object getUserData(String s) {
 		throw new UnsupportedOperationException();
 	}
+
+	public String toString() {
+		return "AttrImpl{" + impl.getName() + "=" + impl.getValue() + ", ns=" + impl.getNs() + "}";
+	}
+
 }
