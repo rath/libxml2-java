@@ -112,7 +112,7 @@ public class NodeImpl implements Node {
 			throw new UnsupportedOperationException("Node.getAttributes has been called for type " + impl.getType());
 		}
 
-		AttributeNamedNodeMapImpl namedMap = new AttributeNamedNodeMapImpl(impl);
+		AttributeNamedNodeMapImpl namedMap = new AttributeNamedNodeMapImpl((ElementImpl)this);
 		return namedMap;
 	}
 

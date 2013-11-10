@@ -3,6 +3,7 @@ package rath.libxml.jaxp;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
+import rath.libxml.Attribute;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,24 +17,45 @@ import java.util.Map;
  */
 public class AttributeNamedNodeMapImpl implements NamedNodeMap {
 	private final rath.libxml.Node element;
-	private Map<String, Node> nodeMap = new HashMap<String,Node>();
-	private List<Node> nodes = new ArrayList<Node>();
+	private Map<String,AttrImpl> nodeMap = new HashMap<String,AttrImpl>();
+	private Map<String,AttrImpl> nodeNsMap = new HashMap<String,AttrImpl>();
+	private List<AttrImpl> nodes = new ArrayList<AttrImpl>();
 
-	public AttributeNamedNodeMapImpl(rath.libxml.Node node) {
-		this.element = node;
+	public AttributeNamedNodeMapImpl(ElementImpl node) {
+		this.element = node.impl;
 
-		for(String name : node.getAttributeNames()) {
-			String value = node.getAttribute(name);
-
-			AttrImpl attr = new AttrImpl(name, value);
-			nodes.add(attr);
-			nodeMap.put(name, attr);
+		for(Attribute attr : element.getAttributeNodes()) {
+			AttrImpl ai = new AttrImpl(attr);
+			ai.setOwnerElement(node);
+			nodes.add(ai);
+			if(attr.hasNs()) {
+				nodeNsMap.put(buildNsName(attr), ai);
+			} else {
+				nodeMap.put(attr.getName(), ai);
+			}
 		}
+	}
+
+	private String buildNsName(Attribute a) {
+		return a.getName() + ":" + a.getNs().getHref();
+	}
+
+	private String buildNsName(String uri, String localName) {
+		return localName + ":" + uri;
 	}
 
 	@Override
 	public Node getNamedItem(String name) {
-		return nodeMap.get(name);
+		Node ret = nodeMap.get(name);
+		System.out.println("# ANNM.getNamedItem("+name+"): " + ret);
+		return ret;
+	}
+
+	@Override
+	public Node getNamedItemNS(String namespaceURI, String localName) throws DOMException {
+		Node ret = nodeNsMap.get(buildNsName(namespaceURI, localName));
+		System.out.println("# ANNM.getNamedItemNS(" + namespaceURI + "/" + localName +"): " + ret);
+		return ret;
 	}
 
 	@Override
@@ -54,11 +76,6 @@ public class AttributeNamedNodeMapImpl implements NamedNodeMap {
 	@Override
 	public int getLength() {
 		return nodes.size();
-	}
-
-	@Override
-	public Node getNamedItemNS(String namespaceURI, String localName) throws DOMException {
-		throw new UnsupportedOperationException();
 	}
 
 	@Override
