@@ -33,7 +33,7 @@ public class XMLReaderImpl implements XMLReader {
 
 	@Override
 	public void setFeature(String name, boolean value) throws SAXNotRecognizedException, SAXNotSupportedException {
-		throw new UnsupportedOperationException();
+//		throw new UnsupportedOperationException("setFeature " + name + "=" + value);
 	}
 
 	@Override

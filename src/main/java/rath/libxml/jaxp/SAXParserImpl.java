@@ -38,13 +38,11 @@ public class SAXParserImpl extends SAXParser {
 
 	@Override
 	public void setProperty(String name, Object value) throws SAXNotRecognizedException, SAXNotSupportedException {
-		System.out.println("SAXParserImpl.setProperty: " + name + ", " + value);
-		throw new UnsupportedOperationException();
+//		throw new UnsupportedOperationException("setProperty: " + name + "=" + value);
 	}
 
 	@Override
 	public Object getProperty(String name) throws SAXNotRecognizedException, SAXNotSupportedException {
-		System.out.println("SAXParserImpl.getProperty: " + name);
-		throw new UnsupportedOperationException();
+		throw new UnsupportedOperationException("getProperty: " + name);
 	}
 }
