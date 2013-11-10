@@ -304,3 +304,41 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_addPrevSiblingImpl
     (*env)->DeleteLocalRef(env, jdoc);
     return ret;
 }
+
+/*
+ * Class:     rath_libxml_Node
+ * Method:    fillAttributeNodes
+ * Signature: (Ljava/util/List;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Node_fillAttributeNodes
+(JNIEnv *env, jobject obj, jobject buf) {
+    xmlNode *node = findNode(env, obj);
+    xmlAttr *attr = node->properties;
+    while(attr!=NULL) {
+        jobject jattr;
+        jobject jns = NULL;
+        jobject jname = (*env)->NewStringUTF(env, (const char*)attr->name);
+        jobject jvalue = (*env)->NewStringUTF(env, (const char*)attr->children->content);
+        
+        xmlNs *ns = attr->ns;
+        if( ns!=NULL ) {
+            jns = (*env)->NewObject(env, classNamespace, methodNamespaceNew,
+                                    (*env)->NewStringUTF(env, (const char*)ns->href),
+                                    (*env)->NewStringUTF(env, (const char*)ns->prefix));
+        }
+        jthrowable r = (*env)->ExceptionOccurred(env);
+        
+        jattr = (*env)->CallStaticObjectMethod(env, classAttribute, methodAttributeNew, jns, jname, jvalue);
+        r = (*env)->ExceptionOccurred(env);
+        (*env)->CallBooleanMethod(env, buf, methodListAdd, jattr);
+        r = (*env)->ExceptionOccurred(env);
+        
+        (*env)->DeleteLocalRef(env, jns);
+        (*env)->DeleteLocalRef(env, jname);
+        (*env)->DeleteLocalRef(env, jvalue);
+        (*env)->DeleteLocalRef(env, jattr);
+        
+        attr = attr->next;
+    }
+    
+}

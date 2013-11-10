@@ -66,12 +66,12 @@ public class DocumentBuilderImpl extends DocumentBuilder {
 
 	@Override
 	public void setEntityResolver(EntityResolver entityResolver) {
-		throw new UnsupportedOperationException();
+//		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public void setErrorHandler(ErrorHandler errorHandler) {
-		throw new UnsupportedOperationException();
+//		throw new UnsupportedOperationException();
 	}
 
 	@Override

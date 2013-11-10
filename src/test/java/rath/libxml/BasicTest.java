@@ -250,24 +250,24 @@ public class BasicTest {
 	}
 
 	@Test
-	public void basicLoopFlow() throws IOException {
-		File inputFile = new File("samples/sample.xml");
-		// Don't test if the sample file doesn't exist.
-		if(!inputFile.exists())
-			return;
+	public void testGetAttributeNodes() {
+		String xml = "<?xml version=\"1.0\"?>" +
+			"<beans:bean xmlns=\"http://www.springframework.org/schema/security\" " +
+			"  xmlns:beans=\"http://www.springframework.org/schema/beans\" " +
+			"  xmlns:context=\"http://www.springframework.org/schema/context\" >" +
+			"  <context:component-scan base-package=\"rath.libxml\" />" +
+			"  <beans:bean id=\"testId\" beans:class=\"foo.bar.TestClass\" />" +
+			"  <hello-world />" +
+			"</beans:bean>";
 
-		Document doc = LibXml.parseFile(inputFile);
-		Node root = doc.getRootElement();
-		for (Node underStory : root) {
-			if (underStory.getName().equals("storyinfo")) {
-				for (Node authorNode : underStory) {
-					if (authorNode.getName().equals("author")) {
-						String authorName = authorNode.getChildText();
-//						System.out.printf("author.name : %s%n", authorName.trim());
-//						System.out.printf("author.@type: %s%n", authorNode.getProp("type"));
-					}
-				}
-			}
+		Document doc = LibXml.parseString(xml);
+		XPathContext ctx = doc.createXPathContext();
+		ctx.addNamespace(new Namespace("http://www.springframework.org/schema/beans", "beans"));
+		Node bean = ctx.evaluate("//beans:bean").nodeset.getNodeAt(1);
+		for(Attribute attr : bean.getAttributeNodes()) {
+			System.out.println(attr);
 		}
+		System.out.println("hardcode: " + bean.getAttribute("id"));
+		System.out.println("hardcode: " + bean.getAttribute("class"));
 	}
 }

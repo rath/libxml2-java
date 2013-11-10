@@ -97,11 +97,11 @@ JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getPropImpl
 
 /*
  * Class:     rath_libxml_Node
- * Method:    getAttributeNodes
- * Signature: ()Lrath/libxml/Node;
+ * Method:    fillAttributeNodes
+ * Signature: (Ljava/util/List;)V
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getAttributeNodes
-  (JNIEnv *, jobject);
+JNIEXPORT void JNICALL Java_rath_libxml_Node_fillAttributeNodes
+  (JNIEnv *, jobject, jobject);
 
 /*
  * Class:     rath_libxml_Node

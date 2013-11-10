@@ -38,9 +38,12 @@ public class Namespace {
 
 	@Override
 	public String toString() {
-		return "[Namespace] " +
-			"href='" + href + '\'' +
-			", prefix='" + prefix + '\'' +
-			'}';
+		StringBuilder sb = new StringBuilder("[Namespace] ");
+		if( prefix!=null ) {
+			sb.append(prefix);
+			sb.append(" ");
+		}
+		sb.append(href);
+		return sb.toString();
 	}
 }

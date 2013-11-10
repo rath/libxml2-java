@@ -15,9 +15,9 @@ public class DocumentBuilderFactoryImpl extends DocumentBuilderFactory {
 
 	@Override
 	public void setNamespaceAware(boolean b) {
-		if(!b) {
-			throw new UnsupportedOperationException();
-		}
+//		if(!b) {
+//			throw new UnsupportedOperationException();
+//		}
 	}
 
 	@Override

@@ -176,7 +176,13 @@ public class Node implements Iterable<Node>, Disposable {
 
 	private native String getPropImpl(String key);
 
-	private native Node getAttributeNodes();
+	public List<Attribute> getAttributeNodes() {
+		List<Attribute> buf = new ArrayList<Attribute>();
+		fillAttributeNodes(buf);
+		return buf;
+	}
+
+	private native void fillAttributeNodes(List<Attribute> buf);
 
 	public String getAttribute(String name) {
 		return getProp(name);

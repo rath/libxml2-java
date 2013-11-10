@@ -8,6 +8,7 @@ extern jclass classXPathContext;
 extern jclass classXPathObject;
 extern jclass classLocator;
 extern jclass classInputStream;
+extern jclass classAttribute;
 
 extern jmethodID methodErrorNew;
 extern jmethodID methodDocumentNew;
@@ -22,6 +23,7 @@ extern jmethodID methodXPathObjectNew;
 extern jmethodID methodListAdd;
 extern jmethodID methodLocatorNew;
 extern jmethodID methodInputStreamRead;
+extern jmethodID methodAttributeNew;
 
 extern jfieldID fieldDocumentGetP;
 extern jfieldID fieldNodeGetP;

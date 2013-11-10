@@ -108,10 +108,12 @@ public class NodeImpl implements Node {
 
 	@Override
 	public NamedNodeMap getAttributes() {
-		if(impl.getType()!=rath.libxml.Node.Type.ELEMENT)
-			return null;
+		if(impl.getType()!=rath.libxml.Node.Type.ELEMENT) {
+			throw new UnsupportedOperationException("Node.getAttributes has been called for type " + impl.getType());
+		}
 
-		throw new UnsupportedOperationException();
+		AttributeNamedNodeMapImpl namedMap = new AttributeNamedNodeMapImpl(impl);
+		return namedMap;
 	}
 
 	@Override
