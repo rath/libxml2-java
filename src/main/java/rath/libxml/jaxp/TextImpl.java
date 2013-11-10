@@ -17,6 +17,11 @@ public class TextImpl extends CharacterDataImpl implements Text {
 	}
 
 	@Override
+	public String getNodeValue() throws DOMException {
+		return impl.getText();
+	}
+
+	@Override
 	public Text splitText(int offset) throws DOMException {
 		String str = getTextContent();
 		String curText = str.substring(0, offset);
@@ -43,13 +48,11 @@ public class TextImpl extends CharacterDataImpl implements Text {
 
 	@Override
 	public String getWholeText() {
-		// DOM Level 3
 		throw new UnsupportedOperationException();
 	}
 
 	@Override
 	public Text replaceWholeText(String s) throws DOMException {
-		// DOM Level 3
 		throw new UnsupportedOperationException();
 	}
 }

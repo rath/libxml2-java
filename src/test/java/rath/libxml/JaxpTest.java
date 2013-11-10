@@ -163,9 +163,9 @@ public class JaxpTest {
 		Document doc = builder.parse(new ByteArrayInputStream(xml.getBytes()));
 		Element root = doc.getDocumentElement();
 		Assert.assertEquals("a", ((Element)root.getFirstChild()).getTagName());
-		Assert.assertEquals("c", ((Element)root.getLastChild()).getTagName());
-		Assert.assertEquals("b", ((Element)root.getFirstChild().getNextSibling()).getTagName());
-		Assert.assertEquals("b", ((Element)root.getLastChild().getPreviousSibling()).getTagName());
+		Assert.assertEquals("c", ((Element) root.getLastChild()).getTagName());
+		Assert.assertEquals("b", ((Element) root.getFirstChild().getNextSibling()).getTagName());
+		Assert.assertEquals("b", ((Element) root.getLastChild().getPreviousSibling()).getTagName());
 		Assert.assertEquals("root", ((Element) root.getFirstChild().getParentNode()).getTagName());
 	}
 
@@ -344,6 +344,32 @@ public class JaxpTest {
 		expected.put("daoAuthenticationProvider", "org.springframework.security.providers.dao.DaoAuthenticationProvider");
 		expected.put("loggerListener", "org.springframework.security.event.authentication.LoggerListener");
 		Assert.assertEquals("Attributes with NamedNodeMap", expected, actualMap);
+	}
+
+	@Test
+	public void testNodeValueOnTextNode() throws Exception {
+		String xml = "<?xml version=\"1.0\"?>" +
+			"<root>" +
+			"  <property>Hello World</property>" +
+			"</root>";
+
+//    builderFactory = DocumentBuilderFactory.newInstance();
+		builderFactory.setNamespaceAware(true);
+
+		DocumentBuilder builder = builderFactory.newDocumentBuilder();
+		Document doc = builder.parse(Utils.createInputSource(xml));
+		Element root = doc.getDocumentElement();
+		NodeList list = root.getChildNodes();
+		for (int i = 0; i < list.getLength(); i++) {
+			Node node = list.item(i);
+			if (node instanceof Element) {
+				Element elem = (Element) node;
+				Node textNode = elem.getChildNodes().item(0);
+				Assert.assertEquals("Text.getNodeValue", textNode.getNodeValue(), textNode.getTextContent());
+				return;
+			}
+		}
+		Assert.assertEquals("Text.getNodeValue", true, false);
 	}
 
 }
