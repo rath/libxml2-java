@@ -3,6 +3,7 @@ package rath.libxml.util;
 import org.xml.sax.InputSource;
 
 import java.io.*;
+import java.net.URL;
 
 /**
  * 
@@ -39,7 +40,17 @@ public class Utils {
 		Reader charStream = in.getCharacterStream();
 		if( charStream!=null )
 			return loadReader(charStream);
-		throw new UnsupportedOperationException();
+
+		// TODO: Bad implementation at the moment.
+		String systemId = in.getSystemId();
+		if( systemId!=null ) {
+			URL url = new URL(systemId);
+			byteStream = url.openConnection().getInputStream();
+			return loadStream(byteStream);
+		}
+
+		String msg = "publicId: " + in.getPublicId() + ", systemId: " + in.getSystemId() + ", encoding: " + in.getEncoding();
+		throw new UnsupportedOperationException(msg);
 	}
 
 	public static String loadReader(Reader in) throws IOException {
