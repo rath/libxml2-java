@@ -1,9 +1,6 @@
 TODO: xmlParserContext
 TODO: xmlParserOption
-TODO: DTD related
+TODO: Parser/Builder/Reader::set/getFeature, set/getProperty
+TODO: JNI CallNorvirtualXXX for domain classes for performance
+TODO: DTD related, EntityResolver
 TODO: Performance test?
-
-TODO: DOM: Node.getAttributes()
-
-TODO: streaming (!!) handle org.xml.sax.InputSource well
-TODO: Test with other xml applications (tomcat, spring container)
