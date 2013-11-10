@@ -139,6 +139,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
 JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseFileImpl
 (JNIEnv *env, jclass clazz, jstring filepath) {
     const char *path = (*env)->GetStringUTFChars(env, filepath, NULL);
+    xmlResetLastError();
     xmlDoc *doc = xmlParseFile(path);
     (*env)->ReleaseStringUTFChars(env, filepath, path);
     
@@ -159,6 +160,7 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseStringImpl
 (JNIEnv *env, jclass clazz, jstring jdata) {
     const char *data = (*env)->GetStringUTFChars(env, jdata, NULL);
     size_t datalen = strlen(data);
+    xmlResetLastError();
     xmlDoc *doc = xmlReadMemory(data, (int)datalen, "<>", "UTF8", 0); // TODO: Handling xmlParserOption
     (*env)->ReleaseStringUTFChars(env, jdata, data);
     
@@ -493,6 +495,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
     handler.fatalError = _fatalError;
     handler.setDocumentLocator = _setDocumentLocator;
     
+    xmlResetLastError();
     xmlDocPtr doc = xmlSAXParseMemoryWithData(&handler, data, data_len, recovery, &ctx);
     (*env)->ReleaseStringUTFChars(env, jstr, data);
     

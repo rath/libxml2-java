@@ -15,6 +15,7 @@ jobject     buildDocument(JNIEnv *env, xmlDoc *doc) {
 }
 
 jobject     buildNodeSet(JNIEnv *env, xmlNodeSet *nodeset, jobject document) {
+    int i;
     jobject jnodeset = (*env)->NewObject(env, classNodeset, methodNodesetNew, (jlong)nodeset);
     if( nodeset==NULL )
         return jnodeset;
@@ -22,7 +23,7 @@ jobject     buildNodeSet(JNIEnv *env, xmlNodeSet *nodeset, jobject document) {
     (*env)->SetIntField(env, jnodeset, fieldNodesetSize, (jint)nodeset->nodeNr);
 
     if(!xmlXPathNodeSetIsEmpty(nodeset)) {
-        for(int i=0; i<nodeset->nodeNr; i++) {
+        for(i=0; i<nodeset->nodeNr; i++) {
             (*env)->CallVoidMethod(env, jnodeset, methodNodesetAddNode, buildNode(env, nodeset->nodeTab[i], document));
         }
     }

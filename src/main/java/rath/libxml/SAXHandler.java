@@ -1,9 +1,6 @@
 package rath.libxml;
 
 import org.xml.sax.*;
-import org.xml.sax.helpers.DefaultHandler;
-
-import java.io.IOException;
 
 /**
  * User: rath

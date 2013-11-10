@@ -119,8 +119,8 @@ public class SaxTest {
 			public void startElement(String uri, String localName, String qName, Attributes atts) {
 				checkElemStart.add(localName);
 //				System.out.println("<" + qName + ">");
-				System.out.println("Line  : " + domLocator.getLineNumber());
-				System.out.println("Column: " + domLocator.getColumnNumber());
+//				System.out.println("Line  : " + domLocator.getLineNumber());
+//				System.out.println("Column: " + domLocator.getColumnNumber());
 			}
 
 			@Override
