@@ -2,6 +2,7 @@ package rath.libxml;
 
 import org.apache.commons.lang.mutable.MutableBoolean;
 import org.apache.commons.lang.mutable.MutableInt;
+import org.apache.commons.lang.mutable.MutableObject;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,8 +53,8 @@ public class SaxTest {
 			public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
 				// "", head, head,
 				// "http://f.com/", html, f:html
-				System.out.println("start-e: " + uri + ", " + localName + ", " + qName + ", " + attributes);
-				System.out.println("column no: " + domLocator.getColumnNumber());
+//				System.out.println("start-e: " + uri + ", " + localName + ", " + qName + ", " + attributes);
+//				System.out.println("column no: " + domLocator.getColumnNumber());
 				// 64, 70, 79, 105, 111, 126
 			}
 
@@ -72,14 +73,23 @@ public class SaxTest {
 
 	@Test
 	public void parseBySystemId() throws Exception {
-		String systemId = "file:/Users/rath/work/rath-adrenaline/build.xml";
-		systemId = "jar:file:/Users/rath/sdks/ant/lib/ant.jar!/org/apache/tools/ant/antlib.xml";
+		String systemId = "jar:file:/Users/rath/sdks/ant/lib/ant.jar!/org/apache/tools/ant/antlib.xml";
+		final MutableObject fetchedSystemId = new MutableObject(null);
 		LibXml.parseSAXSystemId(systemId, new SAXAdapter() {
+			Locator locator;
 			@Override
 			public void startElement(String uri, String localName, String qName, Attributes atts) {
-				System.out.println(qName);
+				if(localName.equals("antlib")) {
+					fetchedSystemId.setValue(locator.getSystemId());
+				}
+			}
+
+			@Override
+			public void setDocumentLocator(Locator locator) {
+				this.locator = locator;
 			}
 		}, 0);
+		Assert.assertEquals("systemId", systemId, fetchedSystemId.getValue());
 	}
 
 	@Test
@@ -103,9 +113,9 @@ public class SaxTest {
 		final List<String> checkElemStart = new ArrayList<String>();
 		final List<String> checkElemEnd = new ArrayList<String>();
 
-		File f = new File("test.xml");
-		Utils.writeFile(f, xml);
-		LibXml.parseSAX(f, new SAXHandler() {
+//		File f = new File("test.xml");
+//		Utils.writeFile(f, xml);
+		LibXml.parseSAX(xml, new SAXHandler() {
 			public Locator domLocator;
 
 			@Override
@@ -146,7 +156,7 @@ public class SaxTest {
 //				System.out.println("<" + qName + ">");
 //				System.out.println("Line  : " + domLocator.getLineNumber());
 //				System.out.println("Column: " + domLocator.getColumnNumber());
-				System.out.printf("publicId:%s, systemId:%s%n", domLocator.getPublicId(), domLocator.getSystemId());
+//				System.out.printf("publicId:%s, systemId:%s%n", domLocator.getPublicId(), domLocator.getSystemId());
 			}
 
 			@Override
@@ -194,7 +204,7 @@ public class SaxTest {
 				checkDoc.add(10);
 			}
 		}, 0);
-		f.delete();
+//		f.delete();
 
 		Assert.assertEquals("document start/end", 11, checkDoc.getValue());
 		Assert.assertEquals("characters count", 60, checkChars.getValue());

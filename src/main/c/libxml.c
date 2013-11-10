@@ -7,6 +7,8 @@
 #include "cache.h"
 #include "utils.h"
 
+#define CHUNK_SIZE 256
+
 jclass classString;
 jclass classError;
 jclass classDocument;
@@ -495,12 +497,11 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
     SContext ctx;
     xmlSAXHandler handler;
     
-    const char *data = (*env)->GetStringUTFChars(env, jstr, NULL);
-    jsize data_len = (*env)->GetStringUTFLength(env, jstr);
-    
     prepareSAXImpl(env, &ctx, jhandler, &handler);
 
     xmlResetLastError();
+    const char *data = (*env)->GetStringUTFChars(env, jstr, NULL);
+    jsize data_len = (*env)->GetStringUTFLength(env, jstr);
     xmlDocPtr doc = xmlSAXParseMemoryWithData(&handler, data, data_len, recovery, &ctx);
     (*env)->ReleaseStringUTFChars(env, jstr, data);
     
@@ -523,10 +524,10 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXFileImpl
     SContext ctx;
     xmlSAXHandler handler;
     
-    const char *path = (*env)->GetStringUTFChars(env, jpath, NULL);
     prepareSAXImpl(env, &ctx, jhandler, &handler);
 
     xmlResetLastError();
+    const char *path = (*env)->GetStringUTFChars(env, jpath, NULL);
     xmlDocPtr doc = xmlSAXParseFileWithData(&handler, path, recovery, &ctx);
     (*env)->ReleaseStringUTFChars(env, jpath, path);
     
@@ -537,4 +538,50 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXFileImpl
         return;
     }
     xmlFreeDoc(doc);
+}
+
+/*
+ * Class:     rath_libxml_LibXml
+ * Method:    parseSAXSystemIdImpl
+ * Signature: (Ljava/lang/String;Ljava/io/InputStream;Lrath/libxml/impl/SAXHandlerEngine;I)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXSystemIdImpl
+(JNIEnv *env, jclass cls, jstring jSystemId, jobject inputStream, jobject jhandler, jint recovery) {
+    SContext ctx;
+    xmlSAXHandler handler;
+    char chunk[CHUNK_SIZE];
+    
+    prepareSAXImpl(env, &ctx, jhandler, &handler);
+    
+    xmlResetLastError();
+    const char *systemId = (*env)->GetStringUTFChars(env, jSystemId, NULL);
+    
+    xmlParserCtxt *parser = xmlCreatePushParserCtxt(&handler, 0, NULL, 0, systemId);
+    parser->_private = &ctx;
+    
+    jclass classInputStream = (*env)->GetObjectClass(env, inputStream);
+    jmethodID midInputStreamRead = (*env)->GetMethodID(env, classInputStream, "read", "([BII)I");
+    
+    int ret;
+    int readlen;
+    jbyteArray buf = (*env)->NewByteArray(env, CHUNK_SIZE);
+    while(1) {
+        readlen = (*env)->CallIntMethod(env, inputStream, midInputStreamRead, buf, 0, CHUNK_SIZE);
+        if( readlen==-1 || (*env)->ExceptionOccurred(env))
+            break;
+        (*env)->GetByteArrayRegion(env, buf, 0, readlen, (jbyte*)chunk);
+        ret = xmlParseChunk(parser, chunk, readlen, 0);
+        assert(!ret);
+    }
+    if(!(*env)->ExceptionOccurred(env))
+        xmlParseChunk(parser, chunk, 0, 1);
+    (*env)->DeleteLocalRef(env, buf);
+    (*env)->ReleaseStringUTFChars(env, jSystemId, systemId);
+    
+    // if(!parser->wellFormed) then something went wrong...
+    
+    xmlFreeParserCtxt(parser);
+    
+    if(ctx.locatorContext!=NULL)
+        free(ctx.locatorContext);
 }

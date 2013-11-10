@@ -47,6 +47,14 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
 JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXFileImpl
   (JNIEnv *, jclass, jstring, jobject, jint);
 
+/*
+ * Class:     rath_libxml_LibXml
+ * Method:    parseSAXSystemIdImpl
+ * Signature: (Ljava/lang/String;Ljava/io/InputStream;Lrath/libxml/impl/SAXHandlerEngine;I)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXSystemIdImpl
+  (JNIEnv *, jclass, jstring, jobject, jobject, jint);
+
 #ifdef __cplusplus
 }
 #endif
