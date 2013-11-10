@@ -18,6 +18,7 @@ jclass classNamespace;
 jclass classXPathContext;
 jclass classXPathObject;
 jclass classLocator;
+jclass classInputStream;
 
 jmethodID methodErrorNew;
 jmethodID methodDocumentNew;
@@ -28,6 +29,7 @@ jmethodID methodNamespaceNew;
 jmethodID methodXPathContextNew;
 jmethodID methodXPathObjectNew;
 jmethodID methodLocatorNew;
+jmethodID methodInputStreamRead;
 
 jmethodID methodNodeSetType;
 jmethodID methodNodeSetDocument;
@@ -99,6 +101,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     cc(env, "rath/libxml/XPathContext", &classXPathContext);
     cc(env, "rath/libxml/XPathObject", &classXPathObject);
     cc(env, "rath/libxml/impl/LocatorImpl", &classLocator);
+    cc(env, "java/io/InputStream", &classInputStream);
    
     methodErrorNew = (*env)->GetMethodID(env, classError, "<init>", "(ILjava/lang/String;II)V");
     methodDocumentNew = (*env)->GetMethodID(env, classDocument, "<init>", "(J)V");
@@ -112,6 +115,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     methodNodeSetType = (*env)->GetMethodID(env, classNode, "setType", "(I)V");
     methodNodeSetDocument = (*env)->GetMethodID(env, classNode, "setDocument", "(Lrath/libxml/Document;)V");
     methodLocatorNew = (*env)->GetMethodID(env, classLocator, "<init>", "(J)V");
+    methodInputStreamRead = (*env)->GetMethodID(env, classInputStream, "read", "([BII)I");
     
     fieldDocumentGetP = (*env)->GetFieldID(env, classDocument, "p", "J");
     fieldNodeGetP = (*env)->GetFieldID(env, classNode, "p", "J");
@@ -558,15 +562,12 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXSystemIdImpl
     
     xmlParserCtxt *parser = xmlCreatePushParserCtxt(&handler, 0, NULL, 0, systemId);
     parser->_private = &ctx;
-    
-    jclass classInputStream = (*env)->GetObjectClass(env, inputStream);
-    jmethodID midInputStreamRead = (*env)->GetMethodID(env, classInputStream, "read", "([BII)I");
-    
+   
     int ret;
     int readlen;
     jbyteArray buf = (*env)->NewByteArray(env, CHUNK_SIZE);
     while(1) {
-        readlen = (*env)->CallIntMethod(env, inputStream, midInputStreamRead, buf, 0, CHUNK_SIZE);
+        readlen = (*env)->CallIntMethod(env, inputStream, methodInputStreamRead, buf, 0, CHUNK_SIZE);
         if( readlen==-1 || (*env)->ExceptionOccurred(env))
             break;
         (*env)->GetByteArrayRegion(env, buf, 0, readlen, (jbyte*)chunk);
