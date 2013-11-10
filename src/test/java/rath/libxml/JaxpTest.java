@@ -19,9 +19,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  *
@@ -302,4 +300,50 @@ public class JaxpTest {
 
 		Assert.assertEquals("append text", "hello world", root.getChildNodes().item(1).getTextContent());
 	}
+
+	@Test
+	public void testgetAttributesWithNamedNodeMap() throws Exception {
+//		builderFactory = DocumentBuilderFactory.newInstance();
+		builderFactory.setNamespaceAware(true);
+
+		File f = new File("samples/sample-springbeans.xml");
+		DocumentBuilder builder = builderFactory.newDocumentBuilder();
+		Document doc = builder.parse(f);
+		Element root = doc.getDocumentElement();
+//		System.out.println("* current impl:  " + doc.getClass().getName());
+
+		// id, class
+		Map<String, String> actualMap = new HashMap<String, String>();
+
+		NodeList list = root.getChildNodes();
+		for(int i=0; i<list.getLength(); i++) {
+			Node node = list.item(i);
+			if( node instanceof Element ) {
+				Element elem = (Element)node;
+				if( elem.getTagName().equals("beans:bean") ) {
+//					System.out.println("bean[" + elem.getAttribute("id") + "]");
+					NamedNodeMap map = elem.getAttributes();
+					String valueId = null;
+					String valueClass = null;
+					for(int x=0; x<map.getLength(); x++) {
+						Node attr = map.item(x);
+						if( attr.getNodeName().equals("id") )
+							valueId = attr.getNodeValue();
+						if( attr.getNodeName().equals("class") )
+							valueClass = attr.getNodeValue();
+					}
+					if(valueId!=null && valueClass!=null)
+						actualMap.put(valueId, valueClass);
+
+				}
+			}
+		}
+
+		Map<String, String> expected = new HashMap<String, String>();
+		expected.put("authenticationManager", "org.springframework.security.providers.ProviderManager");
+		expected.put("daoAuthenticationProvider", "org.springframework.security.providers.dao.DaoAuthenticationProvider");
+		expected.put("loggerListener", "org.springframework.security.event.authentication.LoggerListener");
+		Assert.assertEquals("Attributes with NamedNodeMap", expected, actualMap);
+	}
+
 }
