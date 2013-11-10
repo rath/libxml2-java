@@ -59,6 +59,9 @@ public class Utils {
 	}
 
 	public static String loadStream(InputStream in, String encoding) throws IOException {
+		if( encoding==null )
+			encoding = "UTF-8";
+
 		ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		byte[] buf = new byte[1024];
 		while(true) {
