@@ -73,13 +73,13 @@ public class SaxTest {
 
 	@Test
 	public void parseBySystemId() throws Exception {
-		String systemId = "jar:file:/Users/rath/sdks/ant/lib/ant.jar!/org/apache/tools/ant/antlib.xml";
+		String systemId = "file:build.xml";
 		final MutableObject fetchedSystemId = new MutableObject(null);
 		LibXml.parseSAXSystemId(systemId, new SAXAdapter() {
 			Locator locator;
 			@Override
 			public void startElement(String uri, String localName, String qName, Attributes atts) {
-				if(localName.equals("antlib")) {
+				if(localName.equals("project")) {
 					fetchedSystemId.setValue(locator.getSystemId());
 				}
 			}
