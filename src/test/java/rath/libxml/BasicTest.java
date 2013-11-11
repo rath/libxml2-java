@@ -264,10 +264,20 @@ public class BasicTest {
 		XPathContext ctx = doc.createXPathContext();
 		ctx.addNamespace(new Namespace("http://www.springframework.org/schema/beans", "beans"));
 		Node bean = ctx.evaluate("//beans:bean").nodeset.getNodeAt(1);
+		int conditionCount = 0;
 		for(Attribute attr : bean.getAttributeNodes()) {
-			System.out.println(attr);
+			if( attr.getName().equals("id") ) {
+				Assert.assertEquals("id", "testId", attr.getValue());
+				conditionCount++;
+			}
+			if( attr.getName().equals("class") ) {
+				Assert.assertEquals("prefix of class", "beans", attr.getNs().getPrefix());
+				conditionCount++;
+			}
 		}
-		System.out.println("hardcode: " + bean.getAttribute("id"));
-		System.out.println("hardcode: " + bean.getAttribute("class"));
+		Assert.assertEquals("Checked all?", 2, conditionCount);
+
+		Assert.assertEquals("attribute id", "testId", bean.getAttribute("id"));
+		Assert.assertEquals("attribute class", "foo.bar.TestClass", bean.getAttribute("class"));
 	}
 }
