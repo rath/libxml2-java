@@ -18,7 +18,7 @@ SAXParserFactory implementation has been tested with
 - Apache Tomcat 7
  - Launched with web.xml, server.xml, context.xml, and *my* webapps works well as usual
 
-by setting _rath.libxml.jaxp.SAXParserFactoryImpl_ as _javax.xml.parsers.SAXParserFactory_ system property then adding libxml2-java.jar as classpath. 
+by setting _rath.libxml.jaxp.SAXParserFactoryImpl_ as _javax.xml.parsers.SAXParserFactory_ system property then adding libxml2-java.jar on classpath. 
 
 #### DOM
 
@@ -27,7 +27,7 @@ DocumentBuilderFactory implementation has been tested with
 - Spring Framework 3.2
  - Simple app using Spring Data JPA
 
-by setting _rath.libxml.jaxp.DocumentBuilderFactoryImpl_ as _javax.xml.parsers.DocumentBuilderFactory_ system property then adding libxml2-java.jar as classpath.
+by setting _rath.libxml.jaxp.DocumentBuilderFactoryImpl_ as _javax.xml.parsers.DocumentBuilderFactory_ system property then adding libxml2-java.jar on classpath.
 
 ### Unit tests 
 

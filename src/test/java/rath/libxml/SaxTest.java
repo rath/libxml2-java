@@ -73,7 +73,7 @@ public class SaxTest {
 
 	@Test
 	public void parseBySystemId() throws Exception {
-		String systemId = "file:build.xml";
+		String systemId = "file:" + System.getProperty("user.dir") + "/build.xml";
 		final MutableObject fetchedSystemId = new MutableObject(null);
 		LibXml.parseSAXSystemId(systemId, new SAXAdapter() {
 			Locator locator;
@@ -130,7 +130,7 @@ public class SaxTest {
 
 			@Override
 			public void characters(char[] ch, int start, int length) {
-//				System.out.println("CHARACTER: " + new String(ch, start, length));
+//				System.out.println("CHARACTER: #" + new String(ch, start, length) + "#");
 				checkChars.add(length);
 			}
 

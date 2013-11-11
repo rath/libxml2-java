@@ -19,6 +19,7 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.*;
 
 /**
@@ -306,7 +307,7 @@ public class JaxpTest {
 //		builderFactory = DocumentBuilderFactory.newInstance();
 		builderFactory.setNamespaceAware(true);
 
-		File f = new File("samples/sample-springbeans.xml");
+		File f = new File(System.getProperty("user.dir"), "src/test/resources/sample-springbeans.xml");
 		DocumentBuilder builder = builderFactory.newDocumentBuilder();
 		Document doc = builder.parse(f);
 		Element root = doc.getDocumentElement();

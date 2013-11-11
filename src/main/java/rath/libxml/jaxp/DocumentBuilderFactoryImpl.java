@@ -15,6 +15,7 @@ public class DocumentBuilderFactoryImpl extends DocumentBuilderFactory {
 
 	@Override
 	public void setNamespaceAware(boolean b) {
+		// TODO: study behavior of non-awaring namespace
 //		if(!b) {
 //			throw new UnsupportedOperationException();
 //		}
