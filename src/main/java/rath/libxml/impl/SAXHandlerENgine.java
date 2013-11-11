@@ -5,6 +5,7 @@ import rath.libxml.LibXmlException;
 import rath.libxml.Namespace;
 import rath.libxml.SAXHandler;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -61,18 +62,18 @@ public class SAXHandlerEngine {
 		return byteBuffer;
 	}
 
-	public void fireCharacters() {
+	public void fireCharacters() throws UnsupportedEncodingException {
 		int len = copyBufferImpl();
 		handler.characters(characterBuffer, 0, len);
 	}
 
-	public void fireIgnorableWhitespace() {
+	public void fireIgnorableWhitespace() throws UnsupportedEncodingException {
 		int len = copyBufferImpl();
 		handler.ignorableWhitespace(characterBuffer, 0, len);
 	}
 
-	private final int copyBufferImpl() {
-		String s = new String(byteBuffer, 0, byteBufferFilled);
+	private final int copyBufferImpl() throws UnsupportedEncodingException {
+		String s = new String(byteBuffer, 0, byteBufferFilled, "UTF-8");
 		int len = s.length();
 		if( characterBuffer.length < len ) {
 			characterBuffer = new char[len];
