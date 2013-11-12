@@ -6,7 +6,7 @@ jobject     buildNode(JNIEnv *env, xmlNode *node, jobject document) {
     if( node==NULL )
         return NULL;
     jobject jnode = (*env)->NewObject(env, classNode, methodNodeNew, (jlong)node);
-    (*env)->CallVoidMethod(env, jnode, methodNodeSetDocument, document);
+    (*env)->CallNonvirtualVoidMethod(env, jnode, classNode, methodNodeSetDocument, document);
     return jnode;
 }
 
@@ -24,7 +24,8 @@ jobject     buildNodeSet(JNIEnv *env, xmlNodeSet *nodeset, jobject document) {
 
     if(!xmlXPathNodeSetIsEmpty(nodeset)) {
         for(i=0; i<nodeset->nodeNr; i++) {
-            (*env)->CallVoidMethod(env, jnodeset, methodNodesetAddNode, buildNode(env, nodeset->nodeTab[i], document));
+            jobject node = buildNode(env, nodeset->nodeTab[i], document);
+            (*env)->CallNonvirtualVoidMethod(env, jnodeset, classNodeset, methodNodesetAddNode, node);
         }
     }
     return jnodeset;

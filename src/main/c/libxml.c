@@ -118,8 +118,8 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     methodNodeSetType = (*env)->GetMethodID(env, classNode, "setType", "(I)V");
     methodNodeSetDocument = (*env)->GetMethodID(env, classNode, "setDocument", "(Lrath/libxml/Document;)V");
     methodLocatorNew = (*env)->GetMethodID(env, classLocator, "<init>", "(J)V");
-    methodInputStreamRead = (*env)->GetMethodID(env, classInputStream, "read", "([BII)I");
     methodAttributeNew = (*env)->GetStaticMethodID(env, classAttribute, "createInstance", "(Lrath/libxml/Namespace;Ljava/lang/String;Ljava/lang/String;)Lrath/libxml/Attribute;");
+    methodInputStreamRead = (*env)->GetMethodID(env, classInputStream, "read", "([BII)I");
     
     fieldDocumentGetP = (*env)->GetFieldID(env, classDocument, "p", "J");
     fieldNodeGetP = (*env)->GetFieldID(env, classNode, "p", "J");

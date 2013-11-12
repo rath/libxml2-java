@@ -61,7 +61,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillRequiredFields
 (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
     assert(node && "internal xmlNode is NULL");
-    (*env)->CallVoidMethod(env, obj, methodNodeSetType, node->type);
+    (*env)->CallNonvirtualVoidMethod(env, obj, classNode, methodNodeSetType, node->type);
 }
 
 /*
