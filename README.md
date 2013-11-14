@@ -111,3 +111,7 @@ out.println(result.getFirstNode().getChildText()); // Bear
 ## Notes
 
 - Make sure libxml2 library is configured with --with-threads option.
+
+## License
+
+libxml2-java is licensed under MIT.
