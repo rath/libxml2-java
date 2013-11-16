@@ -47,11 +47,16 @@ public class LibXmlException extends RuntimeException {
 
 	@Override
 	public String toString() {
-		return "LibXmlException{" +
-			"code=" + code +
-			", message=" + getMessage() +
-			", lineNumber=" + lineNumber +
-			", columnNumber=" + columnNumber +
-			'}';
+		StringBuilder sb = new StringBuilder();
+		sb.append("LibXmlException {code=");
+		sb.append(code);
+		sb.append(", message=");
+		sb.append(getMessage());
+		if( lineNumber!=0 || columnNumber!=0 ) {
+			sb.append(", line=").append(lineNumber);
+			sb.append(", column=").append(columnNumber);
+		}
+		sb.append("}");
+		return sb.toString();
 	}
 }
