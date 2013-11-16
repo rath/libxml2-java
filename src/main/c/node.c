@@ -30,7 +30,8 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNamespaceImpl
     xmlNs *ns = node->ns;
     if( ns==NULL )
         return;
-      
+    
+    // Will crash if node finded is xmlDocPtr. Access Violation.
     jstring href = (*env)->NewStringUTF(env, (const char*)ns->href);
     jstring prefix = (*env)->NewStringUTF(env, (const char*)ns->prefix);
     jobject jNs = (*env)->NewObject(env, classNamespace, methodNamespaceNew, href, prefix);
@@ -106,8 +107,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_previousImpl
  * Signature: ()Lrath/libxml/Node;
  */
 JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getParentImpl
-  (JNIEnv *env, jobject obj) {
+(JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
+//    if( node->parent!=NULL && node->parent->type==XML_DOCUMENT_NODE) {
+//    
+//    }
     return buildNode(env, node->parent, DOC(obj));
 }
 

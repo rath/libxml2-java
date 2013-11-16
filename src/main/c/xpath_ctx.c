@@ -125,6 +125,8 @@ JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_addNamespaceImpl
  */
 JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_setContextNodeImpl
 (JNIEnv *env, jobject obj, jobject jnode) {
+    if( jnode==NULL )
+        return;
     xmlXPathContext *ctx = findXPathContext(env, obj);
     xmlNode *node = findNode(env, jnode);
     if(xmlXPathSetContextNode(node, ctx)) {
