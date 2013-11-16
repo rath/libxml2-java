@@ -7,6 +7,14 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+/*
+ * Class:     rath_libxml_XPathExpression
+ * Method:    disposeImpl
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_XPathExpression_disposeImpl
+  (JNIEnv *, jobject);
+
 #ifdef __cplusplus
 }
 #endif

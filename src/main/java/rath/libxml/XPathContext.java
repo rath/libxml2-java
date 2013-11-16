@@ -30,15 +30,17 @@ public class XPathContext implements Disposable {
 
 	private native void addNamespaceImpl(String prefix, String href);
 
-	public XPathExpression compileExpression(String expr) {
-		return null; // TODO: Impl compileExpression
-	}
-
 	public XPathObject evaluate(String expr) {
 		return evaluateImpl(expr);
 	}
 
 	private native XPathObject evaluateImpl(String expr);
+
+	public XPathObject evaluate(XPathExpression expr) {
+		return evaluateCompiledImpl(expr);
+	}
+
+	private native XPathObject evaluateCompiledImpl(XPathExpression expr);
 
 	public void dispose() {
 		if(!disposed) {

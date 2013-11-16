@@ -17,6 +17,7 @@ jclass classNodeset;
 jclass classNamespace;
 jclass classXPathContext;
 jclass classXPathObject;
+jclass classXPathExpression;
 jclass classLocator;
 jclass classInputStream;
 jclass classAttribute;
@@ -29,6 +30,7 @@ jmethodID methodNodesetAddNode;
 jmethodID methodNamespaceNew;
 jmethodID methodXPathContextNew;
 jmethodID methodXPathObjectNew;
+jmethodID methodXPathExprNew;
 jmethodID methodLocatorNew;
 jmethodID methodInputStreamRead;
 jmethodID methodAttributeNew;
@@ -51,6 +53,7 @@ jfieldID fieldXPathObjectSetNodeset;
 jfieldID fieldXPathObjectSetBool;
 jfieldID fieldXPathObjectSetFloat;
 jfieldID fieldXPathObjectSetString;
+jfieldID fieldXPathExprP;
 jfieldID fieldLocatorP;
 
 static void cc(JNIEnv *env, const char *name, jclass *buf) {
@@ -105,6 +108,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     cc(env, "rath/libxml/impl/LocatorImpl", &classLocator);
     cc(env, "java/io/InputStream", &classInputStream);
     cc(env, "rath/libxml/Attribute", &classAttribute);
+    cc(env, "rath/libxml/XPathExpression", &classXPathExpression);
    
     methodErrorNew = (*env)->GetMethodID(env, classError, "<init>", "(ILjava/lang/String;II)V");
     methodDocumentNew = (*env)->GetMethodID(env, classDocument, "<init>", "(J)V");
@@ -114,6 +118,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     methodNamespaceNew = (*env)->GetMethodID(env, classNamespace, "<init>", "(Ljava/lang/String;Ljava/lang/String;)V");
     methodXPathContextNew = (*env)->GetMethodID(env, classXPathContext, "<init>", "(J)V");
     methodXPathObjectNew = (*env)->GetMethodID(env, classXPathObject, "<init>", "(J)V");
+    methodXPathExprNew = (*env)->GetMethodID(env, classXPathExpression, "<init>", "(J)V");
     
     methodNodeSetType = (*env)->GetMethodID(env, classNode, "setType", "(I)V");
     methodNodeSetDocument = (*env)->GetMethodID(env, classNode, "setDocument", "(Lrath/libxml/Document;)V");
@@ -134,6 +139,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     fieldXPathObjectSetBool = (*env)->GetFieldID(env, classXPathObject, "booleanValue", "Z");
     fieldXPathObjectSetFloat = (*env)->GetFieldID(env, classXPathObject, "floatValue", "D");
     fieldXPathObjectSetString = (*env)->GetFieldID(env, classXPathObject, "stringValue", "Ljava/lang/String;");
+    fieldXPathExprP = (*env)->GetFieldID(env, classXPathExpression, "p", "J");
     fieldLocatorP = (*env)->GetFieldID(env, classLocator, "p", "J");
     
     jclass classList = (*env)->FindClass(env, "java/util/List");
@@ -641,4 +647,25 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseSystemIdImpl
     xmlDoc *doc = parser->myDoc;
     xmlFreeParserCtxt(parser);
     return buildDocument(env, doc);
+}
+
+/*
+ * Class:     rath_libxml_LibXml
+ * Method:    compileXPathImpl
+ * Signature: (Ljava/lang/String;)Lrath/libxml/XPathExpression;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_compileXPathImpl
+(JNIEnv *env, jclass clazz, jstring jexpr) {
+    const char *expr = (*env)->GetStringUTFChars(env, jexpr, NULL);
+    xmlResetLastError();
+    xmlXPathCompExpr *compiled = xmlXPathCompile((const xmlChar*)expr);
+    (*env)->ReleaseStringUTFChars(env, jexpr, expr);
+    
+    if( compiled==NULL ) {
+        throwInternalErrorWithLastError(env);
+        return NULL;
+    }
+    
+    jobject ret = (*env)->NewObject(env, classXPathExpression, methodXPathExprNew, (jlong)compiled);
+    return ret;
 }

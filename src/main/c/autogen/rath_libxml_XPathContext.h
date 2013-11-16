@@ -25,6 +25,14 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateImpl
 
 /*
  * Class:     rath_libxml_XPathContext
+ * Method:    evaluateCompiledImpl
+ * Signature: (Lrath/libxml/XPathExpression;)Lrath/libxml/XPathObject;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateCompiledImpl
+  (JNIEnv *, jobject, jobject);
+
+/*
+ * Class:     rath_libxml_XPathContext
  * Method:    disposeImpl
  * Signature: ()V
  */

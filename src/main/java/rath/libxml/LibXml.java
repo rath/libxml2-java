@@ -166,4 +166,14 @@ public class LibXml {
 	}
 
 	private static native void parseSAXSystemIdImpl(String systemId, InputStream in, SAXHandlerEngine engine, int recovery);
+
+	public static XPathExpression compileXPath(String expr) {
+		if( expr==null )
+			throw new NullPointerException("XPath expression cannot be null");
+
+		XPathExpression ret = compileXPathImpl(expr);
+		return ret;
+	}
+
+	private static native XPathExpression compileXPathImpl(String expr);
 }

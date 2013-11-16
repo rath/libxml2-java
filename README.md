@@ -105,7 +105,7 @@ out.println(result.getFirstNode().getChildText()); // Bear
 
 - (55%) DOM 3
 - (80%) SAX 2
-- (20%) XPath 
+- (40%) XPath 
 - (80%) As JAXP(JSR 206) provider  
 
 ## Notes

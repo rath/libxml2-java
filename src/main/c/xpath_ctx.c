@@ -9,32 +9,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-/*
- * Class:     rath_libxml_XPathContext
- * Method:    evaluateImpl
- * Signature: (Ljava/lang/String;)Lrath/libxml/XPathObject;
- */
-JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateImpl
-(JNIEnv *env, jobject obj, jstring jexpr) {
-    xmlXPathContext *ctx = findXPathContext(env, obj);
-    xmlXPathObject *result;
-
-    const char *expr = (*env)->GetStringUTFChars(env, jexpr, NULL);
-    result = xmlXPathEvalExpression((const xmlChar*)expr, ctx);
-
-    if(result==NULL) {
-        (*env)->ThrowNew(env, (*env)->FindClass(env, "rath/libxml/InvalidXPathExpressionException"), expr);
-        (*env)->ReleaseStringUTFChars(env, jexpr, expr);
-        return NULL;
-    }
-    (*env)->ReleaseStringUTFChars(env, jexpr, expr);
-
+jobject buildXPathObject(JNIEnv *env, jobject xpathContext, xmlXPathObject *result) {
     jobject resultObject = (*env)->NewObject(env, classXPathObject, methodXPathObjectNew, (jlong)result);
     jobject jdoc;
     
     switch(result->type) {
     case XPATH_NODESET:
-        jdoc = (*env)->GetObjectField(env, obj, fieldXPathContextDocument);
+        jdoc = (*env)->GetObjectField(env, xpathContext, fieldXPathContextDocument);
         (*env)->SetObjectField(env, resultObject, fieldXPathObjectSetNodeset, buildNodeSet(env, result->nodesetval, jdoc));
         (*env)->DeleteLocalRef(env, jdoc);
     break;
@@ -72,6 +53,28 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateImpl
 
 /*
  * Class:     rath_libxml_XPathContext
+ * Method:    evaluateImpl
+ * Signature: (Ljava/lang/String;)Lrath/libxml/XPathObject;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateImpl
+(JNIEnv *env, jobject obj, jstring jexpr) {
+    xmlXPathContext *ctx = findXPathContext(env, obj);
+    xmlXPathObject *result;
+
+    const char *expr = (*env)->GetStringUTFChars(env, jexpr, NULL);
+    result = xmlXPathEvalExpression((const xmlChar*)expr, ctx);
+    if(result==NULL) {
+        (*env)->ThrowNew(env, (*env)->FindClass(env, "rath/libxml/InvalidXPathExpressionException"), expr);
+        (*env)->ReleaseStringUTFChars(env, jexpr, expr);
+        return NULL;
+    }
+    (*env)->ReleaseStringUTFChars(env, jexpr, expr);
+
+    return buildXPathObject(env, obj, result);
+}
+
+/*
+ * Class:     rath_libxml_XPathContext
  * Method:    addNamespaceImpl
  * Signature: (Ljava/lang/String;Ljava/lang/String;)V
  */
@@ -99,6 +102,20 @@ JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_addNamespaceImpl
             throwInternalErrorWithMessage(env, "xmlXPathRegisterNs");
         }
     }
+}
+
+/*
+ * Class:     rath_libxml_XPathContext
+ * Method:    evaluateCompiledImpl
+ * Signature: (Lrath/libxml/XPathExpression;)Lrath/libxml/XPathObject;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateCompiledImpl
+(JNIEnv *env, jobject obj, jobject expr) {
+    xmlXPathContext *ctx = findXPathContext(env, obj);
+    
+    xmlXPathCompExpr *compiled = (xmlXPathCompExprPtr)(*env)->GetLongField(env, expr, fieldXPathExprP);
+    xmlXPathObject *result = xmlXPathCompiledEval(compiled, ctx);
+    return buildXPathObject(env, obj, result);
 }
 
 /*
