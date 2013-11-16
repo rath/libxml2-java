@@ -16,7 +16,6 @@ import static rath.libxml.Node.Type.*;
 public class NodeImpl implements Node {
 	protected final rath.libxml.Node impl;
 	protected Document owner;
-	private short nodeType;
 
 	protected NodeImpl(Document owner, rath.libxml.Node impl) {
 		this.owner = owner;
@@ -277,5 +276,10 @@ public class NodeImpl implements Node {
 	@Override
 	public Object getUserData(String s) {
 		throw new UnsupportedOperationException();
+	}
+
+	@Override
+	public String toString() {
+		return impl.toString();
 	}
 }
