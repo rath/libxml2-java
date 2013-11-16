@@ -49,7 +49,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNameImpl
     jstring nodeName = (*env)->NewStringUTF(env, (const char*)node->name);
 
     (*env)->SetObjectField(env, obj, fieldNodeSetName, nodeName);
-      
+    (*env)->DeleteLocalRef(env, nodeName);
 }
 
 /*
