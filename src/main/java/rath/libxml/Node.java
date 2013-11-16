@@ -136,6 +136,9 @@ public class Node implements Iterable<Node>, Disposable {
 
 	public Node getParent() {
 		Node parent = getParentImpl();
+		if( parent.getType()==Type.DOCUMENT ) {
+			return document;
+		}
 		return parent;
 	}
 
