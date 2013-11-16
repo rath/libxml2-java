@@ -30,18 +30,17 @@ public class XPathExpressionImpl implements javax.xml.xpath.XPathExpression {
 		}
 
 		DocumentImpl document = null;
-		Node internalContext = null;
+		Node contextNode = null;
 
 		if( item instanceof NodeImpl ) {
 			document = (DocumentImpl) ((NodeImpl)item).getOwnerDocument();
-			internalContext = ((NodeImpl)item).impl;
+			contextNode = ((NodeImpl)item).impl;
 		} else if( item instanceof DocumentImpl ) {
 			document = (DocumentImpl)item;
-			internalContext = document.getImpl();
 		}
 
 		XPathContext context = document.getImpl().createXPathContext();
-		context.setContextNode(internalContext);
+		context.setContextNode(contextNode);
 		XPathObject result = context.evaluate(impl);
 		Object ret = XPathImpl.filterXPathObjectToJaxpObject(document, qName, result);
 		result.dispose();

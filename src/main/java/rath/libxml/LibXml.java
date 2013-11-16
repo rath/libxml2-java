@@ -1,8 +1,14 @@
 package rath.libxml;
 
 import rath.libxml.impl.SAXHandlerEngine;
+import rath.libxml.jaxp.DocumentBuilderFactoryImpl;
+import rath.libxml.jaxp.SAXParserFactoryImpl;
+import rath.libxml.jaxp.XPathFactoryImpl;
 import rath.libxml.util.Utils;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.SAXParserFactory;
+import javax.xml.xpath.XPathFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -74,6 +80,37 @@ public class LibXml {
 		initInternalParser();
 	}
 
+	public static void setDefaultJAXPImplementation() {
+		System.setProperty("javax.xml.parsers.DocumentBuilderFactory", "rath.libxml.jaxp.DocumentBuilderFactoryImpl");
+		System.setProperty("javax.xml.parsers.SAXParserFactory", "rath.libxml.jaxp.SAXParserFactoryImpl");
+	}
+
+	/**
+	 * Create JAXP compatible DocumentBuilderFactory instance.
+	 *
+	 * @return created DocumentBuilderFactory instance
+	 */
+	public static DocumentBuilderFactory createDocumentBuilderFactory() {
+		return new DocumentBuilderFactoryImpl();
+	}
+
+	/**
+	 * Create JAXP compatible SAXParserFactory instance.
+	 *
+	 * @return created SAXParserFactory instance
+	 */
+	public static SAXParserFactory createSAXParserFactory() {
+		return new SAXParserFactoryImpl();
+	}
+
+	/**
+	 * Create JAXP compatible XPathFactory instance.
+	 *
+	 * @return created XPathFactory instance
+	 */
+	public static XPathFactory createXPathFactory() {
+		return new XPathFactoryImpl();
+	}
 
 	private static native void initInternalParser();
 

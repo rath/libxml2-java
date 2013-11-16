@@ -65,18 +65,17 @@ public class XPathImpl implements XPath {
 		}
 
 		DocumentImpl document = null;
-		Node internalContext = null;
+		Node contextNode = null;
 
 		if( item instanceof NodeImpl ) {
 			document = (DocumentImpl) ((NodeImpl)item).getOwnerDocument();
-			internalContext = ((NodeImpl)item).impl;
+			contextNode = ((NodeImpl)item).impl;
 		} else if( item instanceof DocumentImpl ) {
 			document = (DocumentImpl)item;
-			internalContext = document.getImpl();
 		}
 
 		XPathContext ctx = document.getImpl().createXPathContext();
-		ctx.setContextNode(internalContext);
+		ctx.setContextNode(contextNode);
 		XPathObject result;
 		try {
 			result = ctx.evaluate(expr);

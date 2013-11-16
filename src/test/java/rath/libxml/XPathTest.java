@@ -154,14 +154,13 @@ public class XPathTest {
 			"<item id=\"three\"><value tag=\"3\" /></item>" +
 			"</items>";
 
-		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance("rath.libxml.jaxp.DocumentBuilderFactoryImpl", null);
-		XPathFactory factory = XPathFactory.newInstance(XPathFactory.DEFAULT_OBJECT_MODEL_URI, "rath.libxml.jaxp.XPathFactoryImpl", null);
-//		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-//		XPathFactory factory = XPathFactory.newInstance();
+		DocumentBuilderFactory dbf = LibXml.createDocumentBuilderFactory();
+		XPathFactory factory = LibXml.createXPathFactory();
 
 		org.w3c.dom.Document doc = dbf.newDocumentBuilder().parse(Utils.createInputSource(xml));
 		org.w3c.dom.Node firstItem = doc.getDocumentElement().getFirstChild();
 		XPath xpath = factory.newXPath();
+		// Will broke if apache xpath implementation uses libxml2-java implementation
 		NodeList nl = (NodeList)xpath.evaluate("value/@tag", firstItem, XPathConstants.NODESET);
 
 		Assert.assertEquals(1, nl.getLength());
