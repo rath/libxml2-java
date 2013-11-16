@@ -1,9 +1,16 @@
 package rath.libxml;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.w3c.dom.NodeList;
+import rath.libxml.util.Utils;
 
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathFactory;
 import java.io.File;
 
 /**
@@ -14,7 +21,7 @@ import java.io.File;
 @RunWith(JUnit4.class)
 public class XPathTest {
 	@Test
-	public void test() throws Exception {
+	public void testCompiled() throws Exception {
 		XPathExpression expr = LibXml.compileXPath("//item");
 
 		Document doc = LibXml.parseFile(new File("sample-xmls/rss-infoq.xml"));
@@ -30,5 +37,35 @@ public class XPathTest {
 		doc.dispose();
 
 		expr.dispose();
+	}
+
+	@Test
+	public void testPlain() throws Exception {
+		Document doc = LibXml.parseFile(new File("sample-xmls/rss-infoq.xml"));
+		XPathContext context = doc.createXPathContext();
+		XPathObject result = context.evaluate("//item");
+		for(Node itemNode : result.nodeset) {
+
+		}
+	}
+
+	@Test
+	public void testJaxp() throws Exception {
+		// XPathFactory impl is not allowed to use another DocumentBuilderFactory implementations
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance("rath.libxml.jaxp.DocumentBuilderFactoryImpl", null);
+		XPathFactory factory = XPathFactory.newInstance(XPathFactory.DEFAULT_OBJECT_MODEL_URI, "rath.libxml.jaxp.XPathFactoryImpl", null);
+//		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//		XPathFactory factory = XPathFactory.newInstance();
+
+		XPath xpath = factory.newXPath();
+		org.w3c.dom.Document doc = dbf.newDocumentBuilder().parse(new File("sample-xmls/rss-infoq.xml"));
+
+		NodeList nl = (NodeList)xpath.evaluate("//item/title", doc, XPathConstants.NODESET);
+		for(int i=0; i<nl.getLength(); i++) {
+			org.w3c.dom.Node node = nl.item(i);
+			String title = node.getTextContent();
+			Assert.assertEquals("Oracle Releases Videos and Slides from the 2013 JVM Language Summit", title);
+			break;
+		}
 	}
 }
