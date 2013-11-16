@@ -29,6 +29,16 @@ public class Document extends Node {
 		return this;
 	}
 
+	@Override
+	public Namespace getNamespace() {
+		return null;
+	}
+
+	@Override
+	public Node getParent() {
+		return null;
+	}
+
 	public XPathContext createXPathContext() {
 		XPathContext ctx = createXPathContextImpl();
 		ctx.setDocument(this);
