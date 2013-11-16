@@ -584,9 +584,58 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXSystemIdImpl
     (*env)->ReleaseStringUTFChars(env, jSystemId, systemId);
     
     // if(!parser->wellFormed) then something went wrong...
+    // parser->myDoc should not be created since we're using SAX
     
     xmlFreeParserCtxt(parser);
     
     if(ctx.locatorContext!=NULL)
         free(ctx.locatorContext);
+}
+
+/*
+ * Class:     rath_libxml_LibXml
+ * Method:    parseSystemIdImpl
+ * Signature: (Ljava/lang/String;Ljava/io/InputStream;)Lrath/libxml/Document;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseSystemIdImpl
+(JNIEnv *env, jclass clz, jstring jSystemId, jobject inputStream) {
+    
+    xmlResetLastError();
+    const char *systemId = (*env)->GetStringUTFChars(env, jSystemId, NULL);
+    
+    xmlParserCtxt *parser = xmlCreatePushParserCtxt(NULL, 0, NULL, 0, systemId);
+    
+    int ret;
+    int readlen;
+    int totalLen = 0;
+    char chunk[CHUNK_SIZE];
+    jbyteArray buf = (*env)->NewByteArray(env, CHUNK_SIZE);
+    while(1) {
+        readlen = (*env)->CallIntMethod(env, inputStream, methodInputStreamRead, buf, 0, CHUNK_SIZE);
+        if( readlen==-1 || (*env)->ExceptionOccurred(env))
+            break;
+        (*env)->GetByteArrayRegion(env, buf, 0, readlen, (jbyte*)chunk);
+        ret = xmlParseChunk(parser, chunk, readlen, 0);
+        totalLen += readlen;
+        assert(!ret);
+    }
+    int error;
+    if(!(*env)->ExceptionOccurred(env)) {
+        xmlParseChunk(parser, chunk, 0, 1);
+        error = 0;
+    } else {
+        error = 1;
+    }
+    
+    (*env)->DeleteLocalRef(env, buf);
+    (*env)->ReleaseStringUTFChars(env, jSystemId, systemId);
+    
+    if( error )
+        return NULL;
+    if( !parser->wellFormed )
+        return NULL;
+    
+    xmlDoc *doc = parser->myDoc;
+    xmlFreeParserCtxt(parser);
+    return buildDocument(env, doc);
 }

@@ -7,7 +7,9 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.logging.Logger;
 
 /**
  * 
@@ -21,6 +23,8 @@ public class LibXml {
 		loadNativeLibrary();
 	}
 
+	private static Logger logger = Logger.getLogger(LibXml.class.getName());
+
 	private static synchronized void loadNativeLibrary() {
 		String fullname = System.mapLibraryName("hello");
 		String suffix = fullname.substring(fullname.lastIndexOf('.'));
@@ -30,7 +34,7 @@ public class LibXml {
 		File targetLibrary = null;
 
 		File localXcodeLibrary = new File("/Users/rath/Library/Developer/Xcode/DerivedData/libxml2-java-fkrlovtvxnmqhfhhoxmlslcqmtjx/Build/Products/Debug/" + libname);
-		if( localXcodeLibrary.exists() && localXcodeLibrary.lastModified()-(1000L*60L*30L) > System.currentTimeMillis()) {
+		if( localXcodeLibrary.exists() && localXcodeLibrary.lastModified()+(1000L*60L*30L) > System.currentTimeMillis()) {
 			targetLibrary = localXcodeLibrary;
 			System.out.println("*****************************************");
 			System.out.println("* Using libxml2j.dylib built on Xcode 5 *");
@@ -94,6 +98,22 @@ public class LibXml {
 	}
 
 	private static native Document parseStringImpl(String data);
+
+	public static Document parseSystemId(String systemId) throws IOException {
+		if( systemId==null )
+			throw new NullPointerException("systemId cannot be null");
+
+		Document doc;
+		InputStream in = new URL(systemId).openStream();
+		try {
+			doc = parseSystemIdImpl(systemId, in);
+		} finally {
+			in.close();
+		}
+		return doc;
+	}
+
+	private static native Document parseSystemIdImpl(String systemId, InputStream in) throws IOException;
 
 	public static void parseSAX(String xml, SAXHandler handler, int recovery) {
 		parseSAX(xml, handler, recovery, new SAXHandlerEngine());
