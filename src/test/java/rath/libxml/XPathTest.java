@@ -165,4 +165,23 @@ public class XPathTest {
 
 		Assert.assertEquals(1, nl.getLength());
 	}
+
+	@Test
+	public void testWithInputSource() throws Exception {
+		String xml = "<?xml version=\"1.0\"?>" +
+			"<items>" +
+			"<item id=\"one\"><value tag=\"1\" /></item>" +
+			"<item id=\"two\"><value tag=\"2\" /></item>" +
+			"<item id=\"three\"><value tag=\"3\" /></item>" +
+			"</items>";
+
+		XPathFactory factory = LibXml.createXPathFactory();
+		XPath xpath = factory.newXPath();
+		String tag = xpath.evaluate("//item[1]/value/@tag", Utils.createInputSource(xml));
+		Assert.assertEquals("1", tag);
+
+		javax.xml.xpath.XPathExpression compiled = xpath.compile("//item[1]/value/@tag");
+		tag = compiled.evaluate(Utils.createInputSource(xml));
+		Assert.assertEquals("1", tag);
+	}
 }

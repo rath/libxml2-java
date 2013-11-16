@@ -1,10 +1,8 @@
 package rath.libxml.jaxp;
 
 import org.xml.sax.InputSource;
-import rath.libxml.Node;
-import rath.libxml.XPathContext;
-import rath.libxml.XPathExpression;
-import rath.libxml.XPathObject;
+import rath.libxml.*;
+import rath.libxml.util.Utils;
 
 import javax.xml.namespace.QName;
 import javax.xml.xpath.XPathConstants;
@@ -54,11 +52,17 @@ public class XPathExpressionImpl implements javax.xml.xpath.XPathExpression {
 
 	@Override
 	public Object evaluate(InputSource inputSource, QName qName) throws XPathExpressionException {
-		throw new UnsupportedOperationException();
+		rath.libxml.Document doc = null;
+		try {
+			doc = LibXml.parseString(Utils.loadInputSource(inputSource));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return evaluate(new DocumentImpl(doc), qName);
 	}
 
 	@Override
 	public String evaluate(InputSource inputSource) throws XPathExpressionException {
-		throw new UnsupportedOperationException();
+		return (String) evaluate(inputSource, XPathConstants.STRING);
 	}
 }

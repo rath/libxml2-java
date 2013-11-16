@@ -3,13 +3,16 @@ package rath.libxml.jaxp;
 import org.w3c.dom.*;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 import rath.libxml.*;
 import rath.libxml.Node;
+import rath.libxml.util.Utils;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
 import javax.xml.xpath.*;
 import javax.xml.xpath.XPathExpression;
+import java.io.IOException;
 
 /**
  * User: rath
@@ -113,13 +116,17 @@ public class XPathImpl implements XPath {
 
 	@Override
 	public Object evaluate(String expr, InputSource inputSource, QName qName) throws XPathExpressionException {
-		// TODO: Impl today
-		throw new UnsupportedOperationException();
+		rath.libxml.Document doc = null;
+		try {
+			doc = LibXml.parseString(Utils.loadInputSource(inputSource));
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+		return evaluate(expr, new DocumentImpl(doc), qName);
 	}
 
 	@Override
 	public String evaluate(String expr, InputSource inputSource) throws XPathExpressionException {
-		// TODO: Impl today
-		throw new UnsupportedOperationException();
+		return (String) evaluate(expr, inputSource, XPathConstants.STRING);
 	}
 }

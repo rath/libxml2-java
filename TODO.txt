@@ -1,6 +1,19 @@
 TODO: xmlParserContext
 TODO: xmlParserOption
 TODO: Parser/Builder/Reader::set/getFeature, set/getProperty
-TODO: JNI CallNorvirtualXXX for domain classes for performance
 TODO: DTD related, EntityResolver
 TODO: Performance test?
+TODO: Improve poor getElementsByTagName
+
+TODO: Javadoc compatible documentations
+TODO: Translate unittest with python.
+TODO: test with arm-linux-androideabi
+
+TODO: java logger
+TODO: aop for testing
+
+TODO: find UOE and impl them
+TODO: submit to maven repository
+
+TODO: Download some DOM manipulation tools and test with libxml2-java
+TODO: Transformer. Export DOM as file or something
