@@ -280,8 +280,8 @@ public class Node implements Iterable<Node>, Disposable {
 	private native Node addPrevSiblingImpl(Node newNode);
 
 	public static enum Type {
-		ELEMENT(1), ATTRIBUTE(2), TEXT(3), CDATA(4), // ENTITY_REF, ENTITY, PI?
-		COMMENT(8), DOCUMENT(9); // DOCUMENT_TYPE, DOCUMENT_FRAG, NOTATION, DTD?
+		ELEMENT(1), ATTRIBUTE(2), TEXT(3), CDATA(4), ENTITY_REF(5), ENTITY(6), PI(7),
+		COMMENT(8), DOCUMENT(9), DOCUMENT_TYPE(10), DOCUMENT_FRAG(11), NOTATION(12), DTD(14);
 
 		private int code;
 		Type(int code) {

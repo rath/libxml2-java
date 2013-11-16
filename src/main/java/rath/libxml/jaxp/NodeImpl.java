@@ -210,7 +210,28 @@ public class NodeImpl implements Node {
 
 	@Override
 	public String getTextContent() throws DOMException {
-		return impl.getText();
+		String value = null;
+		rath.libxml.Node.Type type = impl.getType();
+		switch (type) {
+			case TEXT:
+			case CDATA:
+			case COMMENT:
+			case PI:
+				value = impl.getText();
+				break;
+			case ELEMENT:
+			case ATTRIBUTE:
+			case ENTITY:
+			case DOCUMENT_FRAG:
+				value = impl.getChildText();
+				break;
+			case DOCUMENT:
+			case DOCUMENT_TYPE:
+			case NOTATION:
+				value = null;
+				break;
+		}
+		return value;
 	}
 
 	@Override
