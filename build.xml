@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+
+<project name="libxml2-java" default="test">
+  <property name="src.main" value="src/main/java" />
+  <property name="src.test" value="src/test/java" />
+  <property name="build.main" value="build/classes/main" />
+  <property name="build.test" value="build/classes/test" />
+  <property environment="env" />
+
+  <path id="home.classpath">
+    <fileset dir="${env.HOME}/sdks/jars" includes="*.jar" />
+    <pathelement location="${build.main}" />
+    <pathelement location="${build.test}" />
+  </path>
+
+  <target name="compile">
+    <mkdir dir="${build.main}" />
+    <javac srcdir="${src.main}" 
+      destdir="${build.main}" 
+      includeantruntime="no"
+      debug="yes">
+    </javac>
+
+    <mkdir dir="${build.test}" />
+    <javac srcdir="${src.test}"
+      destdir="${build.test}"
+      includeantruntime="no"
+      debug="yes">
+      <classpath refid="home.classpath">
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile">
+    <java classname="rath.libxml.util.BuildResources"
+      classpathref="home.classpath" />
+    <copy todir="${build.main}">
+      <fileset dir="resources" includes="*" />
+    </copy>
+    <jar jarfile="build/libs/libxml2-java.jar"
+      basedir="${build.main}" />
+    
+  </target>
+
+  <target name="test" depends="compile">
+    <java classname="org.junit.runner.JUnitCore"
+      classpathref="home.classpath">
+      <arg value="rath.libxml.BasicTest" /> 
+      <arg value="rath.libxml.JaxpTest" /> 
+      <arg value="rath.libxml.SaxTest" /> 
+      <arg value="rath.libxml.ContextTest" /> 
+    </java>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build.main}" />
+    <delete dir="${build.test}" />
+  </target>
+
+</project>
