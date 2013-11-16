@@ -53,8 +53,7 @@ public class XPathImpl implements XPath {
 
 	@Override
 	public XPathExpression compile(String expr) throws XPathExpressionException {
-		// TODO: Impl today
-		throw new UnsupportedOperationException();
+		return new XPathExpressionImpl(LibXml.compileXPath(expr));
 	}
 
 	@Override
@@ -80,6 +79,12 @@ public class XPathImpl implements XPath {
 			throw new XPathExpressionException(e);
 		}
 
+		Object ret = filterXPathObjectToJaxpObject(document, qName, result);
+		result.dispose();
+		return ret;
+	}
+
+	static Object filterXPathObjectToJaxpObject(DocumentImpl document, QName qName, XPathObject result) {
 		Object ret;
 		if( qName==XPathConstants.NODESET )
 			ret = new NodeListImpl(document, result.nodeset);
@@ -94,7 +99,6 @@ public class XPathImpl implements XPath {
 			ret = result.castToBoolean();
 		else
 			throw new UnsupportedOperationException();
-		result.dispose();
 		return ret;
 	}
 

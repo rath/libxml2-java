@@ -116,6 +116,14 @@ public class XPathTest {
 
 	@Test
 	public void testJaxpCompiled() throws Exception {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance("rath.libxml.jaxp.DocumentBuilderFactoryImpl", null);
+		XPathFactory factory = XPathFactory.newInstance(XPathFactory.DEFAULT_OBJECT_MODEL_URI, "rath.libxml.jaxp.XPathFactoryImpl", null);
 
+		org.w3c.dom.Document doc = dbf.newDocumentBuilder().parse(new File("sample-xmls/rss-infoq.xml"));
+
+		XPath xpath = factory.newXPath();
+		javax.xml.xpath.XPathExpression expr = xpath.compile("//item[1]/title");
+		String title = (String) expr.evaluate(doc, XPathConstants.STRING);
+		Assert.assertEquals("Oracle Releases Videos and Slides from the 2013 JVM Language Summit", title);
 	}
 }
