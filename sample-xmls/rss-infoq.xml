@@ -1,0 +1,1641 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:taxo="http://purl.org/rss/1.0/modules/taxonomy/" version="2.0">
+  <channel>
+    <title>InfoQ Personalized Feed for Unregistered User - Register to upgrade!</title>
+    <link>http://www.infoq.com</link>
+    <description>This RSS feed is a personalized feed, unique to your account on InfoQ.com. You can select the major InfoQ topics you are interested in via a drop-down menu. This appears (if you are logged in) when you click your name in the top right corner of the web page. The menu affects what you will see on the homepage and in this RSS feed. You can do finer-grained personalization of specific topics on your preferences page or by clicking on any topic and clicking exclude. If your personalization settings are not reflected in this RSS feed, then you may not be using a feed URL associated with your InfoQ account. For best accuracy, login on InfoQ and then grab a new RSS feed URL from the Personal Feed link on the left side menu. Enjoy!</description>
+    <item>
+      <title>Oracle Releases Videos and Slides from the 2013 JVM Language Summit</title>
+      <link>http://www.infoq.com/news/2013/11/jvm-language-summit</link>
+      <description>Oracle have released videos and slides from the 2013 JVM Language Summit, which saw uses of the JVM from the biggest data to the smallest mobiles, and future performance advances in the JVM runtime. Read on to find out more about what was covered. &lt;i&gt;By Alex Blewitt&lt;/i&gt;</description>
+      <category>Scala</category>
+      <category>JVM</category>
+      <category>Open JDK</category>
+      <category>JVM Language Summit</category>
+      <category>Development</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>JVM Languages</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 22:00:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/jvm-language-summit</guid>
+      <dc:creator>Alex Blewitt</dc:creator>
+      <dc:date>2013-11-15T22:00:00Z</dc:date>
+      <dc:identifier>/news/2013/11/jvm-language-summit</dc:identifier>
+    </item>
+    <item>
+      <title>Article: Costin Leau on Elasticsearch, BigData and Hadoop</title>
+      <link>http://www.infoq.com/articles/costin-elasticsearch-bigdata</link>
+      <description>Elasticsearch is an open source, distributed real-time search and analytics engine for the cloud. The first milestone of elasticsearch-hadoop 1.3.M1 was released last month. InfoQ spoke with Costin Leau about Elasticsearch and how it integrates with Hadoop and other Big Data technologies.&#xD;
+ &lt;i&gt;By Costin Leau&lt;/i&gt;</description>
+      <category>Hadoop</category>
+      <category>Big Data</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>Enterprise Architecture</category>
+      <category>Spring Hadoop</category>
+      <category>ElasticSearch</category>
+      <category>content.articles.category</category>
+      <pubDate>Fri, 15 Nov 2013 12:12:00 GMT</pubDate>
+      <guid>http://www.infoq.com/articles/costin-elasticsearch-bigdata</guid>
+      <dc:creator>Costin Leau</dc:creator>
+      <dc:date>2013-11-15T12:12:00Z</dc:date>
+      <dc:identifier>/articles/costin-elasticsearch-bigdata</dc:identifier>
+    </item>
+    <item>
+      <title>Applying Security by Design with the CMMI for Development</title>
+      <link>http://www.infoq.com/news/2013/11/security-by-design-cmmi</link>
+      <description>To enable development of secure products, processes covering the software development life cycle have to include security activities. Winfried Russwurm from Siemens and Peter Panholzer from Limes Security facilitated a workshop at the SEPG Europe 2013 conference where they explored security activities and presented the Application Guide for Improving Processes for Secure Products.  &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Security</category>
+      <category>Reliability</category>
+      <category>Security Assessment</category>
+      <category>CMMI for Development</category>
+      <category>Process &amp; Practices</category>
+      <category>Enterprise Architecture</category>
+      <category>Model</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 11:18:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/security-by-design-cmmi</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-15T11:18:00Z</dc:date>
+      <dc:identifier>/news/2013/11/security-by-design-cmmi</dc:identifier>
+    </item>
+    <item>
+      <title>Apcera Continuum</title>
+      <link>http://www.infoq.com/news/2013/11/apcera</link>
+      <description>Cloud startup Apcera is making its Continuum product more visible with the launch of a new website on 14 Nov. &lt;i&gt;By Chris Swan&lt;/i&gt;</description>
+      <category>PaaS</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>Enterprise Architecture</category>
+      <category>Cloud</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 09:36:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/apcera</guid>
+      <dc:creator>Chris Swan</dc:creator>
+      <dc:date>2013-11-15T09:36:00Z</dc:date>
+      <dc:identifier>/news/2013/11/apcera</dc:identifier>
+    </item>
+    <item>
+      <title>How DevOps Complements Agile at Nokia Entertainment</title>
+      <link>http://www.infoq.com/news/2013/11/devops-complements-agile-nokia</link>
+      <description>Agile has the manifesto and principles, it focuses on people, clarity for the stakeholders, faster delivery, and happier customers, so why would you need DevOps? John Clapham from Nokia Entertainment in Bristol talked at the Agile Methods in the Finance Sector and Complex Environment conference about what DevOps is and what it has brought to their business. &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Agile</category>
+      <category>Professionalism</category>
+      <category>Devops</category>
+      <category>Culture</category>
+      <category>Continuous Delivery</category>
+      <category>Development</category>
+      <category>Process &amp; Practices</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 07:02:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/devops-complements-agile-nokia</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-15T07:02:00Z</dc:date>
+      <dc:identifier>/news/2013/11/devops-complements-agile-nokia</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Practicing Joy</title>
+      <link>http://www.infoq.com/presentations/Practicing-Joy-keynote</link>
+      <description>Chad Fowler keynotes on practicing joy as a software developer, starting from his life experiences and concluding that joy is intrinsic while happiness requires discipline. &lt;i&gt;By Chad Fowler&lt;/i&gt;</description>
+      <category>Software Engineering</category>
+      <category>Keynote</category>
+      <category>Development</category>
+      <category>Joy of Coding 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Fri, 15 Nov 2013 03:20:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/Practicing-Joy-keynote</guid>
+      <dc:creator>Chad Fowler</dc:creator>
+      <dc:date>2013-11-15T03:20:00Z</dc:date>
+      <dc:identifier>/presentations/Practicing-Joy-keynote</dc:identifier>
+    </item>
+    <item>
+      <title>Previewing Riak 2.0</title>
+      <link>http://www.infoq.com/news/2013/11/Riak-2-Preview</link>
+      <description>At RICON West Basho announced the first technical preview of Riak 2.0. Continuing the work on Russell Brown’s RFC, this version brings with it new distributed data types for maps and sets, strong consistency, and deeps ties with Apache Solr. &lt;i&gt;By Jonathan Allen&lt;/i&gt;</description>
+      <category>Riak</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 18:38:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/Riak-2-Preview</guid>
+      <dc:creator>Jonathan Allen</dc:creator>
+      <dc:date>2013-11-14T18:38:00Z</dc:date>
+      <dc:identifier>/news/2013/11/Riak-2-Preview</dc:identifier>
+    </item>
+    <item>
+      <title>The Human Aspects of API Design: An Interview with Apiary's Jakub Nesetril</title>
+      <link>http://www.infoq.com/news/2013/11/apiary-jakub-nesetril-interview</link>
+      <description>API Design and description is more than just a technical interface contract between machines. Apiary's Co-Founder and CEO Jakub Nesetril points out that the real consumer of an API description is the developer, with all the concerns of engagement, usability and communication that entails. We spoke with Jakub recently about Apiary's approach to API design and emerging API tools and workflows. &lt;i&gt;By Saul Caganoff&lt;/i&gt;</description>
+      <category>Testing</category>
+      <category>Contract First Development</category>
+      <category>Public APIs</category>
+      <category>API</category>
+      <category>API-Design</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 16:37:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/apiary-jakub-nesetril-interview</guid>
+      <dc:creator>Saul Caganoff</dc:creator>
+      <dc:date>2013-11-14T16:37:00Z</dc:date>
+      <dc:identifier>/news/2013/11/apiary-jakub-nesetril-interview</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: The Search for Sustainable Innovation</title>
+      <link>http://www.infoq.com/presentations/innovation-enterprise-volatility</link>
+      <description>The panelists discuss innovation at the enterprise level avoiding the business’ constant volatility. &lt;i&gt;By Angela Clark, Scott Farquhar, Warwick White, Beverley Head&lt;/i&gt;</description>
+      <category>Innovation</category>
+      <category>Process &amp; Practices</category>
+      <category>Enterprise Architecture</category>
+      <category>Business Technology Strategy</category>
+      <category>Panel</category>
+      <category>Agile Australia 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 16:35:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/innovation-enterprise-volatility</guid>
+      <dc:creator>Angela Clark, Scott Farquhar, Warwick White, Beverley Head</dc:creator>
+      <dc:date>2013-11-14T16:35:00Z</dc:date>
+      <dc:identifier>/presentations/innovation-enterprise-volatility</dc:identifier>
+    </item>
+    <item>
+      <title>GenMyModel: An Online Real-time Collaborative UML Designer</title>
+      <link>http://www.infoq.com/news/2013/11/genmymodel-uml-designer</link>
+      <description>This article contains an interview on GenMyModel’s architecture, technology used and future. &lt;i&gt;By Abel Avram&lt;/i&gt;</description>
+      <category>Artifacts &amp; Tools</category>
+      <category>Real Time</category>
+      <category>Design</category>
+      <category>UML</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 14:30:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/genmymodel-uml-designer</guid>
+      <dc:creator>Abel Avram</dc:creator>
+      <dc:date>2013-11-14T14:30:00Z</dc:date>
+      <dc:identifier>/news/2013/11/genmymodel-uml-designer</dc:identifier>
+    </item>
+    <item>
+      <title>Xamarin’s Rough Transition to 64-bit iOS/OSX</title>
+      <link>http://www.infoq.com/news/2013/11/64-Bit-Xamarin</link>
+      <description>In order to support 64-bit iOS and OSX, Xamarin has to make some breaking changes to the way it implements the mapping between C# and Objective-C libraries. Rather than being mapped to 32-bit types, NSInteger and CGFloat are now mapped to the new platform-specific data types nint and nfloat. &lt;i&gt;By Jonathan Allen&lt;/i&gt;</description>
+      <category>OSX</category>
+      <category>MonoTouch</category>
+      <category>MonoMac</category>
+      <category>Development</category>
+      <category>Xamarin.Mac</category>
+      <category>Xamarin</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 12:27:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/64-Bit-Xamarin</guid>
+      <dc:creator>Jonathan Allen</dc:creator>
+      <dc:date>2013-11-14T12:27:00Z</dc:date>
+      <dc:identifier>/news/2013/11/64-Bit-Xamarin</dc:identifier>
+    </item>
+    <item>
+      <title>Article: Interview with Simon Brown about Sustainable Competence</title>
+      <link>http://www.infoq.com/articles/simon-brown-sustainable-competence</link>
+      <description>Why are some teams successful while others are less than stellar? Can teams use processes to do their work? How can managers help teams to become better? And do we need incentives to improve the quality of software? InfoQ did an interview with Simon Brown about sustainable competence for continuous improvement, balancing people and processes, and software quality and architecture. &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Teamwork</category>
+      <category>Planning</category>
+      <category>Remuneration and Incentives</category>
+      <category>Outsourcing</category>
+      <category>Architecture</category>
+      <category>Adopting Agile</category>
+      <category>Architecture &amp; Design</category>
+      <category>Process &amp; Practices</category>
+      <category>content.articles.category</category>
+      <pubDate>Thu, 14 Nov 2013 11:55:00 GMT</pubDate>
+      <guid>http://www.infoq.com/articles/simon-brown-sustainable-competence</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-14T11:55:00Z</dc:date>
+      <dc:identifier>/articles/simon-brown-sustainable-competence</dc:identifier>
+    </item>
+    <item>
+      <title>Google Releases Dart 1.0</title>
+      <link>http://www.infoq.com/news/2013/11/dart-10</link>
+      <description>Two years after its initial announcement and preview release, Lars Bak announced the first stable release of Dart at Devvox in Belgium today. Dart is Google’s new web programming language and platform for developing modern web applications. &lt;i&gt;By Zef Hemel&lt;/i&gt;</description>
+      <category>Web Applications</category>
+      <category>Web App Developer</category>
+      <category>Development</category>
+      <category>Google Dart</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 10:00:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/dart-10</guid>
+      <dc:creator>Zef Hemel</dc:creator>
+      <dc:date>2013-11-14T10:00:00Z</dc:date>
+      <dc:identifier>/news/2013/11/dart-10</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Exercises in Style</title>
+      <link>http://www.infoq.com/presentations/style-methodology</link>
+      <description>Crista Lopes writes a program in multiple styles -monolithic/OOP/continuations/relational/Pub-Sub/Monads/AOP/Map-reduce- showing the value of using more than a style in large scale systems. &lt;i&gt;By Crista Lopes&lt;/i&gt;</description>
+      <category>AOP</category>
+      <category>OOP</category>
+      <category>MapReduce</category>
+      <category>Large Projects</category>
+      <category>Strange Loop</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Enterprise Architecture</category>
+      <category>Monads</category>
+      <category>Strange Loop 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 03:45:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/style-methodology</guid>
+      <dc:creator>Crista Lopes</dc:creator>
+      <dc:date>2013-11-14T03:45:00Z</dc:date>
+      <dc:identifier>/presentations/style-methodology</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Productive Out-of-the-Box with Ember.js</title>
+      <link>http://www.infoq.com/presentations/emberjs-tools-yeoman</link>
+      <description>Anthony Bull overviews some of the tools that help being productive with Ember.js, providing details on Yeoman. &lt;i&gt;By Anthony Bull&lt;/i&gt;</description>
+      <category>Artifacts &amp; Tools</category>
+      <category>Development</category>
+      <category>EmberJS</category>
+      <category>Ember Fest 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 03:35:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/emberjs-tools-yeoman</guid>
+      <dc:creator>Anthony Bull</dc:creator>
+      <dc:date>2013-11-14T03:35:00Z</dc:date>
+      <dc:identifier>/presentations/emberjs-tools-yeoman</dc:identifier>
+    </item>
+    <item>
+      <title>Android Gets Better with App Translation Service</title>
+      <link>http://www.infoq.com/news/2013/11/app-translation-service</link>
+      <description>Google has officially released its translation service for Android app which enables developers to localize the apps in &#xD;
+various languages based on the guidelines in the localization checklist document. &lt;i&gt;By Anand Narayanaswamy&lt;/i&gt;</description>
+      <category>Android</category>
+      <category>Development</category>
+      <category>content.news.category</category>
+      <pubDate>Wed, 13 Nov 2013 16:53:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/app-translation-service</guid>
+      <dc:creator>Anand Narayanaswamy</dc:creator>
+      <dc:date>2013-11-13T16:53:00Z</dc:date>
+      <dc:identifier>/news/2013/11/app-translation-service</dc:identifier>
+    </item>
+    <item>
+      <title>Oracle Releases Videos and Slides from the 2013 JVM Language Summit</title>
+      <link>http://www.infoq.com/news/2013/11/jvm-language-summit</link>
+      <description>Oracle have released videos and slides from the 2013 JVM Language Summit, which saw uses of the JVM from the biggest data to the smallest mobiles, and future performance advances in the JVM runtime. Read on to find out more about what was covered. &lt;i&gt;By Alex Blewitt&lt;/i&gt;</description>
+      <category>Scala</category>
+      <category>JVM</category>
+      <category>Open JDK</category>
+      <category>JVM Language Summit</category>
+      <category>Development</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>JVM Languages</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 22:00:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/jvm-language-summit</guid>
+      <dc:creator>Alex Blewitt</dc:creator>
+      <dc:date>2013-11-15T22:00:00Z</dc:date>
+      <dc:identifier>/news/2013/11/jvm-language-summit</dc:identifier>
+    </item>
+    <item>
+      <title>Article: Costin Leau on Elasticsearch, BigData and Hadoop</title>
+      <link>http://www.infoq.com/articles/costin-elasticsearch-bigdata</link>
+      <description>Elasticsearch is an open source, distributed real-time search and analytics engine for the cloud. The first milestone of elasticsearch-hadoop 1.3.M1 was released last month. InfoQ spoke with Costin Leau about Elasticsearch and how it integrates with Hadoop and other Big Data technologies.&#xD;
+ &lt;i&gt;By Costin Leau&lt;/i&gt;</description>
+      <category>Hadoop</category>
+      <category>Big Data</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>Enterprise Architecture</category>
+      <category>Spring Hadoop</category>
+      <category>ElasticSearch</category>
+      <category>content.articles.category</category>
+      <pubDate>Fri, 15 Nov 2013 12:12:00 GMT</pubDate>
+      <guid>http://www.infoq.com/articles/costin-elasticsearch-bigdata</guid>
+      <dc:creator>Costin Leau</dc:creator>
+      <dc:date>2013-11-15T12:12:00Z</dc:date>
+      <dc:identifier>/articles/costin-elasticsearch-bigdata</dc:identifier>
+    </item>
+    <item>
+      <title>Applying Security by Design with the CMMI for Development</title>
+      <link>http://www.infoq.com/news/2013/11/security-by-design-cmmi</link>
+      <description>To enable development of secure products, processes covering the software development life cycle have to include security activities. Winfried Russwurm from Siemens and Peter Panholzer from Limes Security facilitated a workshop at the SEPG Europe 2013 conference where they explored security activities and presented the Application Guide for Improving Processes for Secure Products.  &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Security</category>
+      <category>Reliability</category>
+      <category>Security Assessment</category>
+      <category>CMMI for Development</category>
+      <category>Process &amp; Practices</category>
+      <category>Enterprise Architecture</category>
+      <category>Model</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 11:18:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/security-by-design-cmmi</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-15T11:18:00Z</dc:date>
+      <dc:identifier>/news/2013/11/security-by-design-cmmi</dc:identifier>
+    </item>
+    <item>
+      <title>Apcera Continuum</title>
+      <link>http://www.infoq.com/news/2013/11/apcera</link>
+      <description>Cloud startup Apcera is making its Continuum product more visible with the launch of a new website on 14 Nov. &lt;i&gt;By Chris Swan&lt;/i&gt;</description>
+      <category>PaaS</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>Enterprise Architecture</category>
+      <category>Cloud</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 09:36:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/apcera</guid>
+      <dc:creator>Chris Swan</dc:creator>
+      <dc:date>2013-11-15T09:36:00Z</dc:date>
+      <dc:identifier>/news/2013/11/apcera</dc:identifier>
+    </item>
+    <item>
+      <title>How DevOps Complements Agile at Nokia Entertainment</title>
+      <link>http://www.infoq.com/news/2013/11/devops-complements-agile-nokia</link>
+      <description>Agile has the manifesto and principles, it focuses on people, clarity for the stakeholders, faster delivery, and happier customers, so why would you need DevOps? John Clapham from Nokia Entertainment in Bristol talked at the Agile Methods in the Finance Sector and Complex Environment conference about what DevOps is and what it has brought to their business. &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Agile</category>
+      <category>Professionalism</category>
+      <category>Devops</category>
+      <category>Culture</category>
+      <category>Continuous Delivery</category>
+      <category>Development</category>
+      <category>Process &amp; Practices</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 07:02:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/devops-complements-agile-nokia</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-15T07:02:00Z</dc:date>
+      <dc:identifier>/news/2013/11/devops-complements-agile-nokia</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Practicing Joy</title>
+      <link>http://www.infoq.com/presentations/Practicing-Joy-keynote</link>
+      <description>Chad Fowler keynotes on practicing joy as a software developer, starting from his life experiences and concluding that joy is intrinsic while happiness requires discipline. &lt;i&gt;By Chad Fowler&lt;/i&gt;</description>
+      <category>Software Engineering</category>
+      <category>Keynote</category>
+      <category>Development</category>
+      <category>Joy of Coding 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Fri, 15 Nov 2013 03:20:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/Practicing-Joy-keynote</guid>
+      <dc:creator>Chad Fowler</dc:creator>
+      <dc:date>2013-11-15T03:20:00Z</dc:date>
+      <dc:identifier>/presentations/Practicing-Joy-keynote</dc:identifier>
+    </item>
+    <item>
+      <title>Previewing Riak 2.0</title>
+      <link>http://www.infoq.com/news/2013/11/Riak-2-Preview</link>
+      <description>At RICON West Basho announced the first technical preview of Riak 2.0. Continuing the work on Russell Brown’s RFC, this version brings with it new distributed data types for maps and sets, strong consistency, and deeps ties with Apache Solr. &lt;i&gt;By Jonathan Allen&lt;/i&gt;</description>
+      <category>Riak</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 18:38:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/Riak-2-Preview</guid>
+      <dc:creator>Jonathan Allen</dc:creator>
+      <dc:date>2013-11-14T18:38:00Z</dc:date>
+      <dc:identifier>/news/2013/11/Riak-2-Preview</dc:identifier>
+    </item>
+    <item>
+      <title>The Human Aspects of API Design: An Interview with Apiary's Jakub Nesetril</title>
+      <link>http://www.infoq.com/news/2013/11/apiary-jakub-nesetril-interview</link>
+      <description>API Design and description is more than just a technical interface contract between machines. Apiary's Co-Founder and CEO Jakub Nesetril points out that the real consumer of an API description is the developer, with all the concerns of engagement, usability and communication that entails. We spoke with Jakub recently about Apiary's approach to API design and emerging API tools and workflows. &lt;i&gt;By Saul Caganoff&lt;/i&gt;</description>
+      <category>Testing</category>
+      <category>Contract First Development</category>
+      <category>Public APIs</category>
+      <category>API</category>
+      <category>API-Design</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 16:37:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/apiary-jakub-nesetril-interview</guid>
+      <dc:creator>Saul Caganoff</dc:creator>
+      <dc:date>2013-11-14T16:37:00Z</dc:date>
+      <dc:identifier>/news/2013/11/apiary-jakub-nesetril-interview</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: The Search for Sustainable Innovation</title>
+      <link>http://www.infoq.com/presentations/innovation-enterprise-volatility</link>
+      <description>The panelists discuss innovation at the enterprise level avoiding the business’ constant volatility. &lt;i&gt;By Angela Clark, Scott Farquhar, Warwick White, Beverley Head&lt;/i&gt;</description>
+      <category>Innovation</category>
+      <category>Process &amp; Practices</category>
+      <category>Enterprise Architecture</category>
+      <category>Business Technology Strategy</category>
+      <category>Panel</category>
+      <category>Agile Australia 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 16:35:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/innovation-enterprise-volatility</guid>
+      <dc:creator>Angela Clark, Scott Farquhar, Warwick White, Beverley Head</dc:creator>
+      <dc:date>2013-11-14T16:35:00Z</dc:date>
+      <dc:identifier>/presentations/innovation-enterprise-volatility</dc:identifier>
+    </item>
+    <item>
+      <title>GenMyModel: An Online Real-time Collaborative UML Designer</title>
+      <link>http://www.infoq.com/news/2013/11/genmymodel-uml-designer</link>
+      <description>This article contains an interview on GenMyModel’s architecture, technology used and future. &lt;i&gt;By Abel Avram&lt;/i&gt;</description>
+      <category>Artifacts &amp; Tools</category>
+      <category>Real Time</category>
+      <category>Design</category>
+      <category>UML</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 14:30:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/genmymodel-uml-designer</guid>
+      <dc:creator>Abel Avram</dc:creator>
+      <dc:date>2013-11-14T14:30:00Z</dc:date>
+      <dc:identifier>/news/2013/11/genmymodel-uml-designer</dc:identifier>
+    </item>
+    <item>
+      <title>Xamarin’s Rough Transition to 64-bit iOS/OSX</title>
+      <link>http://www.infoq.com/news/2013/11/64-Bit-Xamarin</link>
+      <description>In order to support 64-bit iOS and OSX, Xamarin has to make some breaking changes to the way it implements the mapping between C# and Objective-C libraries. Rather than being mapped to 32-bit types, NSInteger and CGFloat are now mapped to the new platform-specific data types nint and nfloat. &lt;i&gt;By Jonathan Allen&lt;/i&gt;</description>
+      <category>OSX</category>
+      <category>MonoTouch</category>
+      <category>MonoMac</category>
+      <category>Development</category>
+      <category>Xamarin.Mac</category>
+      <category>Xamarin</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 12:27:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/64-Bit-Xamarin</guid>
+      <dc:creator>Jonathan Allen</dc:creator>
+      <dc:date>2013-11-14T12:27:00Z</dc:date>
+      <dc:identifier>/news/2013/11/64-Bit-Xamarin</dc:identifier>
+    </item>
+    <item>
+      <title>Article: Interview with Simon Brown about Sustainable Competence</title>
+      <link>http://www.infoq.com/articles/simon-brown-sustainable-competence</link>
+      <description>Why are some teams successful while others are less than stellar? Can teams use processes to do their work? How can managers help teams to become better? And do we need incentives to improve the quality of software? InfoQ did an interview with Simon Brown about sustainable competence for continuous improvement, balancing people and processes, and software quality and architecture. &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Teamwork</category>
+      <category>Planning</category>
+      <category>Remuneration and Incentives</category>
+      <category>Outsourcing</category>
+      <category>Architecture</category>
+      <category>Adopting Agile</category>
+      <category>Architecture &amp; Design</category>
+      <category>Process &amp; Practices</category>
+      <category>content.articles.category</category>
+      <pubDate>Thu, 14 Nov 2013 11:55:00 GMT</pubDate>
+      <guid>http://www.infoq.com/articles/simon-brown-sustainable-competence</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-14T11:55:00Z</dc:date>
+      <dc:identifier>/articles/simon-brown-sustainable-competence</dc:identifier>
+    </item>
+    <item>
+      <title>Google Releases Dart 1.0</title>
+      <link>http://www.infoq.com/news/2013/11/dart-10</link>
+      <description>Two years after its initial announcement and preview release, Lars Bak announced the first stable release of Dart at Devvox in Belgium today. Dart is Google’s new web programming language and platform for developing modern web applications. &lt;i&gt;By Zef Hemel&lt;/i&gt;</description>
+      <category>Web Applications</category>
+      <category>Web App Developer</category>
+      <category>Development</category>
+      <category>Google Dart</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 10:00:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/dart-10</guid>
+      <dc:creator>Zef Hemel</dc:creator>
+      <dc:date>2013-11-14T10:00:00Z</dc:date>
+      <dc:identifier>/news/2013/11/dart-10</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Exercises in Style</title>
+      <link>http://www.infoq.com/presentations/style-methodology</link>
+      <description>Crista Lopes writes a program in multiple styles -monolithic/OOP/continuations/relational/Pub-Sub/Monads/AOP/Map-reduce- showing the value of using more than a style in large scale systems. &lt;i&gt;By Crista Lopes&lt;/i&gt;</description>
+      <category>AOP</category>
+      <category>OOP</category>
+      <category>MapReduce</category>
+      <category>Large Projects</category>
+      <category>Strange Loop</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Enterprise Architecture</category>
+      <category>Monads</category>
+      <category>Strange Loop 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 03:45:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/style-methodology</guid>
+      <dc:creator>Crista Lopes</dc:creator>
+      <dc:date>2013-11-14T03:45:00Z</dc:date>
+      <dc:identifier>/presentations/style-methodology</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Productive Out-of-the-Box with Ember.js</title>
+      <link>http://www.infoq.com/presentations/emberjs-tools-yeoman</link>
+      <description>Anthony Bull overviews some of the tools that help being productive with Ember.js, providing details on Yeoman. &lt;i&gt;By Anthony Bull&lt;/i&gt;</description>
+      <category>Artifacts &amp; Tools</category>
+      <category>Development</category>
+      <category>EmberJS</category>
+      <category>Ember Fest 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 03:35:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/emberjs-tools-yeoman</guid>
+      <dc:creator>Anthony Bull</dc:creator>
+      <dc:date>2013-11-14T03:35:00Z</dc:date>
+      <dc:identifier>/presentations/emberjs-tools-yeoman</dc:identifier>
+    </item>
+    <item>
+      <title>Android Gets Better with App Translation Service</title>
+      <link>http://www.infoq.com/news/2013/11/app-translation-service</link>
+      <description>Google has officially released its translation service for Android app which enables developers to localize the apps in &#xD;
+various languages based on the guidelines in the localization checklist document. &lt;i&gt;By Anand Narayanaswamy&lt;/i&gt;</description>
+      <category>Android</category>
+      <category>Development</category>
+      <category>content.news.category</category>
+      <pubDate>Wed, 13 Nov 2013 16:53:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/app-translation-service</guid>
+      <dc:creator>Anand Narayanaswamy</dc:creator>
+      <dc:date>2013-11-13T16:53:00Z</dc:date>
+      <dc:identifier>/news/2013/11/app-translation-service</dc:identifier>
+    </item>
+    <item>
+      <title>Oracle Releases Videos and Slides from the 2013 JVM Language Summit</title>
+      <link>http://www.infoq.com/news/2013/11/jvm-language-summit</link>
+      <description>Oracle have released videos and slides from the 2013 JVM Language Summit, which saw uses of the JVM from the biggest data to the smallest mobiles, and future performance advances in the JVM runtime. Read on to find out more about what was covered. &lt;i&gt;By Alex Blewitt&lt;/i&gt;</description>
+      <category>Scala</category>
+      <category>JVM</category>
+      <category>Open JDK</category>
+      <category>JVM Language Summit</category>
+      <category>Development</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>JVM Languages</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 22:00:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/jvm-language-summit</guid>
+      <dc:creator>Alex Blewitt</dc:creator>
+      <dc:date>2013-11-15T22:00:00Z</dc:date>
+      <dc:identifier>/news/2013/11/jvm-language-summit</dc:identifier>
+    </item>
+    <item>
+      <title>Article: Costin Leau on Elasticsearch, BigData and Hadoop</title>
+      <link>http://www.infoq.com/articles/costin-elasticsearch-bigdata</link>
+      <description>Elasticsearch is an open source, distributed real-time search and analytics engine for the cloud. The first milestone of elasticsearch-hadoop 1.3.M1 was released last month. InfoQ spoke with Costin Leau about Elasticsearch and how it integrates with Hadoop and other Big Data technologies.&#xD;
+ &lt;i&gt;By Costin Leau&lt;/i&gt;</description>
+      <category>Hadoop</category>
+      <category>Big Data</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>Enterprise Architecture</category>
+      <category>Spring Hadoop</category>
+      <category>ElasticSearch</category>
+      <category>content.articles.category</category>
+      <pubDate>Fri, 15 Nov 2013 12:12:00 GMT</pubDate>
+      <guid>http://www.infoq.com/articles/costin-elasticsearch-bigdata</guid>
+      <dc:creator>Costin Leau</dc:creator>
+      <dc:date>2013-11-15T12:12:00Z</dc:date>
+      <dc:identifier>/articles/costin-elasticsearch-bigdata</dc:identifier>
+    </item>
+    <item>
+      <title>Applying Security by Design with the CMMI for Development</title>
+      <link>http://www.infoq.com/news/2013/11/security-by-design-cmmi</link>
+      <description>To enable development of secure products, processes covering the software development life cycle have to include security activities. Winfried Russwurm from Siemens and Peter Panholzer from Limes Security facilitated a workshop at the SEPG Europe 2013 conference where they explored security activities and presented the Application Guide for Improving Processes for Secure Products.  &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Security</category>
+      <category>Reliability</category>
+      <category>Security Assessment</category>
+      <category>CMMI for Development</category>
+      <category>Process &amp; Practices</category>
+      <category>Enterprise Architecture</category>
+      <category>Model</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 11:18:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/security-by-design-cmmi</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-15T11:18:00Z</dc:date>
+      <dc:identifier>/news/2013/11/security-by-design-cmmi</dc:identifier>
+    </item>
+    <item>
+      <title>Apcera Continuum</title>
+      <link>http://www.infoq.com/news/2013/11/apcera</link>
+      <description>Cloud startup Apcera is making its Continuum product more visible with the launch of a new website on 14 Nov. &lt;i&gt;By Chris Swan&lt;/i&gt;</description>
+      <category>PaaS</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>Enterprise Architecture</category>
+      <category>Cloud</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 09:36:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/apcera</guid>
+      <dc:creator>Chris Swan</dc:creator>
+      <dc:date>2013-11-15T09:36:00Z</dc:date>
+      <dc:identifier>/news/2013/11/apcera</dc:identifier>
+    </item>
+    <item>
+      <title>How DevOps Complements Agile at Nokia Entertainment</title>
+      <link>http://www.infoq.com/news/2013/11/devops-complements-agile-nokia</link>
+      <description>Agile has the manifesto and principles, it focuses on people, clarity for the stakeholders, faster delivery, and happier customers, so why would you need DevOps? John Clapham from Nokia Entertainment in Bristol talked at the Agile Methods in the Finance Sector and Complex Environment conference about what DevOps is and what it has brought to their business. &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Agile</category>
+      <category>Professionalism</category>
+      <category>Devops</category>
+      <category>Culture</category>
+      <category>Continuous Delivery</category>
+      <category>Development</category>
+      <category>Process &amp; Practices</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 07:02:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/devops-complements-agile-nokia</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-15T07:02:00Z</dc:date>
+      <dc:identifier>/news/2013/11/devops-complements-agile-nokia</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Practicing Joy</title>
+      <link>http://www.infoq.com/presentations/Practicing-Joy-keynote</link>
+      <description>Chad Fowler keynotes on practicing joy as a software developer, starting from his life experiences and concluding that joy is intrinsic while happiness requires discipline. &lt;i&gt;By Chad Fowler&lt;/i&gt;</description>
+      <category>Software Engineering</category>
+      <category>Keynote</category>
+      <category>Development</category>
+      <category>Joy of Coding 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Fri, 15 Nov 2013 03:20:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/Practicing-Joy-keynote</guid>
+      <dc:creator>Chad Fowler</dc:creator>
+      <dc:date>2013-11-15T03:20:00Z</dc:date>
+      <dc:identifier>/presentations/Practicing-Joy-keynote</dc:identifier>
+    </item>
+    <item>
+      <title>Previewing Riak 2.0</title>
+      <link>http://www.infoq.com/news/2013/11/Riak-2-Preview</link>
+      <description>At RICON West Basho announced the first technical preview of Riak 2.0. Continuing the work on Russell Brown’s RFC, this version brings with it new distributed data types for maps and sets, strong consistency, and deeps ties with Apache Solr. &lt;i&gt;By Jonathan Allen&lt;/i&gt;</description>
+      <category>Riak</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 18:38:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/Riak-2-Preview</guid>
+      <dc:creator>Jonathan Allen</dc:creator>
+      <dc:date>2013-11-14T18:38:00Z</dc:date>
+      <dc:identifier>/news/2013/11/Riak-2-Preview</dc:identifier>
+    </item>
+    <item>
+      <title>The Human Aspects of API Design: An Interview with Apiary's Jakub Nesetril</title>
+      <link>http://www.infoq.com/news/2013/11/apiary-jakub-nesetril-interview</link>
+      <description>API Design and description is more than just a technical interface contract between machines. Apiary's Co-Founder and CEO Jakub Nesetril points out that the real consumer of an API description is the developer, with all the concerns of engagement, usability and communication that entails. We spoke with Jakub recently about Apiary's approach to API design and emerging API tools and workflows. &lt;i&gt;By Saul Caganoff&lt;/i&gt;</description>
+      <category>Testing</category>
+      <category>Contract First Development</category>
+      <category>Public APIs</category>
+      <category>API</category>
+      <category>API-Design</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 16:37:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/apiary-jakub-nesetril-interview</guid>
+      <dc:creator>Saul Caganoff</dc:creator>
+      <dc:date>2013-11-14T16:37:00Z</dc:date>
+      <dc:identifier>/news/2013/11/apiary-jakub-nesetril-interview</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: The Search for Sustainable Innovation</title>
+      <link>http://www.infoq.com/presentations/innovation-enterprise-volatility</link>
+      <description>The panelists discuss innovation at the enterprise level avoiding the business’ constant volatility. &lt;i&gt;By Angela Clark, Scott Farquhar, Warwick White, Beverley Head&lt;/i&gt;</description>
+      <category>Innovation</category>
+      <category>Process &amp; Practices</category>
+      <category>Enterprise Architecture</category>
+      <category>Business Technology Strategy</category>
+      <category>Panel</category>
+      <category>Agile Australia 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 16:35:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/innovation-enterprise-volatility</guid>
+      <dc:creator>Angela Clark, Scott Farquhar, Warwick White, Beverley Head</dc:creator>
+      <dc:date>2013-11-14T16:35:00Z</dc:date>
+      <dc:identifier>/presentations/innovation-enterprise-volatility</dc:identifier>
+    </item>
+    <item>
+      <title>GenMyModel: An Online Real-time Collaborative UML Designer</title>
+      <link>http://www.infoq.com/news/2013/11/genmymodel-uml-designer</link>
+      <description>This article contains an interview on GenMyModel’s architecture, technology used and future. &lt;i&gt;By Abel Avram&lt;/i&gt;</description>
+      <category>Artifacts &amp; Tools</category>
+      <category>Real Time</category>
+      <category>Design</category>
+      <category>UML</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 14:30:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/genmymodel-uml-designer</guid>
+      <dc:creator>Abel Avram</dc:creator>
+      <dc:date>2013-11-14T14:30:00Z</dc:date>
+      <dc:identifier>/news/2013/11/genmymodel-uml-designer</dc:identifier>
+    </item>
+    <item>
+      <title>Xamarin’s Rough Transition to 64-bit iOS/OSX</title>
+      <link>http://www.infoq.com/news/2013/11/64-Bit-Xamarin</link>
+      <description>In order to support 64-bit iOS and OSX, Xamarin has to make some breaking changes to the way it implements the mapping between C# and Objective-C libraries. Rather than being mapped to 32-bit types, NSInteger and CGFloat are now mapped to the new platform-specific data types nint and nfloat. &lt;i&gt;By Jonathan Allen&lt;/i&gt;</description>
+      <category>OSX</category>
+      <category>MonoTouch</category>
+      <category>MonoMac</category>
+      <category>Development</category>
+      <category>Xamarin.Mac</category>
+      <category>Xamarin</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 12:27:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/64-Bit-Xamarin</guid>
+      <dc:creator>Jonathan Allen</dc:creator>
+      <dc:date>2013-11-14T12:27:00Z</dc:date>
+      <dc:identifier>/news/2013/11/64-Bit-Xamarin</dc:identifier>
+    </item>
+    <item>
+      <title>Article: Interview with Simon Brown about Sustainable Competence</title>
+      <link>http://www.infoq.com/articles/simon-brown-sustainable-competence</link>
+      <description>Why are some teams successful while others are less than stellar? Can teams use processes to do their work? How can managers help teams to become better? And do we need incentives to improve the quality of software? InfoQ did an interview with Simon Brown about sustainable competence for continuous improvement, balancing people and processes, and software quality and architecture. &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Teamwork</category>
+      <category>Planning</category>
+      <category>Remuneration and Incentives</category>
+      <category>Outsourcing</category>
+      <category>Architecture</category>
+      <category>Adopting Agile</category>
+      <category>Architecture &amp; Design</category>
+      <category>Process &amp; Practices</category>
+      <category>content.articles.category</category>
+      <pubDate>Thu, 14 Nov 2013 11:55:00 GMT</pubDate>
+      <guid>http://www.infoq.com/articles/simon-brown-sustainable-competence</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-14T11:55:00Z</dc:date>
+      <dc:identifier>/articles/simon-brown-sustainable-competence</dc:identifier>
+    </item>
+    <item>
+      <title>Google Releases Dart 1.0</title>
+      <link>http://www.infoq.com/news/2013/11/dart-10</link>
+      <description>Two years after its initial announcement and preview release, Lars Bak announced the first stable release of Dart at Devvox in Belgium today. Dart is Google’s new web programming language and platform for developing modern web applications. &lt;i&gt;By Zef Hemel&lt;/i&gt;</description>
+      <category>Web Applications</category>
+      <category>Web App Developer</category>
+      <category>Development</category>
+      <category>Google Dart</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 10:00:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/dart-10</guid>
+      <dc:creator>Zef Hemel</dc:creator>
+      <dc:date>2013-11-14T10:00:00Z</dc:date>
+      <dc:identifier>/news/2013/11/dart-10</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Exercises in Style</title>
+      <link>http://www.infoq.com/presentations/style-methodology</link>
+      <description>Crista Lopes writes a program in multiple styles -monolithic/OOP/continuations/relational/Pub-Sub/Monads/AOP/Map-reduce- showing the value of using more than a style in large scale systems. &lt;i&gt;By Crista Lopes&lt;/i&gt;</description>
+      <category>AOP</category>
+      <category>OOP</category>
+      <category>MapReduce</category>
+      <category>Large Projects</category>
+      <category>Strange Loop</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Enterprise Architecture</category>
+      <category>Monads</category>
+      <category>Strange Loop 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 03:45:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/style-methodology</guid>
+      <dc:creator>Crista Lopes</dc:creator>
+      <dc:date>2013-11-14T03:45:00Z</dc:date>
+      <dc:identifier>/presentations/style-methodology</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Productive Out-of-the-Box with Ember.js</title>
+      <link>http://www.infoq.com/presentations/emberjs-tools-yeoman</link>
+      <description>Anthony Bull overviews some of the tools that help being productive with Ember.js, providing details on Yeoman. &lt;i&gt;By Anthony Bull&lt;/i&gt;</description>
+      <category>Artifacts &amp; Tools</category>
+      <category>Development</category>
+      <category>EmberJS</category>
+      <category>Ember Fest 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 03:35:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/emberjs-tools-yeoman</guid>
+      <dc:creator>Anthony Bull</dc:creator>
+      <dc:date>2013-11-14T03:35:00Z</dc:date>
+      <dc:identifier>/presentations/emberjs-tools-yeoman</dc:identifier>
+    </item>
+    <item>
+      <title>Android Gets Better with App Translation Service</title>
+      <link>http://www.infoq.com/news/2013/11/app-translation-service</link>
+      <description>Google has officially released its translation service for Android app which enables developers to localize the apps in &#xD;
+various languages based on the guidelines in the localization checklist document. &lt;i&gt;By Anand Narayanaswamy&lt;/i&gt;</description>
+      <category>Android</category>
+      <category>Development</category>
+      <category>content.news.category</category>
+      <pubDate>Wed, 13 Nov 2013 16:53:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/app-translation-service</guid>
+      <dc:creator>Anand Narayanaswamy</dc:creator>
+      <dc:date>2013-11-13T16:53:00Z</dc:date>
+      <dc:identifier>/news/2013/11/app-translation-service</dc:identifier>
+    </item>
+    <item>
+      <title>Oracle Releases Videos and Slides from the 2013 JVM Language Summit</title>
+      <link>http://www.infoq.com/news/2013/11/jvm-language-summit</link>
+      <description>Oracle have released videos and slides from the 2013 JVM Language Summit, which saw uses of the JVM from the biggest data to the smallest mobiles, and future performance advances in the JVM runtime. Read on to find out more about what was covered. &lt;i&gt;By Alex Blewitt&lt;/i&gt;</description>
+      <category>Scala</category>
+      <category>JVM</category>
+      <category>Open JDK</category>
+      <category>JVM Language Summit</category>
+      <category>Development</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>JVM Languages</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 22:00:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/jvm-language-summit</guid>
+      <dc:creator>Alex Blewitt</dc:creator>
+      <dc:date>2013-11-15T22:00:00Z</dc:date>
+      <dc:identifier>/news/2013/11/jvm-language-summit</dc:identifier>
+    </item>
+    <item>
+      <title>Article: Costin Leau on Elasticsearch, BigData and Hadoop</title>
+      <link>http://www.infoq.com/articles/costin-elasticsearch-bigdata</link>
+      <description>Elasticsearch is an open source, distributed real-time search and analytics engine for the cloud. The first milestone of elasticsearch-hadoop 1.3.M1 was released last month. InfoQ spoke with Costin Leau about Elasticsearch and how it integrates with Hadoop and other Big Data technologies.&#xD;
+ &lt;i&gt;By Costin Leau&lt;/i&gt;</description>
+      <category>Hadoop</category>
+      <category>Big Data</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>Enterprise Architecture</category>
+      <category>Spring Hadoop</category>
+      <category>ElasticSearch</category>
+      <category>content.articles.category</category>
+      <pubDate>Fri, 15 Nov 2013 12:12:00 GMT</pubDate>
+      <guid>http://www.infoq.com/articles/costin-elasticsearch-bigdata</guid>
+      <dc:creator>Costin Leau</dc:creator>
+      <dc:date>2013-11-15T12:12:00Z</dc:date>
+      <dc:identifier>/articles/costin-elasticsearch-bigdata</dc:identifier>
+    </item>
+    <item>
+      <title>Applying Security by Design with the CMMI for Development</title>
+      <link>http://www.infoq.com/news/2013/11/security-by-design-cmmi</link>
+      <description>To enable development of secure products, processes covering the software development life cycle have to include security activities. Winfried Russwurm from Siemens and Peter Panholzer from Limes Security facilitated a workshop at the SEPG Europe 2013 conference where they explored security activities and presented the Application Guide for Improving Processes for Secure Products.  &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Security</category>
+      <category>Reliability</category>
+      <category>Security Assessment</category>
+      <category>CMMI for Development</category>
+      <category>Process &amp; Practices</category>
+      <category>Enterprise Architecture</category>
+      <category>Model</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 11:18:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/security-by-design-cmmi</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-15T11:18:00Z</dc:date>
+      <dc:identifier>/news/2013/11/security-by-design-cmmi</dc:identifier>
+    </item>
+    <item>
+      <title>Apcera Continuum</title>
+      <link>http://www.infoq.com/news/2013/11/apcera</link>
+      <description>Cloud startup Apcera is making its Continuum product more visible with the launch of a new website on 14 Nov. &lt;i&gt;By Chris Swan&lt;/i&gt;</description>
+      <category>PaaS</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>Enterprise Architecture</category>
+      <category>Cloud</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 09:36:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/apcera</guid>
+      <dc:creator>Chris Swan</dc:creator>
+      <dc:date>2013-11-15T09:36:00Z</dc:date>
+      <dc:identifier>/news/2013/11/apcera</dc:identifier>
+    </item>
+    <item>
+      <title>How DevOps Complements Agile at Nokia Entertainment</title>
+      <link>http://www.infoq.com/news/2013/11/devops-complements-agile-nokia</link>
+      <description>Agile has the manifesto and principles, it focuses on people, clarity for the stakeholders, faster delivery, and happier customers, so why would you need DevOps? John Clapham from Nokia Entertainment in Bristol talked at the Agile Methods in the Finance Sector and Complex Environment conference about what DevOps is and what it has brought to their business. &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Agile</category>
+      <category>Professionalism</category>
+      <category>Devops</category>
+      <category>Culture</category>
+      <category>Continuous Delivery</category>
+      <category>Development</category>
+      <category>Process &amp; Practices</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 07:02:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/devops-complements-agile-nokia</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-15T07:02:00Z</dc:date>
+      <dc:identifier>/news/2013/11/devops-complements-agile-nokia</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Practicing Joy</title>
+      <link>http://www.infoq.com/presentations/Practicing-Joy-keynote</link>
+      <description>Chad Fowler keynotes on practicing joy as a software developer, starting from his life experiences and concluding that joy is intrinsic while happiness requires discipline. &lt;i&gt;By Chad Fowler&lt;/i&gt;</description>
+      <category>Software Engineering</category>
+      <category>Keynote</category>
+      <category>Development</category>
+      <category>Joy of Coding 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Fri, 15 Nov 2013 03:20:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/Practicing-Joy-keynote</guid>
+      <dc:creator>Chad Fowler</dc:creator>
+      <dc:date>2013-11-15T03:20:00Z</dc:date>
+      <dc:identifier>/presentations/Practicing-Joy-keynote</dc:identifier>
+    </item>
+    <item>
+      <title>Previewing Riak 2.0</title>
+      <link>http://www.infoq.com/news/2013/11/Riak-2-Preview</link>
+      <description>At RICON West Basho announced the first technical preview of Riak 2.0. Continuing the work on Russell Brown’s RFC, this version brings with it new distributed data types for maps and sets, strong consistency, and deeps ties with Apache Solr. &lt;i&gt;By Jonathan Allen&lt;/i&gt;</description>
+      <category>Riak</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 18:38:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/Riak-2-Preview</guid>
+      <dc:creator>Jonathan Allen</dc:creator>
+      <dc:date>2013-11-14T18:38:00Z</dc:date>
+      <dc:identifier>/news/2013/11/Riak-2-Preview</dc:identifier>
+    </item>
+    <item>
+      <title>The Human Aspects of API Design: An Interview with Apiary's Jakub Nesetril</title>
+      <link>http://www.infoq.com/news/2013/11/apiary-jakub-nesetril-interview</link>
+      <description>API Design and description is more than just a technical interface contract between machines. Apiary's Co-Founder and CEO Jakub Nesetril points out that the real consumer of an API description is the developer, with all the concerns of engagement, usability and communication that entails. We spoke with Jakub recently about Apiary's approach to API design and emerging API tools and workflows. &lt;i&gt;By Saul Caganoff&lt;/i&gt;</description>
+      <category>Testing</category>
+      <category>Contract First Development</category>
+      <category>Public APIs</category>
+      <category>API</category>
+      <category>API-Design</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 16:37:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/apiary-jakub-nesetril-interview</guid>
+      <dc:creator>Saul Caganoff</dc:creator>
+      <dc:date>2013-11-14T16:37:00Z</dc:date>
+      <dc:identifier>/news/2013/11/apiary-jakub-nesetril-interview</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: The Search for Sustainable Innovation</title>
+      <link>http://www.infoq.com/presentations/innovation-enterprise-volatility</link>
+      <description>The panelists discuss innovation at the enterprise level avoiding the business’ constant volatility. &lt;i&gt;By Angela Clark, Scott Farquhar, Warwick White, Beverley Head&lt;/i&gt;</description>
+      <category>Innovation</category>
+      <category>Process &amp; Practices</category>
+      <category>Enterprise Architecture</category>
+      <category>Business Technology Strategy</category>
+      <category>Panel</category>
+      <category>Agile Australia 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 16:35:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/innovation-enterprise-volatility</guid>
+      <dc:creator>Angela Clark, Scott Farquhar, Warwick White, Beverley Head</dc:creator>
+      <dc:date>2013-11-14T16:35:00Z</dc:date>
+      <dc:identifier>/presentations/innovation-enterprise-volatility</dc:identifier>
+    </item>
+    <item>
+      <title>GenMyModel: An Online Real-time Collaborative UML Designer</title>
+      <link>http://www.infoq.com/news/2013/11/genmymodel-uml-designer</link>
+      <description>This article contains an interview on GenMyModel’s architecture, technology used and future. &lt;i&gt;By Abel Avram&lt;/i&gt;</description>
+      <category>Artifacts &amp; Tools</category>
+      <category>Real Time</category>
+      <category>Design</category>
+      <category>UML</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 14:30:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/genmymodel-uml-designer</guid>
+      <dc:creator>Abel Avram</dc:creator>
+      <dc:date>2013-11-14T14:30:00Z</dc:date>
+      <dc:identifier>/news/2013/11/genmymodel-uml-designer</dc:identifier>
+    </item>
+    <item>
+      <title>Xamarin’s Rough Transition to 64-bit iOS/OSX</title>
+      <link>http://www.infoq.com/news/2013/11/64-Bit-Xamarin</link>
+      <description>In order to support 64-bit iOS and OSX, Xamarin has to make some breaking changes to the way it implements the mapping between C# and Objective-C libraries. Rather than being mapped to 32-bit types, NSInteger and CGFloat are now mapped to the new platform-specific data types nint and nfloat. &lt;i&gt;By Jonathan Allen&lt;/i&gt;</description>
+      <category>OSX</category>
+      <category>MonoTouch</category>
+      <category>MonoMac</category>
+      <category>Development</category>
+      <category>Xamarin.Mac</category>
+      <category>Xamarin</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 12:27:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/64-Bit-Xamarin</guid>
+      <dc:creator>Jonathan Allen</dc:creator>
+      <dc:date>2013-11-14T12:27:00Z</dc:date>
+      <dc:identifier>/news/2013/11/64-Bit-Xamarin</dc:identifier>
+    </item>
+    <item>
+      <title>Article: Interview with Simon Brown about Sustainable Competence</title>
+      <link>http://www.infoq.com/articles/simon-brown-sustainable-competence</link>
+      <description>Why are some teams successful while others are less than stellar? Can teams use processes to do their work? How can managers help teams to become better? And do we need incentives to improve the quality of software? InfoQ did an interview with Simon Brown about sustainable competence for continuous improvement, balancing people and processes, and software quality and architecture. &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Teamwork</category>
+      <category>Planning</category>
+      <category>Remuneration and Incentives</category>
+      <category>Outsourcing</category>
+      <category>Architecture</category>
+      <category>Adopting Agile</category>
+      <category>Architecture &amp; Design</category>
+      <category>Process &amp; Practices</category>
+      <category>content.articles.category</category>
+      <pubDate>Thu, 14 Nov 2013 11:55:00 GMT</pubDate>
+      <guid>http://www.infoq.com/articles/simon-brown-sustainable-competence</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-14T11:55:00Z</dc:date>
+      <dc:identifier>/articles/simon-brown-sustainable-competence</dc:identifier>
+    </item>
+    <item>
+      <title>Google Releases Dart 1.0</title>
+      <link>http://www.infoq.com/news/2013/11/dart-10</link>
+      <description>Two years after its initial announcement and preview release, Lars Bak announced the first stable release of Dart at Devvox in Belgium today. Dart is Google’s new web programming language and platform for developing modern web applications. &lt;i&gt;By Zef Hemel&lt;/i&gt;</description>
+      <category>Web Applications</category>
+      <category>Web App Developer</category>
+      <category>Development</category>
+      <category>Google Dart</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 10:00:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/dart-10</guid>
+      <dc:creator>Zef Hemel</dc:creator>
+      <dc:date>2013-11-14T10:00:00Z</dc:date>
+      <dc:identifier>/news/2013/11/dart-10</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Exercises in Style</title>
+      <link>http://www.infoq.com/presentations/style-methodology</link>
+      <description>Crista Lopes writes a program in multiple styles -monolithic/OOP/continuations/relational/Pub-Sub/Monads/AOP/Map-reduce- showing the value of using more than a style in large scale systems. &lt;i&gt;By Crista Lopes&lt;/i&gt;</description>
+      <category>AOP</category>
+      <category>OOP</category>
+      <category>MapReduce</category>
+      <category>Large Projects</category>
+      <category>Strange Loop</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Enterprise Architecture</category>
+      <category>Monads</category>
+      <category>Strange Loop 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 03:45:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/style-methodology</guid>
+      <dc:creator>Crista Lopes</dc:creator>
+      <dc:date>2013-11-14T03:45:00Z</dc:date>
+      <dc:identifier>/presentations/style-methodology</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Productive Out-of-the-Box with Ember.js</title>
+      <link>http://www.infoq.com/presentations/emberjs-tools-yeoman</link>
+      <description>Anthony Bull overviews some of the tools that help being productive with Ember.js, providing details on Yeoman. &lt;i&gt;By Anthony Bull&lt;/i&gt;</description>
+      <category>Artifacts &amp; Tools</category>
+      <category>Development</category>
+      <category>EmberJS</category>
+      <category>Ember Fest 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 03:35:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/emberjs-tools-yeoman</guid>
+      <dc:creator>Anthony Bull</dc:creator>
+      <dc:date>2013-11-14T03:35:00Z</dc:date>
+      <dc:identifier>/presentations/emberjs-tools-yeoman</dc:identifier>
+    </item>
+    <item>
+      <title>Android Gets Better with App Translation Service</title>
+      <link>http://www.infoq.com/news/2013/11/app-translation-service</link>
+      <description>Google has officially released its translation service for Android app which enables developers to localize the apps in &#xD;
+various languages based on the guidelines in the localization checklist document. &lt;i&gt;By Anand Narayanaswamy&lt;/i&gt;</description>
+      <category>Android</category>
+      <category>Development</category>
+      <category>content.news.category</category>
+      <pubDate>Wed, 13 Nov 2013 16:53:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/app-translation-service</guid>
+      <dc:creator>Anand Narayanaswamy</dc:creator>
+      <dc:date>2013-11-13T16:53:00Z</dc:date>
+      <dc:identifier>/news/2013/11/app-translation-service</dc:identifier>
+    </item>
+    <item>
+      <title>Oracle Releases Videos and Slides from the 2013 JVM Language Summit</title>
+      <link>http://www.infoq.com/news/2013/11/jvm-language-summit</link>
+      <description>Oracle have released videos and slides from the 2013 JVM Language Summit, which saw uses of the JVM from the biggest data to the smallest mobiles, and future performance advances in the JVM runtime. Read on to find out more about what was covered. &lt;i&gt;By Alex Blewitt&lt;/i&gt;</description>
+      <category>Scala</category>
+      <category>JVM</category>
+      <category>Open JDK</category>
+      <category>JVM Language Summit</category>
+      <category>Development</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>JVM Languages</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 22:00:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/jvm-language-summit</guid>
+      <dc:creator>Alex Blewitt</dc:creator>
+      <dc:date>2013-11-15T22:00:00Z</dc:date>
+      <dc:identifier>/news/2013/11/jvm-language-summit</dc:identifier>
+    </item>
+    <item>
+      <title>Article: Costin Leau on Elasticsearch, BigData and Hadoop</title>
+      <link>http://www.infoq.com/articles/costin-elasticsearch-bigdata</link>
+      <description>Elasticsearch is an open source, distributed real-time search and analytics engine for the cloud. The first milestone of elasticsearch-hadoop 1.3.M1 was released last month. InfoQ spoke with Costin Leau about Elasticsearch and how it integrates with Hadoop and other Big Data technologies.&#xD;
+ &lt;i&gt;By Costin Leau&lt;/i&gt;</description>
+      <category>Hadoop</category>
+      <category>Big Data</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>Enterprise Architecture</category>
+      <category>Spring Hadoop</category>
+      <category>ElasticSearch</category>
+      <category>content.articles.category</category>
+      <pubDate>Fri, 15 Nov 2013 12:12:00 GMT</pubDate>
+      <guid>http://www.infoq.com/articles/costin-elasticsearch-bigdata</guid>
+      <dc:creator>Costin Leau</dc:creator>
+      <dc:date>2013-11-15T12:12:00Z</dc:date>
+      <dc:identifier>/articles/costin-elasticsearch-bigdata</dc:identifier>
+    </item>
+    <item>
+      <title>Applying Security by Design with the CMMI for Development</title>
+      <link>http://www.infoq.com/news/2013/11/security-by-design-cmmi</link>
+      <description>To enable development of secure products, processes covering the software development life cycle have to include security activities. Winfried Russwurm from Siemens and Peter Panholzer from Limes Security facilitated a workshop at the SEPG Europe 2013 conference where they explored security activities and presented the Application Guide for Improving Processes for Secure Products.  &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Security</category>
+      <category>Reliability</category>
+      <category>Security Assessment</category>
+      <category>CMMI for Development</category>
+      <category>Process &amp; Practices</category>
+      <category>Enterprise Architecture</category>
+      <category>Model</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 11:18:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/security-by-design-cmmi</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-15T11:18:00Z</dc:date>
+      <dc:identifier>/news/2013/11/security-by-design-cmmi</dc:identifier>
+    </item>
+    <item>
+      <title>Apcera Continuum</title>
+      <link>http://www.infoq.com/news/2013/11/apcera</link>
+      <description>Cloud startup Apcera is making its Continuum product more visible with the launch of a new website on 14 Nov. &lt;i&gt;By Chris Swan&lt;/i&gt;</description>
+      <category>PaaS</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>Enterprise Architecture</category>
+      <category>Cloud</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 09:36:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/apcera</guid>
+      <dc:creator>Chris Swan</dc:creator>
+      <dc:date>2013-11-15T09:36:00Z</dc:date>
+      <dc:identifier>/news/2013/11/apcera</dc:identifier>
+    </item>
+    <item>
+      <title>How DevOps Complements Agile at Nokia Entertainment</title>
+      <link>http://www.infoq.com/news/2013/11/devops-complements-agile-nokia</link>
+      <description>Agile has the manifesto and principles, it focuses on people, clarity for the stakeholders, faster delivery, and happier customers, so why would you need DevOps? John Clapham from Nokia Entertainment in Bristol talked at the Agile Methods in the Finance Sector and Complex Environment conference about what DevOps is and what it has brought to their business. &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Agile</category>
+      <category>Professionalism</category>
+      <category>Devops</category>
+      <category>Culture</category>
+      <category>Continuous Delivery</category>
+      <category>Development</category>
+      <category>Process &amp; Practices</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 07:02:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/devops-complements-agile-nokia</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-15T07:02:00Z</dc:date>
+      <dc:identifier>/news/2013/11/devops-complements-agile-nokia</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Practicing Joy</title>
+      <link>http://www.infoq.com/presentations/Practicing-Joy-keynote</link>
+      <description>Chad Fowler keynotes on practicing joy as a software developer, starting from his life experiences and concluding that joy is intrinsic while happiness requires discipline. &lt;i&gt;By Chad Fowler&lt;/i&gt;</description>
+      <category>Software Engineering</category>
+      <category>Keynote</category>
+      <category>Development</category>
+      <category>Joy of Coding 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Fri, 15 Nov 2013 03:20:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/Practicing-Joy-keynote</guid>
+      <dc:creator>Chad Fowler</dc:creator>
+      <dc:date>2013-11-15T03:20:00Z</dc:date>
+      <dc:identifier>/presentations/Practicing-Joy-keynote</dc:identifier>
+    </item>
+    <item>
+      <title>Previewing Riak 2.0</title>
+      <link>http://www.infoq.com/news/2013/11/Riak-2-Preview</link>
+      <description>At RICON West Basho announced the first technical preview of Riak 2.0. Continuing the work on Russell Brown’s RFC, this version brings with it new distributed data types for maps and sets, strong consistency, and deeps ties with Apache Solr. &lt;i&gt;By Jonathan Allen&lt;/i&gt;</description>
+      <category>Riak</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 18:38:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/Riak-2-Preview</guid>
+      <dc:creator>Jonathan Allen</dc:creator>
+      <dc:date>2013-11-14T18:38:00Z</dc:date>
+      <dc:identifier>/news/2013/11/Riak-2-Preview</dc:identifier>
+    </item>
+    <item>
+      <title>The Human Aspects of API Design: An Interview with Apiary's Jakub Nesetril</title>
+      <link>http://www.infoq.com/news/2013/11/apiary-jakub-nesetril-interview</link>
+      <description>API Design and description is more than just a technical interface contract between machines. Apiary's Co-Founder and CEO Jakub Nesetril points out that the real consumer of an API description is the developer, with all the concerns of engagement, usability and communication that entails. We spoke with Jakub recently about Apiary's approach to API design and emerging API tools and workflows. &lt;i&gt;By Saul Caganoff&lt;/i&gt;</description>
+      <category>Testing</category>
+      <category>Contract First Development</category>
+      <category>Public APIs</category>
+      <category>API</category>
+      <category>API-Design</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 16:37:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/apiary-jakub-nesetril-interview</guid>
+      <dc:creator>Saul Caganoff</dc:creator>
+      <dc:date>2013-11-14T16:37:00Z</dc:date>
+      <dc:identifier>/news/2013/11/apiary-jakub-nesetril-interview</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: The Search for Sustainable Innovation</title>
+      <link>http://www.infoq.com/presentations/innovation-enterprise-volatility</link>
+      <description>The panelists discuss innovation at the enterprise level avoiding the business’ constant volatility. &lt;i&gt;By Angela Clark, Scott Farquhar, Warwick White, Beverley Head&lt;/i&gt;</description>
+      <category>Innovation</category>
+      <category>Process &amp; Practices</category>
+      <category>Enterprise Architecture</category>
+      <category>Business Technology Strategy</category>
+      <category>Panel</category>
+      <category>Agile Australia 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 16:35:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/innovation-enterprise-volatility</guid>
+      <dc:creator>Angela Clark, Scott Farquhar, Warwick White, Beverley Head</dc:creator>
+      <dc:date>2013-11-14T16:35:00Z</dc:date>
+      <dc:identifier>/presentations/innovation-enterprise-volatility</dc:identifier>
+    </item>
+    <item>
+      <title>GenMyModel: An Online Real-time Collaborative UML Designer</title>
+      <link>http://www.infoq.com/news/2013/11/genmymodel-uml-designer</link>
+      <description>This article contains an interview on GenMyModel’s architecture, technology used and future. &lt;i&gt;By Abel Avram&lt;/i&gt;</description>
+      <category>Artifacts &amp; Tools</category>
+      <category>Real Time</category>
+      <category>Design</category>
+      <category>UML</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 14:30:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/genmymodel-uml-designer</guid>
+      <dc:creator>Abel Avram</dc:creator>
+      <dc:date>2013-11-14T14:30:00Z</dc:date>
+      <dc:identifier>/news/2013/11/genmymodel-uml-designer</dc:identifier>
+    </item>
+    <item>
+      <title>Xamarin’s Rough Transition to 64-bit iOS/OSX</title>
+      <link>http://www.infoq.com/news/2013/11/64-Bit-Xamarin</link>
+      <description>In order to support 64-bit iOS and OSX, Xamarin has to make some breaking changes to the way it implements the mapping between C# and Objective-C libraries. Rather than being mapped to 32-bit types, NSInteger and CGFloat are now mapped to the new platform-specific data types nint and nfloat. &lt;i&gt;By Jonathan Allen&lt;/i&gt;</description>
+      <category>OSX</category>
+      <category>MonoTouch</category>
+      <category>MonoMac</category>
+      <category>Development</category>
+      <category>Xamarin.Mac</category>
+      <category>Xamarin</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 12:27:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/64-Bit-Xamarin</guid>
+      <dc:creator>Jonathan Allen</dc:creator>
+      <dc:date>2013-11-14T12:27:00Z</dc:date>
+      <dc:identifier>/news/2013/11/64-Bit-Xamarin</dc:identifier>
+    </item>
+    <item>
+      <title>Article: Interview with Simon Brown about Sustainable Competence</title>
+      <link>http://www.infoq.com/articles/simon-brown-sustainable-competence</link>
+      <description>Why are some teams successful while others are less than stellar? Can teams use processes to do their work? How can managers help teams to become better? And do we need incentives to improve the quality of software? InfoQ did an interview with Simon Brown about sustainable competence for continuous improvement, balancing people and processes, and software quality and architecture. &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Teamwork</category>
+      <category>Planning</category>
+      <category>Remuneration and Incentives</category>
+      <category>Outsourcing</category>
+      <category>Architecture</category>
+      <category>Adopting Agile</category>
+      <category>Architecture &amp; Design</category>
+      <category>Process &amp; Practices</category>
+      <category>content.articles.category</category>
+      <pubDate>Thu, 14 Nov 2013 11:55:00 GMT</pubDate>
+      <guid>http://www.infoq.com/articles/simon-brown-sustainable-competence</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-14T11:55:00Z</dc:date>
+      <dc:identifier>/articles/simon-brown-sustainable-competence</dc:identifier>
+    </item>
+    <item>
+      <title>Google Releases Dart 1.0</title>
+      <link>http://www.infoq.com/news/2013/11/dart-10</link>
+      <description>Two years after its initial announcement and preview release, Lars Bak announced the first stable release of Dart at Devvox in Belgium today. Dart is Google’s new web programming language and platform for developing modern web applications. &lt;i&gt;By Zef Hemel&lt;/i&gt;</description>
+      <category>Web Applications</category>
+      <category>Web App Developer</category>
+      <category>Development</category>
+      <category>Google Dart</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 10:00:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/dart-10</guid>
+      <dc:creator>Zef Hemel</dc:creator>
+      <dc:date>2013-11-14T10:00:00Z</dc:date>
+      <dc:identifier>/news/2013/11/dart-10</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Exercises in Style</title>
+      <link>http://www.infoq.com/presentations/style-methodology</link>
+      <description>Crista Lopes writes a program in multiple styles -monolithic/OOP/continuations/relational/Pub-Sub/Monads/AOP/Map-reduce- showing the value of using more than a style in large scale systems. &lt;i&gt;By Crista Lopes&lt;/i&gt;</description>
+      <category>AOP</category>
+      <category>OOP</category>
+      <category>MapReduce</category>
+      <category>Large Projects</category>
+      <category>Strange Loop</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Enterprise Architecture</category>
+      <category>Monads</category>
+      <category>Strange Loop 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 03:45:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/style-methodology</guid>
+      <dc:creator>Crista Lopes</dc:creator>
+      <dc:date>2013-11-14T03:45:00Z</dc:date>
+      <dc:identifier>/presentations/style-methodology</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Productive Out-of-the-Box with Ember.js</title>
+      <link>http://www.infoq.com/presentations/emberjs-tools-yeoman</link>
+      <description>Anthony Bull overviews some of the tools that help being productive with Ember.js, providing details on Yeoman. &lt;i&gt;By Anthony Bull&lt;/i&gt;</description>
+      <category>Artifacts &amp; Tools</category>
+      <category>Development</category>
+      <category>EmberJS</category>
+      <category>Ember Fest 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 03:35:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/emberjs-tools-yeoman</guid>
+      <dc:creator>Anthony Bull</dc:creator>
+      <dc:date>2013-11-14T03:35:00Z</dc:date>
+      <dc:identifier>/presentations/emberjs-tools-yeoman</dc:identifier>
+    </item>
+    <item>
+      <title>Android Gets Better with App Translation Service</title>
+      <link>http://www.infoq.com/news/2013/11/app-translation-service</link>
+      <description>Google has officially released its translation service for Android app which enables developers to localize the apps in &#xD;
+various languages based on the guidelines in the localization checklist document. &lt;i&gt;By Anand Narayanaswamy&lt;/i&gt;</description>
+      <category>Android</category>
+      <category>Development</category>
+      <category>content.news.category</category>
+      <pubDate>Wed, 13 Nov 2013 16:53:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/app-translation-service</guid>
+      <dc:creator>Anand Narayanaswamy</dc:creator>
+      <dc:date>2013-11-13T16:53:00Z</dc:date>
+      <dc:identifier>/news/2013/11/app-translation-service</dc:identifier>
+    </item>
+    <item>
+      <title>Oracle Releases Videos and Slides from the 2013 JVM Language Summit</title>
+      <link>http://www.infoq.com/news/2013/11/jvm-language-summit</link>
+      <description>Oracle have released videos and slides from the 2013 JVM Language Summit, which saw uses of the JVM from the biggest data to the smallest mobiles, and future performance advances in the JVM runtime. Read on to find out more about what was covered. &lt;i&gt;By Alex Blewitt&lt;/i&gt;</description>
+      <category>Scala</category>
+      <category>JVM</category>
+      <category>Open JDK</category>
+      <category>JVM Language Summit</category>
+      <category>Development</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>JVM Languages</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 22:00:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/jvm-language-summit</guid>
+      <dc:creator>Alex Blewitt</dc:creator>
+      <dc:date>2013-11-15T22:00:00Z</dc:date>
+      <dc:identifier>/news/2013/11/jvm-language-summit</dc:identifier>
+    </item>
+    <item>
+      <title>Article: Costin Leau on Elasticsearch, BigData and Hadoop</title>
+      <link>http://www.infoq.com/articles/costin-elasticsearch-bigdata</link>
+      <description>Elasticsearch is an open source, distributed real-time search and analytics engine for the cloud. The first milestone of elasticsearch-hadoop 1.3.M1 was released last month. InfoQ spoke with Costin Leau about Elasticsearch and how it integrates with Hadoop and other Big Data technologies.&#xD;
+ &lt;i&gt;By Costin Leau&lt;/i&gt;</description>
+      <category>Hadoop</category>
+      <category>Big Data</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>Enterprise Architecture</category>
+      <category>Spring Hadoop</category>
+      <category>ElasticSearch</category>
+      <category>content.articles.category</category>
+      <pubDate>Fri, 15 Nov 2013 12:12:00 GMT</pubDate>
+      <guid>http://www.infoq.com/articles/costin-elasticsearch-bigdata</guid>
+      <dc:creator>Costin Leau</dc:creator>
+      <dc:date>2013-11-15T12:12:00Z</dc:date>
+      <dc:identifier>/articles/costin-elasticsearch-bigdata</dc:identifier>
+    </item>
+    <item>
+      <title>Applying Security by Design with the CMMI for Development</title>
+      <link>http://www.infoq.com/news/2013/11/security-by-design-cmmi</link>
+      <description>To enable development of secure products, processes covering the software development life cycle have to include security activities. Winfried Russwurm from Siemens and Peter Panholzer from Limes Security facilitated a workshop at the SEPG Europe 2013 conference where they explored security activities and presented the Application Guide for Improving Processes for Secure Products.  &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Security</category>
+      <category>Reliability</category>
+      <category>Security Assessment</category>
+      <category>CMMI for Development</category>
+      <category>Process &amp; Practices</category>
+      <category>Enterprise Architecture</category>
+      <category>Model</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 11:18:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/security-by-design-cmmi</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-15T11:18:00Z</dc:date>
+      <dc:identifier>/news/2013/11/security-by-design-cmmi</dc:identifier>
+    </item>
+    <item>
+      <title>Apcera Continuum</title>
+      <link>http://www.infoq.com/news/2013/11/apcera</link>
+      <description>Cloud startup Apcera is making its Continuum product more visible with the launch of a new website on 14 Nov. &lt;i&gt;By Chris Swan&lt;/i&gt;</description>
+      <category>PaaS</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Operations &amp; Infrastructure</category>
+      <category>Enterprise Architecture</category>
+      <category>Cloud</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 09:36:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/apcera</guid>
+      <dc:creator>Chris Swan</dc:creator>
+      <dc:date>2013-11-15T09:36:00Z</dc:date>
+      <dc:identifier>/news/2013/11/apcera</dc:identifier>
+    </item>
+    <item>
+      <title>How DevOps Complements Agile at Nokia Entertainment</title>
+      <link>http://www.infoq.com/news/2013/11/devops-complements-agile-nokia</link>
+      <description>Agile has the manifesto and principles, it focuses on people, clarity for the stakeholders, faster delivery, and happier customers, so why would you need DevOps? John Clapham from Nokia Entertainment in Bristol talked at the Agile Methods in the Finance Sector and Complex Environment conference about what DevOps is and what it has brought to their business. &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Agile</category>
+      <category>Professionalism</category>
+      <category>Devops</category>
+      <category>Culture</category>
+      <category>Continuous Delivery</category>
+      <category>Development</category>
+      <category>Process &amp; Practices</category>
+      <category>content.news.category</category>
+      <pubDate>Fri, 15 Nov 2013 07:02:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/devops-complements-agile-nokia</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-15T07:02:00Z</dc:date>
+      <dc:identifier>/news/2013/11/devops-complements-agile-nokia</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Practicing Joy</title>
+      <link>http://www.infoq.com/presentations/Practicing-Joy-keynote</link>
+      <description>Chad Fowler keynotes on practicing joy as a software developer, starting from his life experiences and concluding that joy is intrinsic while happiness requires discipline. &lt;i&gt;By Chad Fowler&lt;/i&gt;</description>
+      <category>Software Engineering</category>
+      <category>Keynote</category>
+      <category>Development</category>
+      <category>Joy of Coding 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Fri, 15 Nov 2013 03:20:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/Practicing-Joy-keynote</guid>
+      <dc:creator>Chad Fowler</dc:creator>
+      <dc:date>2013-11-15T03:20:00Z</dc:date>
+      <dc:identifier>/presentations/Practicing-Joy-keynote</dc:identifier>
+    </item>
+    <item>
+      <title>Previewing Riak 2.0</title>
+      <link>http://www.infoq.com/news/2013/11/Riak-2-Preview</link>
+      <description>At RICON West Basho announced the first technical preview of Riak 2.0. Continuing the work on Russell Brown’s RFC, this version brings with it new distributed data types for maps and sets, strong consistency, and deeps ties with Apache Solr. &lt;i&gt;By Jonathan Allen&lt;/i&gt;</description>
+      <category>Riak</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 18:38:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/Riak-2-Preview</guid>
+      <dc:creator>Jonathan Allen</dc:creator>
+      <dc:date>2013-11-14T18:38:00Z</dc:date>
+      <dc:identifier>/news/2013/11/Riak-2-Preview</dc:identifier>
+    </item>
+    <item>
+      <title>The Human Aspects of API Design: An Interview with Apiary's Jakub Nesetril</title>
+      <link>http://www.infoq.com/news/2013/11/apiary-jakub-nesetril-interview</link>
+      <description>API Design and description is more than just a technical interface contract between machines. Apiary's Co-Founder and CEO Jakub Nesetril points out that the real consumer of an API description is the developer, with all the concerns of engagement, usability and communication that entails. We spoke with Jakub recently about Apiary's approach to API design and emerging API tools and workflows. &lt;i&gt;By Saul Caganoff&lt;/i&gt;</description>
+      <category>Testing</category>
+      <category>Contract First Development</category>
+      <category>Public APIs</category>
+      <category>API</category>
+      <category>API-Design</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 16:37:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/apiary-jakub-nesetril-interview</guid>
+      <dc:creator>Saul Caganoff</dc:creator>
+      <dc:date>2013-11-14T16:37:00Z</dc:date>
+      <dc:identifier>/news/2013/11/apiary-jakub-nesetril-interview</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: The Search for Sustainable Innovation</title>
+      <link>http://www.infoq.com/presentations/innovation-enterprise-volatility</link>
+      <description>The panelists discuss innovation at the enterprise level avoiding the business’ constant volatility. &lt;i&gt;By Angela Clark, Scott Farquhar, Warwick White, Beverley Head&lt;/i&gt;</description>
+      <category>Innovation</category>
+      <category>Process &amp; Practices</category>
+      <category>Enterprise Architecture</category>
+      <category>Business Technology Strategy</category>
+      <category>Panel</category>
+      <category>Agile Australia 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 16:35:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/innovation-enterprise-volatility</guid>
+      <dc:creator>Angela Clark, Scott Farquhar, Warwick White, Beverley Head</dc:creator>
+      <dc:date>2013-11-14T16:35:00Z</dc:date>
+      <dc:identifier>/presentations/innovation-enterprise-volatility</dc:identifier>
+    </item>
+    <item>
+      <title>GenMyModel: An Online Real-time Collaborative UML Designer</title>
+      <link>http://www.infoq.com/news/2013/11/genmymodel-uml-designer</link>
+      <description>This article contains an interview on GenMyModel’s architecture, technology used and future. &lt;i&gt;By Abel Avram&lt;/i&gt;</description>
+      <category>Artifacts &amp; Tools</category>
+      <category>Real Time</category>
+      <category>Design</category>
+      <category>UML</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 14:30:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/genmymodel-uml-designer</guid>
+      <dc:creator>Abel Avram</dc:creator>
+      <dc:date>2013-11-14T14:30:00Z</dc:date>
+      <dc:identifier>/news/2013/11/genmymodel-uml-designer</dc:identifier>
+    </item>
+    <item>
+      <title>Xamarin’s Rough Transition to 64-bit iOS/OSX</title>
+      <link>http://www.infoq.com/news/2013/11/64-Bit-Xamarin</link>
+      <description>In order to support 64-bit iOS and OSX, Xamarin has to make some breaking changes to the way it implements the mapping between C# and Objective-C libraries. Rather than being mapped to 32-bit types, NSInteger and CGFloat are now mapped to the new platform-specific data types nint and nfloat. &lt;i&gt;By Jonathan Allen&lt;/i&gt;</description>
+      <category>OSX</category>
+      <category>MonoTouch</category>
+      <category>MonoMac</category>
+      <category>Development</category>
+      <category>Xamarin.Mac</category>
+      <category>Xamarin</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 12:27:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/64-Bit-Xamarin</guid>
+      <dc:creator>Jonathan Allen</dc:creator>
+      <dc:date>2013-11-14T12:27:00Z</dc:date>
+      <dc:identifier>/news/2013/11/64-Bit-Xamarin</dc:identifier>
+    </item>
+    <item>
+      <title>Article: Interview with Simon Brown about Sustainable Competence</title>
+      <link>http://www.infoq.com/articles/simon-brown-sustainable-competence</link>
+      <description>Why are some teams successful while others are less than stellar? Can teams use processes to do their work? How can managers help teams to become better? And do we need incentives to improve the quality of software? InfoQ did an interview with Simon Brown about sustainable competence for continuous improvement, balancing people and processes, and software quality and architecture. &lt;i&gt;By Ben Linders&lt;/i&gt;</description>
+      <category>Teamwork</category>
+      <category>Planning</category>
+      <category>Remuneration and Incentives</category>
+      <category>Outsourcing</category>
+      <category>Architecture</category>
+      <category>Adopting Agile</category>
+      <category>Architecture &amp; Design</category>
+      <category>Process &amp; Practices</category>
+      <category>content.articles.category</category>
+      <pubDate>Thu, 14 Nov 2013 11:55:00 GMT</pubDate>
+      <guid>http://www.infoq.com/articles/simon-brown-sustainable-competence</guid>
+      <dc:creator>Ben Linders</dc:creator>
+      <dc:date>2013-11-14T11:55:00Z</dc:date>
+      <dc:identifier>/articles/simon-brown-sustainable-competence</dc:identifier>
+    </item>
+    <item>
+      <title>Google Releases Dart 1.0</title>
+      <link>http://www.infoq.com/news/2013/11/dart-10</link>
+      <description>Two years after its initial announcement and preview release, Lars Bak announced the first stable release of Dart at Devvox in Belgium today. Dart is Google’s new web programming language and platform for developing modern web applications. &lt;i&gt;By Zef Hemel&lt;/i&gt;</description>
+      <category>Web Applications</category>
+      <category>Web App Developer</category>
+      <category>Development</category>
+      <category>Google Dart</category>
+      <category>content.news.category</category>
+      <pubDate>Thu, 14 Nov 2013 10:00:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/dart-10</guid>
+      <dc:creator>Zef Hemel</dc:creator>
+      <dc:date>2013-11-14T10:00:00Z</dc:date>
+      <dc:identifier>/news/2013/11/dart-10</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Exercises in Style</title>
+      <link>http://www.infoq.com/presentations/style-methodology</link>
+      <description>Crista Lopes writes a program in multiple styles -monolithic/OOP/continuations/relational/Pub-Sub/Monads/AOP/Map-reduce- showing the value of using more than a style in large scale systems. &lt;i&gt;By Crista Lopes&lt;/i&gt;</description>
+      <category>AOP</category>
+      <category>OOP</category>
+      <category>MapReduce</category>
+      <category>Large Projects</category>
+      <category>Strange Loop</category>
+      <category>Development</category>
+      <category>Architecture &amp; Design</category>
+      <category>Enterprise Architecture</category>
+      <category>Monads</category>
+      <category>Strange Loop 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 03:45:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/style-methodology</guid>
+      <dc:creator>Crista Lopes</dc:creator>
+      <dc:date>2013-11-14T03:45:00Z</dc:date>
+      <dc:identifier>/presentations/style-methodology</dc:identifier>
+    </item>
+    <item>
+      <title>Presentation: Productive Out-of-the-Box with Ember.js</title>
+      <link>http://www.infoq.com/presentations/emberjs-tools-yeoman</link>
+      <description>Anthony Bull overviews some of the tools that help being productive with Ember.js, providing details on Yeoman. &lt;i&gt;By Anthony Bull&lt;/i&gt;</description>
+      <category>Artifacts &amp; Tools</category>
+      <category>Development</category>
+      <category>EmberJS</category>
+      <category>Ember Fest 2013</category>
+      <category>content.presentations.category</category>
+      <pubDate>Thu, 14 Nov 2013 03:35:00 GMT</pubDate>
+      <guid>http://www.infoq.com/presentations/emberjs-tools-yeoman</guid>
+      <dc:creator>Anthony Bull</dc:creator>
+      <dc:date>2013-11-14T03:35:00Z</dc:date>
+      <dc:identifier>/presentations/emberjs-tools-yeoman</dc:identifier>
+    </item>
+    <item>
+      <title>Android Gets Better with App Translation Service</title>
+      <link>http://www.infoq.com/news/2013/11/app-translation-service</link>
+      <description>Google has officially released its translation service for Android app which enables developers to localize the apps in &#xD;
+various languages based on the guidelines in the localization checklist document. &lt;i&gt;By Anand Narayanaswamy&lt;/i&gt;</description>
+      <category>Android</category>
+      <category>Development</category>
+      <category>content.news.category</category>
+      <pubDate>Wed, 13 Nov 2013 16:53:00 GMT</pubDate>
+      <guid>http://www.infoq.com/news/2013/11/app-translation-service</guid>
+      <dc:creator>Anand Narayanaswamy</dc:creator>
+      <dc:date>2013-11-13T16:53:00Z</dc:date>
+      <dc:identifier>/news/2013/11/app-translation-service</dc:identifier>
+    </item>
+  </channel>
+</rss>
+
