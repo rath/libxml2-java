@@ -84,8 +84,17 @@ public class XPathImpl implements XPath {
 		if( qName==XPathConstants.NODESET )
 			ret = new NodeListImpl(document, result.nodeset);
 		else
+		if( qName==XPathConstants.STRING )
+			ret = result.castToString();
+		else
+		if( qName==XPathConstants.NUMBER )
+			ret = result.castToNumber();
+		else
+		if( qName==XPathConstants.BOOLEAN )
+			ret = result.castToBoolean();
+		else
 			throw new UnsupportedOperationException();
-
+		result.dispose();
 		return ret;
 	}
 

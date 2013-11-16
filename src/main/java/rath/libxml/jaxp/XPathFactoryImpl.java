@@ -15,7 +15,7 @@ public class XPathFactoryImpl extends XPathFactory {
 			throw new NullPointerException();
 		if(objectModel.length()==0)
 			throw new IllegalArgumentException("objectModel cannot be empty");
-		if(objectModel.equals("http://java.sun.com/jaxp/xpath/dom") )
+		if(objectModel.equals(XPathConstants.DOM_OBJECT_MODEL))
 			return true;
 		throw new UnsupportedOperationException("objectModel=" + objectModel);
 	}

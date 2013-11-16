@@ -9,6 +9,30 @@ extern "C" {
 #endif
 /*
  * Class:     rath_libxml_XPathObject
+ * Method:    castToStringImpl
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_rath_libxml_XPathObject_castToStringImpl
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     rath_libxml_XPathObject
+ * Method:    castToNumberImpl
+ * Signature: ()D
+ */
+JNIEXPORT jdouble JNICALL Java_rath_libxml_XPathObject_castToNumberImpl
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     rath_libxml_XPathObject
+ * Method:    castToBooleanImpl
+ * Signature: ()Z
+ */
+JNIEXPORT jboolean JNICALL Java_rath_libxml_XPathObject_castToBooleanImpl
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     rath_libxml_XPathObject
  * Method:    disposeImpl
  * Signature: ()V
  */

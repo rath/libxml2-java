@@ -29,22 +29,22 @@ jobject buildXPathObject(JNIEnv *env, jobject xpathContext, xmlXPathObject *resu
         (*env)->SetObjectField(env, resultObject, fieldXPathObjectSetString, (*env)->NewStringUTF(env, (char*)result->stringval));
     break;
     case XPATH_UNDEFINED:
-//        assert(0);
+        assert(0 && "XPATH_UNDEFIEND not implemented");
     break;
     case XPATH_POINT:
-//        assert(0);
+        assert(0 && "XPATH_POINT not implemented");
     break;
     case XPATH_RANGE:
-//        assert(0);
+        assert(0 && "XPATH_RANGE not implemented");
     break;
     case XPATH_LOCATIONSET:
-//        assert(0);
+        assert(0 && "XPATH_LOCATIONSET not implemented");
     break;
     case XPATH_USERS:
-//        assert(0);
+        assert(0 && "XPATH_USERS not implemented");
     break;
     case XPATH_XSLT_TREE:
-//        assert(0);
+        assert(0 && "XPATH_XSLT_TREE not implemented");
     break;
     }
 
@@ -70,6 +70,20 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateImpl
     }
     (*env)->ReleaseStringUTFChars(env, jexpr, expr);
 
+    return buildXPathObject(env, obj, result);
+}
+
+/*
+ * Class:     rath_libxml_XPathContext
+ * Method:    evaluateCompiledImpl
+ * Signature: (Lrath/libxml/XPathExpression;)Lrath/libxml/XPathObject;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateCompiledImpl
+(JNIEnv *env, jobject obj, jobject expr) {
+    xmlXPathContext *ctx = findXPathContext(env, obj);
+    
+    xmlXPathCompExpr *compiled = (xmlXPathCompExprPtr)(*env)->GetLongField(env, expr, fieldXPathExprP);
+    xmlXPathObject *result = xmlXPathCompiledEval(compiled, ctx);
     return buildXPathObject(env, obj, result);
 }
 
@@ -102,20 +116,6 @@ JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_addNamespaceImpl
             throwInternalErrorWithMessage(env, "xmlXPathRegisterNs");
         }
     }
-}
-
-/*
- * Class:     rath_libxml_XPathContext
- * Method:    evaluateCompiledImpl
- * Signature: (Lrath/libxml/XPathExpression;)Lrath/libxml/XPathObject;
- */
-JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateCompiledImpl
-(JNIEnv *env, jobject obj, jobject expr) {
-    xmlXPathContext *ctx = findXPathContext(env, obj);
-    
-    xmlXPathCompExpr *compiled = (xmlXPathCompExprPtr)(*env)->GetLongField(env, expr, fieldXPathExprP);
-    xmlXPathObject *result = xmlXPathCompiledEval(compiled, ctx);
-    return buildXPathObject(env, obj, result);
 }
 
 /*

@@ -50,7 +50,7 @@ public class XPathTest {
 	}
 
 	@Test
-	public void testJaxp() throws Exception {
+	public void testJaxpNodeset() throws Exception {
 		// XPathFactory impl is not allowed to use another DocumentBuilderFactory implementations
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance("rath.libxml.jaxp.DocumentBuilderFactoryImpl", null);
 		XPathFactory factory = XPathFactory.newInstance(XPathFactory.DEFAULT_OBJECT_MODEL_URI, "rath.libxml.jaxp.XPathFactoryImpl", null);
@@ -60,12 +60,31 @@ public class XPathTest {
 		XPath xpath = factory.newXPath();
 		org.w3c.dom.Document doc = dbf.newDocumentBuilder().parse(new File("sample-xmls/rss-infoq.xml"));
 
-		NodeList nl = (NodeList)xpath.evaluate("//item/title", doc, XPathConstants.NODESET);
+		NodeList nl = (NodeList)xpath.evaluate("//item[1]/title", doc, XPathConstants.NODESET);
 		for(int i=0; i<nl.getLength(); i++) {
 			org.w3c.dom.Node node = nl.item(i);
 			String title = node.getTextContent();
 			Assert.assertEquals("Oracle Releases Videos and Slides from the 2013 JVM Language Summit", title);
-			break;
 		}
+		Assert.assertNotEquals("zero length result?", 0, nl.getLength());
+	}
+
+	@Test
+	public void testJaxpString() throws Exception {
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance("rath.libxml.jaxp.DocumentBuilderFactoryImpl", null);
+		XPathFactory factory = XPathFactory.newInstance(XPathFactory.DEFAULT_OBJECT_MODEL_URI, "rath.libxml.jaxp.XPathFactoryImpl", null);
+//		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//		XPathFactory factory = XPathFactory.newInstance();
+
+		XPath xpath = factory.newXPath();
+		org.w3c.dom.Document doc = dbf.newDocumentBuilder().parse(new File("sample-xmls/rss-infoq.xml"));
+
+		String title = (String) xpath.evaluate("//item[1]/title", doc, XPathConstants.STRING);
+		Assert.assertEquals("Oracle Releases Videos and Slides from the 2013 JVM Language Summit", title);
+	}
+
+	@Test
+	public void testJaxpCompiled() throws Exception {
+
 	}
 }

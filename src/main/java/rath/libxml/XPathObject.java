@@ -20,6 +20,23 @@ public class XPathObject implements Disposable {
 		this.p = p;
 	}
 
+	public String castToString() {
+		return castToStringImpl();
+	}
+
+	private native String castToStringImpl();
+
+	public double castToNumber() {
+		return castToNumberImpl();
+	}
+
+	private native double castToNumberImpl();
+
+	public boolean castToBoolean() {
+		return castToBooleanImpl();
+	}
+
+	private native boolean castToBooleanImpl();
 
 	/**
 	 * Convenience method for accessing first node of result.
@@ -34,11 +51,6 @@ public class XPathObject implements Disposable {
 		return nodeset.getFirstNode();
 	}
 
-	public String toString() {
-		return "[XPathObject] nodeset=" + nodeset.toString() + ", boolean=" + booleanValue +
-			", float=" + floatValue + ", string=" + stringValue;
-	}
-
 	@Override
 	public void dispose() {
 		if(!disposed) {
@@ -48,4 +60,9 @@ public class XPathObject implements Disposable {
 	}
 
 	private native void disposeImpl();
+
+	public String toString() {
+		return "[XPathObject] nodeset=" + nodeset.toString() + ", boolean=" + booleanValue +
+			", float=" + floatValue + ", string=" + stringValue;
+	}
 }
