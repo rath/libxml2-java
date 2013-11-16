@@ -84,6 +84,22 @@ public class XPathTest {
 	}
 
 	@Test
+	public void testNumberResult() throws Exception {
+		String xml = "<?xml version=\"1.0\"?>" +
+			"<items>" +
+			"<item id=\"one\"><value tag=\"1\" /></item>" +
+			"<item id=\"two\"><value tag=\"2\" /></item>" +
+			"<item id=\"three\"><value tag=\"3\" /></item>" +
+			"</items>";
+
+		Document doc = LibXml.parseString(xml);
+		XPathContext ctx = doc.createXPathContext();
+		XPathObject result = ctx.evaluate("//item[@id='two']/value/@tag");
+		Assert.assertEquals("tag", 2.0D, result.castToNumber(), 0.0D);
+		Assert.assertEquals("tag", "2", result.castToString());
+	}
+
+	@Test
 	public void testJaxpCompiled() throws Exception {
 
 	}
