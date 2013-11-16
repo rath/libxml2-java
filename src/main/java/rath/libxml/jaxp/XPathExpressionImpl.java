@@ -1,6 +1,7 @@
 package rath.libxml.jaxp;
 
 import org.xml.sax.InputSource;
+import rath.libxml.Node;
 import rath.libxml.XPathContext;
 import rath.libxml.XPathExpression;
 import rath.libxml.XPathObject;
@@ -29,14 +30,18 @@ public class XPathExpressionImpl implements javax.xml.xpath.XPathExpression {
 		}
 
 		DocumentImpl document = null;
+		Node internalContext = null;
 
 		if( item instanceof NodeImpl ) {
 			document = (DocumentImpl) ((NodeImpl)item).getOwnerDocument();
+			internalContext = ((NodeImpl)item).impl;
 		} else if( item instanceof DocumentImpl ) {
 			document = (DocumentImpl)item;
+			internalContext = document.getImpl();
 		}
 
 		XPathContext context = document.getImpl().createXPathContext();
+		context.setContextNode(internalContext);
 		XPathObject result = context.evaluate(impl);
 		Object ret = XPathImpl.filterXPathObjectToJaxpObject(document, qName, result);
 		result.dispose();

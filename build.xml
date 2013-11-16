@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="libxml2-java" default="test">
+<project name="libxml2-java" default="compile">
   <property name="src.main" value="src/main/java" />
   <property name="src.test" value="src/test/java" />
   <property name="build.main" value="build/classes/main" />
@@ -49,6 +49,7 @@
       <arg value="rath.libxml.JaxpTest" /> 
       <arg value="rath.libxml.SaxTest" /> 
       <arg value="rath.libxml.ContextTest" /> 
+      <arg value="rath.libxml.XPathTest" /> 
     </java>
   </target>
 

@@ -4,6 +4,7 @@ import org.w3c.dom.*;
 import org.w3c.dom.Document;
 import org.xml.sax.InputSource;
 import rath.libxml.*;
+import rath.libxml.Node;
 
 import javax.xml.namespace.NamespaceContext;
 import javax.xml.namespace.QName;
@@ -64,14 +65,18 @@ public class XPathImpl implements XPath {
 		}
 
 		DocumentImpl document = null;
+		Node internalContext = null;
 
 		if( item instanceof NodeImpl ) {
 			document = (DocumentImpl) ((NodeImpl)item).getOwnerDocument();
+			internalContext = ((NodeImpl)item).impl;
 		} else if( item instanceof DocumentImpl ) {
 			document = (DocumentImpl)item;
+			internalContext = document.getImpl();
 		}
 
 		XPathContext ctx = document.getImpl().createXPathContext();
+		ctx.setContextNode(internalContext);
 		XPathObject result;
 		try {
 			result = ctx.evaluate(expr);

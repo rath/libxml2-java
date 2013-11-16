@@ -36,6 +36,10 @@ public class XPathObject implements Disposable {
 		return castToNumberImpl();
 	}
 
+	public int castToInt() {
+		return (int)castToNumberImpl();
+	}
+
 	private native double castToNumberImpl();
 
 	public boolean castToBoolean() {

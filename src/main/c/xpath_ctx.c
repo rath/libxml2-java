@@ -120,6 +120,20 @@ JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_addNamespaceImpl
 
 /*
  * Class:     rath_libxml_XPathContext
+ * Method:    setContextNodeImpl
+ * Signature: (Lrath/libxml/Node;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_setContextNodeImpl
+(JNIEnv *env, jobject obj, jobject jnode) {
+    xmlXPathContext *ctx = findXPathContext(env, obj);
+    xmlNode *node = findNode(env, jnode);
+    if(xmlXPathSetContextNode(node, ctx)) {
+        throwInternalErrorWithMessage(env, "context node must be child in document");
+    }
+}
+
+/*
+ * Class:     rath_libxml_XPathContext
  * Method:    disposeImpl
  * Signature: ()V
  */

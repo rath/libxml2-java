@@ -39,6 +39,14 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateCompiledImpl
 JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_disposeImpl
   (JNIEnv *, jobject);
 
+/*
+ * Class:     rath_libxml_XPathContext
+ * Method:    setContextNodeImpl
+ * Signature: (Lrath/libxml/Node;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_setContextNodeImpl
+  (JNIEnv *, jobject, jobject);
+
 #ifdef __cplusplus
 }
 #endif

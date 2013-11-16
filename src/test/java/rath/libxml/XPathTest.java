@@ -126,4 +126,44 @@ public class XPathTest {
 		String title = (String) expr.evaluate(doc, XPathConstants.STRING);
 		Assert.assertEquals("Oracle Releases Videos and Slides from the 2013 JVM Language Summit", title);
 	}
+
+	@Test
+	public void testOnContext() throws Exception {
+		String xml = "<?xml version=\"1.0\"?>" +
+			"<items>" +
+			"<item id=\"one\"><value tag=\"1\" /></item>" +
+			"<item id=\"two\"><value tag=\"2\" /></item>" +
+			"<item id=\"three\"><value tag=\"3\" /></item>" +
+			"</items>";
+
+		Document doc = LibXml.parseString(xml);
+		Node firstItem = doc.getRootElement().getChildren().getNext();
+
+		XPathContext context = doc.createXPathContext();
+		context.setContextNode(firstItem);
+		XPathObject result = context.evaluate("value/@tag");
+		Assert.assertEquals(1, result.nodeset.getSize());
+	}
+
+	@Test
+	public void testOnContextJaxp() throws Exception {
+		String xml = "<?xml version=\"1.0\"?>" +
+			"<items>" +
+			"<item id=\"one\"><value tag=\"1\" /></item>" +
+			"<item id=\"two\"><value tag=\"2\" /></item>" +
+			"<item id=\"three\"><value tag=\"3\" /></item>" +
+			"</items>";
+
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance("rath.libxml.jaxp.DocumentBuilderFactoryImpl", null);
+		XPathFactory factory = XPathFactory.newInstance(XPathFactory.DEFAULT_OBJECT_MODEL_URI, "rath.libxml.jaxp.XPathFactoryImpl", null);
+//		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+//		XPathFactory factory = XPathFactory.newInstance();
+
+		org.w3c.dom.Document doc = dbf.newDocumentBuilder().parse(Utils.createInputSource(xml));
+		org.w3c.dom.Node firstItem = doc.getDocumentElement().getFirstChild();
+		XPath xpath = factory.newXPath();
+		NodeList nl = (NodeList)xpath.evaluate("value/@tag", firstItem, XPathConstants.NODESET);
+
+		Assert.assertEquals(1, nl.getLength());
+	}
 }

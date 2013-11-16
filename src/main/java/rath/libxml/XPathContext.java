@@ -11,6 +11,7 @@ public class XPathContext implements Disposable {
 	private boolean disposed = false;
 	private final long p;
 	private Document document;
+	private Node contextNode;
 
 	XPathContext(long p) {
 		this.p = p;
@@ -54,5 +55,16 @@ public class XPathContext implements Disposable {
 	protected void finalize() throws Throwable {
 		dispose();
 		super.finalize();
+	}
+
+	public void setContextNode(Node contextNode) {
+		this.contextNode = contextNode;
+		setContextNodeImpl(contextNode);
+	}
+
+	private native void setContextNodeImpl(Node contextNode);
+
+	public Node getContextNode() {
+		return contextNode;
 	}
 }
