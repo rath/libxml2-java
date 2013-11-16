@@ -117,7 +117,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     methodNodesetAddNode = (*env)->GetMethodID(env, classNodeset, "addNode", "(Lrath/libxml/Node;)V");
     methodNamespaceNew = (*env)->GetMethodID(env, classNamespace, "<init>", "(Ljava/lang/String;Ljava/lang/String;)V");
     methodXPathContextNew = (*env)->GetMethodID(env, classXPathContext, "<init>", "(J)V");
-    methodXPathObjectNew = (*env)->GetMethodID(env, classXPathObject, "<init>", "(J)V");
+    methodXPathObjectNew = (*env)->GetMethodID(env, classXPathObject, "<init>", "(JZ)V");
     methodXPathExprNew = (*env)->GetMethodID(env, classXPathExpression, "<init>", "(J)V");
     
     methodNodeSetType = (*env)->GetMethodID(env, classNode, "setType", "(I)V");

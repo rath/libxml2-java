@@ -11,13 +11,19 @@ public class XPathObject implements Disposable {
 	private final long p;
 	private boolean disposed = false;
 
+	private boolean empty = false;
 	public NodeSet nodeset;
 	public boolean booleanValue;
 	public double floatValue;
 	public String stringValue;
 
-	XPathObject(long p) {
+	XPathObject(long p, boolean empty) {
 		this.p = p;
+		this.empty = empty;
+	}
+
+	public boolean isEmpty() {
+		return this.empty;
 	}
 
 	public String castToString() {

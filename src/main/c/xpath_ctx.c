@@ -10,7 +10,7 @@
 #include <stdlib.h>
 
 jobject buildXPathObject(JNIEnv *env, jobject xpathContext, xmlXPathObject *result) {
-    jobject resultObject = (*env)->NewObject(env, classXPathObject, methodXPathObjectNew, (jlong)result);
+    jobject resultObject = (*env)->NewObject(env, classXPathObject, methodXPathObjectNew, (jlong)result, xmlXPathNodeSetIsEmpty(result->nodesetval));
     jobject jdoc;
     
     switch(result->type) {
