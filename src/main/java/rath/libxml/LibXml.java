@@ -115,6 +115,16 @@ public class LibXml {
 
 	private static native Document parseSystemIdImpl(String systemId, InputStream in) throws IOException;
 
+	public static Document parseInputStream(InputStream in) throws IOException {
+		Document doc;
+		try {
+			doc = parseSystemIdImpl(null, in);
+		} finally {
+			//in.close();
+		}
+		return doc;
+	}
+
 	public static void parseSAX(String xml, SAXHandler handler, int recovery) {
 		parseSAX(xml, handler, recovery, new SAXHandlerEngine());
 	}

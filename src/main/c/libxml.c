@@ -601,7 +601,9 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseSystemIdImpl
 (JNIEnv *env, jclass clz, jstring jSystemId, jobject inputStream) {
     
     xmlResetLastError();
-    const char *systemId = (*env)->GetStringUTFChars(env, jSystemId, NULL);
+    const char *systemId = NULL;
+    if( jSystemId!=NULL )
+        systemId = (*env)->GetStringUTFChars(env, jSystemId, NULL);
     
     xmlParserCtxt *parser = xmlCreatePushParserCtxt(NULL, 0, NULL, 0, systemId);
     
@@ -628,7 +630,8 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseSystemIdImpl
     }
     
     (*env)->DeleteLocalRef(env, buf);
-    (*env)->ReleaseStringUTFChars(env, jSystemId, systemId);
+    if( jSystemId!=NULL )
+        (*env)->ReleaseStringUTFChars(env, jSystemId, systemId);
     
     if( error )
         return NULL;

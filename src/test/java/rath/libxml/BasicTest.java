@@ -1,11 +1,12 @@
 package rath.libxml;
 
-import org.junit.Test;
 import org.junit.Assert;
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.Arrays;
@@ -29,6 +30,26 @@ public class BasicTest {
 		Node rootNode = doc.getRootElement();
 		Assert.assertNotNull("Document.getRootElement returns null", rootNode);
 		Assert.assertEquals("me-root", rootNode.getName());
+	}
+
+
+	@Test
+	public void testParseSystemId() throws IOException {
+		String systemId = "file:build.xml";
+		Document doc = LibXml.parseSystemId(systemId);
+		String rootElementTagName = doc.getRootElement().getName();
+		Assert.assertEquals("project", rootElementTagName);
+		doc.dispose();
+	}
+
+	@Test
+	public void testParseInputStream() throws IOException {
+		FileInputStream fis = new FileInputStream(new File("build.xml"));
+		Document doc = LibXml.parseInputStream(fis);
+		String rootElementTagName = doc.getRootElement().getName();
+		Assert.assertEquals("project", rootElementTagName);
+		doc.dispose();
+		fis.close();
 	}
 
 	@Test
