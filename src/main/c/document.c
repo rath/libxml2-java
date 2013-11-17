@@ -112,6 +112,25 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createCommentImpl
     return buildNode(env, commentNode, obj);
 }
 
+
+/*
+ * Class:     rath_libxml_Document
+ * Method:    createCDataImpl
+ * Signature: (Ljava/lang/String;)Lrath/libxml/Node;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createCDataImpl
+(JNIEnv *env, jobject obj, jstring jstr) {
+    xmlDoc *doc = findDocument(env, obj);
+    
+    const char *str = (*env)->GetStringUTFChars(env, jstr, NULL);
+    jsize len = (*env)->GetStringUTFLength(env, jstr);
+    xmlNode *cdata = xmlNewCDataBlock(doc, (xmlChar*)str, len);
+    (*env)->ReleaseStringUTFChars(env, jstr, str);
+    cdata->doc = doc; // TODO: Is it safe? are you sure?
+    
+    return buildNode(env, cdata, obj);
+}
+
 /*
  * Class:     rath_libxml_Document
  * Method:    createDocumentImpl

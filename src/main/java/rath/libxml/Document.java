@@ -105,7 +105,7 @@ public class Document extends Node {
 	/**
 	 * Creates a Text node given the specified string.
 	 * @param data The data for the node.
-	 * @return new Text object.
+	 * @return new Text node.
 	 */
 	public Node createText(String data) {
 		Node created = createTextImpl(data);
@@ -117,7 +117,7 @@ public class Document extends Node {
 	/**
 	 * Creates a Comment node given the specified string.
 	 * @param data The data for the node.
-	 * @return new Comment object.
+	 * @return new Comment node.
 	 */
 	public Node createComment(String data) {
 		Node created = createCommentImpl(data);
@@ -125,6 +125,18 @@ public class Document extends Node {
 	}
 
 	private native Node createCommentImpl(String data);
+
+	/**
+	 * Creates a CDataSection node whose value is the specified string.
+	 * @param data The data for the CDATASection contents
+	 * @return new CDATA node.
+	 */
+	public Node createCDataBlock(String data) {
+		Node created = createCDataImpl(data);
+		return created;
+	}
+
+	private native Node createCDataImpl(String data);
 
 	/**
 	 * Create a new document instance with specified version.
