@@ -80,8 +80,9 @@ public class DocumentImpl implements org.w3c.dom.Document {
 	}
 
 	@Override
-	public CDATASection createCDATASection(String s) throws DOMException {
-		throw new UnsupportedOperationException();
+	public CDATASection createCDATASection(String data) throws DOMException {
+		CDATASectionImpl node = new CDATASectionImpl(this, impl.createCDataBlock(data));
+		return node;
 	}
 
 	@Override

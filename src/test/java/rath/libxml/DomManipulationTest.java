@@ -33,12 +33,14 @@ public class DomManipulationTest {
 		org.w3c.dom.Document doc = builder.newDocument();
 		doc.setXmlVersion("1.0");
 
+		doc.appendChild(doc.createComment("ordinary items"));
+
 		Element items = doc.createElement("items");
 		doc.appendChild(items);
 
-		for(String str : Arrays.asList("1", "2", "3")) {
+		for(String str : Arrays.asList("1", "2", "3", "헛둘")) {
 			Element item = doc.createElement("item");
-			item.appendChild(doc.createTextNode(str));
+			item.appendChild(doc.createCDATASection(str));
 			items.appendChild(item);
 		}
 
