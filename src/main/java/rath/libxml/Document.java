@@ -16,10 +16,18 @@ public class Document extends Node {
 		super(p);
 	}
 
+	/**
+	 * An enum representing the type of the underlying object.
+	 * @return Node.Type.DOCUMENT always.
+	 */
 	public Node.Type getType() {
 		return Node.Type.DOCUMENT;
 	}
 
+	/**
+	 * Get the root element of the document.
+	 * @return the root node or null.
+	 */
 	public Node getRootElement() {
 		return getRootElementImpl();
 	}
@@ -56,6 +64,10 @@ public class Document extends Node {
 		return null;
 	}
 
+	/**
+	 * Creates a new XPathContext object.
+	 * @return xpath context just allocated.
+	 */
 	public XPathContext createXPathContext() {
 		XPathContext ctx = createXPathContextImpl();
 		ctx.setDocument(this);
@@ -95,6 +107,11 @@ public class Document extends Node {
 		super.finalize();
 	}
 
+	/**
+	 * Creates an element of the type specified.
+	 * @param name The name of the element type to instantiate.
+	 * @return A new element object with the name.
+	 */
 	public Node createElement(String name) {
 		Node created = createElementImpl(name);
 		return created;
