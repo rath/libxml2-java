@@ -102,12 +102,29 @@ public class Document extends Node {
 
 	private native Node createElementImpl(String name);
 
+	/**
+	 * Creates a Text node given the specified string.
+	 * @param data The data for the node.
+	 * @return new Text object.
+	 */
 	public Node createText(String data) {
 		Node created = createTextImpl(data);
 		return created;
 	}
 
 	private native Node createTextImpl(String data);
+
+	/**
+	 * Creates a Comment node given the specified string.
+	 * @param data The data for the node.
+	 * @return new Comment object.
+	 */
+	public Node createComment(String data) {
+		Node created = createCommentImpl(data);
+		return created;
+	}
+
+	private native Node createCommentImpl(String data);
 
 	/**
 	 * Create a new document instance with specified version.

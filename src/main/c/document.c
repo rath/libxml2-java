@@ -97,6 +97,23 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createTextImpl
 
 /*
  * Class:     rath_libxml_Document
+ * Method:    createCommentImpl
+ * Signature: (Ljava/lang/String;)Lrath/libxml/Node;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createCommentImpl
+(JNIEnv *env, jobject obj, jstring jstr) {
+    xmlDoc *doc = findDocument(env, obj);
+    
+    const char *str = (*env)->GetStringUTFChars(env, jstr, NULL);
+    xmlNode *commentNode = xmlNewComment((xmlChar*)str);
+    (*env)->ReleaseStringUTFChars(env, jstr, str);
+    commentNode->doc = doc; // TODO: Is it safe? are you sure?
+    
+    return buildNode(env, commentNode, obj);
+}
+
+/*
+ * Class:     rath_libxml_Document
  * Method:    createDocumentImpl
  * Signature: (Ljava/lang/String;)J
  */

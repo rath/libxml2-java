@@ -65,6 +65,14 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createTextImpl
 
 /*
  * Class:     rath_libxml_Document
+ * Method:    createCommentImpl
+ * Signature: (Ljava/lang/String;)Lrath/libxml/Node;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createCommentImpl
+  (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     rath_libxml_Document
  * Method:    createDocumentImpl
  * Signature: (Ljava/lang/String;)J
  */
