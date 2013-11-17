@@ -88,9 +88,9 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createTextImpl
     xmlDoc *doc = findDocument(env, obj);
     
     const char *str = (*env)->GetStringUTFChars(env, jstr, NULL);
-    xmlNode *textNode = xmlNewText((xmlChar*)str);
+    jsize len = (*env)->GetStringUTFLength(env, jstr);
+    xmlNode *textNode = xmlNewDocTextLen(doc, (xmlChar*)str, len);
     (*env)->ReleaseStringUTFChars(env, jstr, str);
-    textNode->doc = doc; // TODO: Is it safe? are you sure?
     
     return buildNode(env, textNode, obj);
 }
@@ -102,12 +102,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createTextImpl
  */
 JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createCommentImpl
 (JNIEnv *env, jobject obj, jstring jstr) {
-    xmlDoc *doc = findDocument(env, obj);
+//    xmlDoc *doc = findDocument(env, obj);
     
     const char *str = (*env)->GetStringUTFChars(env, jstr, NULL);
     xmlNode *commentNode = xmlNewComment((xmlChar*)str);
     (*env)->ReleaseStringUTFChars(env, jstr, str);
-    commentNode->doc = doc; // TODO: Is it safe? are you sure?
     
     return buildNode(env, commentNode, obj);
 }
@@ -126,7 +125,6 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createCDataImpl
     jsize len = (*env)->GetStringUTFLength(env, jstr);
     xmlNode *cdata = xmlNewCDataBlock(doc, (xmlChar*)str, len);
     (*env)->ReleaseStringUTFChars(env, jstr, str);
-    cdata->doc = doc; // TODO: Is it safe? are you sure?
     
     return buildNode(env, cdata, obj);
 }
