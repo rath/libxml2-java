@@ -51,7 +51,7 @@ public class DocumentBuilderImpl extends DocumentBuilder {
 
 	@Override
 	public Document newDocument() {
-		throw new UnsupportedOperationException();
+		return new DocumentImpl(rath.libxml.Document.create("1.0"));
 	}
 
 	@Override

@@ -35,7 +35,7 @@ public class DocumentImpl implements org.w3c.dom.Document {
 		this.impl = doc;
 	}
 
-	Document getImpl() {
+	public Document getImpl() {
 		return impl;
 	}
 
@@ -159,12 +159,12 @@ public class DocumentImpl implements org.w3c.dom.Document {
 
 	@Override
 	public String getXmlVersion() {
-		throw new UnsupportedOperationException();
+		return impl.getVersion();
 	}
 
 	@Override
-	public void setXmlVersion(String s) throws DOMException {
-		throw new UnsupportedOperationException();
+	public void setXmlVersion(String version) throws DOMException {
+		impl.setVersion(version);
 	}
 
 	@Override
@@ -224,12 +224,12 @@ public class DocumentImpl implements org.w3c.dom.Document {
 
 	@Override
 	public short getNodeType() {
-		throw new UnsupportedOperationException();
+		return Node.DOCUMENT_NODE;
 	}
 
 	@Override
 	public Node getParentNode() {
-		throw new UnsupportedOperationException();
+		return null;
 	}
 
 	@Override
@@ -284,7 +284,8 @@ public class DocumentImpl implements org.w3c.dom.Document {
 
 	@Override
 	public Node appendChild(Node node) throws DOMException {
-		throw new UnsupportedOperationException();
+		rath.libxml.Node created = impl.addChild(((NodeImpl) node).impl);
+		return new NodeImpl(this, created);
 	}
 
 	@Override
