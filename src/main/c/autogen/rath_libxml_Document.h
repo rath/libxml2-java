@@ -17,6 +17,22 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_getRootElementImpl
 
 /*
  * Class:     rath_libxml_Document
+ * Method:    setVersionImpl
+ * Signature: (Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Document_setVersionImpl
+  (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     rath_libxml_Document
+ * Method:    getVersionImpl
+ * Signature: ()Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_rath_libxml_Document_getVersionImpl
+  (JNIEnv *, jobject);
+
+/*
+ * Class:     rath_libxml_Document
  * Method:    createXPathContextImpl
  * Signature: ()Lrath/libxml/XPathContext;
  */
@@ -46,6 +62,22 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createElementImpl
  */
 JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createTextImpl
   (JNIEnv *, jobject, jstring);
+
+/*
+ * Class:     rath_libxml_Document
+ * Method:    createDocumentImpl
+ * Signature: (Ljava/lang/String;)J
+ */
+JNIEXPORT jlong JNICALL Java_rath_libxml_Document_createDocumentImpl
+  (JNIEnv *, jclass, jstring);
+
+/*
+ * Class:     rath_libxml_Document
+ * Method:    saveImpl
+ * Signature: (Ljava/lang/String;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Document_saveImpl
+  (JNIEnv *, jobject, jstring, jstring);
 
 #ifdef __cplusplus
 }

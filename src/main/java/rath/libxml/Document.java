@@ -1,5 +1,7 @@
 package rath.libxml;
 
+import java.io.File;
+
 /**
  * 
  * User: rath
@@ -23,6 +25,21 @@ public class Document extends Node {
 	}
 
 	private native Node getRootElementImpl();
+
+	public void setVersion(String version) {
+		if(version==null)
+			throw new NullPointerException();
+		setVersionImpl(version);
+	}
+
+	private native void setVersionImpl(String version);
+
+	public String getVersion() {
+		String version = getVersionImpl();
+		return version;
+	}
+
+	private native String getVersionImpl();
 
 	@Override
 	public Document getDocument() {
@@ -91,4 +108,28 @@ public class Document extends Node {
 	}
 
 	private native Node createTextImpl(String data);
+
+	/**
+	 * Create a new document instance with specified version.
+	 *
+	 * @param version version of this document. it's almost 1.0.
+	 * @return created document instance
+	 */
+	public static Document create(String version) {
+		long documentP = createDocumentImpl(version);
+		return new Document(documentP);
+	}
+
+	private static native long createDocumentImpl(String version);
+
+	/**
+	 * Dump this XML document, converting it to the given encoding.
+	 * @param file local file to save this document
+	 * @param encoding charset on dumping document
+	 */
+	public void save(File file, String encoding) {
+		saveImpl(file.getAbsolutePath(), encoding);
+	}
+
+	private native void saveImpl(String absolutePath, String encoding);
 }
