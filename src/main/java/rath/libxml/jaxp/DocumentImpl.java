@@ -86,8 +86,9 @@ public class DocumentImpl implements org.w3c.dom.Document {
 	}
 
 	@Override
-	public ProcessingInstruction createProcessingInstruction(String s, String s2) throws DOMException {
-		throw new UnsupportedOperationException();
+	public ProcessingInstruction createProcessingInstruction(String target, String data) throws DOMException {
+		ProcessingInstructionImpl node = new ProcessingInstructionImpl(this, impl.createPI(target, data));
+		return node;
 	}
 
 	@Override

@@ -50,6 +50,7 @@
       <arg value="rath.libxml.SaxTest" /> 
       <arg value="rath.libxml.ContextTest" /> 
       <arg value="rath.libxml.XPathTest" /> 
+      <arg value="rath.libxml.DomManipulationTest" /> 
     </java>
   </target>
 

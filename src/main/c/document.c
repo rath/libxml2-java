@@ -131,6 +131,25 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createCDataImpl
 
 /*
  * Class:     rath_libxml_Document
+ * Method:    createPIImpl
+ * Signature: (Ljava/lang/String;Ljava/lang/String;)Lrath/libxml/Node;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createPIImpl
+(JNIEnv *env, jobject obj, jstring jname, jstring jcontent) {
+    xmlDocPtr doc = findDocument(env, obj);
+    const char *name = (*env)->GetStringUTFChars(env, jname, NULL);
+    const char *content = (*env)->GetStringUTFChars(env, jcontent, NULL);
+    
+    xmlNodePtr node = xmlNewDocPI(doc, (const xmlChar*)name, (const xmlChar*)content);
+    
+    (*env)->ReleaseStringUTFChars(env, jname, name);
+    (*env)->ReleaseStringUTFChars(env, jcontent, content);
+    
+    return buildNode(env, node, obj);
+}
+
+/*
+ * Class:     rath_libxml_Document
  * Method:    createDocumentImpl
  * Signature: (Ljava/lang/String;)J
  */

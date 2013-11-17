@@ -81,6 +81,14 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createCDataImpl
 
 /*
  * Class:     rath_libxml_Document
+ * Method:    createPIImpl
+ * Signature: (Ljava/lang/String;Ljava/lang/String;)Lrath/libxml/Node;
+ */
+JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createPIImpl
+  (JNIEnv *, jobject, jstring, jstring);
+
+/*
+ * Class:     rath_libxml_Document
  * Method:    createDocumentImpl
  * Signature: (Ljava/lang/String;)J
  */

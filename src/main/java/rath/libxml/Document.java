@@ -139,6 +139,19 @@ public class Document extends Node {
 	private native Node createCDataImpl(String data);
 
 	/**
+	 * Creates a ProcessingInstruction node given the specified name and data.
+	 * @param name The target part of the processing instruction.
+	 * @param content The data for the node
+	 * @return
+	 */
+	public Node createPI(String name, String content) {
+		Node created = createPIImpl(name, content);
+		return created;
+	}
+
+	private native Node createPIImpl(String name, String content);
+
+	/**
 	 * Create a new document instance with specified version.
 	 *
 	 * @param version version of this document. it's almost 1.0.

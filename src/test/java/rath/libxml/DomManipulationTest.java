@@ -44,6 +44,8 @@ public class DomManipulationTest {
 			items.appendChild(item);
 		}
 
+		items.appendChild(doc.createProcessingInstruction("php", "echo(1)"));
+
 		Document impl = ((DocumentImpl) doc).getImpl();
 		impl.save(new File("test.xml"), "UTF-8");
 
