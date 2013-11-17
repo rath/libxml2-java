@@ -1,10 +1,11 @@
-package rath.libxml;
+package rath.libxml.test;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.w3c.dom.NodeList;
+import rath.libxml.*;
 import rath.libxml.util.Utils;
 
 import javax.xml.parsers.DocumentBuilderFactory;

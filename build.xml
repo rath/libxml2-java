@@ -45,12 +45,12 @@
   <target name="test" depends="compile">
     <java classname="org.junit.runner.JUnitCore"
       classpathref="home.classpath">
-      <arg value="rath.libxml.BasicTest" /> 
-      <arg value="rath.libxml.JaxpTest" /> 
-      <arg value="rath.libxml.SaxTest" /> 
-      <arg value="rath.libxml.ContextTest" /> 
-      <arg value="rath.libxml.XPathTest" /> 
-      <arg value="rath.libxml.DomManipulationTest" /> 
+      <arg value="rath.libxml.test.BasicTest" />
+      <arg value="rath.libxml.test.JaxpTest" />
+      <arg value="rath.libxml.test.SaxTest" />
+      <arg value="rath.libxml.test.ContextTest" />
+      <arg value="rath.libxml.test.XPathTest" />
+      <arg value="rath.libxml.test.DomManipulationTest" />
     </java>
   </target>
 

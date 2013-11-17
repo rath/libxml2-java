@@ -1,4 +1,4 @@
-package rath.libxml;
+package rath.libxml.test;
 
 import org.apache.commons.lang.mutable.MutableBoolean;
 import org.apache.commons.lang.mutable.MutableInt;
@@ -9,6 +9,10 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 import org.xml.sax.*;
 import org.xml.sax.helpers.DefaultHandler;
+import rath.libxml.LibXml;
+import rath.libxml.LibXmlException;
+import rath.libxml.SAXAdapter;
+import rath.libxml.SAXHandler;
 import rath.libxml.util.Utils;
 
 import javax.xml.parsers.SAXParserFactory;
@@ -77,9 +81,10 @@ public class SaxTest {
 		final MutableObject fetchedSystemId = new MutableObject(null);
 		LibXml.parseSAXSystemId(systemId, new SAXAdapter() {
 			Locator locator;
+
 			@Override
 			public void startElement(String uri, String localName, String qName, Attributes atts) {
-				if(localName.equals("project")) {
+				if (localName.equals("project")) {
 					fetchedSystemId.setValue(locator.getSystemId());
 				}
 			}

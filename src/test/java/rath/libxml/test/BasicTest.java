@@ -1,9 +1,10 @@
-package rath.libxml;
+package rath.libxml.test;
 
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import rath.libxml.*;
 
 import java.io.File;
 import java.io.FileInputStream;

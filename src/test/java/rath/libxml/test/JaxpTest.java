@@ -1,4 +1,4 @@
-package rath.libxml;
+package rath.libxml.test;
 
 import org.junit.After;
 import org.junit.Before;
