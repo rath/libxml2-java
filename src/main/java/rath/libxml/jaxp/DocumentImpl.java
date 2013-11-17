@@ -74,8 +74,9 @@ public class DocumentImpl implements org.w3c.dom.Document {
 	}
 
 	@Override
-	public Comment createComment(String s) {
-		throw new UnsupportedOperationException();
+	public Comment createComment(String data) {
+		CommentImpl node = new CommentImpl(this, impl.createComment(data));
+		return node;
 	}
 
 	@Override
