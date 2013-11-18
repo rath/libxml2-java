@@ -590,7 +590,10 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXSystemIdImpl
             break;
         (*env)->GetByteArrayRegion(env, buf, 0, readlen, (jbyte*)chunk);
         ret = xmlParseChunk(parser, chunk, readlen, 0);
-        assert(!ret);
+        if(ret!=0) {
+            throwInternalErrorWithLastError(env);
+            break;
+        }
     }
     if(!(*env)->ExceptionOccurred(env))
         xmlParseChunk(parser, chunk, 0, 1);
@@ -633,7 +636,10 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseSystemIdImpl
         (*env)->GetByteArrayRegion(env, buf, 0, readlen, (jbyte*)chunk);
         ret = xmlParseChunk(parser, chunk, readlen, 0);
         totalLen += readlen;
-        assert(!ret);
+        if(ret!=0) {
+            throwInternalErrorWithLastError(env);
+            break;
+        }
     }
     int error;
     if(!(*env)->ExceptionOccurred(env)) {
@@ -647,13 +653,13 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseSystemIdImpl
     if( jSystemId!=NULL )
         (*env)->ReleaseStringUTFChars(env, jSystemId, systemId);
     
+    xmlDoc *doc = parser->myDoc;
+    int wellFormed = parser->wellFormed;
+    xmlFreeParserCtxt(parser);
     if( error )
         return NULL;
-    if( !parser->wellFormed )
+    if( !wellFormed )
         return NULL;
-    
-    xmlDoc *doc = parser->myDoc;
-    xmlFreeParserCtxt(parser);
     return buildDocument(env, doc);
 }
 
