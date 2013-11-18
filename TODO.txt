@@ -16,4 +16,3 @@ TODO: find UOE and impl them
 TODO: submit to maven repository
 
 TODO: Download some DOM manipulation tools and test with libxml2-java
-TODO: Transformer. Export DOM as file or something
