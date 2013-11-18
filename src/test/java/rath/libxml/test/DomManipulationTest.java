@@ -45,6 +45,10 @@ public class DomManipulationTest {
 			Element item = doc.createElement("item");
 			item.appendChild(doc.createCDATASection(str));
 			items.appendChild(item);
+
+			Element itemWithNs = doc.createElementNS("http://foo.com/", "f:item");
+			item.setAttribute("id", str);
+			items.appendChild(itemWithNs);
 		}
 
 		items.appendChild(doc.createProcessingInstruction("php", "echo(1)"));

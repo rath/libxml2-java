@@ -50,10 +50,10 @@ JNIEXPORT void JNICALL Java_rath_libxml_Document_disposeImpl
 /*
  * Class:     rath_libxml_Document
  * Method:    createElementImpl
- * Signature: (Ljava/lang/String;)Lrath/libxml/Node;
+ * Signature: (Lrath/libxml/Namespace;Ljava/lang/String;)Lrath/libxml/Node;
  */
 JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createElementImpl
-  (JNIEnv *, jobject, jstring);
+  (JNIEnv *, jobject, jobject, jstring);
 
 /*
  * Class:     rath_libxml_Document

@@ -115,11 +115,22 @@ public class Document extends Node {
 	 * @return A new element object with the name.
 	 */
 	public Node createElement(String name) {
-		Node created = createElementImpl(name);
+		Node created = createElementImpl(null, name);
 		return created;
 	}
 
-	private native Node createElementImpl(String name);
+	/**
+	 * Creates an element of the given qualified name and namespace URI.
+	 * @param ns namespace to create, null is allowed.
+	 * @param name The name of the element type to instantiate.
+	 * @return A new element object with the name and namespace.
+	 */
+	public Node createElement(Namespace ns, String name) {
+		Node created = createElementImpl(ns, name);
+		return created;
+	}
+
+	private native Node createElementImpl(Namespace ns, String name);
 
 	/**
 	 * Creates a Text node given the specified string.

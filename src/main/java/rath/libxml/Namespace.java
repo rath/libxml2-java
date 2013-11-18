@@ -25,6 +25,8 @@ public class Namespace {
 	}
 
 	public void setHref(String href) {
+		if(href==null)
+			throw new NullPointerException("href cannot be null");
 		this.href = href;
 	}
 

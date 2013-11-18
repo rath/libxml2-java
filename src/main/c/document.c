@@ -68,14 +68,29 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createXPathContextImpl
 /*
  * Class:     rath_libxml_Document
  * Method:    createElementImpl
- * Signature: (Ljava/lang/String;)Lrath/libxml/Node;
+ * Signature: (Lrath/libxml/Namespace;Ljava/lang/String;)Lrath/libxml/Node;
  */
 JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createElementImpl
-(JNIEnv *env, jobject obj, jstring jname) {
+(JNIEnv *env, jobject obj, jobject jnamespace, jstring jname) {
     xmlDoc *doc = findDocument(env, obj);
     xmlNode *created;
     const char *name = (*env)->GetStringUTFChars(env, jname, NULL);
     created = xmlNewDocNode(doc, NULL, (xmlChar*)name, NULL);
+    if (jnamespace!=NULL) {
+        jstring jhref = (*env)->CallNonvirtualObjectMethod(env, jnamespace, classNamespace, methodNamespaceGetHref);
+        jstring jprefix = (*env)->CallNonvirtualObjectMethod(env, jnamespace, classNamespace, methodNamespaceGetPrefix);
+        const char *href = (*env)->GetStringUTFChars(env, jhref, NULL);
+        const char *prefix = NULL;
+        if( jprefix!=NULL ) {
+            prefix = (*env)->GetStringUTFChars(env, jprefix, NULL);
+        }
+        xmlNs *ns = xmlNewNs(created, (xmlChar*)href, (xmlChar*)prefix);
+        // TODO: free ns?
+        if( prefix!=NULL ) {
+            (*env)->ReleaseStringUTFChars(env, jprefix, prefix);
+        }
+        (*env)->ReleaseStringUTFChars(env, jhref, href);
+    }
     (*env)->ReleaseStringUTFChars(env, jname, name);
     return buildNode(env, created, obj);
 }

@@ -29,6 +29,8 @@ jmethodID methodNodeNew;
 jmethodID methodNodesetNew;
 jmethodID methodNodesetAddNode;
 jmethodID methodNamespaceNew;
+jmethodID methodNamespaceGetHref;
+jmethodID methodNamespaceGetPrefix;
 jmethodID methodXPathContextNew;
 jmethodID methodXPathObjectNew;
 jmethodID methodXPathExprNew;
@@ -119,6 +121,8 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     methodNodesetNew = (*env)->GetMethodID(env, classNodeset, "<init>", "(J)V");
     methodNodesetAddNode = (*env)->GetMethodID(env, classNodeset, "addNode", "(Lrath/libxml/Node;)V");
     methodNamespaceNew = (*env)->GetMethodID(env, classNamespace, "<init>", "(Ljava/lang/String;Ljava/lang/String;)V");
+    methodNamespaceGetHref = (*env)->GetMethodID(env, classNamespace, "getHref", "()Ljava/lang/String;");
+    methodNamespaceGetPrefix = (*env)->GetMethodID(env, classNamespace, "getPrefix", "()Ljava/lang/String;");
     methodXPathContextNew = (*env)->GetMethodID(env, classXPathContext, "<init>", "(J)V");
     methodXPathObjectNew = (*env)->GetMethodID(env, classXPathObject, "<init>", "(JZ)V");
     methodXPathExprNew = (*env)->GetMethodID(env, classXPathExpression, "<init>", "(J)V");

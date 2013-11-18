@@ -20,6 +20,8 @@ extern jmethodID methodNodeSetDocument;
 extern jmethodID methodNodesetNew;
 extern jmethodID methodNodesetAddNode;
 extern jmethodID methodNamespaceNew;
+extern jmethodID methodNamespaceGetHref;
+extern jmethodID methodNamespaceGetPrefix;
 extern jmethodID methodXPathContextNew;
 extern jmethodID methodXPathObjectNew;
 extern jmethodID methodXPathExprNew;

@@ -103,7 +103,7 @@ out.println(result.getFirstNode().getChildText()); // Bear
 ```
 ## Progress
 
-- (55%) DOM 3
+- (60%) DOM 3
 - (80%) SAX 2
 - (70%) XPath 
 - (80%) As JAXP(JSR 206) provider  

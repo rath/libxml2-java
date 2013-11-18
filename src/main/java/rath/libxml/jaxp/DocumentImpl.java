@@ -18,6 +18,7 @@ import org.w3c.dom.EntityReference;
 import org.w3c.dom.UserDataHandler;
 
 import rath.libxml.Document;
+import rath.libxml.Namespace;
 import rath.libxml.XPathContext;
 import rath.libxml.XPathObject;
 
@@ -121,8 +122,27 @@ public class DocumentImpl implements org.w3c.dom.Document {
 	}
 
 	@Override
-	public Element createElementNS(String s, String s2) throws DOMException {
-		throw new UnsupportedOperationException();
+	public Element createElementNS(String namespaceURI, String qName) throws DOMException {
+		if (namespaceURI==null)
+			throw new NullPointerException();
+		String localName;
+		String prefix;
+
+		int i0 = qName.indexOf(':');
+		if( i0!=-1 ) {
+			prefix = qName.substring(0, i0);
+			localName = qName.substring(i0+1);
+		} else {
+			prefix = null;
+			localName = qName;
+		}
+
+		Namespace ns = new Namespace();
+		ns.setHref(namespaceURI);
+		ns.setPrefix(prefix);
+		rath.libxml.Node created = impl.createElement(ns, qName);
+
+		return new ElementImpl(this, created);
 	}
 
 	@Override
