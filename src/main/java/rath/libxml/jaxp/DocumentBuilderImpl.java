@@ -38,12 +38,17 @@ public class DocumentBuilderImpl extends DocumentBuilder {
 
 	@Override
 	public Document parse(InputSource inputSource) throws SAXException, IOException {
-		// TODO: should support stream parsing
-		String str = Utils.loadInputSource(inputSource);
 		rath.libxml.Document doc = null;
 		try {
-			doc = LibXml.parseString(str);
-		} catch( LibXmlException e ) {
+			if (inputSource.getByteStream() != null) {
+				doc = LibXml.parseInputStream(inputSource.getByteStream());
+			} else if (inputSource.getCharacterStream() != null) {
+				String s = Utils.loadReader(inputSource.getCharacterStream());
+				doc = LibXml.parseString(s);
+			} else if (inputSource.getSystemId() != null) {
+				doc = LibXml.parseSystemId(inputSource.getSystemId());
+			}
+		} catch (LibXmlException e) {
 			handleParseError(e);
 		}
 		return new DocumentImpl(doc);
