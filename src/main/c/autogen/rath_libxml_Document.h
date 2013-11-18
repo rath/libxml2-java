@@ -103,6 +103,14 @@ JNIEXPORT jlong JNICALL Java_rath_libxml_Document_createDocumentImpl
 JNIEXPORT void JNICALL Java_rath_libxml_Document_saveImpl
   (JNIEnv *, jobject, jstring, jstring);
 
+/*
+ * Class:     rath_libxml_Document
+ * Method:    saveStreamImpl
+ * Signature: (Ljava/io/OutputStream;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Document_saveStreamImpl
+  (JNIEnv *, jobject, jobject, jstring);
+
 #ifdef __cplusplus
 }
 #endif

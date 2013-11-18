@@ -1,6 +1,8 @@
 #include "rath_libxml_Document.h"
 #include <libxml/parser.h>
+#include "cache.h"
 #include "utils.h"
+#include <assert.h>
 
 /*
  * Class:     rath_libxml_Document
@@ -180,4 +182,61 @@ JNIEXPORT void JNICALL Java_rath_libxml_Document_saveImpl
     if (ret < 1) {
         throwInternalErrorWithLastError(env);
     }
+}
+
+typedef struct {
+    JNIEnv *env;
+    jobject outputStream;
+    jsize bufferlen;
+    jbyteArray buffer;
+} IOCallbackContext;
+
+static int writeCallback(void *p, const char *buffer, int len) {
+    IOCallbackContext *ctx = (IOCallbackContext*)p;
+    JNIEnv *env = ctx->env;
+    
+    int remain = len;
+    int copying;
+    while(1) {
+        copying = ctx->bufferlen < remain ? ctx->bufferlen : remain;
+        (*env)->SetByteArrayRegion(env, ctx->buffer, 0, copying, (const jbyte*)buffer);
+        (*env)->CallVoidMethod(env, ctx->outputStream, methodOutputStreamWrite, ctx->buffer, 0, copying);
+        remain -= copying;
+        buffer += copying;
+        if (remain < 1)
+            break;
+    }
+    return len;
+}
+
+static int closeCallback(void *ctx) {
+    // do nothing
+    return 0;
+}
+
+/*
+ * Class:     rath_libxml_Document
+ * Method:    saveStreamImpl
+ * Signature: (Ljava/io/OutputStream;Ljava/lang/String;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Document_saveStreamImpl
+(JNIEnv *env, jobject obj, jobject outputStream, jstring jencoding) {
+    int ret;
+    IOCallbackContext context;
+    context.env = env;
+    context.outputStream = outputStream;
+    context.bufferlen = 64;
+    context.buffer = (*env)->NewByteArray(env, context.bufferlen);
+    
+    xmlDoc *doc = findDocument(env, obj);
+    xmlCharEncodingHandler *handler = xmlFindCharEncodingHandler("utf8");
+    assert(handler);
+    const char *encoding = (*env)->GetStringUTFChars(env, jencoding, NULL);
+    xmlOutputBuffer *buffer = xmlOutputBufferCreateIO(writeCallback, closeCallback, &context, handler);
+    ret = xmlSaveFileTo(buffer, doc, encoding);
+    if(ret==-1) {
+        throwInternalErrorWithLastError(env);
+    }
+    (*env)->ReleaseStringUTFChars(env, jencoding, encoding);
+    (*env)->DeleteLocalRef(env, context.buffer);
 }

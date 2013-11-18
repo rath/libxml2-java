@@ -1,6 +1,8 @@
 package rath.libxml;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  * 
@@ -191,4 +193,10 @@ public class Document extends Node {
 	}
 
 	private native void saveImpl(String absolutePath, String encoding);
+
+	public void save(OutputStream out, String encoding) throws IOException {
+		saveStreamImpl(out, encoding);
+	}
+
+	private native void saveStreamImpl(OutputStream out, String encoding) throws IOException;
 }

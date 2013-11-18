@@ -20,6 +20,7 @@ jclass classXPathObject;
 jclass classXPathExpression;
 jclass classLocator;
 jclass classInputStream;
+jclass classOutputStream;
 jclass classAttribute;
 
 jmethodID methodErrorNew;
@@ -33,6 +34,7 @@ jmethodID methodXPathObjectNew;
 jmethodID methodXPathExprNew;
 jmethodID methodLocatorNew;
 jmethodID methodInputStreamRead;
+jmethodID methodOutputStreamWrite;
 jmethodID methodAttributeNew;
 
 jmethodID methodNodeSetType;
@@ -107,6 +109,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     cc(env, "rath/libxml/XPathObject", &classXPathObject);
     cc(env, "rath/libxml/impl/LocatorImpl", &classLocator);
     cc(env, "java/io/InputStream", &classInputStream);
+    cc(env, "java/io/OutputStream", &classOutputStream);
     cc(env, "rath/libxml/Attribute", &classAttribute);
     cc(env, "rath/libxml/XPathExpression", &classXPathExpression);
    
@@ -125,6 +128,7 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     methodLocatorNew = (*env)->GetMethodID(env, classLocator, "<init>", "(J)V");
     methodAttributeNew = (*env)->GetStaticMethodID(env, classAttribute, "createInstance", "(Lrath/libxml/Namespace;Ljava/lang/String;Ljava/lang/String;)Lrath/libxml/Attribute;");
     methodInputStreamRead = (*env)->GetMethodID(env, classInputStream, "read", "([BII)I");
+    methodOutputStreamWrite = (*env)->GetMethodID(env, classOutputStream, "write", "([BII)V");
     
     fieldDocumentGetP = (*env)->GetFieldID(env, classDocument, "p", "J");
     fieldNodeGetP = (*env)->GetFieldID(env, classNode, "p", "J");

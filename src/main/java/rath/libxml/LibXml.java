@@ -112,6 +112,14 @@ public class LibXml {
 		return new XPathFactoryImpl();
 	}
 
+	/**
+	 * Convenience method for Document.create(String)
+	 * @return newly created document instance.
+	 */
+	public static Document createDocument() {
+		return Document.create("1.0");
+	}
+
 	private static native void initInternalParser();
 
 	public static Document parseFile(File file) throws IOException {

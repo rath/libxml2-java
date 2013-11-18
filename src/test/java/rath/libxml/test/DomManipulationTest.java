@@ -6,6 +6,7 @@ import org.junit.runners.JUnit4;
 import org.w3c.dom.Element;
 import rath.libxml.Document;
 import rath.libxml.LibXml;
+import rath.libxml.Node;
 import rath.libxml.jaxp.DocumentImpl;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -26,7 +27,7 @@ import java.util.Arrays;
 @RunWith(JUnit4.class)
 public class DomManipulationTest {
 	@Test
-	public void test() throws Exception {
+	public void testWithJaxp() throws Exception {
 		// LibXml.setDefaultJAXPImplementation();
 
 //		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -54,5 +55,20 @@ public class DomManipulationTest {
 //		Transformer transformer = TransformerFactory.newInstance().newTransformer();
 //		transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 //		transformer.transform(new DOMSource(doc), new StreamResult(System.out));
+	}
+
+	@Test
+	public void testDocumentSaveWithOutputStream() throws Exception {
+		Document doc = LibXml.createDocument();
+		Node root = doc.createElement("items");
+		doc.addChild(root);
+
+		for(String str : Arrays.asList("1", "2", "3")) {
+			Node item = doc.createElement("item");
+			item.setAttribute("id", str);
+			root.addChild(item);
+		}
+
+		doc.save(System.out, "UTF-8");
 	}
 }
