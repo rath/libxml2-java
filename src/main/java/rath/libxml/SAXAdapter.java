@@ -6,10 +6,10 @@ import org.xml.sax.Locator;
 /**
  * Default base class for SAX2 event handlers.
  *
- * This class is available as a convenience base class for SAX2 applications.
- * Application writers can extend this class when they need to implement only part of an interface;
+ * <p>This class is available as a convenience base class for SAX2 applications.</p>
+ * <p>Application writers can extend this class when they need to implement only part of an interface;
  * parser writers can instantiate this class to provide default handlers when the application has not
- * supplied its own.
+ * supplied its own.</p>
  *
  * @author Jang-Ho Hwang, rath@xrath.com
  */
