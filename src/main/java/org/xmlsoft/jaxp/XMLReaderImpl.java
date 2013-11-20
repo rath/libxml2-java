@@ -4,7 +4,7 @@ import org.xml.sax.*;
 import org.xmlsoft.LibXml;
 import org.xmlsoft.LibXmlException;
 import org.xmlsoft.SAXHandler;
-import org.xmlsoft.impl.SAXHandlerEngine;
+import org.xmlsoft.SAXHandlerEngine;
 import org.xmlsoft.jaxp.util.NullContentHandler;
 import org.xmlsoft.jaxp.util.NullDTDHandler;
 import org.xmlsoft.jaxp.util.NullEntityResolver;

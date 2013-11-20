@@ -1,6 +1,5 @@
 package org.xmlsoft;
 
-import org.xmlsoft.impl.SAXHandlerEngine;
 import org.xmlsoft.jaxp.DocumentBuilderFactoryImpl;
 import org.xmlsoft.jaxp.SAXParserFactoryImpl;
 import org.xmlsoft.jaxp.XPathFactoryImpl;

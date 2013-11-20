@@ -46,7 +46,7 @@
     <mkdir dir="javadoc" />
     <javadoc sourcePath="${src.main}" 
       destdir="javadoc" 
-      packagenames="org.xmlsoft,org.xmlsoft.impl"
+      packagenames="org.xmlsoft"
       author="yes"
       link="http://docs.oracle.com/javase/7/docs/api/" 
       encoding="UTF-8">

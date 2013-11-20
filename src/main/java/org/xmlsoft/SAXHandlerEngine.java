@@ -1,9 +1,10 @@
-package org.xmlsoft.impl;
+package org.xmlsoft;
 
 import org.xml.sax.helpers.AttributesImpl;
 import org.xmlsoft.LibXmlException;
 import org.xmlsoft.Namespace;
 import org.xmlsoft.SAXHandler;
+import org.xmlsoft.impl.LocatorImpl;
 
 import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
