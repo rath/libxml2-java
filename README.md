@@ -4,7 +4,7 @@ libxml2-java is Java language binding for well-known [libxml2](http://xmlsoft.or
 
 ## Document 
 
-Javadoc is available.
+Javadoc is [available online](http://rath.github.io/libxml2-java/javadoc/).
 
 ## Build instructions
 
