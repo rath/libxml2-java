@@ -42,6 +42,16 @@
     
   </target>
 
+  <target name="javadoc" depends="compile">
+    <mkdir dir="javadoc" />
+    <javadoc sourcePath="${src.main}" 
+      destdir="javadoc" 
+      packagenames="rath.libxml,rath.libxml.jaxp" 
+      link="http://docs.oracle.com/javase/7/docs/api/" 
+      encoding="UTF-8">
+    </javadoc>
+  </target>
+
   <target name="test" depends="compile">
     <java classname="org.junit.runner.JUnitCore"
       classpathref="home.classpath">
