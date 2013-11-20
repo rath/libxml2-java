@@ -1,5 +1,6 @@
 package rath.libxml.test;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -17,6 +18,7 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import java.io.File;
+import java.io.StringWriter;
 import java.util.Arrays;
 
 /**
@@ -73,6 +75,10 @@ public class DomManipulationTest {
 			root.addChild(item);
 		}
 
-		doc.save(System.out, "UTF-8");
+		StringWriter sw = new StringWriter();
+		doc.save(sw, "UTF-8");
+		String exported = sw.toString();
+		Assert.assertEquals("", "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n" +
+			"<items><item id=\"1\"/><item id=\"2\"/><item id=\"3\"/></items>\n", exported);
 	}
 }

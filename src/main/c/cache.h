@@ -9,6 +9,10 @@ extern jclass classXPathObject;
 extern jclass classLocator;
 extern jclass classInputStream;
 extern jclass classOutputStream;
+extern jclass classWriter;
+extern jclass classByteBuffer;
+extern jclass classCharBuffer;
+extern jclass classCharset;
 extern jclass classAttribute;
 extern jclass classXPathExpression;
 
@@ -29,6 +33,11 @@ extern jmethodID methodListAdd;
 extern jmethodID methodLocatorNew;
 extern jmethodID methodInputStreamRead;
 extern jmethodID methodOutputStreamWrite;
+extern jmethodID methodWriterWrite;
+extern jmethodID methodByteBufferWrap;
+extern jmethodID methodCharBufferLength;
+extern jmethodID methodCharBufferGet;
+extern jmethodID methodCharsetDecode;
 extern jmethodID methodAttributeNew;
 
 extern jfieldID fieldDocumentGetP;

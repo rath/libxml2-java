@@ -3,6 +3,8 @@ package rath.libxml;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.Writer;
+import java.nio.charset.Charset;
 
 /**
  * 
@@ -205,9 +207,29 @@ public class Document extends Node {
 
 	private native void saveImpl(String absolutePath, String encoding);
 
+	/**
+	 * Dump this XML document, converting it to the given encoding.
+	 *
+	 * @param out outputStream to save this document
+	 * @param encoding charset on dumping document
+	 * @throws IOException IOException on OutputStream.write
+	 */
 	public void save(OutputStream out, String encoding) throws IOException {
 		saveStreamImpl(out, encoding);
 	}
 
 	private native void saveStreamImpl(OutputStream out, String encoding) throws IOException;
+
+	/**
+	 *
+	 * @param out
+	 * @param encoding
+	 * @throws IOException
+	 */
+	public void save(Writer out, String encoding) throws IOException {
+		Charset charset = Charset.forName("UTF-8");
+		saveWriterImpl(out, encoding, charset);
+	}
+
+	private native void saveWriterImpl(Writer out, String encoding, Charset charset) throws IOException;
 }

@@ -225,7 +225,7 @@ static int writeCallback(void *p, const char *buffer, int len) {
 }
 
 static int closeCallback(void *ctx) {
-    // do nothing
+    // do nothing please
     return 0;
 }
 
@@ -248,6 +248,73 @@ JNIEXPORT void JNICALL Java_rath_libxml_Document_saveStreamImpl
     assert(handler);
     const char *encoding = (*env)->GetStringUTFChars(env, jencoding, NULL);
     xmlOutputBuffer *buffer = xmlOutputBufferCreateIO(writeCallback, closeCallback, &context, handler);
+    ret = xmlSaveFileTo(buffer, doc, encoding);
+    if(ret==-1) {
+        throwInternalErrorWithLastError(env);
+    }
+    (*env)->ReleaseStringUTFChars(env, jencoding, encoding);
+    (*env)->DeleteLocalRef(env, context.buffer);
+}
+
+typedef struct {
+    JNIEnv *env;
+    jobject writer;
+    jobject charset;
+    jsize bufferlen;
+    jbyteArray buffer;
+    jcharArray bufferc;
+} IOCallbackWriterContext;
+
+static int writerCallback(void *p, const char *buffer, int len) {
+    IOCallbackWriterContext *ctx = (IOCallbackWriterContext*)p;
+    JNIEnv *env = ctx->env;
+    
+    int remain = len;
+    int copying;
+    while(1) {
+        copying = ctx->bufferlen < remain ? ctx->bufferlen : remain;
+        (*env)->SetByteArrayRegion(env, ctx->buffer, 0, copying, (const jbyte*)buffer);
+        
+        jobject byteBuffer = (*env)->CallStaticObjectMethod(env, classByteBuffer, methodByteBufferWrap, ctx->buffer, 0, copying);
+        jobject charBuffer = (*env)->CallObjectMethod(env, ctx->charset, methodCharsetDecode, byteBuffer);
+        
+        jint charLength = (*env)->CallIntMethod(env, charBuffer, methodCharBufferLength);
+        jobject charBuffer_  = (*env)->CallObjectMethod(env, charBuffer, methodCharBufferGet, ctx->bufferc, 0, charLength);
+        (*env)->CallVoidMethod(env, ctx->writer, methodWriterWrite, ctx->bufferc, 0, charLength);
+        
+        (*env)->DeleteLocalRef(env, charBuffer);
+        (*env)->DeleteLocalRef(env, byteBuffer);
+        (*env)->DeleteLocalRef(env, charBuffer_);
+        remain -= copying;
+        buffer += copying;
+        if (remain < 1)
+            break;
+    }
+    return len;
+}
+
+
+/*
+ * Class:     rath_libxml_Document
+ * Method:    saveWriterImpl
+ * Signature: (Ljava/io/Writer;Ljava/lang/String;Ljava/nio/charset/Charset;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Document_saveWriterImpl
+(JNIEnv *env, jobject obj, jobject writer, jstring jencoding, jobject charset) {
+    int ret;
+    IOCallbackWriterContext context;
+    context.env = env;
+    context.writer = writer;
+    context.charset = charset;
+    context.bufferlen = 512;
+    context.buffer = (*env)->NewByteArray(env, context.bufferlen);
+    context.bufferc = (*env)->NewCharArray(env, context.bufferlen);
+    
+    xmlDoc *doc = findDocument(env, obj);
+    xmlCharEncodingHandler *handler = xmlFindCharEncodingHandler("utf8");
+    assert(handler);
+    const char *encoding = (*env)->GetStringUTFChars(env, jencoding, NULL);
+    xmlOutputBuffer *buffer = xmlOutputBufferCreateIO(writerCallback, closeCallback, &context, handler);
     ret = xmlSaveFileTo(buffer, doc, encoding);
     if(ret==-1) {
         throwInternalErrorWithLastError(env);

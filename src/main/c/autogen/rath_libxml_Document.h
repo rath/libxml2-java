@@ -111,6 +111,14 @@ JNIEXPORT void JNICALL Java_rath_libxml_Document_saveImpl
 JNIEXPORT void JNICALL Java_rath_libxml_Document_saveStreamImpl
   (JNIEnv *, jobject, jobject, jstring);
 
+/*
+ * Class:     rath_libxml_Document
+ * Method:    saveWriterImpl
+ * Signature: (Ljava/io/Writer;Ljava/lang/String;Ljava/nio/charset/Charset;)V
+ */
+JNIEXPORT void JNICALL Java_rath_libxml_Document_saveWriterImpl
+  (JNIEnv *, jobject, jobject, jstring, jobject);
+
 #ifdef __cplusplus
 }
 #endif

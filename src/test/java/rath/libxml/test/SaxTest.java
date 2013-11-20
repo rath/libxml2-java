@@ -141,7 +141,6 @@ public class SaxTest {
 
 			@Override
 			public void ignorableWhitespace(char[] ch, int start, int length) {
-				// TODO: call me
 				System.out.println("WHITESPACE: #" + new String(ch, start, length) + "#");
 			}
 

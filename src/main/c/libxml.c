@@ -21,6 +21,10 @@ jclass classXPathExpression;
 jclass classLocator;
 jclass classInputStream;
 jclass classOutputStream;
+jclass classWriter;
+jclass classByteBuffer;
+jclass classCharBuffer;
+jclass classCharset;
 jclass classAttribute;
 
 jmethodID methodErrorNew;
@@ -37,6 +41,11 @@ jmethodID methodXPathExprNew;
 jmethodID methodLocatorNew;
 jmethodID methodInputStreamRead;
 jmethodID methodOutputStreamWrite;
+jmethodID methodWriterWrite;
+jmethodID methodByteBufferWrap;
+jmethodID methodCharBufferLength;
+jmethodID methodCharBufferGet;
+jmethodID methodCharsetDecode;
 jmethodID methodAttributeNew;
 
 jmethodID methodNodeSetType;
@@ -112,6 +121,10 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     cc(env, "rath/libxml/impl/LocatorImpl", &classLocator);
     cc(env, "java/io/InputStream", &classInputStream);
     cc(env, "java/io/OutputStream", &classOutputStream);
+    cc(env, "java/io/Writer", &classWriter);
+    cc(env, "java/nio/ByteBuffer", &classByteBuffer);
+    cc(env, "java/nio/CharBuffer", &classCharBuffer);
+    cc(env, "java/nio/charset/Charset", &classCharset);
     cc(env, "rath/libxml/Attribute", &classAttribute);
     cc(env, "rath/libxml/XPathExpression", &classXPathExpression);
    
@@ -133,6 +146,11 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     methodAttributeNew = (*env)->GetStaticMethodID(env, classAttribute, "createInstance", "(Lrath/libxml/Namespace;Ljava/lang/String;Ljava/lang/String;)Lrath/libxml/Attribute;");
     methodInputStreamRead = (*env)->GetMethodID(env, classInputStream, "read", "([BII)I");
     methodOutputStreamWrite = (*env)->GetMethodID(env, classOutputStream, "write", "([BII)V");
+    methodWriterWrite = (*env)->GetMethodID(env, classWriter, "write", "([CII)V");
+    methodByteBufferWrap = (*env)->GetStaticMethodID(env, classByteBuffer, "wrap", "([BII)Ljava/nio/ByteBuffer;");
+    methodCharBufferLength = (*env)->GetMethodID(env, classCharBuffer, "length", "()I");
+    methodCharBufferGet = (*env)->GetMethodID(env, classCharBuffer, "get", "([CII)Ljava/nio/CharBuffer;");
+    methodCharsetDecode = (*env)->GetMethodID(env, classCharset, "decode", "(Ljava/nio/ByteBuffer;)Ljava/nio/CharBuffer;");
     
     fieldDocumentGetP = (*env)->GetFieldID(env, classDocument, "p", "J");
     fieldNodeGetP = (*env)->GetFieldID(env, classNode, "p", "J");

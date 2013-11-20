@@ -49,7 +49,6 @@ public class Utils {
 		if( charStream!=null )
 			return loadReader(charStream);
 
-		// TODO: Bad implementation at the moment.
 		String systemId = in.getSystemId();
 		if( systemId!=null ) {
 			URL url = new URL(systemId);
