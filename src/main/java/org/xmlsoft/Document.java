@@ -7,11 +7,16 @@ import java.io.Writer;
 import java.nio.charset.Charset;
 
 /**
- * 
- * User: rath
- * Date: 02/11/2013
- * Time: 23:50
- * 
+ * <p>The Document class represents the entire XML document.
+ * Conceptually, it is the root of the document tree, and provides the primary access
+ * to the document's data.</p></p>
+ *
+ * <p>Since elements, text nodes, comments, processing instructions, etc. cannot exist
+ * outside the context of a Document, the Document class also contains the factory methods
+ * needed to create these objects. The Node objects created have a owner document attribute
+ * by getDocument() which associates them with the Document within whose context they were created.</p>
+ *
+ * @author Jang-Ho Hwang, rath@xrath.com
  */
 public class Document extends Node {
 	private boolean disposed = false;
@@ -38,6 +43,10 @@ public class Document extends Node {
 
 	private native Node getRootElementImpl();
 
+	/**
+	 * An attribute specifying, as part of the XML declaration, the version number of this document.
+	 * @param version version of the XML document, usually '1.0'.
+	 */
 	public void setVersion(String version) {
 		if(version==null)
 			throw new NullPointerException();
@@ -46,6 +55,10 @@ public class Document extends Node {
 
 	private native void setVersionImpl(String version);
 
+	/**
+	 * Return an attribute specifying, as part of the XML declaration, the version number of this document.
+	 * @return version of the XML document, usually '1.0'.
+	 */
 	public String getVersion() {
 		String version = getVersionImpl();
 		return version;
@@ -53,16 +66,28 @@ public class Document extends Node {
 
 	private native String getVersionImpl();
 
+	/**
+	 * Return document of this document, meaning <strong>this</strong>.
+	 * @return this document.
+	 */
 	@Override
 	public Document getDocument() {
 		return this;
 	}
 
+	/**
+	 * Return namespace of this document, it always null.
+	 * @return namespace of this document, null.
+	 */
 	@Override
 	public Namespace getNamespace() {
 		return null;
 	}
 
+	/**
+	 * Returns parent node of this document, a.k.a. null.
+	 * @return always null.
+	 */
 	@Override
 	public Node getParent() {
 		return null;
@@ -106,6 +131,12 @@ public class Document extends Node {
 
 	public native void disposeImpl();
 
+	/**
+	 * Called by the garbage collector, it tries to dispose all system resources
+	 * if it didn't dispose up until that moment.
+	 * @throws Throwable any errors if occur.
+	 */
+	@Override
 	protected void finalize() throws Throwable {
 		dispose();
 		super.finalize();
@@ -208,11 +239,11 @@ public class Document extends Node {
 	private native void saveImpl(String absolutePath, String encoding);
 
 	/**
-	 * Dump this XML document, converting it to the given encoding.
+	 * Dump this XML document to the given OutputStream, converting it to the given encoding.
 	 *
-	 * @param out outputStream to save this document
-	 * @param encoding charset on dumping document
-	 * @throws IOException IOException on OutputStream.write
+	 * @param out outputStream to save this document.
+	 * @param encoding charset on dumping document.
+	 * @throws IOException If any IO error occur.
 	 */
 	public void save(OutputStream out, String encoding) throws IOException {
 		saveStreamImpl(out, encoding);
@@ -221,10 +252,11 @@ public class Document extends Node {
 	private native void saveStreamImpl(OutputStream out, String encoding) throws IOException;
 
 	/**
+	 * Dump this XML document to the given Writer, converting it to the given encoding.
 	 *
-	 * @param out
-	 * @param encoding
-	 * @throws IOException
+	 * @param out Writer interface to save this document.
+	 * @param encoding charset on dumping document.
+	 * @throws IOException If any IO error occur.
 	 */
 	public void save(Writer out, String encoding) throws IOException {
 		Charset charset = Charset.forName("UTF-8");
