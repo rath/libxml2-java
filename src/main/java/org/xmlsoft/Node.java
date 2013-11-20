@@ -3,11 +3,14 @@ package org.xmlsoft;
 import java.util.*;
 
 /**
- * 
- * User: rath
- * Date: 02/11/2013
- * Time: 23:50
- * 
+ * <p>The Node class is the primary datatype for the entire Document Object Model.
+ * It represents a single node in the document tree. While all objects implementing
+ * the Node class expose methods for dealing with children, not all objects implementing
+ * the Node class may have children.</p>
+ *
+ * <p></p>
+ *
+ * @author Jang-Ho Hwang, rath@xrath.com
  */
 public class Node implements Iterable<Node>, Disposable {
 	private boolean disposed = false;
@@ -24,19 +27,29 @@ public class Node implements Iterable<Node>, Disposable {
 	}
 
 	/**
+	 * Children of this node, note that node returned is the first child of this node.
 	 *
-	 * @return its first child
+	 * @return first child of this node.
 	 */
 	public Node getChildren() {
 		return children();
 	}
 
+	/**
+	 * Children of this node, note that node returned is the first child of this node.
+	 *
+	 * @return first child of this node.
+	 */
 	public Node children() {
 		return childrenImpl();
 	}
 
 	private native Node childrenImpl();
 
+	/**
+	 * Returns a children iterator of this node.
+	 * @return an Iterator.
+	 */
 	public Iterator<Node> iterator() {
 		final Node childNode = childrenImpl();
 		return new Iterator<Node>() {
@@ -62,6 +75,10 @@ public class Node implements Iterable<Node>, Disposable {
 		};
 	}
 
+	/**
+	 * An enum representing the type of the underlying object.
+	 * @return type of this node.
+	 */
 	public Type getType() {
 		return this.type;
 	}
@@ -70,6 +87,10 @@ public class Node implements Iterable<Node>, Disposable {
 		type = Type.asCode(code);
 	}
 
+	/**
+	 * The name of this node, depending on its type.
+	 * @return a name.
+	 */
 	public String getName() {
 		if( type==Type.TEXT )
 			return "";
@@ -80,6 +101,10 @@ public class Node implements Iterable<Node>, Disposable {
 		return this.name;
 	}
 
+	/**
+	 * The namespace of this node if exists.
+	 * @return namespace object.
+	 */
 	public Namespace getNamespace() {
 		if( this.namespace!=null )
 			return this.namespace;
@@ -128,12 +153,22 @@ public class Node implements Iterable<Node>, Disposable {
 		this.document = doc;
 	}
 
+	/**
+	 * The Document object associated with this node.
+	 * This is also the Document object used to create new nodes.
+	 * @return document object associated with this node.
+	 */
 	public Document getDocument() {
 		return this.document;
 	}
 
 	// TODO: xmlFreeNode()
 
+	/**
+	 * The parent of this node. All nodes, except Document, DocumentFragment, Entity and
+	 * Notation may have a parent.
+	 * @return parent node of this node.
+	 */
 	public Node getParent() {
 		Node parent = getParentImpl();
 		if( parent.getType()==Type.DOCUMENT ) {
@@ -144,6 +179,10 @@ public class Node implements Iterable<Node>, Disposable {
 
 	private native Node getParentImpl();
 
+	/**
+	 * The last child of this node, If there is no such node, it returns null.
+	 * @return the last child of this node.
+	 */
 	public Node getLast() {
 		Node node = getLastImpl();
 		return node;
@@ -151,20 +190,38 @@ public class Node implements Iterable<Node>, Disposable {
 
 	private native Node getLastImpl();
 
+	/**
+	 * This attribute returns the text content of this node.
+	 * @return text content of this node.
+	 */
 	public String getText() {
 		return getText(true);
 	}
 
+	/**
+	 * This attribute returns the text content of this node.
+	 * @param formatted inline or not.
+	 * @return text content of this node.
+	 */
 	public String getText(boolean formatted) {
 		return getTextImpl(formatted);
 	}
 
 	private native String getTextImpl(boolean formatted);
 
+	/**
+	 * This attribute returns the text content of its descendants.
+	 * @return text content of this node.
+	 */
 	public String getChildText() {
 		return getChildText(true);
 	}
 
+	/**
+	 * This attribute returns the text content of its descendants.
+	 * @param formatted inline or not.
+	 * @return text content of this node.
+	 */
 	public String getChildText(boolean formatted) {
 		Node children = children();
 		if (children==null) {
@@ -173,12 +230,21 @@ public class Node implements Iterable<Node>, Disposable {
 		return children.getText(formatted);
 	}
 
+	/**
+	 * Get an attribute by name.
+	 * @param attributeKey the name of attribute
+	 * @return the value of an attribute with specified name.
+	 */
 	public String getProp(String attributeKey) {
 		return getPropImpl(attributeKey);
 	}
 
 	private native String getPropImpl(String key);
 
+	/**
+	 * Get all attributes of this node.
+	 * @return a list of attributes.
+	 */
 	public List<Attribute> getAttributeNodes() {
 		List<Attribute> buf = new ArrayList<Attribute>();
 		fillAttributeNodes(buf);
@@ -187,10 +253,19 @@ public class Node implements Iterable<Node>, Disposable {
 
 	private native void fillAttributeNodes(List<Attribute> buf);
 
+	/**
+	 * Get an attribute by name.
+	 * @param name the name of attribute
+	 * @return the value of an attribute with specified name.
+	 */
 	public String getAttribute(String name) {
 		return getProp(name);
 	}
 
+	/**
+	 * Get a name list of all attributes.
+	 * @return list filled with attribute names.
+	 */
 	public List<String> getAttributeNames() {
 		List<String> buf = new ArrayList<String>();
 		fillAttributeNames(buf);
@@ -199,6 +274,10 @@ public class Node implements Iterable<Node>, Disposable {
 
 	private native void fillAttributeNames(List<String> buffer);
 
+	/**
+	 * Get a name/value map of attributes this node has.
+	 * @return map filled with names and values.
+	 */
 	public Map<String, String> getAttributeMap() {
 		Map<String, String> ret = new HashMap<String, String>();
 		for(String attributeName : getAttributeNames()) {
@@ -207,6 +286,12 @@ public class Node implements Iterable<Node>, Disposable {
 		return ret;
 	}
 
+	/**
+	 * Get an attribute with the given namespace URI and name.
+	 * @param href namespace URI.
+	 * @param name name of an attribute.
+	 * @return value of attribute found.
+	 */
 	public String getAttributeNS(String href, String name) {
 		if(href==null)
 			throw new NullPointerException("uri cannot be null");
@@ -217,6 +302,11 @@ public class Node implements Iterable<Node>, Disposable {
 
 	private native String getNsPropImpl(String name, String href);
 
+	/**
+	 * Set attribute with the given name, value pair.
+	 * @param name name of newly created attribute.
+	 * @param value value of newly created attribute.
+	 */
 	public void setProp(String name, String value) {
 		if(name==null||value==null)
 			throw new NullPointerException();
@@ -225,10 +315,20 @@ public class Node implements Iterable<Node>, Disposable {
 
 	private native void setPropImpl(String name, String value);
 
+	/**
+	 * Set attribute with the given name, value pair.
+	 * @param name name of newly created attribute.
+	 * @param value value of newly created attribute.
+	 */
 	public void setAttribute(String name, String value) {
 		setProp(name, value);
 	}
 
+	/**
+	 * Remove an attribute of this node with the given name.
+	 * @param name name of attribute
+	 * @return true if the attribute is removed, otherwise false.
+	 */
 	public boolean removeProp(String name) {
 		if(name==null)
 			throw new NullPointerException();
@@ -237,10 +337,19 @@ public class Node implements Iterable<Node>, Disposable {
 
 	private native boolean removePropImpl(String name);
 
+	/**
+	 * Remove an attribute of this node with the given name.
+	 * @param name name of attribute
+	 */
 	public void removeAttribute(String name) {
 		removeProp(name);
 	}
 
+	/**
+	 * Add the given node to the end of the list of children of this node.
+	 * @param node
+	 * @return
+	 */
 	public Node addChild(Node node) {
 		if( node==null )
 			throw new NullPointerException();
@@ -250,6 +359,10 @@ public class Node implements Iterable<Node>, Disposable {
 
 	private native Node addChildImpl(Node node);
 
+	/**
+	 * Unlink the given node from children of this node.
+	 * @param node node to unlink.
+	 */
 	public void unlink(Node node) {
 		if( node==null )
 			throw new NullPointerException();
@@ -268,6 +381,10 @@ public class Node implements Iterable<Node>, Disposable {
 
 	private native void disposeImpl();
 
+	/**
+	 * Replace the content of a node.
+	 * @param data new text content for this node.
+	 */
 	public void setText(String data) {
 		if( data==null )
 			throw new NullPointerException();
@@ -276,6 +393,11 @@ public class Node implements Iterable<Node>, Disposable {
 
 	private native void setTextImpl(String data);
 
+	/**
+	 * Add a new node as the previous sibling of this node.
+	 * @param newNode node to attach.
+	 * @return attached node.
+	 */
 	public Node addPrevSibling(Node newNode) {
 		return addPrevSiblingImpl(newNode);
 	}
@@ -302,6 +424,7 @@ public class Node implements Iterable<Node>, Disposable {
 		}
 	};
 
+	@Override
 	public String toString() {
 		return "Node[" + type + "] " + getName();
 	}
