@@ -1,4 +1,4 @@
-#include "rath_libxml_XPathContext.h"
+#include "org_xmlsoft_XPathContext.h"
 #include <libxml/parser.h>
 #include <libxml/tree.h>
 #include <libxml/xpath.h>
@@ -52,11 +52,11 @@ jobject buildXPathObject(JNIEnv *env, jobject xpathContext, xmlXPathObject *resu
 }
 
 /*
- * Class:     rath_libxml_XPathContext
+ * Class:     org_xmlsoft_XPathContext
  * Method:    evaluateImpl
  * Signature: (Ljava/lang/String;)Lrath/libxml/XPathObject;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_XPathContext_evaluateImpl
 (JNIEnv *env, jobject obj, jstring jexpr) {
     xmlXPathContext *ctx = findXPathContext(env, obj);
     xmlXPathObject *result;
@@ -64,7 +64,7 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateImpl
     const char *expr = (*env)->GetStringUTFChars(env, jexpr, NULL);
     result = xmlXPathEvalExpression((const xmlChar*)expr, ctx);
     if(result==NULL) {
-        (*env)->ThrowNew(env, (*env)->FindClass(env, "rath/libxml/InvalidXPathExpressionException"), expr);
+        (*env)->ThrowNew(env, (*env)->FindClass(env, "org/xmlsoft/InvalidXPathExpressionException"), expr);
         (*env)->ReleaseStringUTFChars(env, jexpr, expr);
         return NULL;
     }
@@ -74,11 +74,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateImpl
 }
 
 /*
- * Class:     rath_libxml_XPathContext
+ * Class:     org_xmlsoft_XPathContext
  * Method:    evaluateCompiledImpl
  * Signature: (Lrath/libxml/XPathExpression;)Lrath/libxml/XPathObject;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateCompiledImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_XPathContext_evaluateCompiledImpl
 (JNIEnv *env, jobject obj, jobject expr) {
     xmlXPathContext *ctx = findXPathContext(env, obj);
     
@@ -88,11 +88,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_XPathContext_evaluateCompiledImpl
 }
 
 /*
- * Class:     rath_libxml_XPathContext
+ * Class:     org_xmlsoft_XPathContext
  * Method:    addNamespaceImpl
  * Signature: (Ljava/lang/String;Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_addNamespaceImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_XPathContext_addNamespaceImpl
 (JNIEnv *env, jobject obj, jstring jPrefix, jstring jHref) {
     xmlXPathContext *ctx = findXPathContext(env, obj);
     const char *prefix = NULL;
@@ -119,11 +119,11 @@ JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_addNamespaceImpl
 }
 
 /*
- * Class:     rath_libxml_XPathContext
+ * Class:     org_xmlsoft_XPathContext
  * Method:    setContextNodeImpl
  * Signature: (Lrath/libxml/Node;)V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_setContextNodeImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_XPathContext_setContextNodeImpl
 (JNIEnv *env, jobject obj, jobject jnode) {
     if( jnode==NULL )
         return;
@@ -135,11 +135,11 @@ JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_setContextNodeImpl
 }
 
 /*
- * Class:     rath_libxml_XPathContext
+ * Class:     org_xmlsoft_XPathContext
  * Method:    disposeImpl
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_XPathContext_disposeImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_XPathContext_disposeImpl
 (JNIEnv *env, jobject obj) {
     xmlXPathContext *ctx = findXPathContext(env, obj);
     xmlXPathFreeContext(ctx);

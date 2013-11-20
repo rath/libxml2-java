@@ -1,10 +1,10 @@
 #!/bin/sh
 #gradle --daemon classes
 javah -force -d src/main/c/autogen -classpath build/classes/main \
-	rath.libxml.LibXml \
-	rath.libxml.Document \
-	rath.libxml.Node \
-	rath.libxml.XPathContext \
-	rath.libxml.XPathObject \
-	rath.libxml.XPathExpression \
-	rath.libxml.impl.LocatorImpl
+	org.xmlsoft.LibXml \
+	org.xmlsoft.Document \
+	org.xmlsoft.Node \
+	org.xmlsoft.XPathContext \
+	org.xmlsoft.XPathObject \
+	org.xmlsoft.XPathExpression \
+	org.xmlsoft.impl.LocatorImpl

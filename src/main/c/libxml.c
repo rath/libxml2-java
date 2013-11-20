@@ -1,4 +1,4 @@
-#include "rath_libxml_LibXml.h"
+#include "org_xmlsoft_LibXml.h"
 #include <libxml/parser.h>
 #include <string.h>
 #include <stdarg.h>
@@ -95,11 +95,11 @@ static void handlerStructuredError(void *ctx, xmlErrorPtr error) {
 }
 
 /*
- * Class:     rath_libxml_LibXml
+ * Class:     org_xmlsoft_LibXml
  * Method:    initInternalParser
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
+JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_initInternalParser
 (JNIEnv *env, jclass clz) {
     
     // http://xmlsoft.org/threads.html
@@ -111,28 +111,28 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     xmlSetStructuredErrorFunc(env, handlerStructuredError);
     
     cc(env, "java/lang/String", &classString);
-    cc(env, "rath/libxml/LibXmlException", &classError);
-    cc(env, "rath/libxml/Document", &classDocument);
-    cc(env, "rath/libxml/Node", &classNode);
-    cc(env, "rath/libxml/NodeSet", &classNodeset);
-    cc(env, "rath/libxml/Namespace", &classNamespace);
-    cc(env, "rath/libxml/XPathContext", &classXPathContext);
-    cc(env, "rath/libxml/XPathObject", &classXPathObject);
-    cc(env, "rath/libxml/impl/LocatorImpl", &classLocator);
+    cc(env, "org/xmlsoft/LibXmlException", &classError);
+    cc(env, "org/xmlsoft/Document", &classDocument);
+    cc(env, "org/xmlsoft/Node", &classNode);
+    cc(env, "org/xmlsoft/NodeSet", &classNodeset);
+    cc(env, "org/xmlsoft/Namespace", &classNamespace);
+    cc(env, "org/xmlsoft/XPathContext", &classXPathContext);
+    cc(env, "org/xmlsoft/XPathObject", &classXPathObject);
+    cc(env, "org/xmlsoft/impl/LocatorImpl", &classLocator);
     cc(env, "java/io/InputStream", &classInputStream);
     cc(env, "java/io/OutputStream", &classOutputStream);
     cc(env, "java/io/Writer", &classWriter);
     cc(env, "java/nio/ByteBuffer", &classByteBuffer);
     cc(env, "java/nio/CharBuffer", &classCharBuffer);
     cc(env, "java/nio/charset/Charset", &classCharset);
-    cc(env, "rath/libxml/Attribute", &classAttribute);
-    cc(env, "rath/libxml/XPathExpression", &classXPathExpression);
+    cc(env, "org/xmlsoft/Attribute", &classAttribute);
+    cc(env, "org/xmlsoft/XPathExpression", &classXPathExpression);
    
     methodErrorNew = (*env)->GetMethodID(env, classError, "<init>", "(ILjava/lang/String;II)V");
     methodDocumentNew = (*env)->GetMethodID(env, classDocument, "<init>", "(J)V");
     methodNodeNew = (*env)->GetMethodID(env, classNode, "<init>", "(J)V");
     methodNodesetNew = (*env)->GetMethodID(env, classNodeset, "<init>", "(J)V");
-    methodNodesetAddNode = (*env)->GetMethodID(env, classNodeset, "addNode", "(Lrath/libxml/Node;)V");
+    methodNodesetAddNode = (*env)->GetMethodID(env, classNodeset, "addNode", "(Lorg/xmlsoft/Node;)V");
     methodNamespaceNew = (*env)->GetMethodID(env, classNamespace, "<init>", "(Ljava/lang/String;Ljava/lang/String;)V");
     methodNamespaceGetHref = (*env)->GetMethodID(env, classNamespace, "getHref", "()Ljava/lang/String;");
     methodNamespaceGetPrefix = (*env)->GetMethodID(env, classNamespace, "getPrefix", "()Ljava/lang/String;");
@@ -141,9 +141,9 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     methodXPathExprNew = (*env)->GetMethodID(env, classXPathExpression, "<init>", "(J)V");
     
     methodNodeSetType = (*env)->GetMethodID(env, classNode, "setType", "(I)V");
-    methodNodeSetDocument = (*env)->GetMethodID(env, classNode, "setDocument", "(Lrath/libxml/Document;)V");
+    methodNodeSetDocument = (*env)->GetMethodID(env, classNode, "setDocument", "(Lorg/xmlsoft/Document;)V");
     methodLocatorNew = (*env)->GetMethodID(env, classLocator, "<init>", "(J)V");
-    methodAttributeNew = (*env)->GetStaticMethodID(env, classAttribute, "createInstance", "(Lrath/libxml/Namespace;Ljava/lang/String;Ljava/lang/String;)Lrath/libxml/Attribute;");
+    methodAttributeNew = (*env)->GetStaticMethodID(env, classAttribute, "createInstance", "(Lorg/xmlsoft/Namespace;Ljava/lang/String;Ljava/lang/String;)Lorg/xmlsoft/Attribute;");
     methodInputStreamRead = (*env)->GetMethodID(env, classInputStream, "read", "([BII)I");
     methodOutputStreamWrite = (*env)->GetMethodID(env, classOutputStream, "write", "([BII)V");
     methodWriterWrite = (*env)->GetMethodID(env, classWriter, "write", "([CII)V");
@@ -154,14 +154,14 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
     
     fieldDocumentGetP = (*env)->GetFieldID(env, classDocument, "p", "J");
     fieldNodeGetP = (*env)->GetFieldID(env, classNode, "p", "J");
-    fieldNodeDocument = (*env)->GetFieldID(env, classNode, "document", "Lrath/libxml/Document;");
+    fieldNodeDocument = (*env)->GetFieldID(env, classNode, "document", "Lorg/xmlsoft/Document;");
     fieldNodeSetName = (*env)->GetFieldID(env, classNode, "name", "Ljava/lang/String;");
-    fieldNodeSetNamespace = (*env)->GetFieldID(env, classNode, "namespace", "Lrath/libxml/Namespace;");
+    fieldNodeSetNamespace = (*env)->GetFieldID(env, classNode, "namespace", "Lorg/xmlsoft/Namespace;");
     fieldNodesetSize = (*env)->GetFieldID(env, classNodeset, "size", "I");
     fieldXPathContextGetP = (*env)->GetFieldID(env, classXPathContext, "p", "J");
-    fieldXPathContextDocument = (*env)->GetFieldID(env, classXPathContext, "document", "Lrath/libxml/Document;");
+    fieldXPathContextDocument = (*env)->GetFieldID(env, classXPathContext, "document", "Lorg/xmlsoft/Document;");
     fieldXPathObjectGetP = (*env)->GetFieldID(env, classXPathObject, "p", "J");
-    fieldXPathObjectSetNodeset = (*env)->GetFieldID(env, classXPathObject, "nodeset", "Lrath/libxml/NodeSet;");
+    fieldXPathObjectSetNodeset = (*env)->GetFieldID(env, classXPathObject, "nodeset", "Lorg/xmlsoft/NodeSet;");
     fieldXPathObjectSetBool = (*env)->GetFieldID(env, classXPathObject, "booleanValue", "Z");
     fieldXPathObjectSetFloat = (*env)->GetFieldID(env, classXPathObject, "floatValue", "D");
     fieldXPathObjectSetString = (*env)->GetFieldID(env, classXPathObject, "stringValue", "Ljava/lang/String;");
@@ -174,11 +174,11 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_initInternalParser
 }
 
 /*
- * Class:     rath_libxml_LibXml
+ * Class:     org_xmlsoft_LibXml
  * Method:    parseFileImpl
- * Signature: (Ljava/lang/String;)Lrath/libxml/Document;
+ * Signature: (Ljava/lang/String;)Lorg\/xmlsoft/Document;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseFileImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_LibXml_parseFileImpl
 (JNIEnv *env, jclass clazz, jstring filepath) {
     const char *path = (*env)->GetStringUTFChars(env, filepath, NULL);
     xmlResetLastError();
@@ -194,11 +194,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseFileImpl
 }
 
 /*
- * Class:     rath_libxml_LibXml
+ * Class:     org_xmlsoft_LibXml
  * Method:    parseStringImpl
- * Signature: (Ljava/lang/String;)Lrath/libxml/Document;
+ * Signature: (Ljava/lang/String;)Lorg\/xmlsoft/Document;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseStringImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_LibXml_parseStringImpl
 (JNIEnv *env, jclass clazz, jstring jdata) {
     const char *data = (*env)->GetStringUTFChars(env, jdata, NULL);
     size_t datalen = strlen(data);
@@ -505,7 +505,7 @@ void prepareSAXImpl(JNIEnv *env, SContext *ctx, jobject jhandler, xmlSAXHandler 
     assert(ctx->midError);
     ctx->midFatalError = (*env)->GetMethodID(env, classHandler, "fireFatalError", "(Ljava/lang/String;)V");
     assert(ctx->midFatalError);
-    ctx->midSetLocator = (*env)->GetMethodID(env, classHandler, "fireSetLocator", "(Lrath/libxml/impl/LocatorImpl;)V");
+    ctx->midSetLocator = (*env)->GetMethodID(env, classHandler, "fireSetLocator", "(Lorg/xmlsoft/impl/LocatorImpl;)V");
     assert(ctx->midSetLocator);
     
     memset(handler, 0, sizeof(xmlSAXHandler));
@@ -528,11 +528,11 @@ void prepareSAXImpl(JNIEnv *env, SContext *ctx, jobject jhandler, xmlSAXHandler 
 }
 
 /*
- * Class:     rath_libxml_LibXml
+ * Class:     org_xmlsoft_LibXml
  * Method:    parseSAXImpl
- * Signature: (Ljava/lang/String;Lrath/libxml/SAXHandler;I)V
+ * Signature: (Ljava/lang/String;Lorg\/xmlsoft/SAXHandler;I)V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXImpl
 (JNIEnv *env, jclass clz, jstring jstr, jobject jhandler, jint recovery) {
     SContext ctx;
     xmlSAXHandler handler;
@@ -555,11 +555,11 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXImpl
 }
 
 /*
- * Class:     rath_libxml_LibXml
+ * Class:     org_xmlsoft_LibXml
  * Method:    parseSAXFileImpl
- * Signature: (Ljava/lang/String;Lrath/libxml/impl/SAXHandlerEngine;I)V
+ * Signature: (Ljava/lang/String;Lorg\/xmlsoft/impl/SAXHandlerEngine;I)V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXFileImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXFileImpl
 (JNIEnv *env, jclass cls, jstring jpath, jobject jhandler, jint recovery) {
     SContext ctx;
     xmlSAXHandler handler;
@@ -581,11 +581,11 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXFileImpl
 }
 
 /*
- * Class:     rath_libxml_LibXml
+ * Class:     org_xmlsoft_LibXml
  * Method:    parseSAXSystemIdImpl
- * Signature: (Ljava/lang/String;Ljava/io/InputStream;Lrath/libxml/impl/SAXHandlerEngine;I)V
+ * Signature: (Ljava/lang/String;Ljava/io/InputStream;Lorg\/xmlsoft/impl/SAXHandlerEngine;I)V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXSystemIdImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXSystemIdImpl
 (JNIEnv *env, jclass cls, jstring jSystemId, jobject inputStream, jobject jhandler, jint recovery) {
     SContext ctx;
     xmlSAXHandler handler;
@@ -628,11 +628,11 @@ JNIEXPORT void JNICALL Java_rath_libxml_LibXml_parseSAXSystemIdImpl
 }
 
 /*
- * Class:     rath_libxml_LibXml
+ * Class:     org_xmlsoft_LibXml
  * Method:    parseSystemIdImpl
- * Signature: (Ljava/lang/String;Ljava/io/InputStream;)Lrath/libxml/Document;
+ * Signature: (Ljava/lang/String;Ljava/io/InputStream;)Lorg\/xmlsoft/Document;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseSystemIdImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_LibXml_parseSystemIdImpl
 (JNIEnv *env, jclass clz, jstring jSystemId, jobject inputStream) {
     
     xmlResetLastError();
@@ -682,11 +682,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_parseSystemIdImpl
 }
 
 /*
- * Class:     rath_libxml_LibXml
+ * Class:     org_xmlsoft_LibXml
  * Method:    compileXPathImpl
- * Signature: (Ljava/lang/String;)Lrath/libxml/XPathExpression;
+ * Signature: (Ljava/lang/String;)Lorg\/xmlsoft/XPathExpression;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_LibXml_compileXPathImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_LibXml_compileXPathImpl
 (JNIEnv *env, jclass clazz, jstring jexpr) {
     const char *expr = (*env)->GetStringUTFChars(env, jexpr, NULL);
     xmlResetLastError();

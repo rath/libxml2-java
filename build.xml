@@ -32,7 +32,7 @@
   </target>
 
   <target name="jar" depends="compile">
-    <java classname="rath.libxml.util.BuildResources"
+    <java classname="org.xmlsoft.util.BuildResources"
       classpathref="home.classpath" />
     <copy todir="${build.main}">
       <fileset dir="resources" includes="*" />
@@ -46,7 +46,7 @@
     <mkdir dir="javadoc" />
     <javadoc sourcePath="${src.main}" 
       destdir="javadoc" 
-      packagenames="rath.libxml,rath.libxml.jaxp" 
+      packagenames="org.xmlsoft,org.xmlsoft.impl"
       author="yes"
       link="http://docs.oracle.com/javase/7/docs/api/" 
       encoding="UTF-8">
@@ -56,12 +56,12 @@
   <target name="test" depends="compile">
     <java classname="org.junit.runner.JUnitCore"
       classpathref="home.classpath">
-      <arg value="rath.libxml.test.BasicTest" />
-      <arg value="rath.libxml.test.JaxpTest" />
-      <arg value="rath.libxml.test.SaxTest" />
-      <arg value="rath.libxml.test.ContextTest" />
-      <arg value="rath.libxml.test.XPathTest" />
-      <arg value="rath.libxml.test.DomManipulationTest" />
+      <arg value="org.xmlsoft.test.BasicTest" />
+      <arg value="org.xmlsoft.test.JaxpTest" />
+      <arg value="org.xmlsoft.test.SaxTest" />
+      <arg value="org.xmlsoft.test.ContextTest" />
+      <arg value="org.xmlsoft.test.XPathTest" />
+      <arg value="org.xmlsoft.test.DomManipulationTest" />
     </java>
   </target>
 

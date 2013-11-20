@@ -1,4 +1,4 @@
-#include "rath_libxml_Node.h"
+#include "org_xmlsoft_Node.h"
 #include <libxml/parser.h>
 #include "utils.h"
 #include <assert.h>
@@ -8,11 +8,11 @@
 jobject get_document(JNIEnv *env, jobject node) { return (*env)->GetObjectField(env, node, fieldNodeDocument); }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    childrenImpl
  * Signature: ()Lrath/libxml/Node;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Node_childrenImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_Node_childrenImpl
 (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
     xmlNode *children = node->children;
@@ -20,11 +20,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_childrenImpl
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    fillNamespaceImpl
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNamespaceImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_Node_fillNamespaceImpl
 (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
     xmlNs *ns = node->ns;
@@ -40,11 +40,11 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNamespaceImpl
 
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    fillNameImpl
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNameImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_Node_fillNameImpl
   (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
     jstring nodeName = (*env)->NewStringUTF(env, (const char*)node->name);
@@ -54,11 +54,11 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillNameImpl
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    fillRequiredFields
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_Node_fillRequiredFields
+JNIEXPORT void JNICALL Java_org_xmlsoft_Node_fillRequiredFields
 (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
     assert(node && "internal xmlNode is NULL");
@@ -66,11 +66,11 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillRequiredFields
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    nextImpl
  * Signature: ()Lrath/libxml/Node;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Node_nextImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_Node_nextImpl
   (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
     if (node->next==NULL )
@@ -79,21 +79,21 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_nextImpl
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    hasNext
  * Signature: ()Z
  */
-JNIEXPORT jboolean JNICALL Java_rath_libxml_Node_hasNext
+JNIEXPORT jboolean JNICALL Java_org_xmlsoft_Node_hasNext
   (JNIEnv *env, jobject obj) {
     return findNode(env, obj)->next!=NULL;
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    previousImpl
  * Signature: ()Lrath/libxml/Node;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Node_previousImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_Node_previousImpl
   (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
     if (node->prev==NULL )
@@ -102,11 +102,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_previousImpl
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    getParentImpl
  * Signature: ()Lrath/libxml/Node;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getParentImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_Node_getParentImpl
 (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
 //    if( node->parent!=NULL && node->parent->type==XML_DOCUMENT_NODE) {
@@ -116,22 +116,22 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getParentImpl
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    getLastImpl
  * Signature: ()Lrath/libxml/Node;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Node_getLastImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_Node_getLastImpl
   (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
     return buildNode(env, node->last, DOC(obj));
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    getTextImpl
  * Signature: (Z)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getTextImpl
+JNIEXPORT jstring JNICALL Java_org_xmlsoft_Node_getTextImpl
   (JNIEnv *env, jobject obj, jboolean format) {
     xmlNode *node = findNode(env, obj);
     const xmlChar *text = xmlNodeListGetString(node->doc, node, format==JNI_TRUE ? 1 : 0);
@@ -141,11 +141,11 @@ JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getTextImpl
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    getPropImpl
  * Signature: (Ljava/lang/String;)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getPropImpl
+JNIEXPORT jstring JNICALL Java_org_xmlsoft_Node_getPropImpl
   (JNIEnv *env, jobject obj, jstring jprop) {
     xmlNode *node = findNode(env, obj);
 
@@ -161,11 +161,11 @@ JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getPropImpl
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    getNsPropImpl
  * Signature: (Ljava/lang/String;Ljava/lang/String;)Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getNsPropImpl
+JNIEXPORT jstring JNICALL Java_org_xmlsoft_Node_getNsPropImpl
 (JNIEnv *env, jobject obj, jstring jName, jstring jHref) {
     xmlNode *node = findNode(env, obj);
     xmlChar *value;
@@ -186,11 +186,11 @@ JNIEXPORT jstring JNICALL Java_rath_libxml_Node_getNsPropImpl
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    setPropImpl
  * Signature: (Ljava/lang/String;Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_Node_setPropImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_Node_setPropImpl
 (JNIEnv *env, jobject obj, jstring jname, jstring jvalue) {
     xmlNode *node = findNode(env, obj);
     const char *name = (*env)->GetStringUTFChars(env, jname, NULL);
@@ -203,11 +203,11 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_setPropImpl
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    removePropImpl
  * Signature: (Ljava/lang/String;)Z
  */
-JNIEXPORT jboolean JNICALL Java_rath_libxml_Node_removePropImpl
+JNIEXPORT jboolean JNICALL Java_org_xmlsoft_Node_removePropImpl
 (JNIEnv *env, jobject obj, jstring jname) {
     xmlNode *node = findNode(env, obj);
     const xmlChar *name = (xmlChar*)(*env)->GetStringUTFChars(env, jname, NULL);
@@ -227,11 +227,11 @@ JNIEXPORT jboolean JNICALL Java_rath_libxml_Node_removePropImpl
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    addChildImpl
  * Signature: (Lrath/libxml/Node;)Lrath/libxml/Node;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Node_addChildImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_Node_addChildImpl
 (JNIEnv *env, jobject obj, jobject toAdd) {
     xmlNode *node = findNode(env, obj);
     
@@ -243,11 +243,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_addChildImpl
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    fillAttributeNames
  * Signature: (Ljava/util/List;)V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_Node_fillAttributeNames
+JNIEXPORT void JNICALL Java_org_xmlsoft_Node_fillAttributeNames
   (JNIEnv *env, jobject obj, jobject listBuffer) {
     xmlNode *node = findNode(env, obj);
 
@@ -259,33 +259,33 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_fillAttributeNames
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    unlinkImpl
  * Signature: (Lrath/libxml/Node;)V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_Node_unlinkImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_Node_unlinkImpl
 (JNIEnv *env, jobject obj, jobject toRemove) {
     xmlNode *node = findNode(env, toRemove);
     xmlUnlinkNode(node);
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    disposeImpl
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_Node_disposeImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_Node_disposeImpl
 (JNIEnv *env, jobject obj) {
     xmlNode *node = findNode(env, obj);
     xmlFreeNode(node);
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    setTextImpl
  * Signature: (Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_Node_setTextImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_Node_setTextImpl
 (JNIEnv *env, jobject obj, jstring jstr) {
     xmlNode *node = findNode(env, obj);
     const xmlChar *str = (const xmlChar*)(*env)->GetStringUTFChars(env, jstr, NULL);
@@ -294,11 +294,11 @@ JNIEXPORT void JNICALL Java_rath_libxml_Node_setTextImpl
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    addPrevSiblingImpl
  * Signature: (Lrath/libxml/Node;)Lrath/libxml/Node;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Node_addPrevSiblingImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_Node_addPrevSiblingImpl
 (JNIEnv *env, jobject obj, jobject toAdd) {
     xmlNode *node = findNode(env, obj);
     xmlNode *nodeToAdd = findNode(env, toAdd);
@@ -310,11 +310,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Node_addPrevSiblingImpl
 }
 
 /*
- * Class:     rath_libxml_Node
+ * Class:     org_xmlsoft_Node
  * Method:    fillAttributeNodes
  * Signature: (Ljava/util/List;)V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_Node_fillAttributeNodes
+JNIEXPORT void JNICALL Java_org_xmlsoft_Node_fillAttributeNodes
 (JNIEnv *env, jobject obj, jobject buf) {
     xmlNode *node = findNode(env, obj);
     xmlAttr *attr = node->properties;

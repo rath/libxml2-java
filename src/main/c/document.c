@@ -1,15 +1,15 @@
-#include "rath_libxml_Document.h"
+#include "org_xmlsoft_Document.h"
 #include <libxml/parser.h>
 #include "cache.h"
 #include "utils.h"
 #include <assert.h>
 
 /*
- * Class:     rath_libxml_Document
+ * Class:     org_xmlsoft_Document
  * Method:    getRootElementImpl
  * Signature: ()Lrath/libxml/Node;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Document_getRootElementImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_Document_getRootElementImpl
   (JNIEnv *env, jobject obj) {
     xmlDoc *doc = findDocument(env, obj);
     xmlNode *rootNode = xmlDocGetRootElement(doc);
@@ -17,11 +17,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_getRootElementImpl
 }
 
 /*
- * Class:     rath_libxml_Document
+ * Class:     org_xmlsoft_Document
  * Method:    setVersionImpl
  * Signature: (Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_Document_setVersionImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_Document_setVersionImpl
 (JNIEnv *env, jobject obj, jstring jVersion) {
     xmlDoc *doc = findDocument(env, obj);
     xmlFree((void*)doc->version);
@@ -31,33 +31,33 @@ JNIEXPORT void JNICALL Java_rath_libxml_Document_setVersionImpl
 }
 
 /*
- * Class:     rath_libxml_Document
+ * Class:     org_xmlsoft_Document
  * Method:    getVersionImpl
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_rath_libxml_Document_getVersionImpl
+JNIEXPORT jstring JNICALL Java_org_xmlsoft_Document_getVersionImpl
 (JNIEnv *env, jobject obj) {
     xmlDoc *doc = findDocument(env, obj);
     return (*env)->NewStringUTF(env, (const char*)doc->version);
 }
 
 /*
- * Class:     rath_libxml_Document
+ * Class:     org_xmlsoft_Document
  * Method:    disposeImpl
  * Signature: ()V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_Document_disposeImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_Document_disposeImpl
   (JNIEnv *env, jobject obj) {
     xmlDoc *doc = findDocument(env, obj);
     xmlFreeDoc(doc);
 }
 
 /*
- * Class:     rath_libxml_Document
+ * Class:     org_xmlsoft_Document
  * Method:    createXPathContextImpl
  * Signature: ()Lrath/libxml/XPathContext;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createXPathContextImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_Document_createXPathContextImpl
   (JNIEnv *env, jobject obj) {
     xmlDoc *doc = findDocument(env, obj);
     xmlXPathContext *ctx = xmlXPathNewContext(doc);
@@ -66,11 +66,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createXPathContextImpl
 
 
 /*
- * Class:     rath_libxml_Document
+ * Class:     org_xmlsoft_Document
  * Method:    createElementImpl
  * Signature: (Lrath/libxml/Namespace;Ljava/lang/String;)Lrath/libxml/Node;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createElementImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_Document_createElementImpl
 (JNIEnv *env, jobject obj, jobject jnamespace, jstring jname) {
     xmlDoc *doc = findDocument(env, obj);
     xmlNode *created;
@@ -96,11 +96,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createElementImpl
 }
 
 /*
- * Class:     rath_libxml_Document
+ * Class:     org_xmlsoft_Document
  * Method:    createTextImpl
  * Signature: (Ljava/lang/String;)Lrath/libxml/Node;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createTextImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_Document_createTextImpl
 (JNIEnv *env, jobject obj, jstring jstr) {
     xmlDoc *doc = findDocument(env, obj);
     
@@ -113,11 +113,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createTextImpl
 }
 
 /*
- * Class:     rath_libxml_Document
+ * Class:     org_xmlsoft_Document
  * Method:    createCommentImpl
  * Signature: (Ljava/lang/String;)Lrath/libxml/Node;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createCommentImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_Document_createCommentImpl
 (JNIEnv *env, jobject obj, jstring jstr) {
 //    xmlDoc *doc = findDocument(env, obj);
     
@@ -130,11 +130,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createCommentImpl
 
 
 /*
- * Class:     rath_libxml_Document
+ * Class:     org_xmlsoft_Document
  * Method:    createCDataImpl
  * Signature: (Ljava/lang/String;)Lrath/libxml/Node;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createCDataImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_Document_createCDataImpl
 (JNIEnv *env, jobject obj, jstring jstr) {
     xmlDoc *doc = findDocument(env, obj);
     
@@ -147,11 +147,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createCDataImpl
 }
 
 /*
- * Class:     rath_libxml_Document
+ * Class:     org_xmlsoft_Document
  * Method:    createPIImpl
  * Signature: (Ljava/lang/String;Ljava/lang/String;)Lrath/libxml/Node;
  */
-JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createPIImpl
+JNIEXPORT jobject JNICALL Java_org_xmlsoft_Document_createPIImpl
 (JNIEnv *env, jobject obj, jstring jname, jstring jcontent) {
     xmlDocPtr doc = findDocument(env, obj);
     const char *name = (*env)->GetStringUTFChars(env, jname, NULL);
@@ -166,11 +166,11 @@ JNIEXPORT jobject JNICALL Java_rath_libxml_Document_createPIImpl
 }
 
 /*
- * Class:     rath_libxml_Document
+ * Class:     org_xmlsoft_Document
  * Method:    createDocumentImpl
  * Signature: (Ljava/lang/String;)J
  */
-JNIEXPORT jlong JNICALL Java_rath_libxml_Document_createDocumentImpl
+JNIEXPORT jlong JNICALL Java_org_xmlsoft_Document_createDocumentImpl
 (JNIEnv *env, jclass clz, jstring jVersion) {
     const char *version = (*env)->GetStringUTFChars(env, jVersion, NULL);
     xmlDocPtr doc = xmlNewDoc((const xmlChar*)version);
@@ -179,11 +179,11 @@ JNIEXPORT jlong JNICALL Java_rath_libxml_Document_createDocumentImpl
 }
 
 /*
- * Class:     rath_libxml_Document
+ * Class:     org_xmlsoft_Document
  * Method:    saveImpl
  * Signature: (Ljava/lang/String;Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_Document_saveImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_Document_saveImpl
 (JNIEnv *env, jobject obj, jstring jpath, jstring jencoding) {
     xmlDoc *doc = findDocument(env, obj);
     const char *path = (*env)->GetStringUTFChars(env, jpath, NULL);
@@ -230,11 +230,11 @@ static int closeCallback(void *ctx) {
 }
 
 /*
- * Class:     rath_libxml_Document
+ * Class:     org_xmlsoft_Document
  * Method:    saveStreamImpl
  * Signature: (Ljava/io/OutputStream;Ljava/lang/String;)V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_Document_saveStreamImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_Document_saveStreamImpl
 (JNIEnv *env, jobject obj, jobject outputStream, jstring jencoding) {
     int ret;
     IOCallbackContext context;
@@ -295,11 +295,11 @@ static int writerCallback(void *p, const char *buffer, int len) {
 
 
 /*
- * Class:     rath_libxml_Document
+ * Class:     org_xmlsoft_Document
  * Method:    saveWriterImpl
  * Signature: (Ljava/io/Writer;Ljava/lang/String;Ljava/nio/charset/Charset;)V
  */
-JNIEXPORT void JNICALL Java_rath_libxml_Document_saveWriterImpl
+JNIEXPORT void JNICALL Java_org_xmlsoft_Document_saveWriterImpl
 (JNIEnv *env, jobject obj, jobject writer, jstring jencoding, jobject charset) {
     int ret;
     IOCallbackWriterContext context;
