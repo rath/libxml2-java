@@ -1,7 +1,7 @@
 package org.xmlsoft;
 
 /**
- * This class represents An XML attribute.
+ * This class represents an XML attribute.
  *
  * @author Jang-Ho Hwang, rath@xrath.com
  */
