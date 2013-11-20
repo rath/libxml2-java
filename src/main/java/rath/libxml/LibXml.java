@@ -18,11 +18,9 @@ import java.net.URL;
 import java.util.logging.Logger;
 
 /**
- * 
- * User: rath
- * Date: 02/11/2013
- * Time: 23:50
- * 
+ * <p>This class includes various static method for parsing and building XML document.</p>
+ *
+ * @author Jang-Ho Hwang, rath@xrath.com
  */
 public class LibXml {
 	static {
@@ -80,6 +78,20 @@ public class LibXml {
 		initInternalParser();
 	}
 
+	private LibXml() {
+
+	}
+
+	/**
+	 * <p>Convenience method for registering JAXP implementations of libxml2-java as
+	 * default DocumentBuilderFactory and SAXParserFactory.</p>
+	 *
+	 * <p>Invoking this method is equivalent of followings</p>
+	 * <blockquote>
+	 *   System.setProperty("javax.xml.parsers.DocumentBuilderFactory", "rath.libxml.jaxp.DocumentBuilderFactoryImpl");
+	 *   System.setProperty("javax.xml.parsers.SAXParserFactory", "rath.libxml.jaxp.SAXParserFactoryImpl");
+	 * </blockquote>
+	 */
 	public static void setDefaultJAXPImplementation() {
 		System.setProperty("javax.xml.parsers.DocumentBuilderFactory", "rath.libxml.jaxp.DocumentBuilderFactoryImpl");
 		System.setProperty("javax.xml.parsers.SAXParserFactory", "rath.libxml.jaxp.SAXParserFactoryImpl");
@@ -122,7 +134,17 @@ public class LibXml {
 
 	private static native void initInternalParser();
 
+	/**
+	 * Parse the content of the given file as an XML document and return a new DOM object.
+	 * An IllegalArgumentException is thrown if the File is null.
+	 *
+	 * @param file The file containing the XML to parse.
+	 * @return A new DOM document object.
+	 * @throws IOException if any IO error occur.
+	 */
 	public static Document parseFile(File file) throws IOException {
+		if( file==null )
+			throw new IllegalArgumentException();
 		if( !file.exists() )
 			throw new FileNotFoundException();
 
@@ -133,6 +155,12 @@ public class LibXml {
 
 	private static native Document parseFileImpl(String pathname);
 
+	/**
+	 * Parse the content of the given data as an XML document and return a new DOM object.
+	 *
+	 * @param data The string containing the XML to parse.
+	 * @return A new DOM document object.
+	 */
 	public static Document parseString(String data) {
 		if( data==null )
 			throw new NullPointerException("Can't parse null data");
@@ -144,6 +172,14 @@ public class LibXml {
 
 	private static native Document parseStringImpl(String data);
 
+	/**
+	 * Parse the content in the given systemId as an XML document and return a new DOM object.
+	 *
+	 * @param systemId a URL containing XML document. <strong>file:sample.xml</strong> indicates
+	 *                 sample.xml file in the current directory, and can also be combined with jar protocol.
+	 * @return A new DOM document object.
+	 * @throws IOException if any IO error occur.
+	 */
 	public static Document parseSystemId(String systemId) throws IOException {
 		if( systemId==null )
 			throw new NullPointerException("systemId cannot be null");
@@ -160,7 +196,17 @@ public class LibXml {
 
 	private static native Document parseSystemIdImpl(String systemId, InputStream in) throws IOException;
 
+	/**
+	 * Parse the content of the given InputStream as an XML document and return a new DOM object.
+	 * An IllegalArgumentException is thrown if the InputStream is null.
+	 *
+	 * @param in InputStream containing the content to be parsed.
+	 * @return A new DOM document object.
+	 * @throws IOException If any IO error occur.
+	 */
 	public static Document parseInputStream(InputStream in) throws IOException {
+		if( in==null )
+			throw new IllegalArgumentException();
 		Document doc;
 		try {
 			doc = parseSystemIdImpl(null, in);
@@ -170,41 +216,88 @@ public class LibXml {
 		return doc;
 	}
 
-	public static void parseSAX(String xml, SAXHandler handler, int recovery) {
-		parseSAX(xml, handler, recovery, new SAXHandlerEngine());
+	/**
+	 * Parse the content of the string as XML using the specified SAXHandler.
+	 *
+	 * @param data The string containing the XML to parse.
+	 * @param handler The SAX handler to use.
+	 * @param recovery Whether work in recovery mode or not, tries to read not well formed document.
+	 */
+	public static void parseSAX(String data, SAXHandler handler, boolean recovery) {
+		parseSAX(data, handler, recovery, new SAXHandlerEngine());
 	}
 
-	public static void parseSAX(String xml, SAXHandler handler, int recovery, SAXHandlerEngine engine) {
-		if( xml==null )
-			throw new NullPointerException("Can't parse null data");
+	/**
+	 * Parse the content of the string as XML using the specified SAXHandler and engine.
+	 *
+	 * @param data The string containing the XML to parse.
+	 * @param handler The SAX handler to use.
+	 * @param recovery Whether work in recovery mode or not, tries to read not well formed document.
+	 * @param engine The SAXHandlerEngine to use.
+	 */
+	public static void parseSAX(String data, SAXHandler handler, boolean recovery, SAXHandlerEngine engine) {
+		if( data==null )
+			throw new IllegalArgumentException("Can't parse null data");
 
 		engine.setHandler(handler);
-		parseSAXImpl(xml, engine, recovery);
+		parseSAXImpl(data, engine, recovery ? 1 : 0);
 	}
 
 	private static native void parseSAXImpl(String data, SAXHandlerEngine handler, int recovery);
 
-	public static void parseSAX(File file, SAXHandler handler, int recovery) {
+	/**
+	 * Parse the content of the file as XML document using specified SAXHandler.
+	 *
+	 * @param file The file containing the XML to parse.
+	 * @param handler The SAX Handler to use.
+	 * @param recovery Whether work in recovery mode or not, tries to read not well formed document.
+	 */
+	public static void parseSAX(File file, SAXHandler handler, boolean recovery) {
 		parseSAX(file, handler, recovery, new SAXHandlerEngine());
 	}
 
-	public static void parseSAX(File file, SAXHandler handler, int recovery, SAXHandlerEngine engine) {
+	/**
+	 * Parse the content of the file as XML document using specified SAXHandler and engine.
+	 *
+	 * @param file The file containing the XML to parse.
+	 * @param handler The SAX Handler to use.
+	 * @param recovery Whether work in recovery mode or not, tries to read not well formed document.
+	 * @param engine The SAXHandlerEngine to use.
+	 */
+	public static void parseSAX(File file, SAXHandler handler, boolean recovery, SAXHandlerEngine engine) {
 		engine.setHandler(handler);
-		parseSAXFileImpl(file.getAbsolutePath(), engine, recovery);
+		parseSAXFileImpl(file.getAbsolutePath(), engine, recovery ? 1 : 0);
 	}
 
 	private static native void parseSAXFileImpl(String filepath, SAXHandlerEngine handler, int recovery);
 
-	public static void parseSAXSystemId(String systemId, SAXHandler handler, int recovery) throws IOException {
+	/**
+	 * Parse the content located in specified systemId as XML document using specified SAXHandler.
+	 *
+	 * @param systemId The system identifier which indicates location of XML document as URI.
+	 * @param handler The SAX Handler to use.
+	 * @param recovery Whether work in recovery mode or not, tries to read not well formed document.
+	 * @throws IOException If any IO error occur.
+	 */
+	public static void parseSAXSystemId(String systemId, SAXHandler handler, boolean recovery) throws IOException {
 		parseSAXSystemId(systemId, handler, recovery, new SAXHandlerEngine());
 	}
 
-	public static void parseSAXSystemId(String systemId, SAXHandler handler , int recovery, SAXHandlerEngine engine) throws IOException {
+	/**
+	 * Parse the content located in specified systemId as XML document using specified SAXHandler and engine.
+	 *
+	 * @param systemId The system identifier which indicates location of XML document as URI.
+	 * @param handler The SAX Handler to use.
+	 * @param recovery Whether work in recovery mode or not, tries to read not well formed document.
+	 * @param engine The SAXHandlerEngine to use.
+	 * @throws IOException If any IO error occur.
+	 */
+	public static void parseSAXSystemId(String systemId, SAXHandler handler, boolean recovery, SAXHandlerEngine engine) throws IOException {
 		engine.setHandler(handler);
 		// Resolve systemId's input stream
 		InputStream in = new URL(systemId).openStream();
 		try {
-			parseSAXSystemIdImpl(systemId, in, engine, recovery);
+			parseSAXSystemIdImpl(systemId, in, engine, recovery ? 1 : 0);
 		} finally {
 			in.close();
 		}
@@ -212,6 +305,13 @@ public class LibXml {
 
 	private static native void parseSAXSystemIdImpl(String systemId, InputStream in, SAXHandlerEngine engine, int recovery);
 
+	/**
+	 * Compile an XPath expression for later evaluation.
+	 * If expression is null, a NullPointerException is thrown.
+	 *
+	 * @param expr The XPath expression.
+	 * @return Compiled XPath expression.
+	 */
 	public static XPathExpression compileXPath(String expr) {
 		if( expr==null )
 			throw new NullPointerException("XPath expression cannot be null");
