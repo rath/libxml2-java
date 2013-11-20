@@ -1,11 +1,9 @@
 package org.xmlsoft;
 
 /**
- * 
- * User: rath
- * Date: 04/11/2013
- * Time: 17:40
- * 
+ * XPathObject represents the result of evaluated XPath expression.
+ *
+ * @author Jang-Ho Hwang, rath@xrath.com
  */
 public class XPathObject implements Disposable {
 	private final long p;
@@ -22,26 +20,46 @@ public class XPathObject implements Disposable {
 		this.empty = empty;
 	}
 
+	/**
+	 *
+	 * @return
+	 */
 	public boolean isEmpty() {
 		return this.empty;
 	}
 
+	/**
+	 * Cast the result value of this XPathObject as string regardless of its underlying type.
+	 * @return string value of this XPathObject.
+	 */
 	public String castToString() {
 		return castToStringImpl();
 	}
 
 	private native String castToStringImpl();
 
+	/**
+	 * Cast the result value of this XPathObject as double regardless of its underlying type.
+	 * @return double value of this XPathObject.
+	 */
 	public double castToNumber() {
 		return castToNumberImpl();
 	}
 
+	/**
+	 * Cast the result value of this XPathObject as integer regardless of its underlying type.
+	 * @return integer value of this XPathObject.
+	 */
 	public int castToInt() {
 		return (int)castToNumberImpl();
 	}
 
 	private native double castToNumberImpl();
 
+	/**
+	 * Cast the result value of this XPathObject as boolean regardless of its underlying type.
+	 * @return boolean value of this XPathObject.
+	 */
 	public boolean castToBoolean() {
 		return castToBooleanImpl();
 	}
@@ -71,6 +89,7 @@ public class XPathObject implements Disposable {
 
 	private native void disposeImpl();
 
+	@Override
 	public String toString() {
 		return "[XPathObject] nodeset=" + nodeset.toString() + ", boolean=" + booleanValue +
 			", float=" + floatValue + ", string=" + stringValue;

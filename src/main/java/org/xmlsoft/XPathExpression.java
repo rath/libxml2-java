@@ -1,11 +1,13 @@
 package org.xmlsoft;
 
 /**
- * 
- * User: rath
- * Date: 04/11/2013
- * Time: 17:15
- * 
+ * <p>XPathExpression provides access to compiled XPath expressions.</p>
+ *
+ * <p>This class can not do anything by itself. To get an instance of XPathExpression,
+ * use LibXml.compileXPath(String expr), and to use the compiled XPathExpression,
+ * use XPathContext.evaluate(XPathExpression expr).</p>
+ *
+ * @author Jang-Ho Hwang, rath@xrath.com
  */
 public class XPathExpression implements Disposable {
 	private boolean disposed = false;

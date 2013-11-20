@@ -3,6 +3,7 @@ package org.xmlsoft.jaxp;
 import org.xml.sax.InputSource;
 import org.xmlsoft.*;
 import org.xmlsoft.Node;
+import org.xmlsoft.XPathExpressionException;
 import org.xmlsoft.util.Utils;
 
 import javax.xml.namespace.NamespaceContext;
@@ -52,12 +53,12 @@ public class XPathImpl implements XPath {
 	}
 
 	@Override
-	public XPathExpression compile(String expr) throws XPathExpressionException {
+	public XPathExpression compile(String expr) throws javax.xml.xpath.XPathExpressionException {
 		return new XPathExpressionImpl(LibXml.compileXPath(expr));
 	}
 
 	@Override
-	public Object evaluate(String expr, Object item, QName qName) throws XPathExpressionException {
+	public Object evaluate(String expr, Object item, QName qName) throws javax.xml.xpath.XPathExpressionException {
 		if (!(item instanceof org.xmlsoft.jaxp.NodeImpl ||
 			  item instanceof org.xmlsoft.jaxp.DocumentImpl)) {
 			throw new UnsupportedOperationException("starting context should be libxml2 node object");
@@ -78,8 +79,8 @@ public class XPathImpl implements XPath {
 		XPathObject result;
 		try {
 			result = ctx.evaluate(expr);
-		} catch( InvalidXPathExpressionException e ) {
-			throw new XPathExpressionException(e);
+		} catch( XPathExpressionException e ) {
+			throw new javax.xml.xpath.XPathExpressionException(e);
 		}
 
 		Object ret = filterXPathObjectToJaxpObject(document, qName, result);
@@ -106,12 +107,12 @@ public class XPathImpl implements XPath {
 	}
 
 	@Override
-	public String evaluate(String expr, Object item) throws XPathExpressionException {
+	public String evaluate(String expr, Object item) throws javax.xml.xpath.XPathExpressionException {
 		return String.valueOf(evaluate(expr, item, XPathConstants.STRING));
 	}
 
 	@Override
-	public Object evaluate(String expr, InputSource inputSource, QName qName) throws XPathExpressionException {
+	public Object evaluate(String expr, InputSource inputSource, QName qName) throws javax.xml.xpath.XPathExpressionException {
 		org.xmlsoft.Document doc = null;
 		try {
 			doc = LibXml.parseString(Utils.loadInputSource(inputSource));
@@ -122,7 +123,7 @@ public class XPathImpl implements XPath {
 	}
 
 	@Override
-	public String evaluate(String expr, InputSource inputSource) throws XPathExpressionException {
+	public String evaluate(String expr, InputSource inputSource) throws javax.xml.xpath.XPathExpressionException {
 		return (String) evaluate(expr, inputSource, XPathConstants.STRING);
 	}
 }

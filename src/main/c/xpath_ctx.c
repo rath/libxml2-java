@@ -64,7 +64,7 @@ JNIEXPORT jobject JNICALL Java_org_xmlsoft_XPathContext_evaluateImpl
     const char *expr = (*env)->GetStringUTFChars(env, jexpr, NULL);
     result = xmlXPathEvalExpression((const xmlChar*)expr, ctx);
     if(result==NULL) {
-        (*env)->ThrowNew(env, (*env)->FindClass(env, "org/xmlsoft/InvalidXPathExpressionException"), expr);
+        (*env)->ThrowNew(env, (*env)->FindClass(env, "org/xmlsoft/XPathExpressionException"), expr);
         (*env)->ReleaseStringUTFChars(env, jexpr, expr);
         return NULL;
     }
