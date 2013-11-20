@@ -10,12 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * NOT thread safe.
- * Most methods are invoked by JNI functions
+ * <p>Bridge class between SAXHandler and native JNI module.</p>
  *
- * User: rath
- * Date: 08/11/2013
- * Time: 23:33
+ * <p>This class is <strong>NOT</strong> thread safe.
+ * Most methods are invoked by JNI functions.</p>
+ *
+ * @author Jang-Ho Hwang, rath@xrath.com
  */
 public class SAXHandlerEngine {
 	private SAXHandler handler;
