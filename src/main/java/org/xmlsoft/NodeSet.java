@@ -3,11 +3,9 @@ package org.xmlsoft;
 import java.util.*;
 
 /**
- * 
- * User: rath
- * Date: 04/11/2013
- * Time: 17:42
- * 
+ * The class represents a set of node, usually returned by xpath result.
+ *
+ * @author Jang-Ho Hwang, rath@xrath.com
  */
 public class NodeSet implements Iterable<Node> {
 	private final long p;
@@ -18,6 +16,10 @@ public class NodeSet implements Iterable<Node> {
 		this.p = p;
 	}
 
+	/**
+	 * Get size of this set.
+	 * @return size of this set.
+	 */
 	public int getSize() {
 		return this.size;
 	}
@@ -40,19 +42,33 @@ public class NodeSet implements Iterable<Node> {
 		nodes.add(node);
 	}
 
+	/**
+	 * Get a list representation of this set.
+	 * @return
+	 */
 	public List<Node> getNodes() {
 		return this.nodes;
 	}
 
+	/**
+	 * Get n-th node of this set.
+	 * @param index index to getting the node.
+	 * @return node located in the given index.
+	 */
 	public Node getNodeAt(int index) {
 		return nodes.get(index);
 	}
 
+	/**
+	 * Returns an iterator of this set.
+	 * @return an Iterator.
+	 * */
 	@Override
 	public Iterator<Node> iterator() {
 		return nodes.iterator();
 	}
 
+	@Override
 	public String toString() {
 		return "[NodeSet] size=" + this.size + ", items=" + nodes.toString();
 	}
