@@ -49,7 +49,7 @@ for(Node node : rootNode) {
 }
 ```
 
-* Use libxml2-java as default DocumentBuilder by passing *rath.libxml.jaxp.DocumentBuilderFactoryImpl* as *java.xml.parsers.DocumentBuilderFactory* system property. Then, it allows you to start coding with the standard JAXP API.
+* Use libxml2-java as default DocumentBuilder by passing *org.xmlsoft.jaxp.DocumentBuilderFactoryImpl* as *java.xml.parsers.DocumentBuilderFactory* system property. Then, it allows you to start coding with the standard JAXP API.
 
 ```java
 DocumentBuilder builder = LibXml.createDocumentBuilderFactory().newDocumentBuilder();
@@ -90,7 +90,7 @@ SAXParserFactory implementation has been tested with
 - Apache Tomcat 7
  - Launched with web.xml, server.xml, context.xml, and *my* webapps works well as usual
 
-by setting _rath.libxml.jaxp.SAXParserFactoryImpl_ as _javax.xml.parsers.SAXParserFactory_ system property then adding libxml2-java.jar on classpath. 
+by setting _org.xmlsoft.jaxp.SAXParserFactoryImpl_ as _javax.xml.parsers.SAXParserFactory_ system property then adding libxml2-java.jar on classpath. 
 
 #### DOM
 
@@ -99,7 +99,7 @@ DocumentBuilderFactory implementation has been tested with
 - Spring Framework 3.2
  - Simple app using Spring Data JPA
 
-by setting _rath.libxml.jaxp.DocumentBuilderFactoryImpl_ as _javax.xml.parsers.DocumentBuilderFactory_ system property then adding libxml2-java.jar on classpath.
+by setting _org.xmlsoft.jaxp.DocumentBuilderFactoryImpl_ as _javax.xml.parsers.DocumentBuilderFactory_ system property then adding libxml2-java.jar on classpath.
 
 ### Unit tests 
 
