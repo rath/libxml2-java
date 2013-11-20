@@ -1,13 +1,15 @@
 package rath.libxml;
 
 /**
- * User: rath
- * Date: 07/11/2013
- * Time: 21:01
+ * A Disposable is a source of destination of data that can be disposed.
+ * The dispose method is invoked to release underlying native resources that
+ * the object is wired.
+ *
+ * @author Jang-Ho Hwang, rath@xrath.com
  */
 public interface Disposable {
 	/**
-	 * Free all underlying resources.
+	 * Dispose any native system resources associated with it.
 	 */
 	public void dispose();
 }

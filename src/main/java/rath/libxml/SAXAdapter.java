@@ -4,9 +4,14 @@ import org.xml.sax.Attributes;
 import org.xml.sax.Locator;
 
 /**
- * User: rath
- * Date: 10/11/2013
- * Time: 03:22
+ * Default base class for SAX2 event handlers.
+ *
+ * This class is available as a convenience base class for SAX2 applications.
+ * Application writers can extend this class when they need to implement only part of an interface;
+ * parser writers can instantiate this class to provide default handlers when the application has not
+ * supplied its own.
+ *
+ * @author Jang-Ho Hwang, rath@xrath.com
  */
 public class SAXAdapter implements SAXHandler {
 	@Override

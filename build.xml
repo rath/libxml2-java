@@ -47,6 +47,7 @@
     <javadoc sourcePath="${src.main}" 
       destdir="javadoc" 
       packagenames="rath.libxml,rath.libxml.jaxp" 
+      author="yes"
       link="http://docs.oracle.com/javase/7/docs/api/" 
       encoding="UTF-8">
     </javadoc>
