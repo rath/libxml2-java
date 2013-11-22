@@ -27,6 +27,7 @@ public class Node implements Iterable<Node>, Disposable {
 	public static final short TYPE_NOTATION = 12;
 	public static final short TYPE_DTD = 14;
 
+	private boolean disposed = false;
 	final long p;
 	private Document document;
 
@@ -373,13 +374,17 @@ public class Node implements Iterable<Node>, Disposable {
 		if( node==null )
 			throw new NullPointerException();
 		unlinkImpl(node);
+		LibXml.retainAsConfig(node);
 	}
 
 	private native void unlinkImpl(Node node);
 
 	@Override
 	public void dispose() {
-		throw new UnsupportedOperationException("Document.dispose() will release all children nodes. You don't have to dispose each node.");
+		if(!disposed) {
+			disposed = true;
+			disposeImpl();
+		}
 	}
 
 	private native void disposeImpl();
