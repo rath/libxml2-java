@@ -6,6 +6,7 @@
 #include <assert.h>
 #include "cache.h"
 #include "utils.h"
+#include <google/tcmalloc.h>
 
 #define CHUNK_SIZE 256
 
@@ -93,6 +94,25 @@ static void handlerStructuredError(void *ctx, xmlErrorPtr error) {
     return;
 }
 
+void myFree(void *mem) {
+    tc_free(mem);
+}
+
+void* myMalloc(size_t size) {
+    return tc_malloc(size);
+}
+
+void* myRealloc(void *mem, size_t size) {
+    return tc_realloc(mem, size);
+}
+
+char* myStrdup(const char *str) {
+    size_t l = strlen(str);
+    char *ret = (char*)tc_malloc(l+1);
+    memcpy(ret, str, l+1);
+    return ret;
+}
+
 /*
  * Class:     org_xmlsoft_LibXml
  * Method:    initInternalParser
@@ -100,6 +120,7 @@ static void handlerStructuredError(void *ctx, xmlErrorPtr error) {
  */
 JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_initInternalParser
 (JNIEnv *env, jclass clz) {
+    xmlMemSetup(myFree, myMalloc, myRealloc, myStrdup);
     
     // http://xmlsoft.org/threads.html
     // >> call xmlInitParser() in the "main" thread before using any of the libxml2 API (except possibly selecting a different memory allocator)
@@ -168,7 +189,6 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_initInternalParser
     
     jclass classList = (*env)->FindClass(env, "java/util/List");
     methodListAdd = (*env)->GetMethodID(env, classList, "add", "(Ljava/lang/Object;)Z");
-    
 }
 
 /*
@@ -698,4 +718,14 @@ JNIEXPORT jobject JNICALL Java_org_xmlsoft_LibXml_compileXPathImpl
     
     jobject ret = (*env)->NewObject(env, classXPathExpression, methodXPathExprNew, (jlong)compiled);
     return ret;
+}
+
+/*
+ * Class:     org_xmlsoft_LibXml
+ * Method:    printTcmallocStatImpl
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_printTcmallocStatImpl
+(JNIEnv *env, jclass clz) {
+    
 }

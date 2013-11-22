@@ -319,4 +319,10 @@ public class LibXml {
 	}
 
 	private static native XPathExpression compileXPathImpl(String expr);
+
+	public static void printTcmallocStat() {
+		printTcmallocStatImpl();
+	}
+
+	private native static void printTcmallocStatImpl();
 }

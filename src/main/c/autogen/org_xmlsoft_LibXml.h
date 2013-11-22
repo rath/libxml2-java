@@ -71,6 +71,14 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXSystemIdImpl
 JNIEXPORT jobject JNICALL Java_org_xmlsoft_LibXml_compileXPathImpl
   (JNIEnv *, jclass, jstring);
 
+/*
+ * Class:     org_xmlsoft_LibXml
+ * Method:    printTcmallocStatImpl
+ * Signature: ()V
+ */
+JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_printTcmallocStatImpl
+  (JNIEnv *, jclass);
+
 #ifdef __cplusplus
 }
 #endif
