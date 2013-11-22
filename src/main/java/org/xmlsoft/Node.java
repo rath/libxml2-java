@@ -27,7 +27,6 @@ public class Node implements Iterable<Node>, Disposable {
 	public static final short TYPE_NOTATION = 12;
 	public static final short TYPE_DTD = 14;
 
-	private boolean disposed = false;
 	final long p;
 	private Document document;
 
@@ -170,8 +169,6 @@ public class Node implements Iterable<Node>, Disposable {
 	public Document getDocument() {
 		return this.document;
 	}
-
-	// TODO: xmlFreeNode()
 
 	/**
 	 * The parent of this node. All nodes, except Document, DocumentFragment, Entity and
@@ -382,10 +379,7 @@ public class Node implements Iterable<Node>, Disposable {
 
 	@Override
 	public void dispose() {
-		if(!disposed) {
-			disposed = true;
-			disposeImpl();
-		}
+		throw new UnsupportedOperationException("Document.dispose() will release all children nodes. You don't have to dispose each node.");
 	}
 
 	private native void disposeImpl();
