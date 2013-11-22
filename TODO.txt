@@ -4,11 +4,11 @@ TODO: DTD related, EntityResolver
 TODO: Performance test?
 TODO: Improve poor getElementsByTagName
 
-TODO: Javadoc compatible documentations
-TODO: Translate unittest with python.
+TODO: Translate unittest with dart-lang
 TODO: test with arm-linux-androideabi
 
 TODO: find UOE and impl them
 TODO: submit to maven repository
+TODO: make ubuntu package 
 
 TODO: Download some DOM manipulation tools and test with libxml2-java
