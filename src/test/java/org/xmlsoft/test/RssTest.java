@@ -1,5 +1,7 @@
 package org.xmlsoft.test;
 
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -17,9 +19,9 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 /**
  * User: rath
@@ -28,24 +30,59 @@ import java.util.List;
  */
 @RunWith(JUnit4.class)
 public class RssTest {
+	private Queue<Long> timeQueue = new ArrayBlockingQueue<Long>(10);
+	private long startedTime;
+
+	@Before
+	public void setUp() {
+		timeQueue.clear();
+	}
+
+	@After
+	public void tearDown() {
+
+	}
+
+	private void startWatch() {
+		startedTime = System.nanoTime();
+	}
+
+	private void stopWatch() {
+		long elapsed = System.nanoTime() - startedTime;
+		if(!timeQueue.offer(elapsed)) {
+			timeQueue.poll();
+			timeQueue.offer(elapsed);
+		}
+	}
+
+	private void printReport() {
+		long sum = 0L;
+		for(Long time : timeQueue) {
+			sum += time;
+		}
+		long averageTime = sum / timeQueue.size();
+		System.out.println("Average: " + averageTime + " ns");
+	}
+
 	@Test
 	public void testWithLibXml() throws Exception {
 		File sampleFile = new File("sample-xmls/rss-infoq.xml");
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 50; i++) {
+			startWatch();
 			Document doc = LibXml.parseFile(sampleFile);
 
 			XPathContext context = doc.createXPathContext();
 			XPathObject result = context.evaluate("//item");
 			for (Node itemNode : result.nodeset) {
-				long l0 = System.nanoTime();
 				RssItem.build(itemNode);
-				long l1 = System.nanoTime();
-				System.out.println((l1 - l0) + " ns");
 			}
 			result.dispose();
 			context.dispose();
 			doc.dispose();
+
+			stopWatch();
 		}
+		printReport();
 	}
 
 	@Test
@@ -56,7 +93,8 @@ public class RssTest {
 //		XPathFactory xf = LibXml.createXPathFactory();
 
 		File sampleFile = new File("sample-xmls/rss-infoq.xml");
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 50; i++) {
+			startWatch();
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			org.w3c.dom.Document doc = db.parse(sampleFile);
 
@@ -64,13 +102,11 @@ public class RssTest {
 			NodeList nl = (NodeList) xpath.evaluate("//item", doc, XPathConstants.NODESET);
 			for(int x=0; x<nl.getLength(); x++) {
 				org.w3c.dom.Node n = nl.item(x);
-				long l0 = System.nanoTime();
-				RssItem.build(nl.item(x));
-				long l1 = System.nanoTime();
-				System.out.println((l1 - l0) + " ns");
+				RssItem.build(n);
 			}
-
+			stopWatch();
 		}
+		printReport();
 	}
 
 	static class RssItem {
@@ -87,9 +123,9 @@ public class RssTest {
 			Node child = node.children();
 			while(child!=null) {
 				if( child.getType()==Node.TYPE_ELEMENT ) {
-//					String name = child.getName();
-//					String value = child.getChildText();
-//					fillFields(item, name, value);
+					String name = child.getName();
+					String value = child.getChildText();
+					fillFields(item, name, value);
 				}
 				child = child.getNext();
 			}
@@ -102,9 +138,9 @@ public class RssTest {
 			for(int i=0; i<nl.getLength(); i++) {
 				org.w3c.dom.Node child = nl.item(i);
 				if( child.getNodeType()==org.w3c.dom.Node.ELEMENT_NODE ) {
-//					String name = child.getNodeName();
-//					String value = child.getTextContent();
-//					fillFields(item, name, value);
+					String name = child.getNodeName();
+					String value = child.getTextContent();
+					fillFields(item, name, value);
 				}
 			}
 			return item;
