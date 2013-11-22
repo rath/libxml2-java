@@ -8,8 +8,7 @@ AC_PROG_CC
 AC_PROG_CXX
 
 # Checks for header files.
-AC_CHECK_HEADERS([stdlib.h string.h google/tcmalloc.h])
-AC_CHECK_LIB([tcmalloc], [tc_malloc], [have_tcmalloc=yes], [have_tcmalloc=no])
+AC_CHECK_HEADERS([stdlib.h string.h])
 # Checks for typedefs, structures, and compiler characteristics.
 AC_TYPE_SIZE_T
 
@@ -33,12 +32,20 @@ AC_SUBST([CFLAGS_XML2], [`xml2-config --cflags`])
 #
 # Check Google TCMalloc 
 #
-if test x"${have_tcmalloc}" = x"yes"; then
+AC_ARG_WITH([tcmalloc], 
+  [AS_HELP_STRING([--with-tcmalloc],
+    [link with google tcmalloc])],
+  [with_tcmalloc=yes], [with_tcmalloc=no])
+if test x"${with_tcmalloc}" = x"yes"; then 
+  AC_CHECK_HEADERS([google/tcmalloc.h])
+  AC_CHECK_LIB([tcmalloc], [tc_malloc], [have_tcmalloc=yes], [
+    AC_MSG_ERROR([
+    +--------------------------------------------+
+    | Google TCMalloc not found                  |
+    +--------------------------------------------+])])
   AC_SUBST([LIBS_TCMALLOC], [-ltcmalloc])
 fi
-if test x"${have_tcmalloc}" = x"no"; then
-  AC_SUBST([LIBS_TCMALLOC], [''])
-fi
+
 
 #
 # With JDK home directory 

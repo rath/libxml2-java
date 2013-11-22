@@ -665,6 +665,7 @@ SHELL'
 ac_subst_files=''
 ac_user_opts='
 enable_option_checking
+with_tcmalloc
 with_jdk
 '
       ac_precious_vars='build_alias
@@ -1289,6 +1290,7 @@ if test -n "$ac_init_help"; then
 Optional Packages:
   --with-PACKAGE[=ARG]    use PACKAGE [ARG=yes]
   --without-PACKAGE       do not use PACKAGE (same as --with-PACKAGE=no)
+  --with-tcmalloc         link with google tcmalloc
   --with-jdk=DIR          use jdk home directory (default: autodetect)
 
 Some influential environment variables:
@@ -1660,52 +1662,6 @@ $as_echo "$ac_res" >&6; }
 
 } # ac_fn_c_check_header_compile
 
-# ac_fn_c_try_link LINENO
-# -----------------------
-# Try to link conftest.$ac_ext, and return whether this succeeded.
-ac_fn_c_try_link ()
-{
-  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
-  rm -f conftest.$ac_objext conftest$ac_exeext
-  if { { ac_try="$ac_link"
-case "(($ac_try" in
-  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
-  *) ac_try_echo=$ac_try;;
-esac
-eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
-$as_echo "$ac_try_echo"; } >&5
-  (eval "$ac_link") 2>conftest.err
-  ac_status=$?
-  if test -s conftest.err; then
-    grep -v '^ *+' conftest.err >conftest.er1
-    cat conftest.er1 >&5
-    mv -f conftest.er1 conftest.err
-  fi
-  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
-  test $ac_status = 0; } && {
-	 test -z "$ac_c_werror_flag" ||
-	 test ! -s conftest.err
-       } && test -s conftest$ac_exeext && {
-	 test "$cross_compiling" = yes ||
-	 $as_test_x conftest$ac_exeext
-       }; then :
-  ac_retval=0
-else
-  $as_echo "$as_me: failed program was:" >&5
-sed 's/^/| /' conftest.$ac_ext >&5
-
-	ac_retval=1
-fi
-  # Delete the IPA/IPO (Inter Procedural Analysis/Optimization) information
-  # created by the PGI compiler (conftest_ipa8_conftest.oo), as it would
-  # interfere with the next link command; also delete a directory that is
-  # left behind by Apple's compiler.  We do this before executing the actions.
-  rm -rf conftest.dSYM conftest_ipa8_conftest.oo
-  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
-  as_fn_set_status $ac_retval
-
-} # ac_fn_c_try_link
-
 # ac_fn_c_check_type LINENO TYPE VAR INCLUDES
 # -------------------------------------------
 # Tests whether TYPE exists after having included INCLUDES, setting cache
@@ -1759,6 +1715,52 @@ $as_echo "$ac_res" >&6; }
   eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
 
 } # ac_fn_c_check_type
+
+# ac_fn_c_try_link LINENO
+# -----------------------
+# Try to link conftest.$ac_ext, and return whether this succeeded.
+ac_fn_c_try_link ()
+{
+  as_lineno=${as_lineno-"$1"} as_lineno_stack=as_lineno_stack=$as_lineno_stack
+  rm -f conftest.$ac_objext conftest$ac_exeext
+  if { { ac_try="$ac_link"
+case "(($ac_try" in
+  *\"* | *\`* | *\\*) ac_try_echo=\$ac_try;;
+  *) ac_try_echo=$ac_try;;
+esac
+eval ac_try_echo="\"\$as_me:${as_lineno-$LINENO}: $ac_try_echo\""
+$as_echo "$ac_try_echo"; } >&5
+  (eval "$ac_link") 2>conftest.err
+  ac_status=$?
+  if test -s conftest.err; then
+    grep -v '^ *+' conftest.err >conftest.er1
+    cat conftest.er1 >&5
+    mv -f conftest.er1 conftest.err
+  fi
+  $as_echo "$as_me:${as_lineno-$LINENO}: \$? = $ac_status" >&5
+  test $ac_status = 0; } && {
+	 test -z "$ac_c_werror_flag" ||
+	 test ! -s conftest.err
+       } && test -s conftest$ac_exeext && {
+	 test "$cross_compiling" = yes ||
+	 $as_test_x conftest$ac_exeext
+       }; then :
+  ac_retval=0
+else
+  $as_echo "$as_me: failed program was:" >&5
+sed 's/^/| /' conftest.$ac_ext >&5
+
+	ac_retval=1
+fi
+  # Delete the IPA/IPO (Inter Procedural Analysis/Optimization) information
+  # created by the PGI compiler (conftest_ipa8_conftest.oo), as it would
+  # interfere with the next link command; also delete a directory that is
+  # left behind by Apple's compiler.  We do this before executing the actions.
+  rm -rf conftest.dSYM conftest_ipa8_conftest.oo
+  eval $as_lineno_stack; ${as_lineno_stack:+:} unset as_lineno
+  as_fn_set_status $ac_retval
+
+} # ac_fn_c_try_link
 cat >config.log <<_ACEOF
 This file contains any messages produced by compilers while
 running configure, to aid debugging if configure makes a mistake.
@@ -3563,7 +3565,7 @@ fi
 done
 
 
-for ac_header in stdlib.h string.h google/tcmalloc.h
+for ac_header in stdlib.h string.h
 do :
   as_ac_Header=`$as_echo "ac_cv_header_$ac_header" | $as_tr_sh`
 ac_fn_c_check_header_mongrel "$LINENO" "$ac_header" "$as_ac_Header" "$ac_includes_default"
@@ -3575,48 +3577,6 @@ _ACEOF
 fi
 
 done
-
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for tc_malloc in -ltcmalloc" >&5
-$as_echo_n "checking for tc_malloc in -ltcmalloc... " >&6; }
-if ${ac_cv_lib_tcmalloc_tc_malloc+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  ac_check_lib_save_LIBS=$LIBS
-LIBS="-ltcmalloc  $LIBS"
-cat confdefs.h - <<_ACEOF >conftest.$ac_ext
-/* end confdefs.h.  */
-
-/* Override any GCC internal prototype to avoid an error.
-   Use char because int might match the return type of a GCC
-   builtin and then its argument prototype would still apply.  */
-#ifdef __cplusplus
-extern "C"
-#endif
-char tc_malloc ();
-int
-main ()
-{
-return tc_malloc ();
-  ;
-  return 0;
-}
-_ACEOF
-if ac_fn_c_try_link "$LINENO"; then :
-  ac_cv_lib_tcmalloc_tc_malloc=yes
-else
-  ac_cv_lib_tcmalloc_tc_malloc=no
-fi
-rm -f core conftest.err conftest.$ac_objext \
-    conftest$ac_exeext conftest.$ac_ext
-LIBS=$ac_check_lib_save_LIBS
-fi
-{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_tcmalloc_tc_malloc" >&5
-$as_echo "$ac_cv_lib_tcmalloc_tc_malloc" >&6; }
-if test "x$ac_cv_lib_tcmalloc_tc_malloc" = xyes; then :
-  have_tcmalloc=yes
-else
-  have_tcmalloc=no
-fi
 
 # Checks for typedefs, structures, and compiler characteristics.
 ac_fn_c_check_type "$LINENO" "size_t" "ac_cv_type_size_t" "$ac_includes_default"
@@ -3690,14 +3650,77 @@ CFLAGS_XML2=`xml2-config --cflags`
 #
 # Check Google TCMalloc
 #
-if test x"${have_tcmalloc}" = x"yes"; then
+
+# Check whether --with-tcmalloc was given.
+if test "${with_tcmalloc+set}" = set; then :
+  withval=$with_tcmalloc; with_tcmalloc=yes
+else
+  with_tcmalloc=no
+fi
+
+if test x"${with_tcmalloc}" = x"yes"; then
+  for ac_header in google/tcmalloc.h
+do :
+  ac_fn_c_check_header_mongrel "$LINENO" "google/tcmalloc.h" "ac_cv_header_google_tcmalloc_h" "$ac_includes_default"
+if test "x$ac_cv_header_google_tcmalloc_h" = xyes; then :
+  cat >>confdefs.h <<_ACEOF
+#define HAVE_GOOGLE_TCMALLOC_H 1
+_ACEOF
+
+fi
+
+done
+
+  { $as_echo "$as_me:${as_lineno-$LINENO}: checking for tc_malloc in -ltcmalloc" >&5
+$as_echo_n "checking for tc_malloc in -ltcmalloc... " >&6; }
+if ${ac_cv_lib_tcmalloc_tc_malloc+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  ac_check_lib_save_LIBS=$LIBS
+LIBS="-ltcmalloc  $LIBS"
+cat confdefs.h - <<_ACEOF >conftest.$ac_ext
+/* end confdefs.h.  */
+
+/* Override any GCC internal prototype to avoid an error.
+   Use char because int might match the return type of a GCC
+   builtin and then its argument prototype would still apply.  */
+#ifdef __cplusplus
+extern "C"
+#endif
+char tc_malloc ();
+int
+main ()
+{
+return tc_malloc ();
+  ;
+  return 0;
+}
+_ACEOF
+if ac_fn_c_try_link "$LINENO"; then :
+  ac_cv_lib_tcmalloc_tc_malloc=yes
+else
+  ac_cv_lib_tcmalloc_tc_malloc=no
+fi
+rm -f core conftest.err conftest.$ac_objext \
+    conftest$ac_exeext conftest.$ac_ext
+LIBS=$ac_check_lib_save_LIBS
+fi
+{ $as_echo "$as_me:${as_lineno-$LINENO}: result: $ac_cv_lib_tcmalloc_tc_malloc" >&5
+$as_echo "$ac_cv_lib_tcmalloc_tc_malloc" >&6; }
+if test "x$ac_cv_lib_tcmalloc_tc_malloc" = xyes; then :
+  have_tcmalloc=yes
+else
+
+    as_fn_error $? "
+    +--------------------------------------------+
+    | Google TCMalloc not found                  |
+    +--------------------------------------------+" "$LINENO" 5
+fi
+
   LIBS_TCMALLOC=-ltcmalloc
 
 fi
-if test x"${have_tcmalloc}" = x"no"; then
-  LIBS_TCMALLOC=''
 
-fi
 
 #
 # With JDK home directory
