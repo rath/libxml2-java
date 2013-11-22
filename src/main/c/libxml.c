@@ -691,10 +691,11 @@ JNIEXPORT jobject JNICALL Java_org_xmlsoft_LibXml_parseSystemIdImpl
     xmlDoc *doc = parser->myDoc;
     int wellFormed = parser->wellFormed;
     xmlFreeParserCtxt(parser);
-    if( error )
+    if( error || !wellFormed ) {
+        if(doc!=NULL)
+            xmlFreeDoc(doc);
         return NULL;
-    if( !wellFormed )
-        return NULL;
+    }
     return buildDocument(env, doc);
 }
 
