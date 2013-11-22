@@ -59,14 +59,6 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_Node_fillNameImpl
 
 /*
  * Class:     org_xmlsoft_Node
- * Method:    fillRequiredFields
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_org_xmlsoft_Node_fillRequiredFields
-  (JNIEnv *, jobject);
-
-/*
- * Class:     org_xmlsoft_Node
  * Method:    nextImpl
  * Signature: ()Lorg/xmlsoft/Node;
  */
