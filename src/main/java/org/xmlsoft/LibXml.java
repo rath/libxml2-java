@@ -13,6 +13,8 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Logger;
 
 /**
@@ -24,6 +26,14 @@ public class LibXml {
 	static {
 		loadNativeLibrary();
 	}
+
+	static boolean autoRetain = false;
+	static ThreadLocal<List<Disposable>> retainList = new ThreadLocal<List<Disposable>>() {
+		@Override
+		protected List<Disposable> initialValue() {
+			return new ArrayList<Disposable>();
+		}
+	};
 
 	private static Logger logger = Logger.getLogger(LibXml.class.getName());
 
@@ -74,6 +84,45 @@ public class LibXml {
 		}
 
 		initInternalParser();
+	}
+
+	/**
+	 * Enable auto retaining for all disposable object.
+	 * <p>When you enable this feature, you <strong>should</strong> call
+	 * LibXml.disposeAutoRetainedItems() after your logic has done.</p>
+	 */
+	public static void setAutoRetainEveryDisposable() {
+		autoRetain = true;
+	}
+
+	/**
+	 * Retain the given disposable item to the internal thread-local storage
+	 * if <italic>autoRetainDisposable</italic> enabled.
+	 * @param item disposable item.
+	 */
+	static void retainAsConfig(Disposable item) {
+		if(!autoRetain)
+			return;
+		retain(item);
+	}
+
+	/**
+	 * Retain the given disposable item to the internal thread-local storage.
+	 * @param item disposable item.
+	 */
+	static void retain(Disposable item) {
+		retainList.get().add(item);
+	}
+
+	/**
+	 * Dispose all autoDispose items from the native memory.
+	 */
+	public static void disposeAutoRetainedItems() {
+		List<Disposable> disposables = retainList.get();
+		for(Disposable item : disposables) {
+			item.dispose();
+		}
+		disposables.clear();
 	}
 
 	private LibXml() {
