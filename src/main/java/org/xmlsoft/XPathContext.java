@@ -13,6 +13,7 @@ public class XPathContext implements Disposable {
 
 	XPathContext(long p) {
 		this.p = p;
+		LibXml.retainAsConfig(this);
 	}
 
 	void setDocument(Document doc) {
@@ -50,6 +51,16 @@ public class XPathContext implements Disposable {
 	}
 
 	private native XPathObject evaluateCompiledImpl(XPathExpression expr);
+
+	/**
+	 * Register this XPathContext object to the auto dispose manager.
+	 * <p>You should call LibXml.disposeAutoRetainedItems() on the same thread after your logic has done.</p>
+	 * @return this instance, for method chaining.
+	 */
+	public XPathContext autoDispose() {
+		LibXml.retain(this);
+		return this;
+	}
 
 	@Override
 	public void dispose() {

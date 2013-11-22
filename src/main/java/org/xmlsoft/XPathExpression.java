@@ -15,6 +15,17 @@ public class XPathExpression implements Disposable {
 
 	XPathExpression(long p) {
 		this.p = p;
+		LibXml.retainAsConfig(this);
+	}
+
+	/**
+	 * Register this XPathExpression object to the auto dispose manager.
+	 * <p>You should call LibXml.disposeAutoRetainedItems() on the same thread after your logic has done.</p>
+	 * @return this instance, for method chaining.
+	 */
+	public XPathExpression autoDispose() {
+		LibXml.retain(this);
+		return this;
 	}
 
 	@Override

@@ -18,6 +18,8 @@ public class XPathObject implements Disposable {
 	XPathObject(long p, boolean empty) {
 		this.p = p;
 		this.empty = empty;
+
+		LibXml.retainAsConfig(this);
 	}
 
 	/**
@@ -77,6 +79,16 @@ public class XPathObject implements Disposable {
 		if( nodeset.getSize()==0 )
 			return null;
 		return nodeset.getFirstNode();
+	}
+
+	/**
+	 * Register this XPathObject to the auto dispose manager.
+	 * <p>You should call LibXml.disposeAutoRetainedItems() on the same thread after your logic has done.</p>
+	 * @return this instance, for method chaining.
+	 */
+	public XPathObject autoDispose() {
+		LibXml.retain(this);
+		return this;
 	}
 
 	@Override

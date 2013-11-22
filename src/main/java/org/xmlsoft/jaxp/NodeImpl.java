@@ -137,7 +137,7 @@ public class NodeImpl implements Node {
 	public Node removeChild(Node node) throws DOMException {
 		NodeImpl implToRemove = (NodeImpl) node;
 		impl.unlink(implToRemove.impl);
-		implToRemove.impl.dispose(); // XXX
+		implToRemove.impl.dispose();
 		return node;
 	}
 

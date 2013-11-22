@@ -18,11 +18,12 @@ import java.nio.charset.Charset;
  *
  * @author Jang-Ho Hwang, rath@xrath.com
  */
-public class Document extends Node {
+public class Document extends Node implements Disposable {
 	private boolean disposed = false;
 
 	Document(long p) {
 		super(p, TYPE_DOCUMENT, null);
+		LibXml.retainAsConfig(this);
 	}
 
 	/**
@@ -122,11 +123,22 @@ public class Document extends Node {
 	 * Cleanup all resources related to this document.
 	 * Be careful when you call this since this will free all children resources as well.
 	 */
+	@Override
 	public void dispose() {
 		if(!disposed) {
 			disposed = true;
 			disposeImpl();
 		}
+	}
+
+	/**
+	 * Register this document object to the auto dispose manager.
+	 * <p>You should call LibXml.disposeAutoRetainedItems() on the same thread after your logic has done.</p>
+	 * @return this instance, for method chaining.
+	 */
+	public Document autoDispose() {
+		LibXml.retain(this);
+		return this;
 	}
 
 	public native void disposeImpl();
