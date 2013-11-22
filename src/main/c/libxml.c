@@ -1,3 +1,4 @@
+#include "../../../config.h"
 #include "org_xmlsoft_LibXml.h"
 #include <libxml/parser.h>
 #include <string.h>
@@ -6,7 +7,9 @@
 #include <assert.h>
 #include "cache.h"
 #include "utils.h"
+#ifdef HAVE_GOOGLE_TCMALLOC_H 
 #include <google/tcmalloc.h>
+#endif
 
 #define CHUNK_SIZE 256
 
@@ -94,6 +97,7 @@ static void handlerStructuredError(void *ctx, xmlErrorPtr error) {
     return;
 }
 
+#ifdef HAVE_GOOGLE_TCMALLOC_H 
 void myFree(void *mem) {
     tc_free(mem);
 }
@@ -112,6 +116,7 @@ char* myStrdup(const char *str) {
     memcpy(ret, str, l+1);
     return ret;
 }
+#endif
 
 /*
  * Class:     org_xmlsoft_LibXml
@@ -124,7 +129,9 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_initInternalParser
     // >> call xmlInitParser() in the "main" thread before using any of the libxml2 API (except possibly selecting a different memory allocator)
     // TODO: Could Java ensure init this method by main thread rather than 'Java main thread'?
     xmlInitParser();
+#ifdef HAVE_GOOGLE_TCMALLOC_H 
     xmlMemSetup(myFree, myMalloc, myRealloc, myStrdup);
+#endif
     
     xmlSetGenericErrorFunc(env, handlerGenericError);
     xmlSetStructuredErrorFunc(env, handlerStructuredError);
@@ -727,5 +734,7 @@ JNIEXPORT jobject JNICALL Java_org_xmlsoft_LibXml_compileXPathImpl
  */
 JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_printTcmallocStatImpl
 (JNIEnv *env, jclass clz) {
+#ifdef HAVE_GOOGLE_TCMALLOC_H 
     tc_malloc_stats();
+#endif
 }
