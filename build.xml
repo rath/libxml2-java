@@ -65,6 +65,13 @@
     </java>
   </target>
 
+  <target name="performance" depends="compile">
+    <java classname="org.junit.runner.JUnitCore"
+      classpathref="home.classpath">
+      <arg value="org.xmlsoft.test.RssTest" />
+    </java>
+  </target>
+
   <target name="clean">
     <delete dir="${build.main}" />
     <delete dir="${build.test}" />
