@@ -42,7 +42,7 @@ JNIEXPORT jobject JNICALL Java_org_xmlsoft_LibXml_parseSystemIdImpl
 /*
  * Class:     org_xmlsoft_LibXml
  * Method:    parseSAXImpl
- * Signature: (Ljava/lang/String;Lorg/xmlsoft/impl/SAXHandlerEngine;I)V
+ * Signature: (Ljava/lang/String;Lorg/xmlsoft/SAXHandlerEngine;I)V
  */
 JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXImpl
   (JNIEnv *, jclass, jstring, jobject, jint);
@@ -50,7 +50,7 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXImpl
 /*
  * Class:     org_xmlsoft_LibXml
  * Method:    parseSAXFileImpl
- * Signature: (Ljava/lang/String;Lorg/xmlsoft/impl/SAXHandlerEngine;I)V
+ * Signature: (Ljava/lang/String;Lorg/xmlsoft/SAXHandlerEngine;I)V
  */
 JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXFileImpl
   (JNIEnv *, jclass, jstring, jobject, jint);
@@ -58,7 +58,7 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXFileImpl
 /*
  * Class:     org_xmlsoft_LibXml
  * Method:    parseSAXSystemIdImpl
- * Signature: (Ljava/lang/String;Ljava/io/InputStream;Lorg/xmlsoft/impl/SAXHandlerEngine;I)V
+ * Signature: (Ljava/lang/String;Ljava/io/InputStream;Lorg/xmlsoft/SAXHandlerEngine;I)V
  */
 JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXSystemIdImpl
   (JNIEnv *, jclass, jstring, jobject, jobject, jint);

@@ -29,7 +29,6 @@ jclass classAttribute;
 
 jmethodID methodErrorNew;
 jmethodID methodDocumentNew;
-jmethodID methodNodeNew;
 jmethodID methodNodeNewWithArgs;
 jmethodID methodNodesetNew;
 jmethodID methodNodesetAddNode;
@@ -49,7 +48,6 @@ jmethodID methodCharBufferGet;
 jmethodID methodCharsetDecode;
 jmethodID methodAttributeNew;
 
-jmethodID methodNodeSetType;
 jmethodID methodNodeSetDocument;
 
 jmethodID methodListAdd;
@@ -131,7 +129,6 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_initInternalParser
    
     methodErrorNew = (*env)->GetMethodID(env, classError, "<init>", "(ILjava/lang/String;II)V");
     methodDocumentNew = (*env)->GetMethodID(env, classDocument, "<init>", "(J)V");
-    methodNodeNew = (*env)->GetMethodID(env, classNode, "<init>", "(J)V");
     methodNodeNewWithArgs = (*env)->GetMethodID(env, classNode, "<init>", "(JSLorg/xmlsoft/Document;)V");
     methodNodesetNew = (*env)->GetMethodID(env, classNodeset, "<init>", "(J)V");
     methodNodesetAddNode = (*env)->GetMethodID(env, classNodeset, "addNode", "(Lorg/xmlsoft/Node;)V");
@@ -142,7 +139,6 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_initInternalParser
     methodXPathObjectNew = (*env)->GetMethodID(env, classXPathObject, "<init>", "(JZ)V");
     methodXPathExprNew = (*env)->GetMethodID(env, classXPathExpression, "<init>", "(J)V");
     
-    methodNodeSetType = (*env)->GetMethodID(env, classNode, "setType", "(I)V");
     methodNodeSetDocument = (*env)->GetMethodID(env, classNode, "setDocument", "(Lorg/xmlsoft/Document;)V");
     methodLocatorNew = (*env)->GetMethodID(env, classLocator, "<init>", "(J)V");
     methodAttributeNew = (*env)->GetStaticMethodID(env, classAttribute, "createInstance", "(Lorg/xmlsoft/Namespace;Ljava/lang/String;Ljava/lang/String;)Lorg/xmlsoft/Attribute;");

@@ -18,7 +18,6 @@ extern jclass classXPathExpression;
 
 extern jmethodID methodErrorNew;
 extern jmethodID methodDocumentNew;
-extern jmethodID methodNodeNew;
 extern jmethodID methodNodeNewWithArgs;
 extern jmethodID methodNodeSetType;
 extern jmethodID methodNodeSetDocument;

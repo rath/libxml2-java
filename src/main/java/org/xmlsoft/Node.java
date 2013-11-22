@@ -13,22 +13,31 @@ import java.util.*;
  * @author Jang-Ho Hwang, rath@xrath.com
  */
 public class Node implements Iterable<Node>, Disposable {
+	public static final short TYPE_ELEMENT = 1;
+	public static final short TYPE_ATTRIBUTE = 2;
+	public static final short TYPE_TEXT = 3;
+	public static final short TYPE_CDATA = 4;
+	public static final short TYPE_ENTITY_REF = 5;
+	public static final short TYPE_ENTITY = 6;
+	public static final short TYPE_PI = 7;
+	public static final short TYPE_COMMENT = 8;
+	public static final short TYPE_DOCUMENT = 9;
+	public static final short TYPE_DOCUMENT_TYPE = 10;
+	public static final short TYPE_DOCUMENT_FRAG = 11;
+	public static final short TYPE_NOTATION = 12;
+	public static final short TYPE_DTD = 14;
+
 	private boolean disposed = false;
 	final long p;
 	private Document document;
 
-	private Type type; // set lazy on native
+	private short type; // set lazy on native
 	private String name; // set lazy on native
 	private Namespace namespace; // set lazy on native
 
-	Node(long p) {
-		this.p = p;
-		fillRequiredFields();
-	}
-
 	Node(long p, short type, Document owner) {
 		this.p = p;
-		this.type = Type.asCode(type);
+		this.type = type;
 		this.document = owner;
 	}
 
@@ -85,12 +94,8 @@ public class Node implements Iterable<Node>, Disposable {
 	 * An enum representing the type of the underlying object.
 	 * @return type of this node.
 	 */
-	public Type getType() {
+	public short getType() {
 		return this.type;
-	}
-
-	private void setType(int code) {
-		type = Type.asCode(code);
 	}
 
 	/**
@@ -98,7 +103,7 @@ public class Node implements Iterable<Node>, Disposable {
 	 * @return a name.
 	 */
 	public String getName() {
-		if( type==Type.TEXT )
+		if( type==TYPE_TEXT )
 			return "";
 
 		if( this.name!=null )
@@ -124,8 +129,6 @@ public class Node implements Iterable<Node>, Disposable {
 	 * Execute as 'this.name = xmlNodePtr->name'
 	 */
 	private native void fillNameImpl();
-
-	private native void fillRequiredFields();
 
 	/**
 	 * Returns next sibling if possible.
@@ -177,7 +180,7 @@ public class Node implements Iterable<Node>, Disposable {
 	 */
 	public Node getParent() {
 		Node parent = getParentImpl();
-		if( parent.getType()==Type.DOCUMENT ) {
+		if( parent.getType()==TYPE_DOCUMENT ) {
 			return document;
 		}
 		return parent;
@@ -409,26 +412,6 @@ public class Node implements Iterable<Node>, Disposable {
 	}
 
 	private native Node addPrevSiblingImpl(Node newNode);
-
-	public static enum Type {
-		ELEMENT(1), ATTRIBUTE(2), TEXT(3), CDATA(4), ENTITY_REF(5), ENTITY(6), PI(7),
-		COMMENT(8), DOCUMENT(9), DOCUMENT_TYPE(10), DOCUMENT_FRAG(11), NOTATION(12), DTD(14);
-
-		private int code;
-		Type(int code) {
-			this.code = code;
-		}
-		public int code() {
-			return this.code;
-		}
-		public static Type asCode(int code) {
-			for(Type t : Type.values()) {
-				if(t.code==code)
-					return t;
-			}
-			throw new IllegalArgumentException("Unsupported node type ("+ + code + ")");
-		}
-	};
 
 	@Override
 	public String toString() {

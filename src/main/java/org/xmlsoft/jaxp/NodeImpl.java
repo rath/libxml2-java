@@ -4,6 +4,7 @@ import org.w3c.dom.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.xmlsoft.*;
+import static org.xmlsoft.Node.*;
 
 /**
  * 
@@ -24,11 +25,11 @@ public class NodeImpl implements Node {
 	public static NodeImpl createByType(Document owner, org.xmlsoft.Node impl) {
 		if( impl==null )
 			return null;
-		org.xmlsoft.Node.Type type = impl.getType();
-		if( type== org.xmlsoft.Node.Type.ELEMENT ) {
+		short type = impl.getType();
+		if( type== TYPE_ELEMENT ) {
 			return new ElementImpl(owner, impl);
 		} else
-		if( type== org.xmlsoft.Node.Type.TEXT ) {
+		if( type== TYPE_TEXT ) {
 			return new TextImpl(owner, impl);
 		}
 		return new NodeImpl(owner, impl);
@@ -55,17 +56,17 @@ public class NodeImpl implements Node {
 	@Override
 	public short getNodeType() {
 		switch (impl.getType()) {
-			case DOCUMENT:
+			case TYPE_DOCUMENT:
 				return Node.DOCUMENT_TYPE_NODE;
-			case ELEMENT:
+			case TYPE_ELEMENT:
 				return Node.ELEMENT_NODE;
-			case ATTRIBUTE:
+			case TYPE_ATTRIBUTE:
 				return Node.ATTRIBUTE_NODE;
-			case TEXT:
+			case TYPE_TEXT:
 				return Node.TEXT_NODE;
-			case CDATA:
+			case TYPE_CDATA:
 				return Node.CDATA_SECTION_NODE;
-			case COMMENT:
+			case TYPE_COMMENT:
 				return Node.COMMENT_NODE;
 		}
 		throw new UnsupportedOperationException();
@@ -106,7 +107,7 @@ public class NodeImpl implements Node {
 
 	@Override
 	public NamedNodeMap getAttributes() {
-		if(impl.getType()!= org.xmlsoft.Node.Type.ELEMENT) {
+		if(impl.getType()!= TYPE_ELEMENT) {
 			throw new UnsupportedOperationException("Node.getAttributes has been called for type " + impl.getType());
 		}
 
@@ -209,23 +210,22 @@ public class NodeImpl implements Node {
 	@Override
 	public String getTextContent() throws DOMException {
 		String value = null;
-		org.xmlsoft.Node.Type type = impl.getType();
-		switch (type) {
-			case TEXT:
-			case CDATA:
-			case COMMENT:
-			case PI:
+		switch (impl.getType()) {
+			case TYPE_TEXT:
+			case TYPE_CDATA:
+			case TYPE_COMMENT:
+			case TYPE_PI:
 				value = impl.getText();
 				break;
-			case ELEMENT:
-			case ATTRIBUTE:
-			case ENTITY:
-			case DOCUMENT_FRAG:
+			case TYPE_ELEMENT:
+			case TYPE_ATTRIBUTE:
+			case TYPE_ENTITY:
+			case TYPE_DOCUMENT_FRAG:
 				value = impl.getChildText();
 				break;
-			case DOCUMENT:
-			case DOCUMENT_TYPE:
-			case NOTATION:
+			case TYPE_DOCUMENT:
+			case TYPE_DOCUMENT_TYPE:
+			case TYPE_NOTATION:
 				value = null;
 				break;
 		}

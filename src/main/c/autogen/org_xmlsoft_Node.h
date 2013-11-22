@@ -7,6 +7,32 @@
 #ifdef __cplusplus
 extern "C" {
 #endif
+#undef org_xmlsoft_Node_TYPE_ELEMENT
+#define org_xmlsoft_Node_TYPE_ELEMENT 1L
+#undef org_xmlsoft_Node_TYPE_ATTRIBUTE
+#define org_xmlsoft_Node_TYPE_ATTRIBUTE 2L
+#undef org_xmlsoft_Node_TYPE_TEXT
+#define org_xmlsoft_Node_TYPE_TEXT 3L
+#undef org_xmlsoft_Node_TYPE_CDATA
+#define org_xmlsoft_Node_TYPE_CDATA 4L
+#undef org_xmlsoft_Node_TYPE_ENTITY_REF
+#define org_xmlsoft_Node_TYPE_ENTITY_REF 5L
+#undef org_xmlsoft_Node_TYPE_ENTITY
+#define org_xmlsoft_Node_TYPE_ENTITY 6L
+#undef org_xmlsoft_Node_TYPE_PI
+#define org_xmlsoft_Node_TYPE_PI 7L
+#undef org_xmlsoft_Node_TYPE_COMMENT
+#define org_xmlsoft_Node_TYPE_COMMENT 8L
+#undef org_xmlsoft_Node_TYPE_DOCUMENT
+#define org_xmlsoft_Node_TYPE_DOCUMENT 9L
+#undef org_xmlsoft_Node_TYPE_DOCUMENT_TYPE
+#define org_xmlsoft_Node_TYPE_DOCUMENT_TYPE 10L
+#undef org_xmlsoft_Node_TYPE_DOCUMENT_FRAG
+#define org_xmlsoft_Node_TYPE_DOCUMENT_FRAG 11L
+#undef org_xmlsoft_Node_TYPE_NOTATION
+#define org_xmlsoft_Node_TYPE_NOTATION 12L
+#undef org_xmlsoft_Node_TYPE_DTD
+#define org_xmlsoft_Node_TYPE_DTD 14L
 /*
  * Class:     org_xmlsoft_Node
  * Method:    childrenImpl

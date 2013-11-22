@@ -121,9 +121,9 @@ public class BasicTest {
 
 		Document doc = LibXml.parseString(xml);
 		Node root = doc.getRootElement();
-		Assert.assertEquals("Document", Node.Type.DOCUMENT, doc.getType());
-		Assert.assertEquals("Element", Node.Type.ELEMENT, root.getType());
-		Assert.assertEquals("Text", Node.Type.TEXT, root.children().getNext().getType());
+		Assert.assertEquals("Document", Node.TYPE_DOCUMENT, doc.getType());
+		Assert.assertEquals("Element", Node.TYPE_ELEMENT, root.getType());
+		Assert.assertEquals("Text", Node.TYPE_TEXT, root.children().getNext().getType());
 //		doc.dispose();
 	}
 
@@ -176,7 +176,7 @@ public class BasicTest {
 		Document doc = LibXml.parseString(xml);
 		Node root = doc.getRootElement();
 		Node textNode = root.children().getNext().getNext().getPrevious();
-		Assert.assertEquals("Previous", Node.Type.TEXT, textNode.getType());
+		Assert.assertEquals("Previous", Node.TYPE_TEXT, textNode.getType());
 		Assert.assertEquals("Last", "third", root.getLast().getName());
 		Assert.assertEquals("Parent", "me-root", root.getLast().getParent().getName());
 	}

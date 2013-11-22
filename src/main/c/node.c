@@ -55,18 +55,6 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_Node_fillNameImpl
 
 /*
  * Class:     org_xmlsoft_Node
- * Method:    fillRequiredFields
- * Signature: ()V
- */
-JNIEXPORT void JNICALL Java_org_xmlsoft_Node_fillRequiredFields
-(JNIEnv *env, jobject obj) {
-    xmlNode *node = findNode(env, obj);
-    assert(node && "internal xmlNode is NULL");
-    (*env)->CallNonvirtualVoidMethod(env, obj, classNode, methodNodeSetType, node->type);
-}
-
-/*
- * Class:     org_xmlsoft_Node
  * Method:    nextImpl
  * Signature: ()Lrath/libxml/Node;
  */

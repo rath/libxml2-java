@@ -3,8 +3,10 @@ package org.xmlsoft.test;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.xmlsoft.*;
+import org.xmlsoft.Document;
+import org.xmlsoft.Node;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,20 +32,19 @@ public class RssTest {
 	public void testWithLibXml() throws Exception {
 		File sampleFile = new File("sample-xmls/rss-infoq.xml");
 		for (int i = 0; i < 20; i++) {
-			long l0 = System.nanoTime();
 			Document doc = LibXml.parseFile(sampleFile);
 
 			XPathContext context = doc.createXPathContext();
 			XPathObject result = context.evaluate("//item");
 			for (Node itemNode : result.nodeset) {
-				RssItem item = RssItem.build(itemNode);
+				long l0 = System.nanoTime();
+				RssItem.build(itemNode);
+				long l1 = System.nanoTime();
+				System.out.println((l1 - l0) + " ns");
 			}
 			result.dispose();
 			context.dispose();
 			doc.dispose();
-			long l1 = System.nanoTime();
-			if (i>10)
-				System.out.println((l1 - l0) + " ns");
 		}
 	}
 
@@ -51,23 +52,24 @@ public class RssTest {
 	public void testWithJAXP() throws Exception {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		XPathFactory xf = XPathFactory.newInstance();
+//		DocumentBuilderFactory dbf = LibXml.createDocumentBuilderFactory();
+//		XPathFactory xf = LibXml.createXPathFactory();
 
 		File sampleFile = new File("sample-xmls/rss-infoq.xml");
 		for (int i = 0; i < 20; i++) {
-			long l0 = System.nanoTime();
-
 			DocumentBuilder db = dbf.newDocumentBuilder();
 			org.w3c.dom.Document doc = db.parse(sampleFile);
 
 			XPath xpath = xf.newXPath();
 			NodeList nl = (NodeList) xpath.evaluate("//item", doc, XPathConstants.NODESET);
 			for(int x=0; x<nl.getLength(); x++) {
-				RssItem item = RssItem.build(nl.item(x));
+				org.w3c.dom.Node n = nl.item(x);
+				long l0 = System.nanoTime();
+				RssItem.build(nl.item(x));
+				long l1 = System.nanoTime();
+				System.out.println((l1 - l0) + " ns");
 			}
 
-			long l1 = System.nanoTime();
-			if (i>10)
-				System.out.println((l1 - l0) + " ns");
 		}
 	}
 
@@ -82,12 +84,14 @@ public class RssTest {
 
 		public static RssItem build(Node node) throws ParseException {
 			RssItem item = new RssItem();
-			for(Node child : node) {
-				if( child.getType()== Node.Type.ELEMENT ) {
-					String name = child.getName();
-					String value = child.getChildText();
-					fillFields(item, name, value);
+			Node child = node.children();
+			while(child!=null) {
+				if( child.getType()==Node.TYPE_ELEMENT ) {
+//					String name = child.getName();
+//					String value = child.getChildText();
+//					fillFields(item, name, value);
 				}
+				child = child.getNext();
 			}
 			return item;
 		}
@@ -98,9 +102,9 @@ public class RssTest {
 			for(int i=0; i<nl.getLength(); i++) {
 				org.w3c.dom.Node child = nl.item(i);
 				if( child.getNodeType()==org.w3c.dom.Node.ELEMENT_NODE ) {
-					String name = child.getNodeName();
-					String value = child.getTextContent();
-					fillFields(item, name, value);
+//					String name = child.getNodeName();
+//					String value = child.getTextContent();
+//					fillFields(item, name, value);
 				}
 			}
 			return item;
@@ -116,7 +120,7 @@ public class RssTest {
 			else if(name.equals("category"))
 				item.categories.add(value);
 			else if(name.equals("pubDate"))
-				item.pubDate = fmtDate.parse(value);
+				item.pubDate = null;//fmtDate.parse(value);
 			else if(name.equals("guid"))
 				item.guid = value;
 		}

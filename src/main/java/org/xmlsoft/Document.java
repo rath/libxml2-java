@@ -22,15 +22,15 @@ public class Document extends Node {
 	private boolean disposed = false;
 
 	Document(long p) {
-		super(p);
+		super(p, TYPE_DOCUMENT, null);
 	}
 
 	/**
 	 * An enum representing the type of the underlying object.
 	 * @return Node.Type.DOCUMENT always.
 	 */
-	public Node.Type getType() {
-		return Node.Type.DOCUMENT;
+	public short getType() {
+		return TYPE_DOCUMENT;
 	}
 
 	/**
