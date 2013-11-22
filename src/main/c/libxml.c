@@ -120,12 +120,11 @@ char* myStrdup(const char *str) {
  */
 JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_initInternalParser
 (JNIEnv *env, jclass clz) {
-    xmlMemSetup(myFree, myMalloc, myRealloc, myStrdup);
-    
     // http://xmlsoft.org/threads.html
     // >> call xmlInitParser() in the "main" thread before using any of the libxml2 API (except possibly selecting a different memory allocator)
     // TODO: Could Java ensure init this method by main thread rather than 'Java main thread'?
     xmlInitParser();
+    xmlMemSetup(myFree, myMalloc, myRealloc, myStrdup);
     
     xmlSetGenericErrorFunc(env, handlerGenericError);
     xmlSetStructuredErrorFunc(env, handlerStructuredError);
@@ -727,5 +726,5 @@ JNIEXPORT jobject JNICALL Java_org_xmlsoft_LibXml_compileXPathImpl
  */
 JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_printTcmallocStatImpl
 (JNIEnv *env, jclass clz) {
-    
+    tc_malloc_stats();
 }
