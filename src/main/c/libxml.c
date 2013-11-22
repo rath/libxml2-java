@@ -30,6 +30,7 @@ jclass classAttribute;
 jmethodID methodErrorNew;
 jmethodID methodDocumentNew;
 jmethodID methodNodeNew;
+jmethodID methodNodeNewWithArgs;
 jmethodID methodNodesetNew;
 jmethodID methodNodesetAddNode;
 jmethodID methodNamespaceNew;
@@ -131,6 +132,7 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_initInternalParser
     methodErrorNew = (*env)->GetMethodID(env, classError, "<init>", "(ILjava/lang/String;II)V");
     methodDocumentNew = (*env)->GetMethodID(env, classDocument, "<init>", "(J)V");
     methodNodeNew = (*env)->GetMethodID(env, classNode, "<init>", "(J)V");
+    methodNodeNewWithArgs = (*env)->GetMethodID(env, classNode, "<init>", "(JSLorg/xmlsoft/Document;)V");
     methodNodesetNew = (*env)->GetMethodID(env, classNodeset, "<init>", "(J)V");
     methodNodesetAddNode = (*env)->GetMethodID(env, classNodeset, "addNode", "(Lorg/xmlsoft/Node;)V");
     methodNamespaceNew = (*env)->GetMethodID(env, classNamespace, "<init>", "(Ljava/lang/String;Ljava/lang/String;)V");

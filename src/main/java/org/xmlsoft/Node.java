@@ -23,7 +23,13 @@ public class Node implements Iterable<Node>, Disposable {
 
 	Node(long p) {
 		this.p = p;
-		this.fillRequiredFields();
+		fillRequiredFields();
+	}
+
+	Node(long p, short type, Document owner) {
+		this.p = p;
+		this.type = Type.asCode(type);
+		this.document = owner;
 	}
 
 	/**

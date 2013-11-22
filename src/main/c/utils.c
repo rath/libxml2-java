@@ -5,9 +5,7 @@
 jobject     buildNode(JNIEnv *env, xmlNode *node, jobject document) {
     if( node==NULL )
         return NULL;
-    jobject jnode = (*env)->NewObject(env, classNode, methodNodeNew, (jlong)node);
-    (*env)->CallNonvirtualVoidMethod(env, jnode, classNode, methodNodeSetDocument, document);
-    return jnode;
+    return (*env)->NewObject(env, classNode, methodNodeNewWithArgs, (jlong)node, node->type, document);
 }
 
 jobject     buildDocument(JNIEnv *env, xmlDoc *doc) {
