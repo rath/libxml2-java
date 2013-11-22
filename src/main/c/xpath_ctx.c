@@ -129,8 +129,11 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_XPathContext_setContextNodeImpl
         return;
     xmlXPathContext *ctx = findXPathContext(env, obj);
     xmlNode *node = findNode(env, jnode);
-    if(xmlXPathSetContextNode(node, ctx)) {
+    
+    if(node==NULL || ctx==NULL || node->doc!=ctx->doc) {
         throwInternalErrorWithMessage(env, "context node must be child in document");
+    } else {
+        ctx->node = node;
     }
 }
 
