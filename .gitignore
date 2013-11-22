@@ -11,7 +11,9 @@
 *.cache
 *.log
 Makefile
+/test.xml
 /src/test/c/
+/javadoc/
 /configure.scan
 /config.status
 /config.h
