@@ -35,6 +35,25 @@ While you freely run _make_ command many times on your own hand, this step is no
 
  libxml2-java will free underlying native resources on Object.finalize() by default. It makes you not hassle with memory management issue. However If you have to claim it explicitly, Document.dispose(), XPathContext.dispose() and all nodes implement Disposable will do the job. Note that Docucment.dispose() will free all children nodes as well. 
 
+ If you don't believe timing of `Object.finalize()` and calling dispose() method manually as I don't, libxml2-java allows you to handle memory de-allocation by calling autoDispose(). It will retain Disposable items to backend list until you claim `LibXml.disposeAutoRetainedItems()`. If it also makes you hassle, you can avoid it by calling `LibXml.setAutoRetainEveryDisposable`. This would retain every disposable objects automatically until you call `LibXml.disposeAutoRetainedItems()`. 
+ The backend list holding disposable items is not thread-safe and is managed by internal thread-local-storage. so you need to call `LibXml.disposeAutoRetainedItems()` on the same thread as the thread allocated (retained) that items.
+
+```java
+Document doc = LibXml.parseString(xml).autoDispose();
+// do your job freely.
+LibXml.disposeAutoRetainedItems();
+```
+
+or
+
+```java
+LibXml.setAutoRetainEveryDisposable();
+// use document, xpath without calling dispose() or autoDispose()
+LibXml.disposeAutoRetainedItems();
+```
+
+Calling LibXml.printTcmallocStat() allows you to investigate current allocated native memory map by printing status to standard output. If you configure libxml2-java without [TCMalloc](http://goog-perftools.sourceforge.net/doc/tcmalloc.html), LibXml.printTcmallocStat() won't print anything.
+
 ## Examples 
 
 * Print all child elements under the root node.
