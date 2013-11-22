@@ -22,7 +22,7 @@ sourceSets {
 }
 
 task processNativeResources(type: JavaExec) {
-  main = 'rath.libxml.util.BuildResources'
+  main = 'org.xmlsoft.util.BuildResources'
   classpath sourceSets.main.runtimeClasspath
 }
 
