@@ -14,6 +14,6 @@ import org.xmlsoft.LibXml;
 public class ContextStart {
 	@Test
 	public void foo() {
-		LibXml.setAutoRetainDisposable();
+		LibXml.setAutoRetainEveryDisposable();
 	}
 }
