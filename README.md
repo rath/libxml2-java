@@ -6,7 +6,7 @@ libxml2-java is Java language binding for well-known [libxml2](http://xmlsoft.or
 
 Javadoc is [available online](http://rath.github.io/libxml2-java/javadoc/).
 
-## Build instructions
+## Build from Source
 
 You need essential build tools such as [Java Development Kit](http://en.wikipedia.org/wiki/Java_Development_Kit) 6 or higher, [Gradle](http://www.gradle.org), [GNU Make](http://www.gnu.org/software/make/) and most importantly you should have libxml2 development package on your system. 
 
@@ -29,7 +29,15 @@ Otherwise, configure script would try to detect where JDK is installed on your s
 	$ ./configure 
 	$ gradle build
 
-While you freely run _make_ command many times on your own hand, this step is not needed. On running gradle build script, a task named _processNativeResources_ will execute _make_. 
+While you freely run _make_ command many times on your own hand, this step is not required. On running gradle build script, a task named _processNativeResources_ will execute _make_. 
+
+### TCMalloc 
+
+As libxml2 frequantly allocate small chunk of memory, it supports [Google's TCMalloc](http://goog-perftools.sourceforge.net/doc/tcmalloc.html) for performance boost. 
+
+	./configure --with-tcmalloc 
+
+It requires system to have `google/tcmalloc.h` and `-ltcmalloc`. 
 
 ## Memory consideration
 
