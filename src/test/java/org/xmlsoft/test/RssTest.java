@@ -56,12 +56,16 @@ public class RssTest {
 	}
 
 	private void printReport() {
+		printReport("");
+	}
+
+	private void printReport(String title) {
 		long sum = 0L;
 		for(Long time : timeQueue) {
 			sum += time;
 		}
 		long averageTime = sum / timeQueue.size();
-		System.out.println("Average: " + averageTime + " ns");
+		System.out.println(title + " average: " + averageTime + " ns");
 	}
 
 	@Test
@@ -82,7 +86,8 @@ public class RssTest {
 
 			stopWatch();
 		}
-		printReport();
+		printReport("libxml2");
+		LibXml.printTcmallocStat();
 	}
 
 	@Test
@@ -106,7 +111,7 @@ public class RssTest {
 			}
 			stopWatch();
 		}
-		printReport();
+		printReport("xercesj");
 	}
 
 	static class RssItem {

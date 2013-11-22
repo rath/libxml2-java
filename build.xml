@@ -56,12 +56,13 @@
   <target name="test" depends="compile">
     <java classname="org.junit.runner.JUnitCore"
       classpathref="home.classpath">
+      <arg value="org.xmlsoft.test.ContextStart" />
       <arg value="org.xmlsoft.test.BasicTest" />
       <arg value="org.xmlsoft.test.JaxpTest" />
       <arg value="org.xmlsoft.test.SaxTest" />
-      <arg value="org.xmlsoft.test.ContextTest" />
       <arg value="org.xmlsoft.test.XPathTest" />
       <arg value="org.xmlsoft.test.DomManipulationTest" />
+      <arg value="org.xmlsoft.test.ContextEnd" />
     </java>
   </target>
 
