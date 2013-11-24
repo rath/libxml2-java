@@ -136,6 +136,21 @@ by setting _org.xmlsoft.jaxp.DocumentBuilderFactoryImpl_ as _javax.xml.parsers.D
 - XPathTest: Test cases for XPath APIs.
 - DomManipulationTest: Test cases for creating and update DOM.
 
+## Performance 
+
+_libxml2-java_ is not so fast as I expected. 
+The following is a brief comparison with Apache Xerces which is bundled on JDK with 100KB xml document. 
+You can examine below comparison by running `org.xmlsoft.test.RssTest`.
+
+### Parsing as DOM 
+
+libxml2-java is simple wrapper for native libxml2. Document object that `LibXml.parseFile` returns and their children are lazy initialised on demand, for example `Node.getName()` directly calls `NewStringUTF(env, xmlNodePtr->name)`. For that reason, returning Document object is 2 times faster than Apache Xerces, but when you start calling `Node.getName()` or `Node.getChildText()`, it shows same speed or even slower than Apache Xerces's implementation.
+
+### Parsing as SAX 
+
+Calling Java method from the native codes is obviously slow. Even though libxml2-java caches all core classes, jmethodID, jfieldID, and uses CallNonvirtualXXXMethod rather than CallXXXMethod, it almost 2 times slower than Apache Xerces. Aside from this issue, there are lots of byte/char conversion on every callback method. It makes SAX parsing performance of libxml2-java cannot beat implementation of pure java.
+Although I tried to put tricky codes to overcome this weakness, it didn't help a lot. 
+
 ## Notes
 
 - Make sure libxml2 library is configured with --with-threads option.
