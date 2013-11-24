@@ -339,17 +339,12 @@ static void _startDocument(void *p) {
     // TODO: should check exceptionOccurs then stop internal parsing by calling xmlStopParser(p);
 }
 
-static void _ensureChars(SContext *ctx, const xmlChar *ch, int len) {
+static void _characters(void *p, const xmlChar *ch, int len) {
+    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
     JNIEnv *env = ctx->env;
     jbyteArray array = (*env)->CallNonvirtualObjectMethod(env, ctx->handler, classEngine, methodEngineEnsureChars, (jint)len);
     (*env)->SetByteArrayRegion(env, array, 0, len, (jbyte*)ch);
     (*env)->DeleteLocalRef(env, array);
-}
-
-static void _characters(void *p, const xmlChar *ch, int len) {
-    SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
-    JNIEnv *env = ctx->env;
-    _ensureChars(ctx, ch, len);
     (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineCharacters);
     // TODO: should check exceptionOccurs then stop internal parsing by calling xmlStopParser(p);
 }
@@ -357,7 +352,9 @@ static void _characters(void *p, const xmlChar *ch, int len) {
 static void _ignorableWhitespace(void *p, const xmlChar *ch, int len) {
     SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
     JNIEnv *env = ctx->env;
-    _ensureChars(ctx, ch, len);
+    jbyteArray array = (*env)->CallNonvirtualObjectMethod(env, ctx->handler, classEngine, methodEngineEnsureChars, (jint)len);
+    (*env)->SetByteArrayRegion(env, array, 0, len, (jbyte*)ch);
+    (*env)->DeleteLocalRef(env, array);
     (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineIgnorableWhitespace);
     // TODO: should check exceptionOccurs then stop internal parsing by calling xmlStopParser(p);
 }
@@ -412,10 +409,15 @@ static void _endElementNs(void *p, const xmlChar *localname, const xmlChar *pref
     SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
     JNIEnv *env = ctx->env;
     
-    (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineEndElement,
-                           (*env)->NewStringUTF(env, (const char*)uri),
-                           (*env)->NewStringUTF(env, (const char*)prefix),
-                           (*env)->NewStringUTF(env, (const char*)localname));
+    jstring s0 = (*env)->NewStringUTF(env, (const char*)uri);
+    jstring s1 = (*env)->NewStringUTF(env, (const char*)prefix);
+    jstring s2 = (*env)->NewStringUTF(env, (const char*)localname);
+    
+    (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineEndElement, s0, s1, s2);
+    
+    (*env)->DeleteLocalRef(env, s0);
+    (*env)->DeleteLocalRef(env, s1);
+    (*env)->DeleteLocalRef(env, s2);
 }
 
 /*
