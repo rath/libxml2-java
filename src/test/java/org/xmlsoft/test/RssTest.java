@@ -73,8 +73,8 @@ public class RssTest {
 		System.out.println(title + " average: " + (averageTime) + " ns");
 	}
 
-//	@Test
-	public void testWithLibXml() throws Exception {
+	@Test
+	public void testWithDOMLibXml() throws Exception {
 		File sampleFile = new File("sample-xmls/rss-infoq.xml");
 		for (int i = 0; i < 50; i++) {
 			startWatch();
@@ -95,8 +95,8 @@ public class RssTest {
 		LibXml.printTcmallocStat();
 	}
 
-//	@Test
-	public void testWithJAXP() throws Exception {
+	@Test
+	public void testWithDOMJAXP() throws Exception {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		XPathFactory xf = XPathFactory.newInstance();
 //		DocumentBuilderFactory dbf = LibXml.createDocumentBuilderFactory();
@@ -120,7 +120,7 @@ public class RssTest {
 	}
 
 	@Test
-	public void testWithLibXmlSAX() throws Exception {
+	public void testWithSAXLibXml() throws Exception {
 		SAXHandler handler = new SAXAdapter() {
 			boolean underItem = false;
 			boolean underTitle = false;
@@ -193,7 +193,7 @@ public class RssTest {
 	}
 
 	@Test
-	public void testWithJAXPSAX() throws Exception {
+	public void testWithSAXJaxp() throws Exception {
 		DefaultHandler handler = new DefaultHandler() {
 			boolean underItem = false;
 			boolean underTitle = false;
@@ -253,7 +253,7 @@ public class RssTest {
 
 	public static void main(String[] args) throws Exception {
 		RssTest test = new RssTest();
-		test.testWithLibXmlSAX();
+		test.testWithSAXLibXml();
 	}
 
 	static class RssItem {
