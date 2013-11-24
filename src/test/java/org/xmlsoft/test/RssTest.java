@@ -25,7 +25,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
 
 /**
  * User: rath
@@ -69,10 +68,10 @@ public class RssTest {
 			sum += time;
 		}
 		long averageTime = sum / timeQueue.size();
-		System.out.println(title + " average: " + averageTime + " ns");
+		System.out.println(title + " average: " + (averageTime) + " ns");
 	}
 
-	@Test
+//	@Test
 	public void testWithLibXml() throws Exception {
 		File sampleFile = new File("sample-xmls/rss-infoq.xml");
 		for (int i = 0; i < 50; i++) {
@@ -94,7 +93,7 @@ public class RssTest {
 		LibXml.printTcmallocStat();
 	}
 
-	@Test
+//	@Test
 	public void testWithJAXP() throws Exception {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		XPathFactory xf = XPathFactory.newInstance();
@@ -133,6 +132,7 @@ public class RssTest {
 				}
 				else if(localName.equals("title")) {
 					underTitle = true;
+					title = "";
 				}
 				else if(localName.equals("link")) {
 					underLink = true;
@@ -142,7 +142,7 @@ public class RssTest {
 			@Override
 			public void characters(char[] ch, int start, int length) {
 				if(underTitle) {
-					title = new String(ch, start, length);
+					title += new String(ch, start, length);
 				} else if(underLink) {
 					link = new String(ch, start, length);
 				}
@@ -161,10 +161,25 @@ public class RssTest {
 					underLink = false;
 				}
 			}
+
+			@Override
+			public void warning(LibXmlException exception) {
+				System.out.println(exception.getMessage());
+			}
+
+			@Override
+			public void error(LibXmlException exception) {
+				System.out.println(exception.getMessage());
+			}
+
+			@Override
+			public void fatalError(LibXmlException exception) {
+				System.out.println(exception.getMessage());
+			}
 		};
 
 		SAXHandlerEngine engine = new SAXHandlerEngine();
-		engine.setAwarePrefixMapping(false);
+		engine.setAwarePrefixMapping(true);
 		File sampleFile = new File("sample-xmls/rss-infoq.xml");
 		for (int i = 0; i < 50; i++) {
 			startWatch();
@@ -231,7 +246,11 @@ public class RssTest {
 			stopWatch();
 		}
 		printReport("xercesj SAX");
-		LibXml.printTcmallocStat();
+	}
+
+	public static void main(String[] args) throws Exception {
+		RssTest test = new RssTest();
+		test.testWithLibXmlSAX();
 	}
 
 	static class RssItem {
