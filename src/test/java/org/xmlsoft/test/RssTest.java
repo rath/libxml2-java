@@ -5,12 +5,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
-import org.w3c.dom.*;
+import org.w3c.dom.NodeList;
 import org.xml.sax.Attributes;
 import org.xml.sax.helpers.DefaultHandler;
 import org.xmlsoft.*;
-import org.xmlsoft.Document;
-import org.xmlsoft.Node;
+import org.xmlsoft.util.Utils;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -23,7 +22,10 @@ import java.io.File;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
+import java.util.Queue;
 import java.util.concurrent.ArrayBlockingQueue;
 
 /**
@@ -205,6 +207,7 @@ public class RssTest {
 				}
 				else if(qName.equals("title")) {
 					underTitle = true;
+					title = "";
 				}
 				else if(localName.equals("link")) {
 					underLink = true;
@@ -214,7 +217,7 @@ public class RssTest {
 			@Override
 			public void characters(char[] ch, int start, int length) {
 				if(underTitle) {
-					title = new String(ch, start, length);
+					title += new String(ch, start, length);
 				} else if(underLink) {
 					link = new String(ch, start, length);
 				}

@@ -58,9 +58,26 @@ public final class SAXHandlerEngine {
 	byte[] ensureCharacterBufferSize(int size) {
 		if(byteBuffer.length < size) {
 			byteBuffer = new byte[size];
+			characterBuffer = new char[size];
 		}
 		byteBufferFilled = size;
 		return byteBuffer;
+	}
+
+	public void fireCharacter(byte data) {
+		characterBuffer[0] = (char)data;
+		handler.characters(characterBuffer, 0, 1);
+	}
+
+	public boolean fireBytes() {
+		for(int i=byteBufferFilled-1; i>=0; i--) {
+			characterBuffer[i] = (char) byteBuffer[i];
+			if(byteBuffer[i]<0) {
+				return false;
+			}
+		}
+		handler.characters(characterBuffer, 0, byteBufferFilled);
+		return true;
 	}
 
 	public void fireCharacters() throws UnsupportedEncodingException {
@@ -76,9 +93,6 @@ public final class SAXHandlerEngine {
 	private int copyBufferImpl() throws UnsupportedEncodingException {
 		String s = new String(byteBuffer, 0, byteBufferFilled, "UTF-8");
 		int len = s.length();
-		if( characterBuffer.length < len ) {
-			characterBuffer = new char[len];
-		}
 		s.getChars(0, len, characterBuffer, 0);
 		return len;
 	}
