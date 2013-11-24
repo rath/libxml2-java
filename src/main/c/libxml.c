@@ -15,6 +15,7 @@
 
 jclass classString;
 jclass classError;
+jclass classEngine;
 jclass classDocument;
 jclass classNode;
 jclass classNodeset;
@@ -51,10 +52,23 @@ jmethodID methodCharBufferLength;
 jmethodID methodCharBufferGet;
 jmethodID methodCharsetDecode;
 jmethodID methodAttributeNew;
-
 jmethodID methodNodeSetDocument;
-
 jmethodID methodListAdd;
+
+jmethodID methodEngineStartDocument;
+jmethodID methodEngineEndDocument;
+jmethodID methodEngineCharacters;
+jmethodID methodEngineIgnorableWhitespace;
+jmethodID methodEngineEnsureChars;
+jmethodID methodEngineStartElement;
+jmethodID methodEngineEndElement;
+jmethodID methodEnginePI;
+jmethodID methodEngineNotationDecl;
+jmethodID methodEngineUnparsedEntityDecl;
+jmethodID methodEngineWarning;
+jmethodID methodEngineError;
+jmethodID methodEngineFatalError;
+jmethodID methodEngineSetLocator;
 
 jfieldID fieldDocumentGetP;
 jfieldID fieldNodeGetP;
@@ -138,6 +152,7 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_initInternalParser
     
     cc(env, "java/lang/String", &classString);
     cc(env, "org/xmlsoft/LibXmlException", &classError);
+    cc(env, "org/xmlsoft/SAXHandlerEngine", &classEngine);
     cc(env, "org/xmlsoft/Document", &classDocument);
     cc(env, "org/xmlsoft/Node", &classNode);
     cc(env, "org/xmlsoft/NodeSet", &classNodeset);
@@ -195,6 +210,35 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_initInternalParser
     
     jclass classList = (*env)->FindClass(env, "java/util/List");
     methodListAdd = (*env)->GetMethodID(env, classList, "add", "(Ljava/lang/Object;)Z");
+    
+    methodEngineStartDocument = (*env)->GetMethodID(env, classEngine, "fireStartDocument", "()V");
+    assert(methodEngineStartDocument);
+    methodEngineEndDocument = (*env)->GetMethodID(env, classEngine, "fireEndDocument", "()V");
+    assert(methodEngineEndDocument);
+    methodEngineCharacters = (*env)->GetMethodID(env, classEngine, "fireCharacters", "()V");
+    assert(methodEngineCharacters);
+    methodEngineIgnorableWhitespace = (*env)->GetMethodID(env, classEngine, "fireIgnorableWhitespace", "()V");
+    assert(methodEngineIgnorableWhitespace);
+    methodEngineEnsureChars = (*env)->GetMethodID(env, classEngine, "ensureCharacterBufferSize", "(I)[B");
+    assert(methodEngineEnsureChars);
+    methodEngineStartElement = (*env)->GetMethodID(env, classEngine, "fireStartElement", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;I)V");
+    assert(methodEngineStartElement);
+    methodEngineEndElement = (*env)->GetMethodID(env, classEngine, "fireEndElement", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+    assert(methodEngineEndElement);
+    methodEnginePI = (*env)->GetMethodID(env, classEngine, "fireProcessingInstruction", "(Ljava/lang/String;Ljava/lang/String;)V");
+    assert(methodEnginePI);
+    methodEngineNotationDecl = (*env)->GetMethodID(env, classEngine, "fireNotationDecl", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+    assert(methodEngineNotationDecl);
+    methodEngineUnparsedEntityDecl = (*env)->GetMethodID(env, classEngine, "fireUnparsedEntityDecl", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
+    assert(methodEngineUnparsedEntityDecl);
+    methodEngineWarning = (*env)->GetMethodID(env, classEngine, "fireWarning", "(Ljava/lang/String;)V");
+    assert(methodEngineWarning);
+    methodEngineError = (*env)->GetMethodID(env, classEngine, "fireError", "(Ljava/lang/String;)V");
+    assert(methodEngineError);
+    methodEngineFatalError = (*env)->GetMethodID(env, classEngine, "fireFatalError", "(Ljava/lang/String;)V");
+    assert(methodEngineFatalError);
+    methodEngineSetLocator = (*env)->GetMethodID(env, classEngine, "fireSetLocator", "(Lorg/xmlsoft/impl/LocatorImpl;)V");
+    assert(methodEngineSetLocator);
 }
 
 /*
@@ -285,39 +329,20 @@ L   cdataBlockSAXFunc cdataBlock;
 typedef struct {
     JNIEnv *env;
     jobject handler;
-    jmethodID midStartDocument;
-    jmethodID midEndDocument;
-    jmethodID midEnsureChars;
-    jmethodID midCharacters;
-    jmethodID midIgnorableWhitespace;
-    jmethodID midStartElement;
-    jmethodID midEndElement;
-    jmethodID midProcessingInstruction;
-    jmethodID midNotationDecl;
-    jmethodID midUnparsedEntityDecl;
-    jmethodID midWarning;
-    jmethodID midError;
-    jmethodID midFatalError;
-    jmethodID midSetLocator;
     LocatorContext *locatorContext;
 } SContext;
 
 static void _startDocument(void *p) {
     SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
     JNIEnv *env = ctx->env;
-    (*env)->CallVoidMethod(env, ctx->handler, ctx->midStartDocument);
+    (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineStartDocument);
     // TODO: should check exceptionOccurs then stop internal parsing by calling xmlStopParser(p);
 }
 
 static void _ensureChars(SContext *ctx, const xmlChar *ch, int len) {
     JNIEnv *env = ctx->env;
-    jbyteArray array = (*env)->CallObjectMethod(env, ctx->handler, ctx->midEnsureChars, (jint)len);
-    
-    //(*env)->SetByteArrayRegion(env, array, 0, len, (jbyte*)ch);
-    jboolean isCopy;
-    jbyte *jbuffer = (*env)->GetPrimitiveArrayCritical(env, array, &isCopy);
-    memcpy(jbuffer, ch, len);
-    (*env)->ReleasePrimitiveArrayCritical(env, array, jbuffer, 0);
+    jbyteArray array = (*env)->CallNonvirtualObjectMethod(env, ctx->handler, classEngine, methodEngineEnsureChars, (jint)len);
+    (*env)->SetByteArrayRegion(env, array, 0, len, (jbyte*)ch);
     (*env)->DeleteLocalRef(env, array);
 }
 
@@ -325,7 +350,7 @@ static void _characters(void *p, const xmlChar *ch, int len) {
     SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
     JNIEnv *env = ctx->env;
     _ensureChars(ctx, ch, len);
-    (*env)->CallVoidMethod(env, ctx->handler, ctx->midCharacters);
+    (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineCharacters);
     // TODO: should check exceptionOccurs then stop internal parsing by calling xmlStopParser(p);
 }
 
@@ -333,7 +358,7 @@ static void _ignorableWhitespace(void *p, const xmlChar *ch, int len) {
     SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
     JNIEnv *env = ctx->env;
     _ensureChars(ctx, ch, len);
-    (*env)->CallVoidMethod(env, ctx->handler, ctx->midIgnorableWhitespace);
+    (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineIgnorableWhitespace);
     // TODO: should check exceptionOccurs then stop internal parsing by calling xmlStopParser(p);
 }
 
@@ -363,15 +388,15 @@ static void _startElementNs(void *p, const xmlChar *localname, const xmlChar *pr
             (*env)->SetObjectArrayElement(env, jAttr, 4*i+1, (*env)->NewStringUTF(env, (char*)attributes[5*i+1]));
             (*env)->SetObjectArrayElement(env, jAttr, 4*i+2, (*env)->NewStringUTF(env, (char*)attributes[5*i+2]));
             size_t value_len = attributes[5*i+4] - attributes[5*i+3];
-            char *value = (char*)malloc(sizeof(char) * (value_len+1));
+            char *value = (char*)xmlMalloc(sizeof(char) * (value_len+1));
             strncpy(value, (const char*)attributes[5*i+3], value_len);
             value[value_len] = 0;
             (*env)->SetObjectArrayElement(env, jAttr, 4*i+3, (*env)->NewStringUTF(env, value));
-            free(value);
+            xmlFree(value);
         }
     }
 
-    (*env)->CallVoidMethod(env, ctx->handler, ctx->midStartElement,
+    (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineStartElement,
                            (*env)->NewStringUTF(env, (const char*)uri),
                            (*env)->NewStringUTF(env, (const char*)prefix),
                            (*env)->NewStringUTF(env, (const char*)localname),
@@ -387,7 +412,7 @@ static void _endElementNs(void *p, const xmlChar *localname, const xmlChar *pref
     SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
     JNIEnv *env = ctx->env;
     
-     (*env)->CallVoidMethod(env, ctx->handler, ctx->midEndElement,
+    (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineEndElement,
                            (*env)->NewStringUTF(env, (const char*)uri),
                            (*env)->NewStringUTF(env, (const char*)prefix),
                            (*env)->NewStringUTF(env, (const char*)localname));
@@ -417,13 +442,13 @@ static void _startElement(void *p, const xmlChar *name, const xmlChar **atts) {
 static void _endDocument(void *p) {
     SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
     JNIEnv *env = ctx->env;
-    (*env)->CallVoidMethod(env, ctx->handler, ctx->midEndDocument);
+    (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineEndDocument);
 }
 
 static void _processingInstruction(void *p, const xmlChar *target, const xmlChar *data) {
     SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
     JNIEnv *env = ctx->env;
-    (*env)->CallVoidMethod(env, ctx->handler, ctx->midProcessingInstruction,
+    (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEnginePI,
                            (*env)->NewStringUTF(env, (const char*)target),
                            (*env)->NewStringUTF(env, (const char*)data));
 }
@@ -431,7 +456,7 @@ static void _processingInstruction(void *p, const xmlChar *target, const xmlChar
 static void _notationDecl(void *p, const xmlChar *name, const xmlChar *publicId, const xmlChar *systemId) {
     SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
     JNIEnv *env = ctx->env;
-    (*env)->CallVoidMethod(env, ctx->handler, ctx->midNotationDecl,
+    (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineNotationDecl,
                            (*env)->NewStringUTF(env, (const char*)name),
                            (*env)->NewStringUTF(env, (const char*)publicId),
                            (*env)->NewStringUTF(env, (const char*)systemId));
@@ -440,7 +465,7 @@ static void _notationDecl(void *p, const xmlChar *name, const xmlChar *publicId,
 static void _unparsedEntityDecl(void *p, const xmlChar *name, const xmlChar *publicId, const xmlChar *systemId, const xmlChar *notationName) {
     SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
     JNIEnv *env = ctx->env;
-    (*env)->CallVoidMethod(env, ctx->handler, ctx->midNotationDecl,
+    (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineUnparsedEntityDecl,
                            (*env)->NewStringUTF(env, (const char*)name),
                            (*env)->NewStringUTF(env, (const char*)publicId),
                            (*env)->NewStringUTF(env, (const char*)systemId),
@@ -458,7 +483,7 @@ static void _warning(void *p, const char *msg, ...) {
     va_end(arg);
     
     // TODO: working with xmlGetLastError()?
-    (*env)->CallVoidMethod(env, ctx->handler, ctx->midWarning, (*env)->NewStringUTF(env, buf));
+    (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineWarning, (*env)->NewStringUTF(env, buf));
 }
 
 static void _error(void *p, const char *msg, ...) {
@@ -472,7 +497,7 @@ static void _error(void *p, const char *msg, ...) {
     va_end(arg);
     
     // TODO: working with xmlGetLastError()?
-    (*env)->CallVoidMethod(env, ctx->handler, ctx->midError, (*env)->NewStringUTF(env, buf));
+    (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineError, (*env)->NewStringUTF(env, buf));
 }
 
 static void _fatalError(void *p, const char *msg, ...) {
@@ -486,7 +511,7 @@ static void _fatalError(void *p, const char *msg, ...) {
     va_end(arg);
     
     // TODO: working with xmlGetLastError()?
-    (*env)->CallVoidMethod(env, ctx->handler, ctx->midFatalError, (*env)->NewStringUTF(env, buf));
+    (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineFatalError, (*env)->NewStringUTF(env, buf));
 }
 
 static void _setDocumentLocator(void *p, xmlSAXLocatorPtr loc) {
@@ -497,44 +522,15 @@ static void _setDocumentLocator(void *p, xmlSAXLocatorPtr loc) {
     ctx->locatorContext->locator = loc;
     
     jobject locator = (*env)->NewObject(env, classLocator, methodLocatorNew, (jlong)ctx->locatorContext);
-    (*env)->CallVoidMethod(env, ctx->handler, ctx->midSetLocator, locator);
+    (*env)->CallNonvirtualVoidMethod(env, ctx->handler, classEngine, methodEngineSetLocator, locator);
     (*env)->DeleteLocalRef(env, locator);
 }
 
 void prepareSAXImpl(JNIEnv *env, SContext *ctx, jobject jhandler, xmlSAXHandler *handler) {
     // TODO: handler's method can be cached instead of lookup every time.
-    jclass classHandler = (*env)->GetObjectClass(env, jhandler);
     memset(ctx, 0, sizeof(SContext));
     ctx->env = env;
     ctx->handler = jhandler;
-    ctx->midStartDocument = (*env)->GetMethodID(env, classHandler, "fireStartDocument", "()V");
-    assert(ctx->midStartDocument);
-    ctx->midEndDocument = (*env)->GetMethodID(env, classHandler, "fireEndDocument", "()V");
-    assert(ctx->midEndDocument);
-    ctx->midCharacters = (*env)->GetMethodID(env, classHandler, "fireCharacters", "()V");
-    assert(ctx->midCharacters);
-    ctx->midIgnorableWhitespace = (*env)->GetMethodID(env, classHandler, "fireIgnorableWhitespace", "()V");
-    assert(ctx->midIgnorableWhitespace);
-    ctx->midEnsureChars = (*env)->GetMethodID(env, classHandler, "ensureCharacterBufferSize", "(I)[B");
-    assert(ctx->midEnsureChars);
-    ctx->midStartElement = (*env)->GetMethodID(env, classHandler, "fireStartElement", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;[Ljava/lang/String;[Ljava/lang/String;I)V");
-    assert(ctx->midStartElement);
-    ctx->midEndElement = (*env)->GetMethodID(env, classHandler, "fireEndElement", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-    assert(ctx->midEndElement);
-    ctx->midProcessingInstruction = (*env)->GetMethodID(env, classHandler, "fireProcessingInstruction", "(Ljava/lang/String;Ljava/lang/String;)V");
-    assert(ctx->midProcessingInstruction);
-    ctx->midNotationDecl = (*env)->GetMethodID(env, classHandler, "fireNotationDecl", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-    assert(ctx->midNotationDecl);
-    ctx->midUnparsedEntityDecl = (*env)->GetMethodID(env, classHandler, "fireUnparsedEntityDecl", "(Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;Ljava/lang/String;)V");
-    assert(ctx->midUnparsedEntityDecl);
-    ctx->midWarning = (*env)->GetMethodID(env, classHandler, "fireWarning", "(Ljava/lang/String;)V");
-    assert(ctx->midWarning);
-    ctx->midError = (*env)->GetMethodID(env, classHandler, "fireError", "(Ljava/lang/String;)V");
-    assert(ctx->midError);
-    ctx->midFatalError = (*env)->GetMethodID(env, classHandler, "fireFatalError", "(Ljava/lang/String;)V");
-    assert(ctx->midFatalError);
-    ctx->midSetLocator = (*env)->GetMethodID(env, classHandler, "fireSetLocator", "(Lorg/xmlsoft/impl/LocatorImpl;)V");
-    assert(ctx->midSetLocator);
     
     memset(handler, 0, sizeof(xmlSAXHandler));
     handler->initialized = XML_SAX2_MAGIC;
@@ -543,7 +539,6 @@ void prepareSAXImpl(JNIEnv *env, SContext *ctx, jobject jhandler, xmlSAXHandler 
     handler->characters = _characters;
     handler->ignorableWhitespace = _ignorableWhitespace;
     handler->startElementNs = _startElementNs;
-    //    handler->startElement = _startElement;
     handler->endElementNs = _endElementNs;
     handler->processingInstruction = _processingInstruction;
     handler->notationDecl = _notationDecl;
@@ -552,7 +547,6 @@ void prepareSAXImpl(JNIEnv *env, SContext *ctx, jobject jhandler, xmlSAXHandler 
     handler->error = _error;
     handler->fatalError = _fatalError;
     handler->setDocumentLocator = _setDocumentLocator;
-    
 }
 
 /*
@@ -565,6 +559,8 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXImpl
     SContext ctx;
     LocatorContext lCtx;
     xmlSAXHandler handler;
+    xmlParserCtxt parser_ctx;
+    parser_ctx._private = &ctx;
     
     prepareSAXImpl(env, &ctx, jhandler, &handler);
     ctx.locatorContext = &lCtx;
@@ -572,14 +568,12 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXImpl
     xmlResetLastError();
     const char *data = (*env)->GetStringUTFChars(env, jstr, NULL);
     jsize data_len = (*env)->GetStringUTFLength(env, jstr);
-    xmlDocPtr doc = xmlSAXParseMemoryWithData(&handler, data, data_len, recovery, &ctx);
+    int ret = xmlSAXUserParseMemory(&handler, &parser_ctx, data, data_len);
     (*env)->ReleaseStringUTFChars(env, jstr, data);
-    
-    if(doc==NULL) {
+
+    if(ret>0) {
         throwInternalErrorWithLastError(env);
-        return;
     }
-    xmlFreeDoc(doc);
 }
 
 /*
@@ -592,22 +586,20 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXFileImpl
     SContext ctx;
     LocatorContext lCtx;
     xmlSAXHandler handler;
+    xmlParserCtxt parser_ctx;
+    parser_ctx._private = &ctx;
     
     prepareSAXImpl(env, &ctx, jhandler, &handler);
     ctx.locatorContext = &lCtx;
-
+    
     xmlResetLastError();
     const char *path = (*env)->GetStringUTFChars(env, jpath, NULL);
-    xmlDocPtr doc = xmlSAXParseFileWithData(&handler, path, recovery, &ctx);
-//    ret = xmlSAXUserParseFile(&handler, &ctx, path);
-    
+    int ret = xmlSAXUserParseFile(&handler, &parser_ctx, path);
     (*env)->ReleaseStringUTFChars(env, jpath, path);
-    
-    if(doc==NULL) {
+
+    if(ret>0) {
         throwInternalErrorWithLastError(env);
-        return;
     }
-    xmlFreeDoc(doc);
 }
 
 /*

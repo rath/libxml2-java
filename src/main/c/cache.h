@@ -1,6 +1,7 @@
 extern jclass classString;
 extern jclass classError;
 extern jclass classDocument;
+extern jclass classEngine;
 extern jclass classNode;
 extern jclass classNodeset;
 extern jclass classNamespace;
