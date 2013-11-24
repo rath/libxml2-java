@@ -312,6 +312,8 @@ static void _startDocument(void *p) {
 static void _ensureChars(SContext *ctx, const xmlChar *ch, int len) {
     JNIEnv *env = ctx->env;
     jbyteArray array = (*env)->CallObjectMethod(env, ctx->handler, ctx->midEnsureChars, (jint)len);
+    
+    //(*env)->SetByteArrayRegion(env, array, 0, len, (jbyte*)ch);
     jboolean isCopy;
     jbyte *jbuffer = (*env)->GetPrimitiveArrayCritical(env, array, &isCopy);
     memcpy(jbuffer, ch, len);
@@ -332,6 +334,7 @@ static void _ignorableWhitespace(void *p, const xmlChar *ch, int len) {
     JNIEnv *env = ctx->env;
     _ensureChars(ctx, ch, len);
     (*env)->CallVoidMethod(env, ctx->handler, ctx->midIgnorableWhitespace);
+    // TODO: should check exceptionOccurs then stop internal parsing by calling xmlStopParser(p);
 }
 
 static void _startElementNs(void *p, const xmlChar *localname, const xmlChar *prefix, const xmlChar *uri,
@@ -374,8 +377,10 @@ static void _startElementNs(void *p, const xmlChar *localname, const xmlChar *pr
                            (*env)->NewStringUTF(env, (const char*)localname),
                            jNs, jAttr, (jint)nb_defaulted);
     
-    (*env)->DeleteLocalRef(env, jNs);
-    (*env)->DeleteLocalRef(env, jAttr);
+    if(jNs!=NULL)
+        (*env)->DeleteLocalRef(env, jNs);
+    if(jAttr!=NULL)
+        (*env)->DeleteLocalRef(env, jAttr);
 }
 
 static void _endElementNs(void *p, const xmlChar *localname, const xmlChar *prefix, const xmlChar *uri) {
@@ -488,7 +493,6 @@ static void _setDocumentLocator(void *p, xmlSAXLocatorPtr loc) {
     SContext *ctx = (SContext*)((xmlParserCtxt*)p)->_private;
     JNIEnv *env = ctx->env;
     
-    ctx->locatorContext = (LocatorContext*)malloc(sizeof(LocatorContext));
     ctx->locatorContext->parser = (xmlParserCtxt*)p;
     ctx->locatorContext->locator = loc;
     
@@ -559,9 +563,11 @@ void prepareSAXImpl(JNIEnv *env, SContext *ctx, jobject jhandler, xmlSAXHandler 
 JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXImpl
 (JNIEnv *env, jclass clz, jstring jstr, jobject jhandler, jint recovery) {
     SContext ctx;
+    LocatorContext lCtx;
     xmlSAXHandler handler;
     
     prepareSAXImpl(env, &ctx, jhandler, &handler);
+    ctx.locatorContext = &lCtx;
 
     xmlResetLastError();
     const char *data = (*env)->GetStringUTFChars(env, jstr, NULL);
@@ -569,8 +575,6 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXImpl
     xmlDocPtr doc = xmlSAXParseMemoryWithData(&handler, data, data_len, recovery, &ctx);
     (*env)->ReleaseStringUTFChars(env, jstr, data);
     
-    if(ctx.locatorContext!=NULL)
-        free(ctx.locatorContext);
     if(doc==NULL) {
         throwInternalErrorWithLastError(env);
         return;
@@ -586,17 +590,19 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXImpl
 JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXFileImpl
 (JNIEnv *env, jclass cls, jstring jpath, jobject jhandler, jint recovery) {
     SContext ctx;
+    LocatorContext lCtx;
     xmlSAXHandler handler;
     
     prepareSAXImpl(env, &ctx, jhandler, &handler);
+    ctx.locatorContext = &lCtx;
 
     xmlResetLastError();
     const char *path = (*env)->GetStringUTFChars(env, jpath, NULL);
     xmlDocPtr doc = xmlSAXParseFileWithData(&handler, path, recovery, &ctx);
+//    ret = xmlSAXUserParseFile(&handler, &ctx, path);
+    
     (*env)->ReleaseStringUTFChars(env, jpath, path);
     
-    if(ctx.locatorContext!=NULL)
-        free(ctx.locatorContext);
     if(doc==NULL) {
         throwInternalErrorWithLastError(env);
         return;
@@ -612,10 +618,12 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXFileImpl
 JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXSystemIdImpl
 (JNIEnv *env, jclass cls, jstring jSystemId, jobject inputStream, jobject jhandler, jint recovery) {
     SContext ctx;
+    LocatorContext lCtx;
     xmlSAXHandler handler;
     char chunk[CHUNK_SIZE];
     
     prepareSAXImpl(env, &ctx, jhandler, &handler);
+    ctx.locatorContext = &lCtx;
     
     xmlResetLastError();
     const char *systemId = (*env)->GetStringUTFChars(env, jSystemId, NULL);
@@ -646,9 +654,6 @@ JNIEXPORT void JNICALL Java_org_xmlsoft_LibXml_parseSAXSystemIdImpl
     // parser->myDoc should not be created since we're using SAX
     
     xmlFreeParserCtxt(parser);
-    
-    if(ctx.locatorContext!=NULL)
-        free(ctx.locatorContext);
 }
 
 /*
