@@ -18,11 +18,11 @@ import java.util.Map;
  *
  * @author Jang-Ho Hwang, rath@xrath.com
  */
-public class SAXHandlerEngine {
+public final class SAXHandlerEngine {
 	private SAXHandler handler;
-	private byte[] byteBuffer = new byte[128];
+	private byte[] byteBuffer = new byte[512];
 	private int byteBufferFilled = 0;
-	private char[] characterBuffer = new char[128];
+	private char[] characterBuffer = new char[512];
 
 	private int prefixDetectDistance = 0;
 	private Map<Integer, Namespace> prefixNsMap = new HashMap<Integer, Namespace>();
@@ -55,8 +55,8 @@ public class SAXHandlerEngine {
 		handler.endDocument();
 	}
 
-	public byte[] ensureCharacterBufferSize(int size) {
-		if(byteBuffer.length < size ) {
+	byte[] ensureCharacterBufferSize(int size) {
+		if(byteBuffer.length < size) {
 			byteBuffer = new byte[size];
 		}
 		byteBufferFilled = size;
@@ -73,7 +73,7 @@ public class SAXHandlerEngine {
 		handler.ignorableWhitespace(characterBuffer, 0, len);
 	}
 
-	private final int copyBufferImpl() throws UnsupportedEncodingException {
+	private int copyBufferImpl() throws UnsupportedEncodingException {
 		String s = new String(byteBuffer, 0, byteBufferFilled, "UTF-8");
 		int len = s.length();
 		if( characterBuffer.length < len ) {
