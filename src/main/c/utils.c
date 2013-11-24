@@ -1,6 +1,12 @@
 #include "utils.h"
 #include "cache.h"
 #include <assert.h>
+#include <stdio.h>
+#include <time.h>
+#ifdef __MACH__
+#include <mach/clock.h>
+#include <mach/mach.h>
+#endif
 
 jobject     buildNode(JNIEnv *env, xmlNode *node, jobject document) {
     if( node==NULL )
@@ -67,4 +73,34 @@ int throwInternalErrorWithLastError(JNIEnv *env) {
 
 void throwInternalErrorWithMessage(JNIEnv *env, const char* msg) {
     (*env)->ThrowNew(env, classError, msg);
+}
+
+void get_nanotime(struct timespec *buf) {
+#ifdef __MACH__
+    clock_serv_t cclock;
+    mach_timespec_t mts;
+    host_get_clock_service(mach_host_self(), CALENDAR_CLOCK, &cclock);
+    clock_get_time(cclock, &mts);
+    mach_port_deallocate(mach_task_self(), cclock);
+    buf->tv_sec = mts.tv_sec;
+    buf->tv_nsec = mts.tv_nsec;
+#else
+    clock_gettime(CLOCK_REALTIME, buf);
+#endif
+}
+
+long profile_start() {
+    struct timespec t;
+    get_nanotime(&t);
+    return t.tv_nsec;
+}
+
+void profile_end(const char *title, long start_time) {
+    struct timespec t;
+    get_nanotime(&t);
+    long end_time = t.tv_nsec;
+    if( end_time < start_time ) {
+        end_time += 1000000000L;
+    }
+    fprintf(stdout, "%s: %ld ns\n", title, (end_time-start_time));
 }

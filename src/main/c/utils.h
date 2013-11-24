@@ -23,3 +23,6 @@ jobject     buildNodeSet(JNIEnv *env, xmlNodeSet *nodeset, jobject document);
  */
 int throwInternalErrorWithLastError(JNIEnv *env);
 void throwInternalErrorWithMessage(JNIEnv *env, const char* msg);
+
+long profile_start();
+void profile_end(const char *title, long start_time);
