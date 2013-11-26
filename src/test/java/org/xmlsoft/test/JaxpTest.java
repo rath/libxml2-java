@@ -372,4 +372,21 @@ public class JaxpTest {
 		Assert.assertEquals("Text.getNodeValue", true, false);
 	}
 
+	@Test
+	public void testTextWholeText() throws Exception {
+		String xml = "<?xml version=\"1.0\"?>" +
+			"<root>" +
+			"<item><inner>handle</inner>foo</item>" +
+			"</root>";
+
+		DocumentBuilder builder = builderFactory.newDocumentBuilder();
+
+		Document doc = builder.parse(Utils.createInputSource(xml));
+		Node item = doc.getDocumentElement().getFirstChild();
+		Text textBar = (Text) item.getChildNodes().item(1);
+		item.appendChild(doc.createTextNode("bar"));
+
+		Assert.assertEquals("wholeText", "foobar", textBar.getWholeText());
+		Assert.assertEquals("nodeValue", "foo", textBar.getNodeValue());
+	}
 }
